@@ -107,10 +107,10 @@ Indexes file example (fasta formatted)
  Anchored indexes (https://cutadapt.readthedocs.io/en/stable/guide.html#anchored-5adapters) with ^ symbol are not supported in PipeCraft demultiplex GUI panel. 
 
   DO NOT USE, e.g. 
- | >sample1 
+ | >sample1
  | ^AGCTGCACCTAA
  | 
- | >sample1 
+ | >sample1
  | ^AGCTGCACCTAA...AGCTGCACCTAA
 
 

@@ -1,1 +1,1 @@
-sphinx_rtd_theme
+pip install sphinx_pdj_theme
