@@ -1,4 +1,4 @@
-.. image:: C:/Users/stena/Dropbox/PIPELINE/PipeCraft2_manual/PipeCraft2_icon_v2.png
+.. image:: _static/PipeCraft2_icon_v2.png
   :width: 80
   :alt: logo
 
