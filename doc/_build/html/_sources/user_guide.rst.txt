@@ -135,13 +135,24 @@ Indexes file example (fasta formatted)
 
 REORIENT
 ========
-xxx
+
+Sequences are often in both, 5’-3’ and 3’-5’, orientations in the raw sequencing data sets. If the data still contains PCR primers that were used to generate amplicons, then by specifying these PCR primers (up to 13 pairs allowed), this panel will perform sequence reorientation of all sequences to 5’-3’. For reorienting, first the forward primer will be searched (fwd specified in 5’-3’ orientation as for PCR) and if detected then the read is considered as forward complementary (5’-3’). Then the reverse primer (specified in 3’-5’ orientation, as for PCR) will be searched from the same input data and if detected, then the read is considered to be in reverse complementary orientation (3’-5’). Latter reads will be transformed to 5’-3’ orientation and merged with other 5’-3’ reads. Note that for paired-end data, R1 files will be reoriented to 5’-3’ but R2 reads will be reoriented to 3’-5’ in order to merge paired-end reads (see below, Merging paired end sequences).
+At least one of the PCR primers must be found in the sequence. For example, read will be recorded if forward primer was found even though reverse primer was not found (and vice versa). Sequence is discarded if none of the PCR primers are found. Sequences that contain multiple forward or reverse primers (multi-primer artefacts) are discarded as it is highly likely that these are chimeric sequences. Reorienting sequences will not remove primer strings from the sequences. Primers may be removed in the “Cut primers” panel (see below). Note that for single-end data, sequences will be reoriented also during the ‘cut primers’ process (see below); therefore this step may be skipped when working with single-end data (such as data from PacBio machines OR already assembled paired-end data).
+
+Reorienting reads may be relevant for generating ASVs with DADA2 (this step is performed by default when selecting DADA2 full workflow to process the data in PipeCraft) as reverse complement sequences will represent separate ASVs. In the clustering step of an OTU pipeline, both strands of the sequences can be compared prior forming OTUs; thus this step may be skipped in the OTU pipeline. 
+
+Supported file formats for paired-end input data are only fastq (extensions must be .fastq or .fq), but also fasta (extensions must be .fasta, .fa, .fas) for single-end data.
+
+|
+
+Specifics of the panel workflow: user has to specify the PCR primers that were used to generate amplicons; IUPAC codes for degenerate bases are allowed (example: CCTCCSCTTANTDAT). ‘Any base’ can be marked with N or I. If the PCR primer strings are not found in the input data, then the warning is displayed and no output for that file is generated. Fastq formatted files are supported for paired-end data (Illumina, MGI-Tech); fasta and fastq formatted files for single-end data (PacBio, Nanopore, Ion Torrent, 454). Paired-end data must contain strings ‘R1’ and ‘R2’ in corresponding file names. Gz or zip compressed files are supported, but decompressed using pigz prior analyses.  Fqgrep is used for searching the primers in the input files; fastx-toolkit is used to reverse complement the reads when needed; seqkit is used to synchronize the paired-end reads. Running the process several times in the same directory will overwrite all outputs.
+Summary of the sequence counts can be found in the ‘seq_count_summary.txt’ file.
 
 
 .. _remove_primers:
 
-TRIM ADAPTERS/PRIMERS
-=====================
+CUT PRIMERS
+============
 xxx
 
 
