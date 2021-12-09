@@ -2,6 +2,11 @@
   :width: 80
   :alt: logo
 
+.. |main_interface| image:: _static/main_interface.png
+  :width: 2000
+  :alt: Alternative text
+
+
 ==========
 User guide
 ==========
@@ -9,13 +14,16 @@ User guide
 The interface
 ==============
 
-``The main interface image with explanations``
+|main_interface|
 
 Full pipeline workflows
 =======================
 
-ASVs (DADA2) workflow panel
-----------------------------
+.. _asvpipe:
+
+ASVs workflow panel (with DADA2)
+--------------------------------
+
 This automated workflow is based on DADA2 tutorial: https://benjjneb.github.io/dada2/tutorial.html 
  | Note that ``demultiplexing``, ``reorient`` and ``remove primers`` steps are optional and do not represent parts from DADA2 tutorial. Nevertheless, it is advisable to :ref:`reorient <reorinet>` your reads (to 5'-3') and :ref:`remove primers <remove_primers>` before proceeding with ASV generation with DADA2.
 
@@ -47,8 +55,11 @@ Analyses step                                     Setting
 ================================================= =========================
 
 
-OTUs (vsearch) workflow panel
-------------------------------
+.. _otupipe:
+
+OTUs workflow panel (with mainly vsearch)
+-----------------------------------------
+
 xxx
 
 
@@ -76,6 +87,7 @@ Indexes file example (fasta formatted)
   Only **IUPAC codes** are allowed.
 
 1. Demultiplexing using single indexes:
+
  | >sample1
  | AGCTGCACCTAA
  | >sample2
@@ -90,6 +102,7 @@ Indexes file example (fasta formatted)
  | AGGTACGCAATT
 
 2. Demultiplexing using dual indexes (IMPORTANT! reverse indexes will be automatically oriented to 5'-3' (like fwd indexes); so you can simply copy-paste the indexes from your lab protocol.)
+
  | >sample1
  | AGCTGCACCTAA...AGCTGCACCTAA
  | >sample2
@@ -107,6 +120,7 @@ Indexes file example (fasta formatted)
  Anchored indexes (https://cutadapt.readthedocs.io/en/stable/guide.html#anchored-5adapters) with ^ symbol are not supported in PipeCraft demultiplex GUI panel. 
 
   DO NOT USE, e.g. 
+
  | >sample1
  | ^AGCTGCACCTAA
  | 
