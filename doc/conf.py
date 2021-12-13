@@ -17,13 +17,13 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'PipeCraft'
+project = 'PipeCraft 2'
 copyright = '2022, Sten Anslan'
 author = 'Sten Anslan'
 
 # The full version, including alpha/beta/rc tags
-release = '2.0'
-
+version = '0.1.0'
+release = version
 
 # -- General configuration ---------------------------------------------------
 
@@ -47,9 +47,17 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-import sphinx_pdj_theme
-html_theme = 'sphinx_pdj_theme'
-html_theme_path = [sphinx_pdj_theme.get_html_theme_path()]
+#import sphinx_pdj_theme
+html_theme = 'sphinx_rtd_theme'
+#html_theme_path = [sphinx_pdj_theme.get_html_theme_path()]
+
+html_theme_options = {
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
