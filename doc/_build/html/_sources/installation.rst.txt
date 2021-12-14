@@ -2,10 +2,9 @@
   :width: 100
   :alt: logo
 
-=============
+==============
 Installation
-=============
-
+==============
 
 Prerequisites
 -------------
@@ -16,37 +15,60 @@ See platform-specific (Windows, Mac, Linux) docker installation guidelines below
 *Modules of PipeCraft are distributed through docker containers, which will liberate the users from the
 struggle to install/compile various software for metabarcoding data analyses.*
 
+.. note::
+
+ Your OS might warn that this is dangerous software! Please ignore the warning in this case. 
+
+____________________________________________________
+
 Windows
 -------
-1. Download docker for windows `here <https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe?utm_source=docker&amp;utm_medium=webreferral&amp;utm_campaign=dd-smartbutton&amp;utm_location=module>`_ (direct download link form https://www.docker.com/get-started) 
+1. `Download docker for windows <https://www.docker.com/get-started>`_ 
 
-2. Download PipeCraft for Windows (`link <https://github.com/SuvalineVana/pipecraft-vue/releases/tag/0.2.0-beta>`_)
+2. Download PipeCraft for `Windows: version 0.1.0 <https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft.Setup.0.1.0.exe>`_
 
-3. Install PipeCraft by running the executable file
+3. Install PipeCraft via the setup executable
+
+____________________________________________________
 
 MacOS
 ------
-1. Download docker for Mac `here <https://www.docker.com/get-started>`_
+1. `Download docker for Mac <https://www.docker.com/get-started>`_
 
-2. Download PipeCraft for Mac (link)
+2. Download PipeCraft for `Mac: version 0.1.0 <https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft-0.1.0.dmg>`_
 
-3. Install PipeCraft by running the executable file
+3. Install PipeCraft via DMG file
+
+____________________________________________________
 
 Linux
------
-1. Install docker; follow the guidelines under appropriate Linux distribution `here <https://hub.docker.com/search?offering=community&operating_system=linux&q=&type=edition>`_
+------
 
-2. Download PipeCraft for Linux (link)
+1. `Install docker; follow the guidelines under appropriate Linux distribution <https://docs.docker.com/engine/install/>`_
 
-3. Install PipeCraft by running the executable file 
+2. If you are a non-root user complete these `post-install steps <https://docs.docker.com/engine/install/linux-postinstall/>`_
 
+3. Download PipeCraft for `Linux: version 0.1.0 <https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft-0.1.0.AppImage>`_
+
+4. Run PipeCraft via the AppImage file 
+
+____________________________________________________
 
 Uninstalling
 ------------
-xxx
 
+| **Windows**: uninstall pipecraft via control panel
+| **MacOS**: eject and delete the DMG file
+| **Linux**: simply delete AppImage file
+
+____________________________________________________
 
 Removing docker images
 ----------------------
-xxx
+
+| On **MacOS** and **Windows**: docker images and container can be easily managed from the docker dashboard. For more info visit https://docs.docker.com/desktop/dashboard/
+
+| On **Linux** machines: containers and images are managed via the docker cli commands:
+| rmi https://docs.docker.com/engine/reference/commandline/rmi/ 
+| rm  https://docs.docker.com/engine/reference/commandline/rm/ 
 

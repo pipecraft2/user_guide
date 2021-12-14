@@ -89,38 +89,59 @@
 <p>See platform-specific (Windows, Mac, Linux) docker installation guidelines below.</p>
 <p><em>Modules of PipeCraft are distributed through docker containers, which will liberate the users from the
 struggle to install/compile various software for metabarcoding data analyses.</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Your OS might warn that this is dangerous software! Please ignore the warning in this case.</p>
+</div>
 </section>
+<hr class="docutils" />
 <section id="windows">
 <h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline"></a></h2>
 <ol class="arabic simple">
-<li><p>Download docker for windows <a class="reference external" href="https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe?utm_source=docker&amp;amp;utm_medium=webreferral&amp;amp;utm_campaign=dd-smartbutton&amp;amp;utm_location=module">here</a> (direct download link form <a class="reference external" href="https://www.docker.com/get-started">https://www.docker.com/get-started</a>)</p></li>
-<li><p>Download PipeCraft for Windows (<a class="reference external" href="https://github.com/SuvalineVana/pipecraft-vue/releases/tag/0.2.0-beta">link</a>)</p></li>
-<li><p>Install PipeCraft by running the executable file</p></li>
+<li><p><a class="reference external" href="https://www.docker.com/get-started">Download docker for windows</a></p></li>
+<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft.Setup.0.1.0.exe">Windows: version 0.1.0</a></p></li>
+<li><p>Install PipeCraft via the setup executable</p></li>
 </ol>
 </section>
+<hr class="docutils" />
 <section id="macos">
 <h2>MacOS<a class="headerlink" href="#macos" title="Permalink to this headline"></a></h2>
 <ol class="arabic simple">
-<li><p>Download docker for Mac <a class="reference external" href="https://www.docker.com/get-started">here</a></p></li>
-<li><p>Download PipeCraft for Mac (link)</p></li>
-<li><p>Install PipeCraft by running the executable file</p></li>
+<li><p><a class="reference external" href="https://www.docker.com/get-started">Download docker for Mac</a></p></li>
+<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft-0.1.0.dmg">Mac: version 0.1.0</a></p></li>
+<li><p>Install PipeCraft via DMG file</p></li>
 </ol>
 </section>
+<hr class="docutils" />
 <section id="linux">
 <h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline"></a></h2>
 <ol class="arabic simple">
-<li><p>Install docker; follow the guidelines under appropriate Linux distribution <a class="reference external" href="https://hub.docker.com/search?offering=community&amp;operating_system=linux&amp;q=&amp;type=edition">here</a></p></li>
-<li><p>Download PipeCraft for Linux (link)</p></li>
-<li><p>Install PipeCraft by running the executable file</p></li>
+<li><p><a class="reference external" href="https://docs.docker.com/engine/install/">Install docker; follow the guidelines under appropriate Linux distribution</a></p></li>
+<li><p>If you are a non-root user complete these <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">post-install steps</a></p></li>
+<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft-0.1.0.AppImage">Linux: version 0.1.0</a></p></li>
+<li><p>Run PipeCraft via the AppImage file</p></li>
 </ol>
 </section>
+<hr class="docutils" />
 <section id="uninstalling">
 <h2>Uninstalling<a class="headerlink" href="#uninstalling" title="Permalink to this headline"></a></h2>
-<p>xxx</p>
+<div class="line-block">
+<div class="line"><strong>Windows</strong>: uninstall pipecraft via control panel</div>
+<div class="line"><strong>MacOS</strong>: eject and delete the DMG file</div>
+<div class="line"><strong>Linux</strong>: simply delete AppImage file</div>
+</div>
 </section>
+<hr class="docutils" />
 <section id="removing-docker-images">
 <h2>Removing docker images<a class="headerlink" href="#removing-docker-images" title="Permalink to this headline"></a></h2>
-<p>xxx</p>
+<div class="line-block">
+<div class="line">On <strong>MacOS</strong> and <strong>Windows</strong>: docker images and container can be easily managed from the docker dashboard. For more info visit <a class="reference external" href="https://docs.docker.com/desktop/dashboard/">https://docs.docker.com/desktop/dashboard/</a></div>
+</div>
+<div class="line-block">
+<div class="line">On <strong>Linux</strong> machines: containers and images are managed via the docker cli commands:</div>
+<div class="line">rmi <a class="reference external" href="https://docs.docker.com/engine/reference/commandline/rmi/">https://docs.docker.com/engine/reference/commandline/rmi/</a></div>
+<div class="line">rm  <a class="reference external" href="https://docs.docker.com/engine/reference/commandline/rm/">https://docs.docker.com/engine/reference/commandline/rm/</a></div>
+</div>
 </section>
 </section>
 

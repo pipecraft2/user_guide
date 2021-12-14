@@ -12,7 +12,7 @@
 Manual for PipeCraft 2
 ==========================================
 
-| **PipeCraft** in a Graphical User Interfece software that implements :ref:`various popular tools <tools>` for **metabarcoding** data analyzes that are linked to generate custom bioinformatics pipeline/workflow. 
+| **PipeCraft** in a Graphical User Interface software that implements :ref:`various popular tools <tools>` for **metabarcoding** data analyzes that are linked to generate custom bioinformatics pipeline/workflow. 
 | Pre-defined full pipelines for generating :ref:`OTUs <otupipe>` or :ref:`ASVs <asvpipe>` are also implemented.
 
 |add_step_interface|
