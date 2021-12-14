@@ -6,7 +6,6 @@
 Installation
 =============
 
-|
 
 Prerequisites
 -------------

@@ -22,6 +22,8 @@
 User guide
 ==========
 
+.. _interface: 
+
 The interface
 ==============
 
@@ -30,6 +32,49 @@ The startup panel:
 |main_interface|
 
 ____________________________________________________
+
+Select workdir and run analyses
+===============================
+
+1. Open your working directory by pressing the ``SELECT WORKDIR`` button. If working with e.g. **fastq** files,
+then be sure that the working directry contains **only relevent fastq files**, because the selected process will be 
+aplied to all fastq files in the working directory!
+
+.. note::
+
+ You will not be able to see the files while browsing the directories. 
+
+After selecting a working directory, PipeCraft needs you to specify if 
+the working directory consists of 
+
+ * multiplexed or demultiplexed data
+ * the data is paired-end or single-end
+ * and the extension of the data (fastq or fasta)
+
+| ``multiplexed`` --> only one file (or paired files, R1 and R2) per sequencing data
+| ``demultiplexed`` --> multiple per-sample sequencing files
+| ``paired-end data`` --> such as data from Illumina or MGI-Tech platforms
+| ``single-end data`` --> such as data from PacBio, or assembled paired-end data
+
+2. Select :ref:`ASV <asvpipe>` or :ref:`OTU <otupipe>` workflow panel or press ``ADD STEP`` button
+to select relevant :ref:`steps <panels>` [or **load the PipeCraft settings file**]; 
+edit settings if needed (**SAVE the settings for later use**) and **start
+running the anayses** by pressing ``RUN WORKFLOW`` button.
+
+.. note::
+
+ **Step-by-step analyses**: after ``RUN WORKFLOW`` in finished, then press ``SELECT WORKDIR`` to specify inputs for the next process
+
+.. note::
+
+ The **output files will be overwritten** if running the same 
+ analyses step **multiple times in the same working directory**
+
+3. Each process gives separate output directory (with the processed files) 
+inside the selected working directory. 
+
+____________________________________________________
+
 
 FULL PIPELINE PANELS
 ====================
@@ -40,7 +85,7 @@ ASVs workflow panel (with `DADA2 <https://benjjneb.github.io/dada2/index.html>`_
 ----------------------------------------------------------------------------------
 
 .. note::
-  Current (v2.0.1) ASVs workflow works only with **PAIRED-END** reads!
+  Current ASVs workflow works only with **PAIRED-END** reads!
 
 |asv_main|
 
@@ -59,9 +104,9 @@ Analyses step                                     Default setting
 :ref:`DEMULTIPLEX <demux>` (optional)              --
 :ref:`REORIENT <reorinet>` (optional)              --
 :ref:`REMOVE PRIMERS <remove_primers>` (optional)  --
-:ref:`QUALITY FILTERING <dada2_qual_filt>`         | ``read R1`` = _R1
-                                                   | ``read R2`` = _R2
-                                                   | ``samp ID`` = _
+:ref:`QUALITY FILTERING <dada2_qual_filt>`         | ``read_R1`` = _R1
+                                                   | ``read_R2`` = _R2
+                                                   | ``samp_ID`` = _
                                                    | ``maxEE`` = 1
                                                    | ``maxN`` = 0
                                                    | ``minLen`` = 32
@@ -91,13 +136,15 @@ QUALITY FILTERING [ASVs workflow]
 DADA2 `filterAndTrim <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to 
 perform quality filtering on input fastq files based on user selected criteria. Outputs filtered fastq files into ``qualFiltered_out.dada2`` directory.
 
+Quality profiles may be examined using the :ref:`QualityCheck module <interface>`
+
 ==================== ============
 Setting              Tooltip
 ==================== ============
-``read R1``          | identifier string for R1 reads. Default = _R1, 
+``read_R1``          | identifier string for R1 reads. Default = _R1, 
                      | which means that all R1 reads in a directory may be identified via latter string
-``read R2``          | identifier string for R2 reads. Default = _R2
-``samp ID``          | identifyer string that separates the sample name from redundant charachters 
+``read_R2``          | identifier string for R2 reads. Default = _R2
+``samp_ID``          | identifyer string that separates the sample name from redundant charachters 
                      | (e.g. file name = sampl84_S73_L001_R1_001.fastq, then underscore '_' would be 
                      | the 'identifier string' (sample name = sampl84))
 ``maxEE``            | discard sequences with more than the specified number of expected errors
@@ -237,51 +284,51 @@ Analyses step                                     Default setting
 :ref:`DEMULTIPLEX <demux>` (optional)              --
 :ref:`REORIENT <reorinet>` (optional)              --
 :ref:`REMOVE PRIMERS <remove_primers>` (optional)  --
-:ref:`MERGE READS <merge_pairs>`                   | ``min overlap`` = 12
-                                                   | ``min length`` = 32
-                                                   | ``allow merge stagger`` = TRUE 
+:ref:`MERGE READS <merge_pairs>`                   | ``min_overlap`` = 12
+                                                   | ``min_length`` = 32
+                                                   | ``allow_merge_stagger`` = TRUE 
                                                    | ``include only R1`` = FALSE 
-                                                   | ``max diffs`` = 20
-                                                   | ``max Ns`` = 0
-                                                   | ``max len`` = 600
-                                                   | ``keep disjoined`` = FALSE 
-                                                   | ``fastq qmax`` = 41
+                                                   | ``max_diffs`` = 20
+                                                   | ``max_Ns`` = 0
+                                                   | ``max_len`` = 600
+                                                   | ``keep_disjoined`` = FALSE 
+                                                   | ``fastq_qmax`` = 41
 :ref:`QUALITY FILTERING <qual_filt>`               | ``maxEE`` = 1
                                                    | ``maxN`` = 0
                                                    | ``minLen`` = 32
-                                                   | ``max length`` = undefined
+                                                   | ``max_length`` = undefined
                                                    | ``qmax`` = 41
                                                    | ``qmin`` = 0
-                                                   | ``maxee rate`` = undefined
+                                                   | ``maxee_rate`` = undefined
                                                    | ``minsize`` = 1
-:ref:`CHIMERA FILTERING <chimeras>`                | ``pre-cluster`` = 0.98
-                                                   | ``min unique size`` = 1
+:ref:`CHIMERA FILTERING <chimeras>`                | ``pre_cluster`` = 0.98
+                                                   | ``min_unique_size`` = 1
                                                    | ``denovo`` = TRUE 
-                                                   | ``reference based`` = undefined
-                                                   | ``abundance skew`` = 2
-                                                   | ``min h`` = 0.28
+                                                   | ``reference_based`` = undefined
+                                                   | ``abundance_skew`` = 2
+                                                   | ``min_h`` = 0.28
 :ref:`ITS Extractor <itsx>`                        | ``organisms`` = Fungi 
                                                    | ``regions`` = all
                                                    | ``partial`` = 50
-                                                   | ``e-value`` = 1e-5
+                                                   | ``e_value`` = 1e-5
                                                    | ``scores`` = 0
                                                    | ``domains`` = 2
                                                    | ``complement`` = TRUE 
-                                                   | ``only full`` = FALSE
+                                                   | ``only_full`` = FALSE
                                                    | ``truncate`` = TRUE 
-:ref:`CLUSTERING <clustering>`                     | ``OTU type`` = centroid
-                                                   | ``similarity threshold`` = 0.97
+:ref:`CLUSTERING <clustering>`                     | ``OTU_type`` = centroid
+                                                   | ``similarity_threshold`` = 0.97
                                                    | ``strands`` = both
-                                                   | ``min OTU size`` = 2
-                                                   | ``similarity type`` = 2
-                                                   | ``sequence sorting`` = cluster_size
-                                                   | ``centroid type`` = similarity
-                                                   | ``max hits`` = 1
+                                                   | ``min_OTU_size`` = 2
+                                                   | ``similarity_type`` = 2
+                                                   | ``sequence_sorting`` = cluster_size
+                                                   | ``centroid_type`` = similarity
+                                                   | ``max_hits`` = 1
                                                    | ``relabel`` = sha1
                                                    | ``mask`` = dust
                                                    | ``dbmask`` = dust
-                                                   | ``output UC`` = FALSE
-:ref:`ASSGIN TAXONOMY <taxonomy>`                  | ``database file`` = select a database
+                                                   | ``output_UC`` = FALSE
+:ref:`ASSGIN TAXONOMY <taxonomy>`                  | ``database_file`` = select a database
                                                    | ``task`` = blastn
                                                    | ``strands`` = both
 ================================================= =========================
@@ -297,12 +344,13 @@ ANALYSES PANELS
 
 DEMULTIPLEX
 ------------
+
 If data is **multiplexed, the first step would be demultiplexing** (using `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_ (`Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_)).
 This is done based on the user specified :ref:`indexes file <indexes>`, which includes molecular identifier sequences (so called indexes/tags/barcodes) per sample. 
 Note that reverse complementary matches will also be searched. 
 
-Supported file format for the input data are **fastq** or **fasta**.
-**Outputs** are fastq/fasta files per sample in ``demultiplexed_out`` directory. Indexes are **truncated** from the sequences. 
+| **Fastq/fasta** formatted paired-end and single-end data are supported.
+| **Outputs** are fastq/fasta files per sample in ``demultiplexed_out`` directory. Indexes are **truncated** from the sequences. 
 
 .. _indexes:
 
@@ -418,22 +466,55 @@ ____________________________________________________
 REORIENT
 --------
 
-`fqgrep <https://github.com/indraniel/fqgrep>`_   `Indraniel Das 2011 <https://github.com/indraniel/fqgrep>`_
+Sequences are often in both, 5’-3’ and 3’-5’, orientations in the raw sequencing data sets. 
+If the data still contains PCR primers that were used to generate amplicons, 
+then by specifying these PCR primers, this panel will perform sequence reorientation 
+of all sequences to 5’-3’. 
 
-Sequences are often in both, 5’-3’ and 3’-5’, orientations in the raw sequencing data sets. If the data still contains PCR primers that were used to generate amplicons, then by specifying these PCR primers (up to 13 pairs allowed), this panel will perform sequence reorientation of all sequences to 5’-3’. For reorienting, first the forward primer will be searched (fwd specified in 5’-3’ orientation as for PCR) and if detected then the read is considered as forward complementary (5’-3’). Then the reverse primer (specified in 3’-5’ orientation, as for PCR) will be searched from the same input data and if detected, then the read is considered to be in reverse complementary orientation (3’-5’). Latter reads will be transformed to 5’-3’ orientation and merged with other 5’-3’ reads. Note that for paired-end data, R1 files will be reoriented to 5’-3’ but R2 reads will be reoriented to 3’-5’ in order to merge paired-end reads (see below, Merging paired end sequences).
-At least one of the PCR primers must be found in the sequence. For example, read will be recorded if forward primer was found even though reverse primer was not found (and vice versa). Sequence is discarded if none of the PCR primers are found. Sequences that contain multiple forward or reverse primers (multi-primer artefacts) are discarded as it is highly likely that these are chimeric sequences. Reorienting sequences will not remove primer strings from the sequences. Primers may be removed in the “Cut primers” panel (see below). Note that for single-end data, sequences will be reoriented also during the ‘cut primers’ process (see below); therefore this step may be skipped when working with single-end data (such as data from PacBio machines OR already assembled paired-end data).
+For reorienting (using `fqgrep <https://github.com/indraniel/fqgrep>`_), 
+first the forward primer will be searched  
+and if detected then the read is considered as forward complementary (5’-3’). 
+Then the reverse primer will be searched 
+from the same input data and if detected, then the read is considered to be in 
+reverse complementary orientation (3’-5’). Latter reads will be transformed to 5’-3’ 
+orientation and merged with other 5’-3’ reads. 
+Note that for paired-end data, R1 files will be reoriented to 5’-3’ 
+but R2 reads will be reoriented to 3’-5’ in order to merge paired-end reads.
 
-Reorienting reads may be relevant for generating ASVs with DADA2 (this step is performed by default when selecting DADA2 full workflow to process the data in PipeCraft) as reverse complement sequences will represent separate ASVs. In the clustering step of an OTU pipeline, both strands of the sequences can be compared prior forming OTUs; thus this step may be skipped in the OTU pipeline. 
+At least one of the PCR primers must be found in the sequence. 
+For example, read will be recorded if forward primer was found even 
+though reverse primer was not found (and vice versa). 
+Sequence is discarded if none of the PCR primers are found. 
 
-Supported file formats for paired-end input data are only fastq (extensions must be .fastq or .fq), but also fasta (extensions must be .fasta, .fa, .fas) for single-end data.
+Sequences that contain **multiple forward or reverse primers (multi-primer artefacts) 
+are discarded** as it is highly likely that these are chimeric sequences. 
+Reorienting sequences will not remove primer strings from the sequences. 
 
-|
+.. note::
 
-Specifics of the panel workflow: user has to specify the PCR primers that were used to generate amplicons; IUPAC codes for degenerate bases are allowed (example: CCTCCSCTTANTDAT). ‘Any base’ can be marked with N or I. If the PCR primer strings are not found in the input data, then the warning is displayed and no output for that file is generated. Fastq formatted files are supported for paired-end data (Illumina, MGI-Tech); fasta and fastq formatted files for single-end data (PacBio, Nanopore, Ion Torrent, 454). Paired-end data must contain strings ‘R1’ and ‘R2’ in corresponding file names. Gz or zip compressed files are supported, but decompressed using pigz prior analyses.  Fqgrep is used for searching the primers in the input files; fastx-toolkit is used to reverse complement the reads when needed; seqkit is used to synchronize the paired-end reads. Running the process several times in the same directory will overwrite all outputs.
-Summary of the sequence counts can be found in the ‘seq_count_summary.txt’ file.
+ For single-end data, sequences will be reoriented also during 
+ the ‘cut primers’ process (see below); therefore this step may be skipped
+ when working with single-end data (such as data from PacBio machines OR already assembled paired-end data).
 
-Supported file format for the input data are **fastq** or **fasta**.
-**Outputs** are fastq/fasta files in **reoriented_out** directory. Primers are **not truncated** from the sequences. 
+Reorienting reads may be relevant for generating ASVs with DADA2 
+as reverse complement sequences will represent separate ASVs. 
+In the clustering step of an OTU pipeline, both strands of the sequences can be compared prior 
+forming OTUs; thus this step may be skipped in the OTU pipeline. 
+
+Supported file formats for paired-end input data are only **fastq**,
+but also **fasta** for single-end data.
+**Outputs** are fastq/fasta files in **reoriented_out** directory. 
+Primers are **not truncated** from the sequences; this can be done using :ref:`CUT PRIMER panel <remove_primers>`
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``mismatches``                   | allowed mismatches in the primer search
+``forward_primers``              | specify forward primer **(5'-3')**; IUPAC codes allowed; 
+                                 | add up to 13 primers
+``reverse_primers``              | specify reverse primer **(3'-5')**; IUPAC codes allowed; 
+                                 | add up to 13 primers
+================================ =========================
 
 ____________________________________________________
 
@@ -442,17 +523,53 @@ ____________________________________________________
 CUT PRIMERS
 -----------
 
-If the input data contains PCR primers (or e.g. adapters), these can be removed in the ‘CUT PRIMERS’ panel. `Cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_ (`Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_) is used for that. 
+If the input data contains PCR primers (or e.g. adapters), these can be removed in the ‘CUT PRIMERS’ panel.
+Core cut primers processes with `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_ (`Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_). 
 
-Up to 13 forward and reverse primers may be specified. For generating OTUs or ASVs, it is recommended to truncate the primers from the reads. Sequences where PCR primer strings were not detected are discarded by default (but stored in ‘untrimmed’ directory). 
+For generating OTUs or ASVs, it is recommended to truncate the primers from the reads. Sequences where PCR primer strings were not detected are discarded by default (but stored in ‘untrimmed’ directory). 
 Reverse complementary search of the primers in the sequences is also performed. Thus, primers are clipped from both 5’-3’ and 3’-5’ oriented reads. However, note that **paired-end reads will not be reoriented** to 5’-3’ during this process, 
 but **single-end reads will be reoriented** to 5’-3’ (thus no extra reorient step needed for single-end data).
 
-For paired-end data, the seqs_to_keep option should be left as default (‘keep_all’). This will output sequences where at least one primer has been clipped. 
-‘keep_only_linked’ option outputs only sequences where both the forward and reverse primers are found (i.e. 5’-forward…reverse-3’).
+.. note::
 
-Supported file format for the input data are **fastq** or **fasta**.
-**Outputs** are fastq/fasta files in **primersCut_out** directory. Primers are **truncated** from the sequences. 
+ For paired-end data, the **seqs_to_keep option should be left as default (‘keep_all’)**. This will output sequences where at least one primer has been clipped. 
+ ‘keep_only_linked’ option outputs only sequences where both the forward and reverse primers are found (i.e. 5’-forward…reverse-3’). 
+ ‘keep_only_linked’ may be used for single-end data to keep only **full-length amplicons**.
+
+| **Fastq**/**fasta** formatted paired-end and single-end data are supported.
+| **Outputs** are fastq/fasta files in ``primersCut_out`` directory. Primers are **truncated** from the sequences. 
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``mismatches``                   | allowed mismatches in the primer search
+``forward_primers``              | specify forward primer **(5'-3')**; IUPAC codes allowed; 
+                                 | add up to 13 primers
+``reverse_primers``              | specify reverse primer **(3'-5')**; IUPAC codes allowed; 
+                                 | add up to 13 primers
+``min_overlap``                  | number of overlap bases with the primer sequence. 
+                                 | Partial matches are allowed, but short matches may occur by chance, 
+                                 | leading to erroneously clipped bases. 
+                                 | Specifying higher overlap than the length of primer sequnce 
+                                 | will still clip the primer (e.g. primer length is 22 bp, 
+                                 | but overlap is specified as 25 - this does not affect the 
+                                 | identification and clipping of the primer as long as the match is 
+                                 | in the specified mismatch error range)
+``seqs_to_keep``                 | keep sequences where at least one primer was found (fwd or rev); 
+                                 | recommended when cutting primers from paired-end data (unassembled), 
+                                 | when individual R1 or R2 read lenghts are shorther than the expected 
+                                 | amplicon length. 'keep_only_linked' = keep sequences if primers are found 
+                                 | in both ends (fwd…rev); discards the read if both primers were not found 
+                                 | in this read
+``pair_filter``                  | **applies only for paired-end data.**
+                                 | 'both', means that a read is discarded only if both, corresponding R1 and R2,
+                                 | reads  do not contain primer strings (i.e. a read is kept if R1 contains 
+                                 | primer string, but no primer string found in R2 read). Option 'any' discards 
+                                 | the read if primers are not found in both, R1 and R2 reads
+``min_seq_length``               | minimum length of the output sequence
+``no_indels``                    | do not allow insertions or deletions is primer search. Mismatches are the 
+                                 | only type of errprs accounted in the error rate parameter
+================================ =========================
 
 ____________________________________________________
 
@@ -461,11 +578,13 @@ ____________________________________________________
 QUALITY FILTERING
 ------------------
 
-Quality filtering of the **fastq** formatted files can be conducted using `vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_) 
-or `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_ (`Bolger et al. 2014 <https://doi.org/10.1093/bioinformatics/btu170>`_). 
+Quality filter and trim sequences.
 
-Supported file format for the input data is **fastq**.
-**Outputs** are fastq files in **qualFiltered_out** directory.
+| **Fastq** formatted paired-end and single-end data are supported.
+| **Outputs** are fastq files in ``qualFiltered_out`` directory.
+
+`vsearch <https://github.com/torognes/vsearch>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 **vsearch** setting              Tooltip
@@ -473,23 +592,28 @@ Supported file format for the input data is **fastq**.
 ``maxEE``                        | maximum number of expected errors per sequence. Sequences with higher error rates will be discarded
 ``maxN``                         | discard sequences with more than the specified number of Ns
 ``minLen``                       | minimum length of the filtered output sequence
-``max length``                   | discard sequences with more than the specified number of bases
+``max_length``                   | discard sequences with more than the specified number of bases
 ``qmax``                         | specify the maximum quality score accepted when reading FASTQ files. 
                                  | The default is 41, which is usual for recent Sanger/Illumina 1.8+ files. For PacBio data use 93
 ``qmin``                         | the minimum quality score accepted for FASTQ files. The default is 0, which is 
                                  | usual for recent Sanger/Illumina 1.8+ files. Older formats may use scores between -5 and 2
-``maxee rate``                   | discard sequences with more than the specified number of expected errors per base
+``maxee_rate``                   | discard sequences with more than the specified number of expected errors per base
 ``minsize``                      | discard sequences with an abundance lower than the specified value
 ================================ =========================
+
+| 
+
+`trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 **trimmomatic** setting          Tooltip
 ================================ =========================
-``window size``                  | the number of bases to average base qualities. 
+``window_size``                  | the number of bases to average base qualities. 
                                  | Starts scanning at the 5'-end of a sequence and trimms the read once the 
                                  | average required quality (required_qual) within the window size falls below the threshold
-``required quality``             | the average quality required for selected window size
-``min length``                   | minimum length of the filtered output sequence
+``required_quality``             | the average quality required for selected window size
+``min_length``                   | minimum length of the filtered output sequence
 ``leading_qual_threshold``       | quality score threshold to remove low quality bases from the beginning of the read. 
                                  | As long as a base has a value below this threshold the base is removed and the next base will be investigated
 ``trailing_qual_threshold``      | quality score threshold to remove low quality bases from the end of the read. 
@@ -505,28 +629,39 @@ ____________________________________________________
 ASSEMBLE PAIRED-END reads 
 --------------------------
 
-Paired-end sequences (such as those from Illumina or MGI-Tech platforms) may be merged using `vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_)
+Assemble paired-end sequences (such as those from Illumina or MGI-Tech platforms). 
 
-As an additional in-built module of PipeCraft, users may include unassembled R1 reads to the set of assembled reads per sample. 
-This may be relevant when working with e.g. ITS2 sequences, because the ITS2 region in some taxa is too long for paired-end assembly, 
-therefore discarded completely after the assembly process. Thus, including also unassembled R1 reads, partial ITS2 sequences for 
-these taxa will be represented in the final output (in that case, when applying ITSx module, include ‘partial’ option).
+``include_only_R1`` represents additional in-built module. If TURE, 
+unassembled R1 reads will be included to the set of assembled reads per sample. 
+This may be relevant when working with e.g. ITS2 sequences, because the ITS2 region in some 
+taxa is too long for paired-end assembly using current short-read sequencing technology. 
+Therefore longer ITS2 amplicon sequences are discarded completely after the assembly process. 
+Thus, including also unassembled R1 reads (``include_only_R1`` = TRUE), partial ITS2 sequences for 
+these taxa will be represented in the final output. But when using :ref:`ITSx <itsx>`  
+, keep ``only_full`` = FALSE and include ``partial`` = 50.
 
-Supported file format for the input data is **fastq**.
+**Fastq** formatted paired-end data is supported.
 **Outputs** are fastq files in **assembled_out** directory.
+
+`vsearch <https://github.com/torognes/vsearch>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
-``min overlap``
-``min length``
-``allow merge stagger``
-``include only R1``
-``max diffs``
-``max Ns``
-``max len``
-``keep disjoined``
-``fastq qmax``
+``min_overlap``                  | minimum overlap between the merged reads
+``min_length``                   | minimum length of the merged sequence
+``allow_merge_stagger``          | allow to merge staggered read pairs. Staggered pairs are pairs 
+                                 | where the 3’ end of the reverse read has an overhang to the left 
+                                 | of the 5’ end of the forward read. This situation can occur when a 
+                                 | very short fragment is sequenced
+``include_only_R1``              | include unassembled R1 reads to the set of assembled reads per sample
+``max_diffs``                    | the maximum number of non-matching nucleotides allowed in the overlap region
+``max_Ns``                       | discard sequences with more than the specified number of Ns
+``max_len``                      | maximum length of the merged sequence
+``keep_disjoined``               | output reads that were not merged into separate FASTQ files
+``fastq_qmax``                   | maximum quality score accepted when reading FASTQ files. 
+                                 | The default is 41, which is usual for recent Sanger/Illumina 1.8+ files
 ================================ =========================
 
 ____________________________________________________
@@ -536,24 +671,37 @@ ____________________________________________________
 CHIMERA FILTERING
 -----------------
 
-De-novo as well as reference database based chimera filtering is supported through `vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_). 
-Users may include any custom fasta formatted database for reference based chimera filtering.
+Perform de-novo and or reference database based chimera filtering. 
 
-Chimera filtering is performed by **sample-wise approach** (each sample is treated separately). 
+Chimera filtering is performed by **sample-wise approach** (i.e. each sample (input file) is treated separately). 
 
-Supported input file format:
-    Supported file format for the input data are **fastq** or **fasta**. [Fastq inputs will be converted to fasta]
-    **Outputs** are fasta files in **chimera_Filtered_out** directory.
+| **Fastq/fasta** formatted single-end data is supported [fastq inputs will be converted to fasta].
+| **Outputs** are fasta files in ``chimera_Filtered_out`` directory.
+
+
+`vsearch <https://github.com/torognes/vsearch>`_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
-``pre-cluster``
-``min unique size``
-``denovo``
-``reference based``
-``abundance skew``
-``min h``
+``pre_cluster``                  | identity percentage when performing 'pre-clustering' with --cluster_size 
+                                 | for denovo chimera filtering with --uchime_denovo
+``min_unique_size``              | minimum amount of a unique sequences in a fasta file. If value = 1, then 
+                                 | no sequences are discarded after dereplication; if value = 2, then sequences,
+                                 | which are represented only once in a given file are discarded; and so on
+``denovo``                       | if TRUE, then perform denovo chimera filtering with --uchime_denovo
+``reference_based``              | perform reference database based chimera filtering with --uchime_ref. 
+                                 | If denovo = TRUE, then reference based chimera filtering will be performed 
+                                 | after denovo
+``abundance_skew``               | the abundance skew is used to distinguish in a threeway alignment which 
+                                 | sequence is the chimera and which are the parents. The assumption is that 
+                                 | chimeras appear later in the PCR amplification process and are therefore 
+                                 | less abundant than their parents. The default value is 2.0, which means that 
+                                 | the parents should be at least 2 times more abundant than their chimera. 
+                                 | Any positive value equal or greater than 1.0 can be used
+``min_h``                        | minimum score (h). Increasing this value tends to reduce the number of false 
+                                 | positives and to decrease sensitivity. Values ranging from 0.0 to 1.0 included are accepted
 ================================ =========================
 
 ____________________________________________________
@@ -563,23 +711,31 @@ ____________________________________________________
 ITS Extractor
 -------------
 
-`ITS Extractor <https://microbiology.se/software/itsx/>`_ (`Bengtsson-Palme et al. 2013 <https://doi.org/10.1111/2041-210X.12073>`_)
+Extract ITS regions with `ITS Extractor <https://microbiology.se/software/itsx/>`_ (`Bengtsson-Palme et al. 2013 <https://doi.org/10.1111/2041-210X.12073>`_)
 
-Supported file format for the input data are **fastq** or **fasta**. [Fastq inputs will be converted to fasta]
-**Outputs** are fasta files in **ITSx_out** directory.
+| **Fastq/fasta** formatted single-end data is supported [fastq inputs will be converted to fasta].
+| **Outputs** are fasta files in ``ITSx_out`` directory.
 
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
-``organisms`` 
-``regions``
-``partial``
-``e-value``
-``scores``
-``domains``
-``complement`` 
-``only full``
-``truncate`` 
+``organisms``                    | set of profiles to use for the search. Can be used to restrict the search to 
+                                 | only a few organism groups types to save time, if one or more of the origins 
+                                 | are not relevant to the dataset under study
+``regions``                      | ITS regions to output (note that 'all' will output also full ITS region [ITS1-5.8S-ITS2])
+``partial``                      | if larger than 0, ITSx will save additional FASTA-files for full and partial ITS sequences 
+                                 | longer than the specified cutoff value. If his setting is left to 0 (zero), 
+                                 | it means OFF
+``e-value``                      | domain e-value cutoff a sequence must obtain in the HMMER-based step to be included in the output
+``scores``                       | domain score cutoff that a sequence must obtain in the HMMER-based step to be included in the output
+``domains``                      | the minimum number of domains (different HMM gene profiles) that must match a sequence for it to be 
+                                 | included in the output (detected as an ITS sequence). Setting the value lower than two will increase 
+                                 | the number of false positives, while increasing it above two will decrease ITSx detection abilities
+                                 | on fragmentary data
+``complement``                   | if TRUE, ITSx checks both DNA strands for matches to HMM-profiles
+``only full``                    | If TRUE, the output is limited to full-length ITS1 and ITS2 regions only
+``truncate``                     | removes ends of ITS sequences if they are outside of the ITS region. 
+                                 | If FALSE, the whole input sequence is saved
 ================================ =========================
 
 .. _clustering:
@@ -587,27 +743,43 @@ Setting                          Tooltip
 CLUSTERING
 ----------
 
-`vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_)
+Cluster sequences, form OTUs.
 
-Supported file format for the input data is **fasta**.
-**Outputs** are OTUs.fasta and OTU_table.txt files in **clustering_out** directory.
+| Supported file format for the input data is **fasta**.
+| **Outputs** are **OTUs.fasta** and **OTU_table.txt** files in ``clustering_out`` directory.
 
-================================ =========================
-Setting                          Tooltip
-================================ =========================
-``OTU type``
-``similarity threshold``
-``strands``
-``min OTU size``
-``similarity type``
-``sequence sorting``
-``centroid type``
-``max hits``
-``relabel``
-``mask``
-``dbmask``
-``output UC``
-================================ =========================
+.. note::
+
+ OTU table filed separator is 'tab'.
+
+`vsearch <https://github.com/torognes/vsearch>`_ 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=============================================== =========================
+`Setting <_static/vsearch_2.18.0_manual.pdf>`_  Tooltip
+=============================================== =========================
+``OTU_type``                                    | centroid" = output centroid sequences; "consensus" = output consensus sequences
+``similarity_threshold``                        | define OTUs based on the sequence similarity threshold; 0.97 = 97% similarity threshold
+``strands``                                     | when comparing sequences with the cluster seed, check both strands 
+                                                | (forward and reverse complementary) or the plus strand only
+``min_OTU_size``                                | minimum read count per output OTU (e.g., if value = 2, then 
+                                                | singleton OTUs will be discarded [OTUs with only one sequence])
+``similarity_type``                             | pairwise sequence identity definition `--iddef <_static/vsearch_2.18.0_manual.pdf>`_
+``sequence_sorting``                            | size = sort the sequences by decreasing abundance; 
+                                                | "length" = sort the sequences by decreasing length (--cluster_fast); 
+                                                | "no" = do not sort sequences (--cluster_smallmem --usersort)
+``centroid_type``                               | "similarity" = assign representative sequence to the closest (most similar) 
+                                                | centroid (distance-based greedy clustering); 
+                                                | "abundance" = assign representative sequence to the most abundant centroid (abundance-based 
+                                                | greedy clustering; --sizeorder), ``max_hits`` should be > 1
+``max_hits``                                    | maximum number of hits to accept before stopping the search 
+                                                | (should be > 1 for abundance-based selection of centroids [centroid type])
+``relabel``                                     | relabel sequence identifiers (none = do not relabel)
+``mask``                                        | mask regions in sequences using the "dust" method, or do not mask ("none")
+``dbmask``                                      | prior the OTU table creation, mask regions in sequences using the 
+                                                | "dust" method, or do not mask ("none")
+``output_UC``                                   | output clustering results in tab-separated UCLAST-like format
+=============================================== =========================
 
 ____________________________________________________
 
@@ -621,23 +793,32 @@ Implemented tools for taxonomy annotation:
 `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_ (`Camacho et al. 2009 <https://doi.org/10.1186/1471-2105-10-421>`_)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BLAST search query sequences againt selected database. 
+BLAST search sequences againt selected database. 
+
+| Supported file format for the input data is **fasta**.
+| **Outputs** are **BLAST_1st_best_hit.txt** and **BLAST_10_best_hits.txt** files in ``taxonomy_out`` directory.
+
+.. note::
+
+ BLAST values filed separator is '+'. When pasting the taxonomy results to e.g. Excel, then first denote '+' as 
+ as filed separator to align the columns.
 
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
- ``database file``               | select a database file in fasta format.
+ ``database_file``               | select a database file in fasta format.
                                  | Fasta format will be automatically converted to BLAST database
 ``task``                         | BLAST search settings according to blastn or megablast
 ``strands``                      | query strand to search against database. Both = search also reverse complement
-``e-value``                      | a parameter that describes the number of hits one can expect to see 
+``e_value``                      | a parameter that describes the number of hits one can expect to see 
                                  | by chance when searching a database of a particular size. 
                                  | The lower the e-value the more 'significant' the match is
-``word size``                    | the size of the initial word that must be matched between the database and the query sequence
+``word_size``                    | the size of the initial word that must be matched between the database 
+                                 | and the query sequence
 ``reward``                       | reward for a match
 ``penalty``                      | penalty for a mismatch
-``gap open``                     | cost to open a gap
-``gap extend``                   | cost to extend a gap
+``gap_open``                     | cost to open a gap
+``gap_extend``                   | cost to extend a gap
 ================================ =========================
 
 ____________________________________________________
