@@ -22,6 +22,8 @@
 User guide
 ==========
 
+`PipeCraft github page <https://github.com/SuvalineVana/pipecraft>`_
+
 .. _interface: 
 
 The interface
@@ -99,9 +101,9 @@ This automated workflow is based on DADA2 `tutorial <https://benjjneb.github.io/
 
 **Default options:**
 
-================================================= =========================
-Analyses step                                     Default setting
-================================================= =========================
+================================================== =========================
+Analyses step                                      Default setting
+================================================== =========================
 :ref:`DEMULTIPLEX <demux>` (optional)              --
 :ref:`REORIENT <reorinet>` (optional)              --
 :ref:`REMOVE PRIMERS <remove_primers>` (optional)  --
@@ -125,7 +127,7 @@ Analyses step                                     Default setting
 :ref:`ASSGIN TAXONOMY <dada2_taxonomy>` (optional) | ``minBoot`` = 50
                                                    | ``tryRC`` = FALSE
                                                    | ``refFasta`` = select a database
-================================================= =========================
+================================================== =========================
 
 ____________________________________________________
 

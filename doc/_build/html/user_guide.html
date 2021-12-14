@@ -124,6 +124,7 @@
   <a class="reference internal image-reference" href="_images/PipeCraft2_icon_v2.png"><img alt="logo" src="_images/PipeCraft2_icon_v2.png" style="width: 80px;" /></a>
 <section id="user-guide">
 <h1>User guide<a class="headerlink" href="#user-guide" title="Permalink to this headline"></a></h1>
+<p><a class="reference external" href="https://github.com/SuvalineVana/pipecraft">PipeCraft github page</a></p>
 <section id="the-interface">
 <span id="interface"></span><h2>The interface<a class="headerlink" href="#the-interface" title="Permalink to this headline"></a></h2>
 <p>The startup panel:</p>
@@ -191,6 +192,73 @@ inside the selected working directory.
 <div class="line"><a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">DADA2 manual is here</a></div>
 </div>
 <p id="dada2-defaults"><strong>Default options:</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Analyses step</p></th>
+<th class="head"><p>Default setting</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#demux"><span class="std std-ref">DEMULTIPLEX</span></a> (optional)</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#reorinet"><span class="std std-ref">REORIENT</span></a> (optional)</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#remove-primers"><span class="std std-ref">REMOVE PRIMERS</span></a> (optional)</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dada2-qual-filt"><span class="std std-ref">QUALITY FILTERING</span></a></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">read_R1</span></code> = _R1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">read_R2</span></code> = _R2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">samp_ID</span></code> = _</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">maxEE</span></code> = 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">maxN</span></code> = 0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">minLen</span></code> = 32</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">truncQ</span></code> = 2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">truncLen</span></code> = 0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">maxLen</span></code> = 600</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">minQ</span></code> = 2</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dada2-denoise"><span class="std std-ref">DENOISE</span></a></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">pool</span></code> = FALSE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">selfConsist</span></code> = FASLE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">qualityType</span></code> = Auto</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dada2-merge-pairs"><span class="std std-ref">MERGE PAIRED-END READS</span></a></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">minOverlap</span></code> = 12</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">maxMismatch</span></code> = 0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">returnRejects</span></code> = FALSE</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dada2-chimeras"><span class="std std-ref">CHIMERA FILTERING</span></a></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">method</span></code> = consensus</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dada2-taxonomy"><span class="std std-ref">ASSGIN TAXONOMY</span></a> (optional)</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">minBoot</span></code> = 50</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">tryRC</span></code> = FALSE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">refFasta</span></code> = select a database</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
 <hr class="docutils" />
 <section id="quality-filtering-asvs-workflow">
 <span id="dada2-qual-filt"></span><h4>QUALITY FILTERING [ASVs workflow]<a class="headerlink" href="#quality-filtering-asvs-workflow" title="Permalink to this headline"></a></h4>
