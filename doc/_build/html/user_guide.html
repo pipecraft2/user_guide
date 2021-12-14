@@ -134,7 +134,7 @@
 <h2>Select workdir and run analyses<a class="headerlink" href="#select-workdir-and-run-analyses" title="Permalink to this headline"></a></h2>
 <p>1. Open your working directory by pressing the <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> button. If working with e.g. <strong>fastq</strong> files,
 then be sure that the working directry contains <strong>only relevent fastq files</strong>, because the selected process will be
-aplied to all fastq files in the working directory!</p>
+applied to all fastq files in the working directory!</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You will not be able to see the files while browsing the directories.</p>
@@ -168,7 +168,8 @@ running the anayses</strong> by pressing <code class="docutils literal notransla
 analyses step <strong>multiple times in the same working directory</strong></p>
 </div>
 <p>3. Each process gives separate output directory (with the processed files)
-inside the selected working directory.</p>
+inside the selected working directory.
+<strong>README</strong> file about the process and <strong>sequence count summary</strong> statistics are included.</p>
 </section>
 <hr class="docutils" />
 <section id="full-pipeline-panels">
@@ -177,11 +178,11 @@ inside the selected working directory.</p>
 <span id="asvpipe"></span><h3>ASVs workflow panel (with <a class="reference external" href="https://benjjneb.github.io/dada2/index.html">DADA2</a>)<a class="headerlink" href="#asvs-workflow-panel-with-dada2" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Current ASVs workflow works only with <strong>PAIRED-END</strong> reads!</p>
+<p>Current ASVs workflow supports only <strong>PAIRED-END</strong> reads!</p>
 </div>
 <p><a class="reference internal" href="_images/asv_main.png"><img alt="Alternative text" src="_images/asv_main.png" style="width: 1500px;" /></a></p>
 <dl>
-<dt>This automated workflow is based on DADA2 tutorial: <a class="reference external" href="https://benjjneb.github.io/dada2/tutorial.html">https://benjjneb.github.io/dada2/tutorial.html</a></dt><dd><div class="line-block">
+<dt>This automated workflow is based on DADA2 <a class="reference external" href="https://benjjneb.github.io/dada2/tutorial.html">tutorial</a></dt><dd><div class="line-block">
 <div class="line">Note that <code class="docutils literal notranslate"><span class="pre">demultiplexing</span></code>, <code class="docutils literal notranslate"><span class="pre">reorient</span></code> and <code class="docutils literal notranslate"><span class="pre">remove</span> <span class="pre">primers</span></code> steps are optional and do not represent parts from DADA2 tutorial. Nevertheless, it is advisable to <a class="reference internal" href="#reorinet"><span class="std std-ref">reorient</span></a> your reads (to 5’-3’) and <a class="reference internal" href="#remove-primers"><span class="std std-ref">remove primers</span></a> before proceeding with ASV generation with DADA2.</div>
 </div>
 </dd>
@@ -190,73 +191,6 @@ inside the selected working directory.</p>
 <div class="line"><a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">DADA2 manual is here</a></div>
 </div>
 <p id="dada2-defaults"><strong>Default options:</strong></p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 58%" />
-<col style="width: 42%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Analyses step</p></th>
-<th class="head"><p>Default setting</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><a class="reference internal" href="#demux"><span class="std std-ref">DEMULTIPLEX</span></a> (optional)</p></td>
-<td><p>–</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#reorinet"><span class="std std-ref">REORIENT</span></a> (optional)</p></td>
-<td><p>–</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#remove-primers"><span class="std std-ref">REMOVE PRIMERS</span></a> (optional)</p></td>
-<td><p>–</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#dada2-qual-filt"><span class="std std-ref">QUALITY FILTERING</span></a></p></td>
-<td><div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">read_R1</span></code> = _R1</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">read_R2</span></code> = _R2</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">samp_ID</span></code> = _</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">maxEE</span></code> = 1</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">maxN</span></code> = 0</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">minLen</span></code> = 32</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">truncQ</span></code> = 2</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">truncLen</span></code> = 0</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">maxLen</span></code> = 600</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">minQ</span></code> = 2</div>
-</div>
-</td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#dada2-denoise"><span class="std std-ref">DENOISE</span></a></p></td>
-<td><div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">pool</span></code> = FALSE</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">selfConsist</span></code> = FASLE</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">qualityType</span></code> = Auto</div>
-</div>
-</td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#dada2-merge-pairs"><span class="std std-ref">MERGE PAIRED-END READS</span></a></p></td>
-<td><div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">minOverlap</span></code> = 12</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">maxMismatch</span></code> = 0</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">returnRejects</span></code> = FALSE</div>
-</div>
-</td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#dada2-chimeras"><span class="std std-ref">CHIMERA FILTERING</span></a></p></td>
-<td><div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">method</span></code> = consensus</div>
-</div>
-</td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#dada2-taxonomy"><span class="std std-ref">ASSGIN TAXONOMY</span></a></p></td>
-<td><div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">minBoot</span></code> = 50</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">tryRC</span></code> = FALSE</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">refFasta</span></code> = select a database</div>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
 <hr class="docutils" />
 <section id="quality-filtering-asvs-workflow">
 <span id="dada2-qual-filt"></span><h4>QUALITY FILTERING [ASVs workflow]<a class="headerlink" href="#quality-filtering-asvs-workflow" title="Permalink to this headline"></a></h4>
@@ -587,7 +521,7 @@ Outputs classified fasta files into <code class="docutils literal notranslate"><
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#itsx"><span class="std std-ref">ITS Extractor</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#itsx"><span class="std std-ref">ITS Extractor</span></a> (optional)</p></td>
 <td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">organisms</span></code> = Fungi</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">regions</span></code> = all</div>
@@ -618,7 +552,7 @@ Outputs classified fasta files into <code class="docutils literal notranslate"><
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#taxonomy"><span class="std std-ref">ASSGIN TAXONOMY</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#taxonomy"><span class="std std-ref">ASSGIN TAXONOMY</span></a> (optional)</p></td>
 <td><div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">database_file</span></code> = select a database</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">task</span></code> = blastn</div>

@@ -37,7 +37,7 @@ Software                                                                 Referen
 `vsearch <https://github.com/torognes/vsearch>`_                         `Rognes et. al 2016 <https://peerj.com/articles/2584/>`_                                   quality filtering, assemble paired-end reads, chimera filtering, clustering
 `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_          `Bolger et al. 2014 <https://doi.org/10.1093/bioinformatics/btu170>`_                      quality filtering
 `seqkit <https://bioinf.shenwei.me/seqkit/>`_                            `Shen et al. 2016 <https://doi.org/10.1371/journal.pone.0163962>`_                         multiple sequence manipulation operations
-`cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_                 `Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_                                      demultiplexing, cit primers
+`cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_                 `Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_                                      demultiplexing, cut primers
 `biopython <https://biopython.org/>`_                                    `Cock et al. 2009 <https://academic.oup.com/bioinformatics/article/25/11/1422/330687>`_    multiple sequence manipulation operations
 `GNU Parallel <https://doi.org/10.5281/zenodo.4710607>`_                 `Tangle 2021 <https://doi.org/10.5281/zenodo.4710607>`_                                    executing jobs in parallel
 `mothur <https://github.com/mothur/mothur>`_                             `Schloss et al. 2009 <https://doi.org/10.1128/AEM.01541-09>`_                              submodule in ITSx to make unique and deunique seqs
@@ -63,5 +63,7 @@ Contents
    contact
    citation
 
+| 
+| 
 
-
+*Manual may contain some typos! Fixing those on the way.*

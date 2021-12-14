@@ -14,7 +14,6 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
-
 # -- Project information -----------------------------------------------------
 
 project = 'PipeCraft 2'
@@ -26,7 +25,6 @@ version = '0.1.0'
 release = version
 
 # -- General configuration ---------------------------------------------------
-
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
@@ -47,9 +45,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-#import sphinx_pdj_theme
 html_theme = 'sphinx_rtd_theme'
-#html_theme_path = [sphinx_pdj_theme.get_html_theme_path()]
 
 html_theme_options = {
     'collapse_navigation': True,

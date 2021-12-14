@@ -38,7 +38,7 @@ Select workdir and run analyses
 
 1. Open your working directory by pressing the ``SELECT WORKDIR`` button. If working with e.g. **fastq** files,
 then be sure that the working directry contains **only relevent fastq files**, because the selected process will be 
-aplied to all fastq files in the working directory!
+applied to all fastq files in the working directory!
 
 .. note::
 
@@ -72,6 +72,7 @@ running the anayses** by pressing ``RUN WORKFLOW`` button.
 
 3. Each process gives separate output directory (with the processed files) 
 inside the selected working directory. 
+**README** file about the process and **sequence count summary** statistics are included.
 
 ____________________________________________________
 
@@ -85,11 +86,11 @@ ASVs workflow panel (with `DADA2 <https://benjjneb.github.io/dada2/index.html>`_
 ----------------------------------------------------------------------------------
 
 .. note::
-  Current ASVs workflow works only with **PAIRED-END** reads!
+  Current ASVs workflow supports only **PAIRED-END** reads!
 
 |asv_main|
 
-This automated workflow is based on DADA2 tutorial: https://benjjneb.github.io/dada2/tutorial.html 
+This automated workflow is based on DADA2 `tutorial <https://benjjneb.github.io/dada2/tutorial.html>`_ 
  | Note that ``demultiplexing``, ``reorient`` and ``remove primers`` steps are optional and do not represent parts from DADA2 tutorial. Nevertheless, it is advisable to :ref:`reorient <reorinet>` your reads (to 5'-3') and :ref:`remove primers <remove_primers>` before proceeding with ASV generation with DADA2.
 
 | `DADA2 manual is here <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_
@@ -121,7 +122,7 @@ Analyses step                                     Default setting
                                                    | ``maxMismatch`` = 0
                                                    | ``returnRejects`` = FALSE
 :ref:`CHIMERA FILTERING <dada2_chimeras>`          | ``method`` = consensus
-:ref:`ASSGIN TAXONOMY <dada2_taxonomy>`            | ``minBoot`` = 50
+:ref:`ASSGIN TAXONOMY <dada2_taxonomy>` (optional) | ``minBoot`` = 50
                                                    | ``tryRC`` = FALSE
                                                    | ``refFasta`` = select a database
 ================================================= =========================
@@ -307,7 +308,7 @@ Analyses step                                     Default setting
                                                    | ``reference_based`` = undefined
                                                    | ``abundance_skew`` = 2
                                                    | ``min_h`` = 0.28
-:ref:`ITS Extractor <itsx>`                        | ``organisms`` = Fungi 
+:ref:`ITS Extractor <itsx>` (optional)             | ``organisms`` = Fungi 
                                                    | ``regions`` = all
                                                    | ``partial`` = 50
                                                    | ``e_value`` = 1e-5
@@ -328,7 +329,7 @@ Analyses step                                     Default setting
                                                    | ``mask`` = dust
                                                    | ``dbmask`` = dust
                                                    | ``output_UC`` = FALSE
-:ref:`ASSGIN TAXONOMY <taxonomy>`                  | ``database_file`` = select a database
+:ref:`ASSGIN TAXONOMY <taxonomy>` (optional)       | ``database_file`` = select a database
                                                    | ``task`` = blastn
                                                    | ``strands`` = both
 ================================================= =========================
