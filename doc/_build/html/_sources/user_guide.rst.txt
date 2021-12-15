@@ -18,6 +18,10 @@
   :width: 1500
   :alt: Alternative text
 
+.. meta::
+    :description lang=en:
+        PipeCraft manual. User guide for PipeCraft
+
 ==========
 User guide
 ==========
