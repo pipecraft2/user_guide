@@ -2,6 +2,10 @@
   :width: 100
   :alt: logo
 
+.. meta::
+    :description lang=en:
+        PipeCraft manual. How to install PipeCraft
+
 ==============
 Installation
 ==============
