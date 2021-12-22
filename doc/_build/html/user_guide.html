@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Licence" href="licence.html" />
+    <link rel="next" title="Troubleshooting" href="troubleshoot.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
@@ -93,9 +93,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#expert-mode-pipecraft-console">Expert-mode (PipeCraft console)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citation.html">How to cite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
 </ul>
 
         </div>
@@ -139,7 +141,7 @@ then be sure that the working directry contains <strong>only relevent fastq file
 applied to all fastq files in the working directory!</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You will not be able to see the files while browsing the directories.</p>
+<p>The selection window might not display the files while browsing through the directories.</p>
 </div>
 <p>After selecting a working directory, PipeCraft needs you to specify if
 the working directory consists of</p>
@@ -160,6 +162,7 @@ the working directory consists of</p>
 to select relevant <a class="reference internal" href="#panels"><span class="std std-ref">steps</span></a> [or <strong>load the PipeCraft settings file</strong>];
 edit settings if needed (<strong>SAVE the settings for later use</strong>) and <strong>start
 running the anayses</strong> by pressing <code class="docutils literal notranslate"><span class="pre">RUN</span> <span class="pre">WORKFLOW</span></code> button.</p>
+<p><strong>If the process is being run for the first time, relevant docker image will be pulled from dockerhub. Thus working Internet connection is initially needed.</strong> Once the docker images are pulled, PipeCraft can work without Internet conection.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>Step-by-step analyses</strong>: after <code class="docutils literal notranslate"><span class="pre">RUN</span> <span class="pre">WORKFLOW</span></code> in finished, then press <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> to specify inputs for the next process</p>
@@ -644,6 +647,10 @@ Note that reverse complementary matches will also be searched.</p>
 <div class="line-block">
 <div class="line"><strong>Fastq/fasta</strong> formatted paired-end and single-end data are supported.</div>
 <div class="line"><strong>Outputs</strong> are fastq/fasta files per sample in <code class="docutils literal notranslate"><span class="pre">demultiplexed_out</span></code> directory. Indexes are <strong>truncated</strong> from the sequences.</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Heterogenity spacers or any redundant base pairs attached to index sequences do not affect demultiplexing. Indexes are trimmed from the best matching position.</p>
 </div>
 <section id="indexes-file-example-fasta-formatted">
 <span id="indexes"></span><h4>Indexes file example (fasta formatted)<a class="headerlink" href="#indexes-file-example-fasta-formatted" title="Permalink to this headline"></a></h4>
@@ -1523,7 +1530,7 @@ as filed separator to align the columns.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="licence.html" class="btn btn-neutral float-right" title="Licence" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="troubleshoot.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

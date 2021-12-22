@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact &mdash; PipeCraft 2 0.1.0 documentation</title>
+  <title>Troubleshooting &mdash; PipeCraft 2 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="How to cite" href="citation.html" />
-    <link rel="prev" title="Licence" href="licence.html" /> 
+    <link rel="next" title="Licence" href="licence.html" />
+    <link rel="prev" title="User guide" href="user_guide.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,9 +43,13 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide.html">User guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Troubleshooting</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#asvs-workflow">ASVs workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#general">General</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citation.html">How to cite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
 </ul>
@@ -64,9 +68,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Contact</li>
+      <li>Troubleshooting</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/contact.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/troubleshoot.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -78,23 +82,46 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<section id="contact">
-<span id="id1"></span><h1>Contact<a class="headerlink" href="#contact" title="Permalink to this headline"></a></h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sten</span> <span class="n">Anslan</span> <span class="o">&lt;</span><span class="n">sten</span><span class="o">.</span><span class="n">anslan</span><span class="p">[</span><span class="n">at</span><span class="p">]</span><span class="n">ut</span><span class="o">.</span><span class="n">ee</span><span class="o">&gt;</span>
-<span class="n">Martin</span> <span class="n">Metsoja</span> <span class="o">&lt;</span><span class="n">martin</span><span class="o">.</span><span class="n">metsoja</span><span class="p">[</span><span class="n">at</span><span class="p">]</span><span class="n">gmail</span><span class="o">.</span><span class="n">com</span><span class="o">&gt;</span>
-<span class="n">Vladimir</span> <span class="n">Mikryukov</span> <span class="o">&lt;</span><span class="n">vladimir</span><span class="o">.</span><span class="n">mikryukov</span><span class="p">[</span><span class="n">at</span><span class="p">]</span><span class="n">ut</span><span class="o">.</span><span class="n">ee</span><span class="o">&gt;</span>
-<span class="n">Ali</span> <span class="n">Hakimzadeh</span> <span class="o">&lt;</span><span class="n">ali</span><span class="o">.</span><span class="n">hakimzadeh</span><span class="p">[</span><span class="n">at</span><span class="p">]</span><span class="n">ut</span><span class="o">.</span><span class="n">ee</span><span class="o">&gt;</span>
-</pre></div>
+<section id="troubleshooting">
+<h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline"></a></h1>
+<p>This page is developing based on user feedback.</p>
+<hr class="docutils" />
+<section id="asvs-workflow">
+<h2>ASVs workflow<a class="headerlink" href="#asvs-workflow" title="Permalink to this headline"></a></h2>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>“Error in derepFastq(fls[[i]], qualityType = qualityType) : Not all provided files exist. Calls: learnErrors -&gt; derepFastq. Execution halted”</p>
 </div>
-<p>Feel free to propose new pipelines/modules/software to be implemented to PipeCraft.</p>
+<p><a class="reference internal" href="_images/learnErrors.png"><img alt="Alternative text" src="_images/learnErrors.png" style="width: 250px;" /></a></p>
+<p><strong>Possible reason</strong>: Some samples have completely discarded by quality filtering process.</p>
+<p><strong>Fix</strong>: Edit the quality filtering settings or excluded poor quality samples prior ASVs workflow.</p>
+<hr class="docutils" />
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>“Error in dimnames(x) &lt;- dn : length of ‘dimnames’ [2] not equal to array extent”</p>
+</div>
+<p><a class="reference internal" href="_images/dimnames.png"><img alt="Alternative text" src="_images/dimnames.png" style="width: 250px;" /></a></p>
+<p><strong>Possible reason</strong>: Using only one or two samples to generate ASVs table.</p>
+<p><strong>Fix</strong>: Include at least three samples to ASVs workflow to generate ASVs table. Note: fixing this error in the upcoming releases.</p>
+</section>
+<section id="general">
+<h2>General<a class="headerlink" href="#general" title="Permalink to this headline"></a></h2>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>Conflict. The container name XXX is already in use by container “XXX”.
+You have to remove (or rename) that container to be able to reuse that name.</p>
+</div>
+<p><strong>Reason</strong>: Process stopped unexpectedly and docker container was not closed.</p>
+<p><strong>Fix</strong>: Remove the container that is causing the conflict</p>
+</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="licence.html" class="btn btn-neutral float-left" title="Licence" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="citation.html" class="btn btn-neutral float-right" title="How to cite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="user_guide.html" class="btn btn-neutral float-left" title="User guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="licence.html" class="btn btn-neutral float-right" title="Licence" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

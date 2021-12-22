@@ -48,7 +48,7 @@ applied to all fastq files in the working directory!
 
 .. note::
 
- You will not be able to see the files while browsing the directories. 
+ The selection window might not display the files while browsing through the directories. 
 
 After selecting a working directory, PipeCraft needs you to specify if 
 the working directory consists of 
@@ -66,6 +66,8 @@ the working directory consists of
 to select relevant :ref:`steps <panels>` [or **load the PipeCraft settings file**]; 
 edit settings if needed (**SAVE the settings for later use**) and **start
 running the anayses** by pressing ``RUN WORKFLOW`` button.
+
+**If the process is being run for the first time, relevant docker image will be pulled from dockerhub. Thus working Internet connection is initially needed.** Once the docker images are pulled, PipeCraft can work without Internet conection. 
 
 .. note::
 
@@ -358,6 +360,10 @@ Note that reverse complementary matches will also be searched.
 
 | **Fastq/fasta** formatted paired-end and single-end data are supported.
 | **Outputs** are fastq/fasta files per sample in ``demultiplexed_out`` directory. Indexes are **truncated** from the sequences. 
+
+.. note::
+
+ Heterogenity spacers or any redundant base pairs attached to index sequences do not affect demultiplexing. Indexes are trimmed from the best matching position.
 
 .. _indexes:
 

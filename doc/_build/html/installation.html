@@ -47,14 +47,17 @@
 <li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#macos">MacOS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linux">Linux</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#update-pipecraft">Update PipeCraft</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#uninstalling">Uninstalling</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#removing-docker-images">Removing docker images</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citation.html">How to cite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
 </ul>
 
         </div>
@@ -84,57 +87,87 @@
   <a class="reference internal image-reference" href="_images/PipeCraft2_icon_v2.png"><img alt="logo" src="_images/PipeCraft2_icon_v2.png" style="width: 100px;" /></a>
 <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
+<div class="line-block">
+<div class="line">This is <strong>pre-release 0.1.0</strong>.</div>
+<div class="line">Current version <strong>does not support work in computer clusters</strong>.</div>
+</div>
 <section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
 <p>The only prerequisity is <a class="reference external" href="https://www.docker.com/">docker</a>.</p>
-<p>See platform-specific (Windows, Mac, Linux) docker installation guidelines below.</p>
-<p><em>Modules of PipeCraft are distributed through docker containers, which will liberate the users from the
-struggle to install/compile various software for metabarcoding data analyses.</em></p>
+<p>See OS-specific (Windows, Mac, Linux) docker installation guidelines below.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Your OS might warn that this is dangerous software! Please ignore the warning in this case.</p>
+<p>Modules of PipeCraft are distributed through docker containers, which will liberate the users from the
+struggle to install/compile various software for metabarcoding data analyses.
+<strong>Thus, all processes are run in docker containers</strong>.
+Relevant docker container will be downloaded prior the analysis.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Your OS might warn that PipeCraft is dangerous software! Please ignore the warning in this case.</p>
 </div>
 </section>
 <hr class="docutils" />
 <section id="windows">
 <h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline"></a></h2>
+<p>Tested with <strong>Windows 10</strong>. Older Windows versions do not support PipeCraft GUI workflow through docker.</p>
 <ol class="arabic simple">
-<li><p><a class="reference external" href="https://www.docker.com/get-started">Download docker for windows</a></p></li>
-<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft.Setup.0.1.0.exe">Windows: version 0.1.0</a></p></li>
+<li><p>Download <a class="reference external" href="https://www.docker.com/get-started">docker for windows</a></p></li>
+<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft.Setup.0.1.0.exe">Windows: pre-release 0.1.0</a></p></li>
 <li><p>Install PipeCraft via the setup executable</p></li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Resource limits for docker are managed by Windows;
+but You can configure limits in a .wslconfig file (see <strong>Settings</strong> -&gt; <strong>Resources</strong> on your docker desktop app)</p>
+</div>
 </section>
 <hr class="docutils" />
 <section id="macos">
 <h2>MacOS<a class="headerlink" href="#macos" title="Permalink to this headline"></a></h2>
-<ol class="arabic simple">
-<li><p><a class="reference external" href="https://www.docker.com/get-started">Download docker for Mac</a></p></li>
-<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft-0.1.0.dmg">Mac: version 0.1.0</a></p></li>
-<li><p>Install PipeCraft via DMG file</p></li>
-</ol>
+<p>There are currently unknown issues with the permissions on macOS to run the underlying tasks for the processes. Fix is on the way.</p>
 </section>
 <hr class="docutils" />
 <section id="linux">
 <h2>Linux<a class="headerlink" href="#linux" title="Permalink to this headline"></a></h2>
+<p>Tested with <strong>Ubuntu 20.04</strong> and <strong>Mint 20.1</strong>. Older OS versions might not support PipeCraft GUI workflow through docker.</p>
 <ol class="arabic simple">
-<li><p><a class="reference external" href="https://docs.docker.com/engine/install/">Install docker; follow the guidelines under appropriate Linux distribution</a></p></li>
+<li><p>Install docker; <a class="reference external" href="https://docs.docker.com/engine/install/">follow the guidelines under appropriate Linux distribution</a></p></li>
 <li><p>If you are a non-root user complete these <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">post-install steps</a></p></li>
-<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft-0.1.0.AppImage">Linux: version 0.1.0</a></p></li>
+<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft-0.1.0.AppImage">Linux: pre-release 0.1.0</a></p></li>
+<li><p>Make AppImage executable as program: 1) right click the AppImage; 2) navigate under <strong>Permissions</strong> tab; 3) tick the <strong>Allow executing file as program</strong></p></li>
 <li><p>Run PipeCraft via the AppImage file</p></li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On Linux, docker can use all available host resources.</p>
+</div>
 </section>
 <hr class="docutils" />
+<section id="update-pipecraft">
+<h2>Update PipeCraft<a class="headerlink" href="#update-pipecraft" title="Permalink to this headline"></a></h2>
+<p>To avaoid any potential software conflicts, all docker images of previous PipeCraft version should be removed.
+See <a class="reference internal" href="#removedockerimages"><span class="std std-ref">removing docker images</span></a> section.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="line-block">
+<div class="line">Currently available versions:</div>
+<div class="line"><a class="reference internal" href="releases.html#id1"><span class="std std-ref">pre-release 0.1.0</span></a></div>
+</div>
+</div>
+<hr class="docutils" />
+</section>
 <section id="uninstalling">
-<h2>Uninstalling<a class="headerlink" href="#uninstalling" title="Permalink to this headline"></a></h2>
+<span id="id1"></span><h2>Uninstalling<a class="headerlink" href="#uninstalling" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line"><strong>Windows</strong>: uninstall pipecraft via control panel</div>
 <div class="line"><strong>MacOS</strong>: eject and delete the DMG file</div>
 <div class="line"><strong>Linux</strong>: simply delete AppImage file</div>
 </div>
-</section>
 <hr class="docutils" />
+</section>
 <section id="removing-docker-images">
-<h2>Removing docker images<a class="headerlink" href="#removing-docker-images" title="Permalink to this headline"></a></h2>
+<span id="removedockerimages"></span><h2>Removing docker images<a class="headerlink" href="#removing-docker-images" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">On <strong>MacOS</strong> and <strong>Windows</strong>: docker images and container can be easily managed from the docker dashboard. For more info visit <a class="reference external" href="https://docs.docker.com/desktop/dashboard/">https://docs.docker.com/desktop/dashboard/</a></div>
 </div>
@@ -142,6 +175,7 @@ struggle to install/compile various software for metabarcoding data analyses.</e
 <div class="line">On <strong>Linux</strong> machines: containers and images are managed via the docker cli commands:</div>
 <div class="line">rmi <a class="reference external" href="https://docs.docker.com/engine/reference/commandline/rmi/">https://docs.docker.com/engine/reference/commandline/rmi/</a></div>
 <div class="line">rm  <a class="reference external" href="https://docs.docker.com/engine/reference/commandline/rm/">https://docs.docker.com/engine/reference/commandline/rm/</a></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">images</span></code> –&gt; to see which docker images exist</div>
 </div>
 </section>
 </section>

@@ -16,6 +16,8 @@
 Manual for PipeCraft 2
 ==========================================
 
+**Pre-release 0.1.0**
+
 | **PipeCraft** in a Graphical User Interface software that implements :ref:`various popular tools <tools>` for **metabarcoding** data analyzes that are linked to generate custom bioinformatics pipeline/workflow. 
 | Pre-defined full pipelines for generating :ref:`OTUs <otupipe>` or :ref:`ASVs <asvpipe>` are also implemented.
 
@@ -63,9 +65,11 @@ Contents
 
    installation
    user_guide
+   troubleshoot
    licence
    contact
    citation
+   releases
 
 | 
 | 
