@@ -7,7 +7,7 @@
   :alt: Alternative text
 
 .. |openanyway| image:: _static/troubleshoot/openanyway.png
-  :width: 350
+  :width: 400
   :alt: Alternative text
   
 
