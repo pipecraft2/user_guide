@@ -55,4 +55,4 @@ General
 
 **Reason**: Process stopped unexpectedly and docker container was not closed.
 
-**Fix**: Remove the container that is causing the conflict
+**Fix**: Remove the docker container (not image!) that is causing the conflict

@@ -2,6 +2,15 @@
   :width: 100
   :alt: logo
 
+.. |resources| image:: _static/troubleshoot/resources1.png
+  :width: 600
+  :alt: Alternative text
+
+.. |openanyway| image:: _static/troubleshoot/openanyway.png
+  :width: 350
+  :alt: Alternative text
+  
+
 .. meta::
     :description lang=en:
         PipeCraft manual. How to install PipeCraft
@@ -53,8 +62,23 @@ ____________________________________________________
 MacOS
 ------
 
-There are currently unknown issues with the permissions on macOS to run the underlying tasks for the processes. Fix is on the way.
+Supports macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through docker.
 
+1. Check your Mac chip (Apple or Intel) and download `docker for Mac <https://www.docker.com/get-started>`_
+
+2. Download PipeCraft for `Mac: pre-release 0.1.0 <https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft-0.1.0.pkg>`_
+
+3. Install PipeCraft via **pkg** file
+
+4. Currently, this app might be identified as app from an unidentified developer. Grant an exception for a blocked app by clicking the "**Open Anyway**" button in the General panel of **Security & Privacy** preferences
+
+|openanyway|
+
+.. note::
+
+ Manage docker resource limits in docker dashboard:
+ |resources|
+ 
 ____________________________________________________
 
 Linux

@@ -125,7 +125,19 @@ but You can configure limits in a .wslconfig file (see <strong>Settings</strong>
 <hr class="docutils" />
 <section id="macos">
 <h2>MacOS<a class="headerlink" href="#macos" title="Permalink to this headline"></a></h2>
-<p>There are currently unknown issues with the permissions on macOS to run the underlying tasks for the processes. Fix is on the way.</p>
+<p>Supports macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through docker.</p>
+<ol class="arabic simple">
+<li><p>Check your Mac chip (Apple or Intel) and download <a class="reference external" href="https://www.docker.com/get-started">docker for Mac</a></p></li>
+<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft-0.1.0.pkg">Mac: pre-release 0.1.0</a></p></li>
+<li><p>Install PipeCraft via <strong>pkg</strong> file</p></li>
+<li><p>Currently, this app might be identified as app from an unidentified developer. Grant an exception for a blocked app by clicking the “<strong>Open Anyway</strong>” button in the General panel of <strong>Security &amp; Privacy</strong> preferences</p></li>
+</ol>
+<p><a class="reference internal" href="_images/openanyway.png"><img alt="Alternative text" src="_images/openanyway.png" style="width: 350px;" /></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Manage docker resource limits in docker dashboard:
+<a class="reference internal" href="_images/resources1.png"><img alt="Alternative text" src="_images/resources1.png" style="width: 600px;" /></a></p>
+</div>
 </section>
 <hr class="docutils" />
 <section id="linux">
