@@ -422,7 +422,7 @@ Indexes file example (fasta formatted)
 How to compose indexes.fasta 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 In Excel (or any alternative program); 
-first column represents sample sames,
+first column represents sample names,
 second (and third) column represent indexes (or index combinations) per sample:
 
 Exaples::
