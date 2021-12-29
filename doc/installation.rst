@@ -20,20 +20,20 @@ Installation
 ==============
 
 | This is **pre-release 0.1.0**.
-| Current version **does not support work in computer clusters**.
+| Current version **does not work on High Performance Computing (HPC) clusters yet**.
 
 Prerequisites
 -------------
-The only prerequisity is `docker <https://www.docker.com/>`_.
+The only prerequisite is `Docker <https://www.docker.com/>`_.
 
 See OS-specific (Windows, Mac, Linux) docker installation guidelines below.
 
 .. note:: 
 
- Modules of PipeCraft are distributed through docker containers, which will liberate the users from the
+ Modules of PipeCraft are distributed through Docker containers, which will liberate the users from the
  struggle to install/compile various software for metabarcoding data analyses.
- **Thus, all processes are run in docker containers**.
- Relevant docker container will be downloaded prior the analysis.
+ **Thus, all processes are run in Docker containers**.
+ Relevant Docker container will be downloaded prior the analysis.
 
 .. warning::
 
@@ -44,9 +44,9 @@ ____________________________________________________
 Windows
 -------
 
-Tested with **Windows 10**. Older Windows versions do not support PipeCraft GUI workflow through docker.
+PipeCraft was tested on **Windows 10**. Older Windows versions do not support PipeCraft GUI workflow through Docker.
 
-1. Download `docker for windows <https://www.docker.com/get-started>`_ 
+1. Download `Docker for windows <https://www.docker.com/get-started>`_ 
 
 2. Download PipeCraft for `Windows: pre-release 0.1.0 <https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft.Setup.0.1.0.exe>`_
 
@@ -54,17 +54,17 @@ Tested with **Windows 10**. Older Windows versions do not support PipeCraft GUI 
 
 .. note::
 
- Resource limits for docker are managed by Windows; 
- but You can configure limits in a .wslconfig file (see **Settings** -> **Resources** on your docker desktop app)
+ Resource limits for Docker are managed by Windows; 
+ but you can configure limits in a **.wslconfig** file (see **Settings** -> **Resources** on your Docker desktop app)
 
 ____________________________________________________
 
 MacOS
 ------
 
-Supports macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through docker.
+PipeCraft is supported on macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through Docker.
 
-1. Check your Mac chip (Apple or Intel) and download `docker for Mac <https://www.docker.com/get-started>`_
+1. Check your Mac chip (Apple or Intel) and download `Docker for Mac <https://www.docker.com/get-started>`_
 
 2. Download PipeCraft for `Mac: pre-release 0.1.0 <https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft-0.1.0.pkg>`_
 
@@ -76,7 +76,7 @@ Supports macOS 10.15+. Older OS versions might not support PipeCraft GUI workflo
 
 .. note::
 
- Manage docker resource limits in docker dashboard:
+ Manage Docker resource limits in the Docker dashboard:
  |resources|
  
 ____________________________________________________
@@ -84,9 +84,9 @@ ____________________________________________________
 Linux
 ------
 
-Tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions might not support PipeCraft GUI workflow through docker.
+PipeCraft was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions might not support PipeCraft GUI workflow through Docker.
 
-1. Install docker; `follow the guidelines under appropriate Linux distribution <https://docs.docker.com/engine/install/>`_
+1. Install Docker; `follow the guidelines under appropriate Linux distribution <https://docs.docker.com/engine/install/>`_
 
 2. If you are a non-root user complete these `post-install steps <https://docs.docker.com/engine/install/linux-postinstall/>`_
 
@@ -98,14 +98,14 @@ Tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions might not supp
 
 .. note::
 
- On Linux, docker can use all available host resources.
+ On Linux, Docker can use all available host resources.
 
 ____________________________________________________
 
 Update PipeCraft
 ----------------
 
-To avaoid any potential software conflicts, all docker images of previous PipeCraft version should be removed. 
+To avaoid any potential software conflicts, all Docker images of previous PipeCraft version should be removed. 
 See :ref:`removing docker images <removedockerimages>` section.
 
 .. note::
@@ -120,7 +120,7 @@ ____________________________________________________
 Uninstalling
 ------------
 
-| **Windows**: uninstall pipecraft via control panel
+| **Windows**: uninstall PipeCraft via control panel
 | **MacOS**: eject and delete the DMG file
 | **Linux**: simply delete AppImage file
 
@@ -128,13 +128,13 @@ ____________________________________________________
 
 .. _removedockerimages:
 
-Removing docker images
+Removing Docker images
 ----------------------
 
-| On **MacOS** and **Windows**: docker images and container can be easily managed from the docker dashboard. For more info visit https://docs.docker.com/desktop/dashboard/
+| On **MacOS** and **Windows**: Docker images and container can be easily managed from the Docker dashboard. For more info visit https://docs.docker.com/desktop/dashboard/
 
-| On **Linux** machines: containers and images are managed via the docker cli commands:
-| rmi https://docs.docker.com/engine/reference/commandline/rmi/ 
-| rm  https://docs.docker.com/engine/reference/commandline/rm/ 
+| On **Linux** machines: containers and images are managed via the Docker cli commands:
+| ``rmi https://docs.docker.com/engine/reference/commandline/rmi/``
+| ``rm  https://docs.docker.com/engine/reference/commandline/rm/``
 | ``sudo docker images`` --> to see which docker images exist
 
