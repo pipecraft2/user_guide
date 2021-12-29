@@ -54,7 +54,7 @@ Software                                                                 Referen
 `MultiQC <https://multiqc.info/>`_                                       `Ewels et al. 2016 <https://doi.org/10.1093/bioinformatics/btw354>`_                       QualityCheck module
 =======================================================================  =========================================================================================  =============
 
-Let us know if you would like to have a specific software implemeted to PipeCraft (:ref:`contacts <contact>`) or create an issue in the [main repository](https://github.com/SuvalineVana/pipecraft/issues).
+Let us know if you would like to have a specific software implemeted to PipeCraft (:ref:`contacts <contact>`) or create an issue in the `main repository <https://github.com/SuvalineVana/pipecraft/issues>`_.
 
 
 Contents
