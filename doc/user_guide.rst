@@ -833,6 +833,15 @@ Setting                          Tooltip
 ``gap_extend``                   | cost to extend a gap
 ================================ =========================
 
+Databases available for taxonomy annotation:
+========== ======= ============================ ==================================================
+Database   Version  Description                 URL
+========== ======= ============================ ==================================================
+``UNITE``  | 8.3   | ITS region, all Eukaryotes | https://plutof.ut.ee/#/doi/10.15156/BIO/1281567
+``SILVA``  | 138.1 | 16S/18S (SSU),             | https://www.arb-silva.de/fileadmin/silva_databases/release_138.1/Exports/SILVA_138.1_SSURef_tax_silva.fasta.gz
+           |       | Bacteria, Archaea and Eukarya |
+========== ======= ============================ ==================================================
+
 ____________________________________________________
 
 .. _expert_mode:
