@@ -136,9 +136,9 @@
 <hr class="docutils" />
 <section id="select-workdir-and-run-analyses">
 <h2>Select workdir and run analyses<a class="headerlink" href="#select-workdir-and-run-analyses" title="Permalink to this headline"></a></h2>
-<p>1. Open your working directory by pressing the <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> button. If working with e.g. <strong>fastq</strong> files,
-then be sure that the working directry contains <strong>only relevent fastq files</strong>, because the selected process will be
-applied to all fastq files in the working directory!</p>
+<p>1. Open your working directory by pressing the <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> button. E.g., if working with <strong>FASTQ</strong> files,
+then be sure that the working directory contains <strong>only relevant FASTQ files</strong> because the selected process will be
+applied to all FASTQ files in the working directory!</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The selection window might not display the files while browsing through the directories.</p>
@@ -149,11 +149,11 @@ the working directory consists of</p>
 <div><ul class="simple">
 <li><p>multiplexed or demultiplexed data</p></li>
 <li><p>the data is paired-end or single-end</p></li>
-<li><p>and the extension of the data (fastq or fasta)</p></li>
+<li><p>and the extension of the data (<code class="docutils literal notranslate"><span class="pre">fastq</span></code> or <code class="docutils literal notranslate"><span class="pre">fasta</span></code>)</p></li>
 </ul>
 </div></blockquote>
 <div class="line-block">
-<div class="line"><code class="docutils literal notranslate"><span class="pre">multiplexed</span></code> –&gt; only one file (or paired files, R1 and R2) per sequencing data</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">multiplexed</span></code> –&gt; only one file (or a pair of files, R1 and R2) per sequencing data</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code> –&gt; multiple per-sample sequencing files</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">paired-end</span> <span class="pre">data</span></code> –&gt; such as data from Illumina or MGI-Tech platforms</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">single-end</span> <span class="pre">data</span></code> –&gt; such as data from PacBio, or assembled paired-end data</div>
@@ -161,20 +161,20 @@ the working directory consists of</p>
 <p>2. Select <a class="reference internal" href="#asvpipe"><span class="std std-ref">ASV</span></a> or <a class="reference internal" href="#otupipe"><span class="std std-ref">OTU</span></a> workflow panel or press <code class="docutils literal notranslate"><span class="pre">ADD</span> <span class="pre">STEP</span></code> button
 to select relevant <a class="reference internal" href="#panels"><span class="std std-ref">steps</span></a> [or <strong>load the PipeCraft settings file</strong>];
 edit settings if needed (<strong>SAVE the settings for later use</strong>) and <strong>start
-running the anayses</strong> by pressing <code class="docutils literal notranslate"><span class="pre">RUN</span> <span class="pre">WORKFLOW</span></code> button.</p>
-<p><strong>If the process is being run for the first time, relevant docker image will be pulled from dockerhub. Thus working Internet connection is initially needed.</strong> Once the docker images are pulled, PipeCraft can work without Internet conection.</p>
+running the analyses</strong> by pressing the <code class="docutils literal notranslate"><span class="pre">RUN</span> <span class="pre">WORKFLOW</span></code> button.</p>
+<p><strong>If the process is being run for the first time, a relevant Docker image will be pulled from `Docker Hub &lt;https://hub.docker.com/u/pipecraft&gt;`. Thus working Internet connection is initially required.</strong> Once the Docker images are pulled, PipeCraft can work without an Internet connection.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>Step-by-step analyses</strong>: after <code class="docutils literal notranslate"><span class="pre">RUN</span> <span class="pre">WORKFLOW</span></code> in finished, then press <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> to specify inputs for the next process</p>
+<p><strong>Step-by-step analyses</strong>: after <code class="docutils literal notranslate"><span class="pre">RUN</span> <span class="pre">WORKFLOW</span></code> is finished, then press <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> to specify inputs for the next process</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <strong>output files will be overwritten</strong> if running the same
-analyses step <strong>multiple times in the same working directory</strong></p>
+analysis step <strong>multiple times in the same working directory</strong></p>
 </div>
-<p>3. Each process gives separate output directory (with the processed files)
+<p>3. Each process creates a separate output directory (with the processed files)
 inside the selected working directory.
-<strong>README</strong> file about the process and <strong>sequence count summary</strong> statistics are included.</p>
+<strong>README</strong> file about the process and <strong>sequence count summary</strong> statistics are included in the output.</p>
 </section>
 <hr class="docutils" />
 <section id="full-pipeline-panels">
@@ -187,13 +187,13 @@ inside the selected working directory.
 </div>
 <p><a class="reference internal" href="_images/asv_main.png"><img alt="Alternative text" src="_images/asv_main.png" style="width: 1500px;" /></a></p>
 <dl>
-<dt>This automated workflow is based on DADA2 <a class="reference external" href="https://benjjneb.github.io/dada2/tutorial.html">tutorial</a></dt><dd><div class="line-block">
-<div class="line">Note that <code class="docutils literal notranslate"><span class="pre">demultiplexing</span></code>, <code class="docutils literal notranslate"><span class="pre">reorient</span></code> and <code class="docutils literal notranslate"><span class="pre">remove</span> <span class="pre">primers</span></code> steps are optional and do not represent parts from DADA2 tutorial. Nevertheless, it is advisable to <a class="reference internal" href="#reorinet"><span class="std std-ref">reorient</span></a> your reads (to 5’-3’) and <a class="reference internal" href="#remove-primers"><span class="std std-ref">remove primers</span></a> before proceeding with ASV generation with DADA2.</div>
+<dt>This automated workflow is based on the <a class="reference external" href="https://benjjneb.github.io/dada2/tutorial.html">DADA2 tutorial</a></dt><dd><div class="line-block">
+<div class="line">Note that <code class="docutils literal notranslate"><span class="pre">demultiplexing</span></code>, <code class="docutils literal notranslate"><span class="pre">reorienting</span></code>, and <code class="docutils literal notranslate"><span class="pre">primer</span> <span class="pre">removal</span></code> steps are optional and do not represent parts from the DADA2 tutorial. Nevertheless, it is advisable to <a class="reference internal" href="#reorinet"><span class="std std-ref">reorient</span></a> your reads (to 5’-3’) and <a class="reference internal" href="#remove-primers"><span class="std std-ref">remove primers</span></a> before proceeding with ASV generation with DADA2.</div>
 </div>
 </dd>
 </dl>
 <div class="line-block">
-<div class="line"><a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">DADA2 manual is here</a></div>
+<div class="line">The official DADA2 manual is available <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">here</a></div>
 </div>
 <p id="dada2-defaults"><strong>Default options:</strong></p>
 <table class="docutils align-default">
@@ -266,9 +266,8 @@ inside the selected working directory.
 <hr class="docutils" />
 <section id="quality-filtering-asvs-workflow">
 <span id="dada2-qual-filt"></span><h4>QUALITY FILTERING [ASVs workflow]<a class="headerlink" href="#quality-filtering-asvs-workflow" title="Permalink to this headline"></a></h4>
-<p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">filterAndTrim</a> function to
-perform quality filtering on input fastq files based on user selected criteria. Outputs filtered fastq files into <code class="docutils literal notranslate"><span class="pre">qualFiltered_out.dada2</span></code> directory.</p>
-<p>Quality profiles may be examined using the <a class="reference internal" href="#interface"><span class="std std-ref">QualityCheck module</span></a></p>
+<p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">filterAndTrim</a> function performs quality filtering on input FASTQ files based on user-selected criteria. Outputs include filtered FASTQ files located in the <code class="docutils literal notranslate"><span class="pre">qualFiltered_out.dada2</span></code> directory.</p>
+<p>Quality profiles may be examined using the <a class="reference internal" href="#interface"><span class="std std-ref">QualityCheck module</span></a>.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 18%" />
@@ -283,7 +282,7 @@ perform quality filtering on input fastq files based on user selected criteria. 
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">read_R1</span></code></p></td>
 <td><div class="line-block">
 <div class="line">identifier string for R1 reads. Default = _R1,</div>
-<div class="line">which means that all R1 reads in a directory may be identified via latter string</div>
+<div class="line">which means that all R1 reads in a directory may be identified via the latter string</div>
 </div>
 </td>
 </tr>
@@ -295,8 +294,8 @@ perform quality filtering on input fastq files based on user selected criteria. 
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">samp_ID</span></code></p></td>
 <td><div class="line-block">
-<div class="line">identifyer string that separates the sample name from redundant charachters</div>
-<div class="line">(e.g. file name = sampl84_S73_L001_R1_001.fastq, then underscore ‘_’ would be</div>
+<div class="line">identifier string that separates the sample name from redundant characters</div>
+<div class="line">(e.g., file name = sampl84_S73_L001_R1_001.fastq, then underscore ‘_’ would be</div>
 <div class="line">the ‘identifier string’ (sample name = sampl84))</div>
 </div>
 </td>
@@ -330,7 +329,7 @@ perform quality filtering on input fastq files based on user selected criteria. 
 <td><div class="line-block">
 <div class="line">truncate reads after truncLen bases (applies to R1 reads when working with paired-end data).</div>
 <div class="line">Reads shorter than this are discarded. Explore quality profiles (with QualityCheck module)</div>
-<div class="line">see whether poor quality ends needs to truncated</div>
+<div class="line">see whether poor quality ends needs to be truncated</div>
 </div>
 </td>
 </tr>
@@ -338,7 +337,7 @@ perform quality filtering on input fastq files based on user selected criteria. 
 <td><div class="line-block">
 <div class="line">truncate R2 reads after truncLen bases.</div>
 <div class="line">Reads shorter than this are discarded. Explore quality profiles</div>
-<div class="line">(with QualityCheck module) see whether poor quality ends needs to truncated</div>
+<div class="line">(with QualityCheck module) see whether poor quality ends needs to be truncated</div>
 </div>
 </td>
 </tr>
@@ -351,7 +350,7 @@ perform quality filtering on input fastq files based on user selected criteria. 
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">minQ</span></code></p></td>
 <td><div class="line-block">
-<div class="line">after truncation, reads contain a quality score below minQ will be discarded</div>
+<div class="line">after truncation, reads containing a quality score below minQ will be discarded</div>
 </div>
 </td>
 </tr>
@@ -717,7 +716,7 @@ Note that reverse complementary matches will also be searched.</p>
 <section id="how-to-compose-indexes-fasta">
 <h4>How to compose indexes.fasta<a class="headerlink" href="#how-to-compose-indexes-fasta" title="Permalink to this headline"></a></h4>
 <p>In Excel (or any alternative program);
-first column represents sample sames,
+first column represents sample names,
 second (and third) column represent indexes (or index combinations) per sample:</p>
 <p>Exaples:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sample1</span>    <span class="n">AGCTGCACCTAA</span>
@@ -1509,6 +1508,55 @@ as filed separator to align the columns.</p>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gap_extend</span></code></p></td>
 <td><div class="line-block">
 <div class="line">cost to extend a gap</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Databases available for taxonomy annotation:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 4%" />
+<col style="width: 20%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Database</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>URL</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">UNITE</span></code></p></td>
+<td><div class="line-block">
+<div class="line">8.3</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">ITS region, all Eukaryotes</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><a class="reference external" href="https://plutof.ut.ee/#/doi/10.15156/BIO/1281567">https://plutof.ut.ee/#/doi/10.15156/BIO/1281567</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SILVA</span></code></p></td>
+<td><div class="line-block">
+<div class="line">138.1</div>
+<div class="line"><br /></div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">16S/18S (SSU),</div>
+<div class="line">Bacteria, Archaea and Eukarya</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><a class="reference external" href="https://www.arb-silva.de/fileadmin/silva_databases/release_138.1/Exports/SILVA_138.1_SSURef_tax_silva.fasta.gz">https://www.arb-silva.de/fileadmin/silva_databases/release_138.1/Exports/SILVA_138.1_SSURef_tax_silva.fasta.gz</a></div>
+<div class="line"><br /></div>
 </div>
 </td>
 </tr>

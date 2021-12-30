@@ -42,9 +42,9 @@ ____________________________________________________
 Select workdir and run analyses
 ===============================
 
-1. Open your working directory by pressing the ``SELECT WORKDIR`` button. If working with e.g. **fastq** files,
-then be sure that the working directry contains **only relevent fastq files**, because the selected process will be 
-applied to all fastq files in the working directory!
+1. Open your working directory by pressing the ``SELECT WORKDIR`` button. E.g., if working with **FASTQ** files,
+then be sure that the working directory contains **only relevant FASTQ files** because the selected process will be 
+applied to all FASTQ files in the working directory!
 
 .. note::
 
@@ -55,9 +55,9 @@ the working directory consists of
 
  * multiplexed or demultiplexed data
  * the data is paired-end or single-end
- * and the extension of the data (fastq or fasta)
+ * and the extension of the data (``fastq`` or ``fasta``)
 
-| ``multiplexed`` --> only one file (or paired files, R1 and R2) per sequencing data
+| ``multiplexed`` --> only one file (or a pair of files, R1 and R2) per sequencing data
 | ``demultiplexed`` --> multiple per-sample sequencing files
 | ``paired-end data`` --> such as data from Illumina or MGI-Tech platforms
 | ``single-end data`` --> such as data from PacBio, or assembled paired-end data
@@ -65,22 +65,22 @@ the working directory consists of
 2. Select :ref:`ASV <asvpipe>` or :ref:`OTU <otupipe>` workflow panel or press ``ADD STEP`` button
 to select relevant :ref:`steps <panels>` [or **load the PipeCraft settings file**]; 
 edit settings if needed (**SAVE the settings for later use**) and **start
-running the anayses** by pressing ``RUN WORKFLOW`` button.
+running the analyses** by pressing the ``RUN WORKFLOW`` button.
 
-**If the process is being run for the first time, relevant docker image will be pulled from dockerhub. Thus working Internet connection is initially needed.** Once the docker images are pulled, PipeCraft can work without Internet conection. 
+**If the process is being run for the first time, a relevant Docker image will be pulled from `Docker Hub <https://hub.docker.com/u/pipecraft>`. Thus working Internet connection is initially required.** Once the Docker images are pulled, PipeCraft can work without an Internet connection. 
 
 .. note::
 
- **Step-by-step analyses**: after ``RUN WORKFLOW`` in finished, then press ``SELECT WORKDIR`` to specify inputs for the next process
+ **Step-by-step analyses**: after ``RUN WORKFLOW`` is finished, then press ``SELECT WORKDIR`` to specify inputs for the next process
 
 .. note::
 
  The **output files will be overwritten** if running the same 
- analyses step **multiple times in the same working directory**
+ analysis step **multiple times in the same working directory**
 
-3. Each process gives separate output directory (with the processed files) 
+3. Each process creates a separate output directory (with the processed files) 
 inside the selected working directory. 
-**README** file about the process and **sequence count summary** statistics are included.
+**README** file about the process and **sequence count summary** statistics are included in the output.
 
 ____________________________________________________
 
@@ -98,10 +98,10 @@ ASVs workflow panel (with `DADA2 <https://benjjneb.github.io/dada2/index.html>`_
 
 |asv_main|
 
-This automated workflow is based on DADA2 `tutorial <https://benjjneb.github.io/dada2/tutorial.html>`_ 
- | Note that ``demultiplexing``, ``reorient`` and ``remove primers`` steps are optional and do not represent parts from DADA2 tutorial. Nevertheless, it is advisable to :ref:`reorient <reorinet>` your reads (to 5'-3') and :ref:`remove primers <remove_primers>` before proceeding with ASV generation with DADA2.
+This automated workflow is based on the `DADA2 tutorial <https://benjjneb.github.io/dada2/tutorial.html>`_ 
+ | Note that ``demultiplexing``, ``reorienting``, and ``primer removal`` steps are optional and do not represent parts from the DADA2 tutorial. Nevertheless, it is advisable to :ref:`reorient <reorinet>` your reads (to 5'-3') and :ref:`remove primers <remove_primers>` before proceeding with ASV generation with DADA2.
 
-| `DADA2 manual is here <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_
+| The official DADA2 manual is available `here <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_
  
 .. _dada2_defaults:
 
@@ -142,19 +142,18 @@ ____________________________________________________
 QUALITY FILTERING [ASVs workflow] 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-DADA2 `filterAndTrim <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to 
-perform quality filtering on input fastq files based on user selected criteria. Outputs filtered fastq files into ``qualFiltered_out.dada2`` directory.
+DADA2 `filterAndTrim <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function performs quality filtering on input FASTQ files based on user-selected criteria. Outputs include filtered FASTQ files located in the ``qualFiltered_out.dada2`` directory.
 
-Quality profiles may be examined using the :ref:`QualityCheck module <interface>`
+Quality profiles may be examined using the :ref:`QualityCheck module <interface>`.
 
 ==================== ============
 Setting              Tooltip
 ==================== ============
 ``read_R1``          | identifier string for R1 reads. Default = _R1, 
-                     | which means that all R1 reads in a directory may be identified via latter string
+                     | which means that all R1 reads in a directory may be identified via the latter string
 ``read_R2``          | identifier string for R2 reads. Default = _R2
-``samp_ID``          | identifyer string that separates the sample name from redundant charachters 
-                     | (e.g. file name = sampl84_S73_L001_R1_001.fastq, then underscore '_' would be 
+``samp_ID``          | identifier string that separates the sample name from redundant characters 
+                     | (e.g., file name = sampl84_S73_L001_R1_001.fastq, then underscore '_' would be 
                      | the 'identifier string' (sample name = sampl84))
 ``maxEE``            | discard sequences with more than the specified number of expected errors
 ``maxN``             | discard sequences with more than the specified number of N’s (ambiguous bases)
@@ -163,13 +162,13 @@ Setting              Tooltip
 ``truncQ``           | truncate reads at the first instance of a quality score less than or equal to truncQ
 ``truncLen``         | truncate reads after truncLen bases (applies to R1 reads when working with paired-end data). 
                      | Reads shorter than this are discarded. Explore quality profiles (with QualityCheck module) 
-                     | see whether poor quality ends needs to truncated
+                     | see whether poor quality ends needs to be truncated
 ``truncLen_R2``      | truncate R2 reads after truncLen bases. 
                      | Reads shorter than this are discarded. Explore quality profiles 
-                     | (with QualityCheck module) see whether poor quality ends needs to truncated
+                     | (with QualityCheck module) see whether poor quality ends needs to be truncated
 ``maxLen``           | remove reads with length greater than maxLen. maxLen is enforced on the raw reads. 
                      | In dada2, the default = Inf, but here set as 9999
-``minQ``             | after truncation, reads contain a quality score below minQ will be discarded
+``minQ``             | after truncation, reads containing a quality score below minQ will be discarded
 ==================== ============
 
 see :ref:`default settings <dada2_defaults>`
@@ -422,7 +421,7 @@ Indexes file example (fasta formatted)
 How to compose indexes.fasta 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 In Excel (or any alternative program); 
-first column represents sample sames,
+first column represents sample names,
 second (and third) column represent indexes (or index combinations) per sample:
 
 Exaples::
@@ -833,6 +832,16 @@ Setting                          Tooltip
 ``gap_open``                     | cost to open a gap
 ``gap_extend``                   | cost to extend a gap
 ================================ =========================
+
+Databases available for taxonomy annotation:
+
+========== ======= ================================= ==================================================================================================================
+Database   Version  Description                       URL
+========== ======= ================================= ==================================================================================================================
+``UNITE``  | 8.3   | ITS region, all Eukaryotes      | https://plutof.ut.ee/#/doi/10.15156/BIO/1281567
+``SILVA``  | 138.1 | 16S/18S (SSU),                  | https://www.arb-silva.de/fileadmin/silva_databases/release_138.1/Exports/SILVA_138.1_SSURef_tax_silva.fasta.gz
+           |       | Bacteria, Archaea and Eukarya   |
+========== ======= ================================= ==================================================================================================================
 
 ____________________________________________________
 
