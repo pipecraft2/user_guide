@@ -37,6 +37,11 @@ The startup panel:
 
 |main_interface|
 
+.. note::
+
+ When **saiving workflow** settings in **Linux**, specify the file extension as **JSON** (e.g. my_pipe.JSON).
+ When loading the workflow, only JSON files will be permitted as input. Windows and Mac OS automatically extend files as JSON.
+
 ____________________________________________________
 
 Select workdir and run analyses
@@ -67,7 +72,7 @@ to select relevant :ref:`steps <panels>` [or **load the PipeCraft settings file*
 edit settings if needed (**SAVE the settings for later use**) and **start
 running the analyses** by pressing the ``RUN WORKFLOW`` button.
 
-**If the process is being run for the first time, a relevant Docker image will be pulled from `Docker Hub <https://hub.docker.com/u/pipecraft>`. Thus working Internet connection is initially required.** Once the Docker images are pulled, PipeCraft can work without an Internet connection. 
+**If the process is being run for the first time**, a relevant Docker image will be pulled from `Docker Hub <https://hub.docker.com/u/pipecraft>`_. Thus working **Internet connection** is initially required. Once the Docker images are pulled, PipeCraft can work without an Internet connection. 
 
 .. note::
 

@@ -110,7 +110,7 @@ Relevant Docker container will be downloaded prior the analysis.</p>
 <hr class="docutils" />
 <section id="windows">
 <h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline"></a></h2>
-<p>PipeCraft was tested on <strong>Windows 10</strong>. Older Windows versions do not support PipeCraft GUI workflow through Docker.</p>
+<p>PipeCraft was tested on <strong>Windows 10</strong> and <strong>Windows 11</strong>. Older Windows versions do not support PipeCraft GUI workflow through Docker.</p>
 <ol class="arabic simple">
 <li><p>Download <a class="reference external" href="https://www.docker.com/get-started">Docker for windows</a></p></li>
 <li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft.Setup.0.1.0.exe">Windows: pre-release 0.1.0</a></p></li>
@@ -132,7 +132,15 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
 <li><p>Install PipeCraft via <strong>pkg</strong> file</p></li>
 <li><p>Currently, this app might be identified as app from an unidentified developer. Grant an exception for a blocked app by clicking the “<strong>Open Anyway</strong>” button in the General panel of <strong>Security &amp; Privacy</strong> preferences</p></li>
 </ol>
-<p><a class="reference internal" href="_images/openanyway.png"><img alt="Alternative text" src="_images/openanyway.png" style="width: 400px;" /></a></p>
+<blockquote>
+<div><p><a class="reference internal" href="_images/openanyway.png"><img alt="Alternative text" src="_images/openanyway.png" style="width: 400px;" /></a></p>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p>Open <strong>Docker dashboard</strong>: Settings -&gt; Resources -&gt; File Sharing; and add the directory where <strong>pipecraft.app</strong> was installed (it is usually /Appications)</p></li>
+</ol>
+<blockquote>
+<div><p><a class="reference internal" href="_images/Mac_docker_share.png"><img alt="Alternative text" src="_images/Mac_docker_share.png" style="width: 400px;" /></a></p>
+</div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Manage Docker resource limits in the Docker dashboard:
@@ -146,9 +154,9 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
 <ol class="arabic simple">
 <li><p>Install Docker; <a class="reference external" href="https://docs.docker.com/engine/install/">follow the guidelines under appropriate Linux distribution</a></p></li>
 <li><p>If you are a non-root user complete these <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">post-install steps</a></p></li>
-<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft-0.1.0.AppImage">Linux: pre-release 0.1.0</a></p></li>
-<li><p>Make AppImage executable as program: 1) right click the AppImage; 2) navigate under <strong>Permissions</strong> tab; 3) tick the <strong>Allow executing file as program</strong></p></li>
-<li><p>Run PipeCraft via the AppImage file</p></li>
+<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft_0.1.0_amd64.deb">Linux: pre-release 0.1.0</a></p></li>
+<li><p>Right click on the pipecraft_*.deb file and “Open With GDebi Package Installer” (Install Package) or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">dpkg</span> <span class="pre">-i</span> <span class="pre">path_to_deb_file</span></code></p></li>
+<li><p>Run PipeCraft. If PipeCraft shortcut does not appear on the Desktop, then search the app and generate shortcut manually (installed in <em>/opt/pipecraft</em> directory)</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -173,8 +181,8 @@ See <a class="reference internal" href="#removedockerimages"><span class="std st
 <span id="id1"></span><h2>Uninstalling<a class="headerlink" href="#uninstalling" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line"><strong>Windows</strong>: uninstall PipeCraft via control panel</div>
-<div class="line"><strong>MacOS</strong>: eject and delete the DMG file</div>
-<div class="line"><strong>Linux</strong>: simply delete AppImage file</div>
+<div class="line"><strong>MacOS</strong>: Move pipecraft.app to Bin</div>
+<div class="line"><strong>Linux</strong>: remove pipecraft via Software Manager/Software Centre or via terminal <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">dpkg</span> <span class="pre">--remove</span> <span class="pre">pipecraft</span></code></div>
 </div>
 <hr class="docutils" />
 </section>
@@ -183,11 +191,16 @@ See <a class="reference internal" href="#removedockerimages"><span class="std st
 <div class="line-block">
 <div class="line">On <strong>MacOS</strong> and <strong>Windows</strong>: Docker images and container can be easily managed from the Docker dashboard. For more info visit <a class="reference external" href="https://docs.docker.com/desktop/dashboard/">https://docs.docker.com/desktop/dashboard/</a></div>
 </div>
+<p><a class="reference internal" href="_images/purge_docker_Win.png"><img alt="Alternative text" src="_images/purge_docker_Win.png" style="width: 500px;" /></a></p>
 <div class="line-block">
-<div class="line">On <strong>Linux</strong> machines: containers and images are managed via the Docker cli commands:</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">rmi</span> <span class="pre">https://docs.docker.com/engine/reference/commandline/rmi/</span></code></div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">rm</span>&#160; <span class="pre">https://docs.docker.com/engine/reference/commandline/rm/</span></code></div>
+<div class="line"><br /></div>
+<div class="line">On <strong>Linux</strong> machines: containers and images are managed via the Docker cli commands (<a class="reference external" href="https://docs.docker.com/engine/reference/commandline/rmi/">https://docs.docker.com/engine/reference/commandline/rmi/</a>):</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">images</span></code> –&gt; to see which docker images exist</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">rmi</span> <span class="pre">IMAGE_ID_here</span></code> –&gt; to delete selected image</div>
+</div>
+<p>or</p>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">system</span> <span class="pre">prune</span> <span class="pre">-a</span></code> –&gt; to delete all unused containers, networks, images</div>
 </div>
 </section>
 </section>
