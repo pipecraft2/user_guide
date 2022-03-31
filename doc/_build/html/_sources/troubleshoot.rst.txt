@@ -1,6 +1,6 @@
-.. image:: _static/PipeCraft2_icon_v2.png
+.. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 100
-  :alt: logo
+  :alt: Alternative text
 
 .. |learnErrors| image:: _static/troubleshoot/learnErrors.png
   :width: 250
@@ -9,14 +9,29 @@
 .. |dimnames| image:: _static/troubleshoot/dimnames.png
   :width: 250
   :alt: Alternative text
+
+.. |learnErrors_fewReads| image:: _static/troubleshoot/learnErrors_fewReads.png
+  :width: 250
+  :alt: Alternative text
+
+.. |workflow_stopped| image:: _static/troubleshoot/workflow_stopped.png
+  :width: 250
+  :alt: Alternative text
+
+.. |DADA2_read_identifiers| image:: _static/troubleshoot/DADA2_read_identifiers.png
+  :width: 250
+  :alt: Alternative text
+
   
-|
+ 
+|PipeCraft2_logo|
+  `github <https://github.com/SuvalineVana/pipecraft>`_
 
 ================
 Troubleshooting
 ================
 
-This page is developing based on user feedback.
+This page is developing based on the user feedback.
 
 ____________________________________________________
 
@@ -24,14 +39,25 @@ ASVs workflow
 ==============
 
 .. error::
+  "Workflow stopped"
+
+ |workflow_stopped|
+
+**Possible reason**: Computer's memory is full, cannot finish the analyses.
+
+**Fix**: Analyse fewer number of samples or increase RAM size.
+
+____________________________________________________
+
+.. error::
 
  "Error in derepFastq(fls[[i]], qualityType = qualityType) : Not all provided files exist. Calls: learnErrors -> derepFastq. Execution halted"
 
-|learnErrors| 
+ |learnErrors| 
 
 **Possible reason**: Some samples have completely discarded by quality filtering process. 
 
-**Fix**: Edit the quality filtering settings or excluded poor quality samples prior ASVs workflow. 
+**Fix**: Examine **seq_count_summary.csv** file in ``qualFiltered_out.dada2`` folder and discard samples, which had 0 quality filtered sequences (poor quality samples). Or edit the quality filtering settings.
 
 ____________________________________________________
 
@@ -39,11 +65,37 @@ ____________________________________________________
 
  "Error in dimnames(x) <- dn : length of 'dimnames' [2] not equal to array extent"
 
-|dimnames|
+ |dimnames|
 
 **Possible reason**: Using only one or two samples to generate ASVs table.
 
 **Fix**: Include at least three samples to ASVs workflow to generate ASVs table. Note: fixing this error in the upcoming releases. 
+
+____________________________________________________
+
+.. error::
+
+ Error in filterAndTrim. Every input file must have a corresponding output file.
+
+  |DADA2_read_identifiers|
+
+**Possible reason**: wrong read identifiers for ``read R1`` and ``read R2`` in QUALITY FILTERING panel. 
+
+**Fix**: Check the input fastq file names and edit the identifiers. 
+Specify identifyer string that is common for all R1 reads (e.g. when all R1 files have '.R1' string, then enter '\\.R1'. 
+Note that backslash is only needed to escape dot regex; e.g. when all R1 files have '_R1' string, then enter '_R1'.). When demultiplexing data in during ASV (DADA2) workflow, then specify as '\\.R1'
+____________________________________________________
+
+.. error::
+
+  "Error rates could not be estimated (this is usually because of very few reads). Error in getErrors(err, enforce = TRUE) : Error matrix is null."
+
+  |learnErrors_fewReads|
+
+**Possible reason**: Too small data set; samples contain too few reads for DADA2 denoising.
+
+**Fix**: use OTU workflow.
+
 
 General
 =======

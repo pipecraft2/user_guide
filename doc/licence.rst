@@ -1,8 +1,9 @@
-.. image:: _static/PipeCraft2_icon_v2.png
+.. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 100
-  :alt: logo
+  :alt: Alternative text
 
-|
+|PipeCraft2_logo|
+  `github <https://github.com/SuvalineVana/pipecraft>`_
 
 =======
 Licence

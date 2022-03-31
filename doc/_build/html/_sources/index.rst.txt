@@ -30,6 +30,29 @@ Manual for PipeCraft 2
  but supports also single-step mode where analyses may be performed in a step-by-step manner *(e.g. perform quality filtering, then examine the output and decide whether to adjust the quality filtering options of 
  to proceed with next step, e.g. with chimera filtering step)*.
 
+
+Contents
+--------
+
+.. toctree::
+   :maxdepth: 2
+
+   installation
+   user_guide
+   tutorial
+   troubleshoot
+   licence
+   contact
+   citation
+   releases
+
+| 
+| 
+
+*Manual may contain some typos! Fixing those on the way.*
+
+____________________________________________________
+
 .. _tools:
 
 Currently implemented software
@@ -56,22 +79,25 @@ Software                                                                 Referen
 
 Let us know if you would like to have a specific software implemeted to PipeCraft (:ref:`contacts <contact>`) or create an issue in the `main repository <https://github.com/SuvalineVana/pipecraft/issues>`_.
 
+____________________________________________________
 
-Contents
---------
+.. _containers:
 
-.. toctree::
-   :maxdepth: 2
+Docker images (latest)
+----------------------
 
-   installation
-   user_guide
-   troubleshoot
-   licence
-   contact
-   citation
-   releases
+====================================  ===============================================================  =========
+Image                                 Task                                                             Size
+====================================  ===============================================================  =========
+ewels/multiqc                         fastq files quality checking; QualityCheck panel                 202 Mb
+staphb/fastqc                         fastq files quality checking; QualityCheck panel                 485 Mb
+pipecraft/cutadapt                    DEMULTIPLEX, CUT PRIMERS                                         582 Mb
+pipecraft/dada2                       ASV workflow                                                     1.43 Bb
+pipecraft/reorient                    REORIENT                                                         340 Mb
+pipecraft/trimmomatic                 QUALITY FILTERING with trimmomatic                               99 Mb
+pipecraft/vsearch                     QUALITY FILTERING, ASSEMBLE, CHIMERA FILTERING ...               278 Mb
+pipecraft/itx                         ITS EXTRACTOR                                                    609 Mb
+pipecraft/blast                       TAXONOMY ASSIGNMENT with BLAST                                   2.73 Gb
+====================================  ===============================================================  =========
 
-| 
-| 
 
-*Manual may contain some typos! Fixing those on the way.*

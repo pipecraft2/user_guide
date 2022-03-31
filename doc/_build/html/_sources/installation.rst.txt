@@ -1,6 +1,6 @@
-.. image:: _static/PipeCraft2_icon_v2.png
+.. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 100
-  :alt: logo
+  :alt: Alternative text
 
 .. |resources| image:: _static/resources1.png
   :width: 600
@@ -19,12 +19,23 @@
     :description lang=en:
         PipeCraft manual. How to install PipeCraft
 
+
+|PipeCraft2_logo|
+  `github <https://github.com/SuvalineVana/pipecraft>`_
+
 ==============
 Installation
 ==============
 
 | This is **pre-release 0.1.0**.
 | Current version **does not work on High Performance Computing (HPC) clusters yet**.
+
+____________________________________________________
+
+.. contents:: Contents
+   :depth: 3
+
+____________________________________________________
 
 Prerequisites
 -------------

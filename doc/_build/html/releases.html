@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Releases &mdash; PipeCraft 2 0.1.0 documentation</title>
+  <title>Releases &mdash; PipeCraft 2 0.1.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -29,7 +29,7 @@
             <a href="index.html" class="icon icon-home"> PipeCraft 2
           </a>
               <div class="version">
-                0.1.0
+                0.1.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -42,11 +42,13 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citation.html">How to cite</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Releases</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#xx-04-2022">0.1.1 (XX.04.2022)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pre-release-14-12-2021">0.1.0 pre-release (14.12.2021)</a></li>
 </ul>
 </li>
@@ -76,14 +78,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <a class="reference internal image-reference" href="_images/PipeCraft2_icon_v2.png"><img alt="logo" src="_images/PipeCraft2_icon_v2.png" style="width: 100px;" /></a>
-<div class="line-block">
-<div class="line"><br /></div>
+  <dl class="simple">
+<dt><a class="reference internal" href="_images/PipeCraft2_icon_v2.png"><img alt="Alternative text" src="_images/PipeCraft2_icon_v2.png" style="width: 100px;" /></a></dt><dd><p><a class="reference external" href="https://github.com/SuvalineVana/pipecraft">github</a></p>
+</dd>
+</dl>
+<style> .red {color:#ff0000; font-weight:bold; font-size:16px} </style><section id="releases">
+<h1><a class="toc-backref" href="#id3">Releases</a><a class="headerlink" href="#releases" title="Permalink to this headline"></a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#releases" id="id3">Releases</a></p>
+<ul>
+<li><p><a class="reference internal" href="#xx-04-2022" id="id4">0.1.1 (XX.04.2022)</a></p></li>
+<li><p><a class="reference internal" href="#pre-release-14-12-2021" id="id5">0.1.0 pre-release (14.12.2021)</a></p></li>
+</ul>
+</li>
+</ul>
 </div>
-<section id="releases">
-<h1>Releases<a class="headerlink" href="#releases" title="Permalink to this headline"></a></h1>
+<hr class="docutils" />
+<hr class="docutils" />
+<section id="xx-04-2022">
+<span id="id1"></span><h2><a class="toc-backref" href="#id4">0.1.1 (XX.04.2022)</a><a class="headerlink" href="#xx-04-2022" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>cosmetic changes: separate output forlder for unused index combinations in demultiplexing.</p></li>
+<li><p>bug fixes: resolved issues with sample renaiming when using dual combinational indexes for paired-end data
+(DEMULTIPLEX); minBoot option fixed in DADA2 taxonomy annotation; vsearch quality filtering
+“minsize” not working (option currently removed).</p></li>
+</ul>
+<hr class="docutils" />
+</section>
 <section id="pre-release-14-12-2021">
-<span id="id1"></span><h2>0.1.0 pre-release (14.12.2021)<a class="headerlink" href="#pre-release-14-12-2021" title="Permalink to this headline"></a></h2>
+<span id="id2"></span><h2><a class="toc-backref" href="#id5">0.1.0 pre-release (14.12.2021)</a><a class="headerlink" href="#pre-release-14-12-2021" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>ASV workflow with DADA2 for paired-end data.</p></li>
 <li><p>vsearch based OTU workflow.</p></li>
@@ -92,52 +117,59 @@
 <p>Implemented software:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 44%" />
-<col style="width: 56%" />
+<col style="width: 42%" />
+<col style="width: 5%" />
+<col style="width: 53%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Software</p></th>
+<th class="head"><p>version</p></th>
 <th class="head"><p>Reference</p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><a class="reference external" href="https://benjjneb.github.io/dada2/index.html">DADA2</a></p></td>
+<td><p>1.14</p></td>
 <td><p><a class="reference external" href="https://www.nature.com/articles/nmeth.3869">Callahan et. al 2016</a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a></p></td>
+<td><p>2.18.0</p></td>
 <td><p><a class="reference external" href="https://peerj.com/articles/2584/">Rognes et. al 2016</a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference external" href="http://www.usadellab.org/cms/?page=trimmomatic">trimmomatic</a></p></td>
+<td><p>0.39</p></td>
 <td><p><a class="reference external" href="https://doi.org/10.1093/bioinformatics/btu170">Bolger et al. 2014</a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference external" href="https://bioinf.shenwei.me/seqkit/">seqkit</a></p></td>
+<td><p>2.0.0</p></td>
 <td><p><a class="reference external" href="https://doi.org/10.1371/journal.pone.0163962">Shen et al. 2016</a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference external" href="https://cutadapt.readthedocs.io/en/stable/">cutadapt</a></p></td>
+<td><p>3.5</p></td>
 <td><p><a class="reference external" href="https://doi.org/10.14806/ej.17.1.200">Martin 2011</a></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://biopython.org/">biopython</a></p></td>
-<td><p><a class="reference external" href="https://academic.oup.com/bioinformatics/article/25/11/1422/330687">Cock et al. 2009</a></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://doi.org/10.5281/zenodo.4710607">GNU Parallel</a></p></td>
-<td><p><a class="reference external" href="https://doi.org/10.5281/zenodo.4710607">Tangle 2021</a></p></td>
-</tr>
 <tr class="row-odd"><td><p><a class="reference external" href="https://github.com/mothur/mothur">mothur</a></p></td>
+<td><p>1.46.1</p></td>
 <td><p><a class="reference external" href="https://doi.org/10.1128/AEM.01541-09">Schloss et al. 2009</a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference external" href="https://microbiology.se/software/itsx/">ITS Extractor</a></p></td>
+<td><p>1.1.3</p></td>
 <td><p><a class="reference external" href="https://doi.org/10.1111/2041-210X.12073">Bengtsson-Palme et al. 2013</a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference external" href="https://github.com/indraniel/fqgrep">fqgrep</a></p></td>
+<td><p>0.4.4</p></td>
 <td><p><a class="reference external" href="https://github.com/indraniel/fqgrep">Indraniel Das 2011</a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference external" href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a></p></td>
+<td><p>2.11.0+</p></td>
 <td><p><a class="reference external" href="https://doi.org/10.1186/1471-2105-10-421">Camacho et al. 2009</a></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference external" href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a></p></td>
+<td><p>0.11.9</p></td>
 <td><p><a class="reference external" href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">Andrews 2019</a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference external" href="https://multiqc.info/">MultiQC</a></p></td>
+<td><p>1.12</p></td>
 <td><p><a class="reference external" href="https://doi.org/10.1093/bioinformatics/btw354">Ewels et al. 2016</a></p></td>
 </tr>
 </tbody>

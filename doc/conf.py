@@ -21,7 +21,7 @@ copyright = '2022, Sten Anslan'
 author = 'Sten Anslan'
 
 # The full version, including alpha/beta/rc tags
-version = '0.1.0'
+version = '0.1.1'
 release = version
 
 # -- General configuration ---------------------------------------------------
@@ -44,7 +44,6 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
 html_theme = 'sphinx_rtd_theme'
 
 html_theme_options = {
