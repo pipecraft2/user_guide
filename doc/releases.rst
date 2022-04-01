@@ -13,6 +13,9 @@
 
 .. role:: red
 
+
+.. _releases:
+
 =========
 Releases
 =========
@@ -60,14 +63,17 @@ ____________________________________________________
 
 .. _0.1.1:
 
-0.1.1 (XX.04.2022)
+0.1.1 (01.04.2022)
 ==================
 
-* cosmetic changes: separate output forlder for unused index combinations in demultiplexing.  
-* bug fixes: resolved issues with sample renaiming when using dual combinational indexes for paired-end data 
-  (DEMULTIPLEX); minBoot option fixed in DADA2 taxonomy annotation; vsearch quality filtering 
-  "minsize" not working (option currently removed).
+Minor cosmetic changes and bug fixes. 
+`DOWNLOADS <https://github.com/SuvalineVana/pipecraft/releases/tag/0.1.1>`_
 
+* separate output forlder for unused index combinations in demultiplexing.  
+* resolved issues with sample renaiming when using dual combinational indexes for paired-end data 
+  (DEMULTIPLEX)
+* minBoot option fixed in DADA2 taxonomy annotation
+* vsearch quality filtering "minsize" not working (option currently removed).
 
 ____________________________________________________
 
@@ -75,6 +81,8 @@ ____________________________________________________
 
 0.1.0 pre-release (14.12.2021)
 ==============================
+
+`DOWNLOADS <https://github.com/SuvalineVana/pipecraft/releases/tag/0.1.0>`_
 
 * ASV workflow with DADA2 for paired-end data.
 * vsearch based OTU workflow.

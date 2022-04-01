@@ -27,8 +27,7 @@
 Installation
 ==============
 
-| This is **pre-release 0.1.0**.
-| Current version **does not work on High Performance Computing (HPC) clusters yet**.
+| Current :ref:`versions <releases>` do not work on High Performance Computing (**HPC**) clusters **yet**.
 
 ____________________________________________________
 
@@ -63,7 +62,7 @@ PipeCraft was tested on **Windows 10** and **Windows 11**. Older Windows version
 
 1. Download `Docker for windows <https://www.docker.com/get-started>`_ 
 
-2. Download PipeCraft for `Windows: pre-release 0.1.0 <https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft.Setup.0.1.0.exe>`_
+2. Download PipeCraft for `Windows: 0.1.1 <https://github.com/SuvalineVana/pipecraft/releases/download/0.1.1/pipecraft.Setup.0.1.1.exe>`_
 
 3. Install PipeCraft via the setup executable
 
@@ -81,7 +80,7 @@ PipeCraft is supported on macOS 10.15+. Older OS versions might not support Pipe
 
 1. Check your Mac chip (Apple or Intel) and download `Docker for Mac <https://www.docker.com/get-started>`_
 
-2. Download PipeCraft for `Mac: pre-release 0.1.0 <https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft-0.1.0.pkg>`_
+2. Download PipeCraft for `Mac: 0.1.1 <https://github.com/SuvalineVana/pipecraft/releases/download/0.1.1/pipecraft-0.1.1.pkg>`_
 
 3. Install PipeCraft via **pkg** file
 
@@ -109,7 +108,7 @@ PipeCraft was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions 
 
 2. If you are a non-root user complete these `post-install steps <https://docs.docker.com/engine/install/linux-postinstall/>`_
 
-3. Download PipeCraft for `Linux: pre-release 0.1.0 <https://github.com/SuvalineVana/pipecraft/releases/download/0.1.0/pipecraft_0.1.0_amd64.deb>`_
+3. Download PipeCraft for `Linux: 0.1.1 <https://github.com/SuvalineVana/pipecraft/releases/download/0.1.1/pipecraft_0.1.1_amd64.deb>`_
 
 4. Right click on the pipecraft_*.deb file and "Open With GDebi Package Installer" (Install Package) or ``sudo dpkg -i path_to_deb_file``
 
@@ -129,8 +128,7 @@ See :ref:`removing docker images <removedockerimages>` section.
 
 .. note::
 
- | Currently available versions:
- | :ref:`pre-release 0.1.0 <0.1.0>`
+ | Currently available versions :ref:`HERE <releases>`
 
 ____________________________________________________
 
