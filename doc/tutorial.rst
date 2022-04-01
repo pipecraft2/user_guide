@@ -32,6 +32,11 @@ Walkthrough
 
 Some example analyses pipelines.
 
+.. note::
+
+  When samples of interest are distributed between different sequencing libraries, then first demultiplex (if needed)
+  libraries separately and place samples of interest into separate working directory.
+
 .. contents:: Contents
    :depth: 4
 
