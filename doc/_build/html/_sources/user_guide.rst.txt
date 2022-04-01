@@ -994,7 +994,13 @@ Implemented tools for taxonomy annotation:
 `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_ (`Camacho et al. 2009 <https://doi.org/10.1186/1471-2105-10-421>`_)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BLAST search sequences againt selected database. 
+| BLAST search sequences againt selected database. 
+
+.. important::
+
+ **BLAST database needs to be an unzipped fasta file in a separate folder** (fasta will be automatically converted to BLAST database files). 
+ If converted BLAST database files (.ndb, .nhr, .nin, .not, .nsq, .ntf, .nto) already exist, then just SELECT **one** of those files as BLAST database in 
+ 'ASSIGN TAXONOMY' panel.
 
 | Supported file format for the input data is **fasta**.
 | **Outputs** are **BLAST_1st_best_hit.txt** and **BLAST_10_best_hits.txt** files in ``taxonomy_out`` directory.

@@ -32,6 +32,11 @@ Walkthrough
 
 Some example analyses pipelines.
 
+.. note::
+
+  When samples of interest are distributed between different sequencing libraries, then first demultiplex (if needed)
+  libraries separately and place samples of interest into separate working directory.
+
 .. contents:: Contents
    :depth: 4
 
@@ -510,8 +515,9 @@ Identify and extract the ITS regions using ITSx; :ref:`see here <itsextractor>`
   :width: 600
   :alt: Alternative text   
 
-* **Tick** ``ASSIGN TAXONOMY`` to perform taxonomy assignment with BLAST
+* Tick ``ASSIGN TAXONOMY`` to perform taxonomy assignment with BLAST
 * download SILVA 99% database :ref:`here <databases>` (SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz)
+* **unzip** the downloaded database and place this into separete folder (to automatically make blast database from that fasta file)
 * specify the location of your downloaded SILVA database by pressing ``SELECT FILE`` under 'database file' option
 * since primers were already removed from this data set, we could not :ref:`reorient all sequences to uniform orientation as based on primers <reorient>`. 
    Therefore, **keep ON** the ``strands``=both to include reverse-complement search. 

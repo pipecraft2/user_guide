@@ -99,6 +99,11 @@
 <section id="walkthrough">
 <h1><a class="toc-backref" href="#id6">Walkthrough</a><a class="headerlink" href="#walkthrough" title="Permalink to this headline"></a></h1>
 <p>Some example analyses pipelines.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When samples of interest are distributed between different sequencing libraries, then first demultiplex (if needed)
+libraries separately and place samples of interest into separate working directory.</p>
+</div>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -935,8 +940,9 @@ Select appropriate ITSx output folder for CLUSTERING after the process is finish
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><strong>Tick</strong> <code class="docutils literal notranslate"><span class="pre">ASSIGN</span> <span class="pre">TAXONOMY</span></code> to perform taxonomy assignment with BLAST</p></li>
+<li><p>Tick <code class="docutils literal notranslate"><span class="pre">ASSIGN</span> <span class="pre">TAXONOMY</span></code> to perform taxonomy assignment with BLAST</p></li>
 <li><p>download SILVA 99% database <a class="reference internal" href="user_guide.html#databases"><span class="std std-ref">here</span></a> (SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz)</p></li>
+<li><p><strong>unzip</strong> the downloaded database and place this into separete folder (to automatically make blast database from that fasta file)</p></li>
 <li><p>specify the location of your downloaded SILVA database by pressing <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">FILE</span></code> under ‘database file’ option</p></li>
 <li><dl class="simple">
 <dt>since primers were already removed from this data set, we could not <a class="reference internal" href="user_guide.html#reorient"><span class="std std-ref">reorient all sequences to uniform orientation as based on primers</span></a>.</dt><dd><p>Therefore, <strong>keep ON</strong> the <a href="#id3"><span class="problematic" id="id4">``</span></a>strands``=both to include reverse-complement search.</p>

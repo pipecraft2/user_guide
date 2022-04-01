@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tutorials" href="tutorial.html" />
+    <link rel="next" title="Walkthrough" href="tutorial.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
 </head>
 
@@ -98,7 +98,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#expert-mode-pipecraft-console">Expert-mode (PipeCraft console)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Walkthrough</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
@@ -1643,7 +1643,15 @@ extract ITS regions with <a class="reference external" href="https://microbiolog
 <p>Implemented tools for taxonomy annotation:</p>
 <section id="blast-camacho-et-al-2009">
 <h4><a class="reference external" href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> (<a class="reference external" href="https://doi.org/10.1186/1471-2105-10-421">Camacho et al. 2009</a>)<a class="headerlink" href="#blast-camacho-et-al-2009" title="Permalink to this headline"></a></h4>
-<p>BLAST search sequences againt selected database.</p>
+<div class="line-block">
+<div class="line">BLAST search sequences againt selected database.</div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>BLAST database needs to be an unzipped fasta file in a separate folder</strong> (fasta will be automatically converted to BLAST database files).
+If converted BLAST database files (.ndb, .nhr, .nin, .not, .nsq, .ntf, .nto) already exist, then just SELECT <strong>one</strong> of those files as BLAST database in
+‘ASSIGN TAXONOMY’ panel.</p>
+</div>
 <div class="line-block">
 <div class="line">Supported file format for the input data is <strong>fasta</strong>.</div>
 <div class="line"><strong>Outputs</strong> are <strong>BLAST_1st_best_hit.txt</strong> and <strong>BLAST_10_best_hits.txt</strong> files in <code class="docutils literal notranslate"><span class="pre">taxonomy_out</span></code> directory.</div>
@@ -1816,7 +1824,7 @@ or enter the working directory via the terminal to specify the working directory
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tutorial.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Walkthrough" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
