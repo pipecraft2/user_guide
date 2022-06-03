@@ -39,6 +39,7 @@ Contents
    installation
    user_guide
    tutorial
+   postprocessing
    troubleshoot
    licence
    contact
