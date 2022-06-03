@@ -30,5 +30,25 @@
 Post-processing tools
 =====================
 
+.. contents:: Contents
+   :depth: 2
+
+
+____________________________________________________
+
+.. _deicode: 
+
+DEICODE
+
+DEICODE (Martino et al., 2019; DOI 10.1128/mSystems.00016-19) is used to perform beta diversity analysis 
+by applying robust Aitchison PCA on the OTU/ASV table. To consider the compositional nature of data, 
+it preprocesses data with rCLR transformation (centered log-ratio on only non-zero values, without adding pseudo count). 
+As a second step, it performs dimensionality reduction of the data using robust PCA (also applied only to the non-zero values of the data), 
+where sparse data are handled through matrix completion.
+
+Additional information:
+- `DEICODE tutorial <https://library.qiime2.org/plugins/deicode/19/>` 
+- `DEICODE repository <https://github.com/biocore/DEICODE>`
+- `DEICODE paper <https://journals.asm.org/doi/10.1128/mSystems.00016-19>`
 
 
