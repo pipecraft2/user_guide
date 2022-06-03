@@ -74,6 +74,7 @@ Software                                                                 Referen
 `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                      `Camacho et al. 2009 <https://doi.org/10.1186/1471-2105-10-421>`_                          assign taxonomy
 `FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_   `Andrews 2019 <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_               QualityCheck module
 `MultiQC <https://multiqc.info/>`_                                       `Ewels et al. 2016 <https://doi.org/10.1093/bioinformatics/btw354>`_                       QualityCheck module
+`LULU <https://github.com/tobiasgf/lulu>`_                               `Frøslev et al. 2017 <https://www.nature.com/articles/s41467-017-01312-x>`_                post-clustering curation
 =======================================================================  =========================================================================================  =============
 
 Let us know if you would like to have a specific software implemeted to PipeCraft (:ref:`contacts <contact>`) or create an issue in the `main repository <https://github.com/SuvalineVana/pipecraft/issues>`_.
