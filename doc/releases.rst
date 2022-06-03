@@ -27,19 +27,18 @@ ____________________________________________________
 
 .. hide:
  
- .. _0.2.0:
+ .. _0.1.2:
 
-  0.2.0 (XX.04.2022)
+  0.1.2 (XX.04.2022)
   ==================
 
-  coming soon ...
-
-  * LULU post-clustering 
-  * fastp quality filtering
-  * added DADA2 assignTaxonomy under genereal (ADD STEP) 'ASSIGN TAXONOMY' panel
+   * added LULU post-clustering 
+   * added fastp quality filtering
+   * added DADA2 assignTaxonomy under genereal (ADD STEP) 'ASSIGN TAXONOMY' panel
+   * added --fastq_truncqual option for vsearch quality filtering
     
   Implemented software:
-  *(software in bold font denote new additions; 'version' in bold denotes version update)*
+  *(software in red font denote new additions; 'version' in bold denotes version update)*
 
   =======================================================================  ========  =========================================================================================
   Software                                                                 version   Reference                                                                                  
