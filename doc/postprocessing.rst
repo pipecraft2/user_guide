@@ -92,3 +92,37 @@ PERMANOVA and PERMDISP example using the robust Aitchison distance
       ## Run PERMDISP
       permdisp <- betadisper(dd, meta$TestData)
       plot(permdisp)
+
+Example of plotting the ordination scores
+  .. code-block:: r
+      library(ggplot2)
+
+      ## Load ordination scores
+      ord <- readLines("ordination.txt")
+
+      ## Skip PCA summary
+      ord <- ord[ 8:length(ord) ]
+
+      ## Break the data into sample and species scores
+      breaks <- which(! nzchar(ord))
+      ord <- ord[1:(breaks[2]-1)]               # Skip biplot scores
+      ord_sp <- ord[1:(breaks[1]-1)]            # species scores
+      ord_sm <- ord[(breaks[1]+2):length(ord)]  # sample scores
+
+      ## Convert scores to data.frames 
+      ord_sp <- as.data.frame( do.call(rbind, strsplit(x = ord_sp, split = "\t")) )
+      colnames(ord_sp) <- c("OTU_ID", paste0("PC", 1:(ncol(ord_sp)-1)))
+
+      ord_sm <- as.data.frame( do.call(rbind, strsplit(x = ord_sm, split = "\t")) )
+      colnames(ord_sm) <- c("Sample_ID", paste0("PC", 1:(ncol(ord_sm)-1)))
+
+      ## Convert PCA to numbers
+      ord_sp[colnames(ord_sp)[-1]] <- sapply(ord_sp[colnames(ord_sp)[-1]], as.numeric)
+      ord_sm[colnames(ord_sm)[-1]] <- sapply(ord_sm[colnames(ord_sm)[-1]], as.numeric)
+
+      ## At this step, sample and OTU metadata could be added to the data.frame
+
+      ## Example plot
+      ggplot(data = ord_sm, aes(x = PC1, y = PC2)) + geom_point()
+
+
