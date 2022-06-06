@@ -51,4 +51,17 @@ Additional information:
 - `DEICODE repository <https://github.com/biocore/DEICODE>`
 - `DEICODE paper <https://journals.asm.org/doi/10.1128/mSystems.00016-19>`
 
+The output provided:
+====================================  ========================================================================
+Filename                              Description                                                    
+====================================  ========================================================================
+DEICODE_out/otutab.biom               Full OTU table in BIOM format
+DEICODE_out/rclr_subset.tsv           rCLR-transformed subset of OTU table *
+DEICODE_out/full/distance-matrix.tsv  Distance matrix between the samples, based on full OTU table
+DEICODE_out/full/ordination.txt       Ordination scores for samples and OTUs, based on full OTU table
+DEICODE_out/full/rclr.tsv             rCLR-transformed OTU table
+DEICODE_out/subs/distance-matrix.tsv  Distance matrix between the samples, based on a subset of OTU table *
+DEICODE_out/subs/ordination.txt       Ordination scores for samples and OTUs, based on a subset of OTU table *
+====================================  ========================================================================
+*, files are present only if 'subset_IDs' variable was specified
 
