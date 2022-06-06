@@ -41,15 +41,7 @@ ____________________________________________________
 Post-clustering (LULU)
 -----------------------
 
-The purpose of LULU is to reduce the number of erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. 
-By evaluating the co-occurence patterns of OTUs among samples LULU identifies OTUs that consistently satisfy some user selected 
-criteria for being errors of more abundant OTUs and merges these. It has been shown that curation with LULU consistently result 
-in more realistic diversity metrics. The required input of LULU is an OTU table and a corresponding matchlist with all the internal matches of OTUs.
 
-
-Additional information:
- - `LULU repository <https://github.com/tobiasgf/lulu>`_
- - `LULU paper <https://doi.org/10.1038/s41467-017-01312-x>`_
 
 .. _deicode: 
 

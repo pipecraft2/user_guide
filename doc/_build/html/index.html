@@ -44,6 +44,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide.html">User guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
@@ -121,6 +122,11 @@ to proceed with next step, e.g. with chimera filtering step)</em>.</div>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#inspect-quality-profiles">Inspect quality profiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#paired-end-illumina-or-mgi-tech-data">Paired-end Illumina (or MGI-Tech) data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#single-end-pacbio-or-assembled-paired-end-data">Single-end (PacBio or assembled paired-end) data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="postprocessing.html#post-clustering-lulu">Post-clustering (LULU)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="postprocessing.html#deicode">DEICODE</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Troubleshooting</a><ul>
@@ -219,6 +225,14 @@ to proceed with next step, e.g. with chimera filtering step)</em>.</div>
 <td><p><a class="reference external" href="https://doi.org/10.1093/bioinformatics/btw354">Ewels et al. 2016</a></p></td>
 <td><p>QualityCheck module</p></td>
 </tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/tobiasgf/lulu">LULU</a></p></td>
+<td><p><a class="reference external" href="https://www.nature.com/articles/s41467-017-01312-x">Frøslev et al. 2017</a></p></td>
+<td><p>post-clustering curation</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/biocore/DEICODE">DEICODE</a></p></td>
+<td><p><a class="reference external" href="https://journals.asm.org/doi/10.1128/mSystems.00016-19">Martino et al. 2019</a></p></td>
+<td><p>dissimilarity analysis</p></td>
+</tr>
 </tbody>
 </table>
 <p>Let us know if you would like to have a specific software implemeted to PipeCraft (<a class="reference internal" href="contact.html#contact"><span class="std std-ref">contacts</span></a>) or create an issue in the <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/issues">main repository</a>.</p>
@@ -274,6 +288,10 @@ to proceed with next step, e.g. with chimera filtering step)</em>.</div>
 <tr class="row-even"><td><p>pipecraft/blast</p></td>
 <td><p>TAXONOMY ASSIGNMENT with BLAST</p></td>
 <td><p>2.73 Gb</p></td>
+</tr>
+<tr class="row-odd"><td><p>pipecraft/deicode</p></td>
+<td><p>DEICODE (beta-diversity analysis)</p></td>
+<td><p>1.17 Gb</p></td>
 </tr>
 </tbody>
 </table>
