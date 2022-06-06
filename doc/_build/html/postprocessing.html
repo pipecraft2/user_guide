@@ -86,24 +86,59 @@
 </dd>
 </dl>
 <section id="post-processing-tools">
-<h1><a class="toc-backref" href="#id2">Post-processing tools</a><a class="headerlink" href="#post-processing-tools" title="Permalink to this headline"></a></h1>
+<h1><a class="toc-backref" href="#id5">Post-processing tools</a><a class="headerlink" href="#post-processing-tools" title="Permalink to this headline"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All post-processing tools accessible under <strong>ADD STEP</strong> -&gt; <strong>POSTPROCESSING</strong></p>
+</div>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#post-processing-tools" id="id2">Post-processing tools</a></p>
+<li><p><a class="reference internal" href="#post-processing-tools" id="id5">Post-processing tools</a></p>
 <ul>
-<li><p><a class="reference internal" href="#post-clustering-lulu" id="id3">Post-clustering (LULU)</a></p></li>
-<li><p><a class="reference internal" href="#deicode" id="id4">DEICODE</a></p></li>
+<li><p><a class="reference internal" href="#post-clustering-lulu" id="id6">Post-clustering (LULU)</a></p></li>
+<li><p><a class="reference internal" href="#deicode" id="id7">DEICODE</a></p></li>
 </ul>
 </li>
 </ul>
 </div>
 <hr class="docutils" />
 <section id="post-clustering-lulu">
-<span id="lulu"></span><h2><a class="toc-backref" href="#id3">Post-clustering (LULU)</a><a class="headerlink" href="#post-clustering-lulu" title="Permalink to this headline"></a></h2>
+<span id="lulu"></span><h2><a class="toc-backref" href="#id6">Post-clustering (LULU)</a><a class="headerlink" href="#post-clustering-lulu" title="Permalink to this headline"></a></h2>
+<p>LULU description from the <a class="reference external" href="https://github.com/tobiasgf/lulu">LULU repository</a>: the purpose of LULU is to reduce the number of
+erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics.
+By evaluating the co-occurence patterns of OTUs among samples LULU identifies OTUs that consistently satisfy some user selected
+criteria for being errors of more abundant OTUs and merges these. It has been shown that curation with LULU consistently result
+in more realistic diversity metrics.</p>
+<dl>
+<dt>Required input =</dt><dd><ul class="simple">
+<li><p>tab-delimited OTU/ASV table (if not specified, then OTU_table.txt or ASVs_table.txt will be searched from the workingDir).</p></li>
+</ul>
+<blockquote>
+<div><p><a class="reference external" href="https://github.com/tobiasgf/lulu/blob/master/Example_data/otutable_test.txt">EXAMPLE table here</a></p>
+</div></blockquote>
+<ul class="simple">
+<li><p>representative sequences file (fasta file) per molecular unit (OTU/ASV) is searched from the workingDir as based on the specified ed file extension (SELECT WORKDIR).</p></li>
+</ul>
+<blockquote>
+<div><p><a class="reference external" href="https://github.com/tobiasgf/lulu/blob/master/Example_data/centroids_test.txt">EXAMPLE fasta here</a></p>
+</div></blockquote>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To <strong>START</strong>, specify working directory under <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code>, but the file formats do not matter here (just click ‘Next’).</p>
+</div>
+<dl class="simple">
+<dt>Additional information:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/tobiasgf/lulu">LULU repository</a></p></li>
+<li><p><a class="reference external" href="https://doi.org/10.1038/s41467-017-01312-x">LULU paper</a></p></li>
+</ul>
+</dd>
+</dl>
 </section>
 <section id="deicode">
-<span id="id1"></span><h2><a class="toc-backref" href="#id4">DEICODE</a><a class="headerlink" href="#deicode" title="Permalink to this headline"></a></h2>
+<span id="id2"></span><h2><a class="toc-backref" href="#id7">DEICODE</a><a class="headerlink" href="#deicode" title="Permalink to this headline"></a></h2>
 <p>DEICODE (Martino et al., 2019; DOI 10.1128/mSystems.00016-19) is used to perform beta diversity analysis
 by applying robust Aitchison PCA on the OTU/ASV table. To consider the compositional nature of data,
 it preprocesses data with rCLR transformation (centered log-ratio on only non-zero values, without adding pseudo count).
@@ -115,6 +150,77 @@ where sparse data are handled through matrix completion.</p>
 <li><p><a class="reference external" href="https://github.com/biocore/DEICODE">DEICODE repository</a></p></li>
 <li><p><a class="reference external" href="https://journals.asm.org/doi/10.1128/mSystems.00016-19">DEICODE paper</a></p></li>
 </ul>
+</dd>
+</dl>
+<p>The output provided:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Filename</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>DEICODE_out/otutab.biom</p></td>
+<td><p>Full OTU table in BIOM format</p></td>
+</tr>
+<tr class="row-odd"><td><p>DEICODE_out/rclr_subset.tsv</p></td>
+<td><p>rCLR-transformed subset of OTU table *</p></td>
+</tr>
+<tr class="row-even"><td><p>DEICODE_out/full/distance-matrix.tsv</p></td>
+<td><p>Distance matrix between the samples, based on full OTU table</p></td>
+</tr>
+<tr class="row-odd"><td><p>DEICODE_out/full/ordination.txt</p></td>
+<td><p>Ordination scores for samples and OTUs, based on full OTU table</p></td>
+</tr>
+<tr class="row-even"><td><p>DEICODE_out/full/rclr.tsv</p></td>
+<td><p>rCLR-transformed OTU table</p></td>
+</tr>
+<tr class="row-odd"><td><p>DEICODE_out/subs/distance-matrix.tsv</p></td>
+<td><p>Distance matrix between the samples, based on a subset of OTU table *</p></td>
+</tr>
+<tr class="row-even"><td><p>DEICODE_out/subs/ordination.txt</p></td>
+<td><p>Ordination scores for samples and OTUs, based on a subset of OTU table *</p></td>
+</tr>
+</tbody>
+</table>
+<p><a href="#id3"><span class="problematic" id="id4">*</span></a>, files are present only if ‘subset_IDs’ variable was specified</p>
+<dl>
+<dt>PERMANOVA and PERMDISP example using the robust Aitchison distance</dt><dd></dd>
+<dt>Example of plotting the ordination scores</dt><dd><div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span>
+
+<span class="c1">## Load ordination scores</span>
+<span class="n">ord</span> <span class="o">&lt;-</span> <span class="nf">readLines</span><span class="p">(</span><span class="s">&quot;ordination.txt&quot;</span><span class="p">)</span>
+
+<span class="c1">## Skip PCA summary</span>
+<span class="n">ord</span> <span class="o">&lt;-</span> <span class="n">ord</span><span class="p">[</span> <span class="m">8</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">ord</span><span class="p">)</span> <span class="p">]</span>
+
+<span class="c1">## Break the data into sample and species scores</span>
+<span class="n">breaks</span> <span class="o">&lt;-</span> <span class="nf">which</span><span class="p">(</span><span class="o">!</span> <span class="nf">nzchar</span><span class="p">(</span><span class="n">ord</span><span class="p">))</span>
+<span class="n">ord</span> <span class="o">&lt;-</span> <span class="n">ord</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="p">(</span><span class="n">breaks</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="m">-1</span><span class="p">)]</span>               <span class="c1"># Skip biplot scores</span>
+<span class="n">ord_sp</span> <span class="o">&lt;-</span> <span class="n">ord</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="p">(</span><span class="n">breaks</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="m">-1</span><span class="p">)]</span>            <span class="c1"># species scores</span>
+<span class="n">ord_sm</span> <span class="o">&lt;-</span> <span class="n">ord</span><span class="p">[(</span><span class="n">breaks</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="m">+2</span><span class="p">)</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">ord</span><span class="p">)]</span>  <span class="c1"># sample scores</span>
+
+<span class="c1">## Convert scores to data.frames</span>
+<span class="n">ord_sp</span> <span class="o">&lt;-</span> <span class="nf">as.data.frame</span><span class="p">(</span> <span class="nf">do.call</span><span class="p">(</span><span class="n">rbind</span><span class="p">,</span> <span class="nf">strsplit</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">ord_sp</span><span class="p">,</span> <span class="n">split</span> <span class="o">=</span> <span class="s">&quot;\t&quot;</span><span class="p">))</span> <span class="p">)</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">ord_sp</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;OTU_ID&quot;</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;PC&quot;</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="p">(</span><span class="nf">ncol</span><span class="p">(</span><span class="n">ord_sp</span><span class="p">)</span><span class="m">-1</span><span class="p">)))</span>
+
+<span class="n">ord_sm</span> <span class="o">&lt;-</span> <span class="nf">as.data.frame</span><span class="p">(</span> <span class="nf">do.call</span><span class="p">(</span><span class="n">rbind</span><span class="p">,</span> <span class="nf">strsplit</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">ord_sm</span><span class="p">,</span> <span class="n">split</span> <span class="o">=</span> <span class="s">&quot;\t&quot;</span><span class="p">))</span> <span class="p">)</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">ord_sm</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;Sample_ID&quot;</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;PC&quot;</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="p">(</span><span class="nf">ncol</span><span class="p">(</span><span class="n">ord_sm</span><span class="p">)</span><span class="m">-1</span><span class="p">)))</span>
+
+<span class="c1">## Convert PCA to numbers</span>
+<span class="n">ord_sp</span><span class="p">[</span><span class="nf">colnames</span><span class="p">(</span><span class="n">ord_sp</span><span class="p">)[</span><span class="m">-1</span><span class="p">]]</span> <span class="o">&lt;-</span> <span class="nf">sapply</span><span class="p">(</span><span class="n">ord_sp</span><span class="p">[</span><span class="nf">colnames</span><span class="p">(</span><span class="n">ord_sp</span><span class="p">)[</span><span class="m">-1</span><span class="p">]],</span> <span class="n">as.numeric</span><span class="p">)</span>
+<span class="n">ord_sm</span><span class="p">[</span><span class="nf">colnames</span><span class="p">(</span><span class="n">ord_sm</span><span class="p">)[</span><span class="m">-1</span><span class="p">]]</span> <span class="o">&lt;-</span> <span class="nf">sapply</span><span class="p">(</span><span class="n">ord_sm</span><span class="p">[</span><span class="nf">colnames</span><span class="p">(</span><span class="n">ord_sm</span><span class="p">)[</span><span class="m">-1</span><span class="p">]],</span> <span class="n">as.numeric</span><span class="p">)</span>
+
+<span class="c1">## At this step, sample and OTU metadata could be added to the data.frame</span>
+
+<span class="c1">## Example plot</span>
+<span class="nf">ggplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">ord_sm</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">PC1</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">PC2</span><span class="p">))</span> <span class="o">+</span> <span class="nf">geom_point</span><span class="p">()</span>
+</pre></div>
+</div>
 </dd>
 </dl>
 </section>

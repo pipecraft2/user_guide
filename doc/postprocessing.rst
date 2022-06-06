@@ -30,6 +30,10 @@
 Post-processing tools
 =====================
 
+.. note:: 
+
+  All post-processing tools accessible under **ADD STEP** -> **POSTPROCESSING**
+
 .. contents:: Contents
    :depth: 2
 
@@ -41,10 +45,21 @@ ____________________________________________________
 Post-clustering (LULU)
 -----------------------
 
-The purpose of LULU is to reduce the number of erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. 
+LULU description from the `LULU repository <https://github.com/tobiasgf/lulu>`_: the purpose of LULU is to reduce the number of 
+erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. 
 By evaluating the co-occurence patterns of OTUs among samples LULU identifies OTUs that consistently satisfy some user selected 
 criteria for being errors of more abundant OTUs and merges these. It has been shown that curation with LULU consistently result 
-in more realistic diversity metrics. The required input of LULU is an OTU table and a corresponding matchlist with all the internal matches of OTUs.
+in more realistic diversity metrics. 
+
+Required input = 
+ - tab-delimited OTU/ASV table (if not specified, then OTU_table.txt or ASVs_table.txt will be searched from the workingDir). 
+  `EXAMPLE table here <https://github.com/tobiasgf/lulu/blob/master/Example_data/otutable_test.txt>`_
+ - representative sequences file (fasta file) per molecular unit (OTU/ASV) is searched from the workingDir as based on the specified ed file extension (SELECT WORKDIR). 
+  `EXAMPLE fasta here <https://github.com/tobiasgf/lulu/blob/master/Example_data/centroids_test.txt>`_
+
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
 
 
 Additional information:
@@ -68,6 +83,7 @@ Additional information:
  - `DEICODE paper <https://journals.asm.org/doi/10.1128/mSystems.00016-19>`_
 
 The output provided:
+
 ====================================  ========================================================================
 Filename                              Description                                                    
 ====================================  ========================================================================
@@ -79,6 +95,7 @@ DEICODE_out/full/rclr.tsv             rCLR-transformed OTU table
 DEICODE_out/subs/distance-matrix.tsv  Distance matrix between the samples, based on a subset of OTU table *
 DEICODE_out/subs/ordination.txt       Ordination scores for samples and OTUs, based on a subset of OTU table *
 ====================================  ========================================================================
+
 *, files are present only if 'subset_IDs' variable was specified
 
 
@@ -111,6 +128,7 @@ PERMANOVA and PERMDISP example using the robust Aitchison distance
 
 Example of plotting the ordination scores
   .. code-block:: r
+
       library(ggplot2)
 
       ## Load ordination scores
