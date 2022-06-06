@@ -21,7 +21,7 @@ copyright = '2022, Sten Anslan'
 author = 'Sten Anslan'
 
 # The full version, including alpha/beta/rc tags
-version = '0.1.1'
+version = '0.1.2'
 release = version
 
 # -- General configuration ---------------------------------------------------

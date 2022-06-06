@@ -1066,6 +1066,24 @@ Quit (exit from the container)
 
  > exit
 
+Docker images (latest)
+----------------------
+
+====================================  =============================================================== 
+Image                                 Software                                                         
+====================================  ===============================================================
+ewels/multiqc                         mutliqc
+staphb/fastqc                         fastqc               
+pipecraft/cutadapt                    cutadapt, seqkit                                      
+pipecraft/dada2                       dada2                                                   
+pipecraft/reorient                    fqgrep, seqkit                                                         
+pipecraft/trimmomatic                 trimmomatic, seqkit                             
+pipecraft/vsearch                     vsearch, seqkit           
+pipecraft/itx                         ITSx, biopython, seqkit, mothur                                       
+pipecraft/blast                       BLAST                           
+pipecraft/deicode                     DEICODE, qiime2 
+pipecraft/fastp                       fastp                            
+====================================  ===============================================================
 
 |console|
 
