@@ -65,3 +65,30 @@ DEICODE_out/subs/ordination.txt       Ordination scores for samples and OTUs, ba
 ====================================  ========================================================================
 *, files are present only if 'subset_IDs' variable was specified
 
+
+PERMANOVA and PERMDISP example using the robust Aitchison distance
+  .. code-block:: r
+      library(vegan)
+
+      ## Load distance matrix
+      dd <- read.table(file = "distance-matrix.tsv")
+
+      ## You will also need to load the sample metadata
+      ## However, for this example we will create a dummy data
+      meta <- data.frame(
+        SampleID = rownames(dd),
+        TestData = rep(c("A", "B", "C"), each = ceiling(nrow(dd)/3))[1:nrow(dd)])
+
+      ## NB! Ensure that samples in distance matrix and metadata are in the same order
+      meta <- meta[ match(x = meta$SampleID, table = rownames(dd)), ]
+
+      ## Convert distance matrix into 'dist' class
+      dd <- as.dist(dd)
+
+      ## Run PERMANOVA
+      adon <- adonis2(formula = dd ~ TestData, data = meta, permutations = 1000)
+      adon
+
+      ## Run PERMDISP
+      permdisp <- betadisper(dd, meta$TestData)
+      plot(permdisp)
