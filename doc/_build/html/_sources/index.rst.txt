@@ -65,6 +65,7 @@ Software                                                                 Referen
 `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                   `Callahan et. al 2016 <https://www.nature.com/articles/nmeth.3869>`_                       ASVs workflow (from raw reads to ASV table)
 `vsearch <https://github.com/torognes/vsearch>`_                         `Rognes et. al 2016 <https://peerj.com/articles/2584/>`_                                   quality filtering, assemble paired-end reads, chimera filtering, clustering
 `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_          `Bolger et al. 2014 <https://doi.org/10.1093/bioinformatics/btu170>`_                      quality filtering
+`fastp <https://github.com/OpenGene/fastp>`_                             `Chen et al. 2018 <https://doi.org/10.1093/bioinformatics/bty560>`_                        quality filtering
 `seqkit <https://bioinf.shenwei.me/seqkit/>`_                            `Shen et al. 2016 <https://doi.org/10.1371/journal.pone.0163962>`_                         multiple sequence manipulation operations
 `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_                 `Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_                                      demultiplexing, cut primers
 `biopython <https://biopython.org/>`_                                    `Cock et al. 2009 <https://academic.oup.com/bioinformatics/article/25/11/1422/330687>`_    multiple sequence manipulation operations
@@ -100,7 +101,8 @@ pipecraft/trimmomatic                 QUALITY FILTERING with trimmomatic        
 pipecraft/vsearch                     QUALITY FILTERING, ASSEMBLE, CHIMERA FILTERING ...               278 Mb
 pipecraft/itx                         ITS EXTRACTOR                                                    609 Mb
 pipecraft/blast                       TAXONOMY ASSIGNMENT with BLAST                                   2.73 Gb
-pipecraft/deicode                     DEICODE (beta-diversity analysis)                                1.17 Gb
+pipecraft/deicode                     DEICODE (beta-diversity analysis)                                3.09 Gb
+pipecraft/fastp                       QUALITY FILTERING with fastp                                     255 Mb
 ====================================  ===============================================================  =========
 
 

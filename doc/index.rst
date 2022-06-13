@@ -101,7 +101,7 @@ pipecraft/trimmomatic                 QUALITY FILTERING with trimmomatic        
 pipecraft/vsearch                     QUALITY FILTERING, ASSEMBLE, CHIMERA FILTERING ...               278 Mb
 pipecraft/itx                         ITS EXTRACTOR                                                    609 Mb
 pipecraft/blast                       TAXONOMY ASSIGNMENT with BLAST                                   2.73 Gb
-pipecraft/deicode                     DEICODE (beta-diversity analysis)                                1.17 Gb
+pipecraft/deicode                     DEICODE (beta-diversity analysis)                                3.09 Gb
 pipecraft/fastp                       QUALITY FILTERING with fastp                                     255 Mb
 ====================================  ===============================================================  =========
 
