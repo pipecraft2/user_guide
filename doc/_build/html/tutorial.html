@@ -252,7 +252,7 @@ will improve the DADA2 sensitivity to rare sequence variants.</p>
 <div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">ASVs_out.dada2</span></code>:</div>
 <div class="line">ASVs_table.txt = ASV distribution table per sample (tab delimited file)</div>
-<div class="line">ASVs.fasta     = FASTA formated representative ASV sequences (this file is used for taxonomy assignment)</div>
+<div class="line">ASVs.fasta     = FASTA formatted representative ASV sequences (this file is used for taxonomy assignment)</div>
 </div>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -308,14 +308,14 @@ to include reverse-complement search.</p></li>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code> -&gt; quality filtered paired-end <strong>fastq</strong> files per sample</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">denoised_assembled.dada2</span></code> -&gt; denoised and assembled <strong>fasta</strong> files per sample (and error rate plots)</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">chimeraFiltered_out.dada2</span></code> –&gt; chimera filtered <strong>fasta</strong> files per sample</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">ASVs_out.dada2</span></code> –&gt; <strong>ASVs table</strong> (ASVs_table.csv), and ASV sequences (ASVs.fasta) file</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">taxonomy_out.dada2</span></code>–&gt; ASVs <strong>taxonomy table</strong> (taxonomy.csv)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">ASVs_out.dada2</span></code> –&gt; <strong>ASVs table</strong> (ASVs_table.txt), and ASV sequences (ASVs.fasta) file</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">taxonomy_out.dada2</span></code>–&gt; ASVs <strong>taxonomy table</strong> (taxonomy.txt)</div>
 </div>
 <p id="seq-count-summary">Each folder (except ASVs_out.dada2 and taxonomy_out.dada2) contain
-<strong>summary of the sequence counts</strong> (seq_count_summary.csv or seq_count_summary.txt).
+<strong>summary of the sequence counts</strong> (seq_count_summary.txt).
 Examine those to track the read counts throughout the pipeline.</p>
 <blockquote>
-<div><p>For example, merging the seq_count_summary.csv file in <code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code> with the seq_count_summary.csv file from <code class="docutils literal notranslate"><span class="pre">chimeraFiltered_out.dada2</span></code> forms a table for examining sequence counts throughout the
+<div><p>For example, merging the seq_count_summary.txt file in <code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code> with the seq_count_summary.txt file from <code class="docutils literal notranslate"><span class="pre">chimeraFiltered_out.dada2</span></code> forms a table for examining sequence counts throughout the
 pipeline and number of ASVs per sample.</p>
 </div></blockquote>
 <table class="docutils align-default">
@@ -482,10 +482,10 @@ pipeline and number of ASVs per sample.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">ASVs_out.dada2</span></code> directory contains <strong>ASVs table</strong> (ASVs_table.csv), where the <strong>1st column</strong> represents ASV identifiers,
+<p><code class="docutils literal notranslate"><span class="pre">ASVs_out.dada2</span></code> directory contains <strong>ASVs table</strong> (ASVs_table.txt), where the <strong>1st column</strong> represents ASV identifiers,
 <strong>2nd column</strong> representative sequences of ASVs,
-and all following columns represent samples (number of sequences per ASV in a sample).</p>
-<p><em>ASVs_table.csv; first 4 samples</em></p>
+and all following columns represent samples (number of sequences per ASV in a sample). This is tab delimited text file.</p>
+<p><em>ASVs_table.txt; first 4 samples</em></p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 12%" />
@@ -571,10 +571,10 @@ and all following columns represent samples (number of sequences per ASV in a sa
 </tbody>
 </table>
 <p>The <strong>ASV sequences</strong> are representad also in the fasta file (ASVs.fasta) in <code class="docutils literal notranslate"><span class="pre">ASVs_out.dada2</span></code> directory.</p>
-<p>Result from the taxonomy annotation process - <strong>taxonomy table</strong> (taxonomy.csv) - is located at the <code class="docutils literal notranslate"><span class="pre">taxonomy_out.dada2</span></code> directory.
+<p>Result from the taxonomy annotation process - <strong>taxonomy table</strong> (taxonomy.txt) - is located at the <code class="docutils literal notranslate"><span class="pre">taxonomy_out.dada2</span></code> directory.
 “NA” denotes that the ASV was not assigned to corresponding taxonomic unit.
 Last columns with integers (for ‘Kingdom’ to ‘Species’) represent bootstrap values for the correspoinding taxonomic unit.</p>
-<p><em>taxonomy.csv; first 10 ASVs</em></p>
+<p><em>taxonomy.txt; first 10 ASVs</em></p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 4%" />
@@ -884,7 +884,7 @@ should be run on the ‘assembled’ data. But in this built-in OTU workflow, th
 <p><a class="reference internal" href="_images/vsearch_qfilt.png"><img alt="Alternative text" src="_images/vsearch_qfilt.png" style="width: 600px;" /></a></p>
 <div class="line-block">
 <div class="line"><em>This step performs quality filtering using vsearch.</em></div>
-<div class="line"><em>vsearch quality filtering settings</em> <a class="reference internal" href="user_guide.html#vsearch-qfilt"><span class="std std-ref">here</span></a></div>
+<div class="line"><em>vsearch quality filtering settings</em> <a class="reference internal" href="user_guide.html#qfilt-vsearch"><span class="std std-ref">here</span></a></div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code></div>
 </div>
@@ -1001,7 +1001,7 @@ Select appropriate ITSx output folder for CLUSTERING after the process is finish
 <div class="line"><code class="docutils literal notranslate"><span class="pre">taxonomy_out</span></code>–&gt; BLAST hits for the OTUs (BLAST_1st_best_hit.txt and BLAST_10_best_hits.txt)</div>
 </div>
 <p>Each folder (except clustering_out and taxonomy_out) contain
-<strong>summary of the sequence counts</strong> (seq_count_summary.csv or seq_count_summary.txt).
+<strong>summary of the sequence counts</strong> (seq_count_summary.txt).
 Examine those to track the read counts throughout the pipeline (<a class="reference internal" href="#seq-count-summary"><span class="std std-ref">example here</span></a>)</p>
 <p><code class="docutils literal notranslate"><span class="pre">clustering_out</span></code> directory contains <strong>OTUs table</strong> (OTUs_table.txt), where the <strong>1st column</strong> represents OTU identifiers,
 and all following columns represent samples (number of sequences per OTU in a sample).
@@ -1155,7 +1155,7 @@ The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta
 <div class="line-block">
 <div class="line">Secify</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">sequencing</span> <span class="pre">data</span> <span class="pre">format</span></code> as <strong>multiplexed</strong>;</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">sequence</span> <span class="pre">files</span> <span class="pre">extension</span></code> as <strong>*.fastq/fq</strong>;</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sequence</span> <span class="pre">files</span> <span class="pre">extension</span></code> as <strong>may be fastq or fasta</strong> formatted files;</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">sequencing</span> <span class="pre">read</span> <span class="pre">types</span></code> as <strong>paired-end</strong>.</div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">2.</span> <span class="s1">&#39;DEMULTIPLEX&#39;</span>
@@ -1183,14 +1183,17 @@ The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta
 </ul>
 <p><em>(click on the image for enlargement)</em>
 <a class="reference internal" href="_images/demux_expand.png"><img alt="Alternative text" src="_images/demux_expand.png" style="width: 550px;" /></a></p>
-<p>unknown.fastq files contain sequences where specified index combinations were not found.</p>
 <div class="line-block">
-<div class="line"><em>This step distributes sequences to samples according to the information in the index_file.fasta. See</em> <a class="reference internal" href="user_guide.html#demux-settings"><span class="std std-ref">specifics here</span></a></div>
+<div class="line">This step distributes sequences to samples according to the information in the index_file.fasta. See <a class="reference internal" href="user_guide.html#demux-settings"><span class="std std-ref">specifics here</span></a></div>
 <div class="line"><br /></div>
-<div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">demultiplex_out</span></code>.</div>
+<div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">demultiplex_out</span></code>:</div>
+<div class="line">* fastq or fasta files per sample (as specified in the <a class="reference internal" href="user_guide.html#indexes"><span class="std std-ref">index file</span></a>)</div>
+<div class="line">* unknown.fastq/fasta files contain sequences where specified index combinations were not found.</div>
+</div>
+<div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">4.</span>  <span class="s1">&#39;REORIENT&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span>  <span class="s1">&#39;REORIENT&#39;</span>
 </pre></div>
 </div>
 <ul class="simple">

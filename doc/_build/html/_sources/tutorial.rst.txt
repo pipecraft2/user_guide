@@ -189,7 +189,7 @@ will improve the DADA2 sensitivity to rare sequence variants.
 
 | ``ASVs_out.dada2``: 
 | ASVs_table.txt = ASV distribution table per sample (tab delimited file)
-| ASVs.fasta     = FASTA formated representative ASV sequences (this file is used for taxonomy assignment)
+| ASVs.fasta     = FASTA formatted representative ASV sequences (this file is used for taxonomy assignment)
 
 |
 
@@ -260,16 +260,16 @@ Several process-specific output folders are generated:
 | ``qualFiltered_out`` -> quality filtered paired-end **fastq** files per sample
 | ``denoised_assembled.dada2`` -> denoised and assembled **fasta** files per sample (and error rate plots)
 | ``chimeraFiltered_out.dada2`` --> chimera filtered **fasta** files per sample
-| ``ASVs_out.dada2`` --> **ASVs table** (ASVs_table.csv), and ASV sequences (ASVs.fasta) file
-| ``taxonomy_out.dada2``--> ASVs **taxonomy table** (taxonomy.csv)
+| ``ASVs_out.dada2`` --> **ASVs table** (ASVs_table.txt), and ASV sequences (ASVs.fasta) file
+| ``taxonomy_out.dada2``--> ASVs **taxonomy table** (taxonomy.txt)
 
 .. _seq_count_summary:
 
 Each folder (except ASVs_out.dada2 and taxonomy_out.dada2) contain 
-**summary of the sequence counts** (seq_count_summary.csv or seq_count_summary.txt). 
+**summary of the sequence counts** (seq_count_summary.txt). 
 Examine those to track the read counts throughout the pipeline. 
 
- For example, merging the seq_count_summary.csv file in ``qualFiltered_out`` with the seq_count_summary.csv file from ``chimeraFiltered_out.dada2`` forms a table for examining sequence counts throughout the 
+ For example, merging the seq_count_summary.txt file in ``qualFiltered_out`` with the seq_count_summary.txt file from ``chimeraFiltered_out.dada2`` forms a table for examining sequence counts throughout the 
  pipeline and number of ASVs per sample. 
 
 ======= ===== ============ ====== ================ ==========
@@ -299,11 +299,11 @@ Mock    4779  4314         4269   4269             20
 
 |
 
-``ASVs_out.dada2`` directory contains **ASVs table** (ASVs_table.csv), where the **1st column** represents ASV identifiers, 
+``ASVs_out.dada2`` directory contains **ASVs table** (ASVs_table.txt), where the **1st column** represents ASV identifiers, 
 **2nd column** representative sequences of ASVs,
-and all following columns represent samples (number of sequences per ASV in a sample).
+and all following columns represent samples (number of sequences per ASV in a sample). This is tab delimited text file.
 
-*ASVs_table.csv; first 4 samples*
+*ASVs_table.txt; first 4 samples*
 
 ===== ==============  ===== ======  ======  ======
 ASV   Sequence        F3D0  F3D141  F3D142  F3D143
@@ -321,11 +321,11 @@ ASV_9 TACGGAGGATG...  45    167     89      109
 
 The **ASV sequences** are representad also in the fasta file (ASVs.fasta) in ``ASVs_out.dada2`` directory. 
 
-Result from the taxonomy annotation process - **taxonomy table** (taxonomy.csv) - is located at the ``taxonomy_out.dada2`` directory. 
+Result from the taxonomy annotation process - **taxonomy table** (taxonomy.txt) - is located at the ``taxonomy_out.dada2`` directory. 
 "NA" denotes that the ASV was not assigned to corresponding taxonomic unit.  
 Last columns with integers (for 'Kingdom' to 'Species') represent bootstrap values for the correspoinding taxonomic unit. 
 
-*taxonomy.csv; first 10 ASVs*
+*taxonomy.txt; first 10 ASVs*
 
 =======  ========== ======== ============ =========== ===============  ===============  ============================== ========== ======= ====== ===== ===== ====== ===== =======
 ASV      Sequence   Kingdom   Phylum      Class       Order            Family           Genus                          Species    Kingdom Phylum Class Order Family Genus Species
@@ -455,7 +455,7 @@ Lower qualities of R2 reads are characteristic for Illumina sequencing data, and
 |vsearch_qfilt|
 
 | *This step performs quality filtering using vsearch.* 
-| *vsearch quality filtering settings* :ref:`here <vsearch_qfilt>`
+| *vsearch quality filtering settings* :ref:`here <qfilt_vsearch>`
 | 
 | **Output** directory = ``qualFiltered_out``
 
@@ -585,7 +585,7 @@ Several process-specific output folders are generated:
 
 
 Each folder (except clustering_out and taxonomy_out) contain 
-**summary of the sequence counts** (seq_count_summary.csv or seq_count_summary.txt). 
+**summary of the sequence counts** (seq_count_summary.txt). 
 Examine those to track the read counts throughout the pipeline (:ref:`example here <seq_count_summary>`)
 
 
@@ -653,7 +653,7 @@ Working with paired-end raw multiplexed data.
 
 | Secify
 | ``sequencing data format`` as **multiplexed**;
-| ``sequence files extension`` as **\*.fastq/fq**;  
+| ``sequence files extension`` as **may be fastq or fasta** formatted files;  
 | ``sequencing read types`` as **paired-end**.
 
 :: 
@@ -698,16 +698,17 @@ or
 *(click on the image for enlargement)*
 |demux_expand|
 
-unknown.fastq files contain sequences where specified index combinations were not found. 
-
-| *This step distributes sequences to samples according to the information in the index_file.fasta. See* :ref:`specifics here <demux_settings>`
+| This step distributes sequences to samples according to the information in the index_file.fasta. See :ref:`specifics here <demux_settings>`
 | 
-| **Output** directory = ``demultiplex_out``. 
+| **Output** directory = ``demultiplex_out``:
+| * fastq or fasta files per sample (as specified in the :ref:`index file <indexes>`)
+| * unknown.fastq/fasta files contain sequences where specified index combinations were not found. 
+
 |
 
 ::
   
-  4.  'REORIENT'
+  1.  'REORIENT'
 
 .. |reorient_expand| image:: _static/reorient_expand.png
   :width: 550

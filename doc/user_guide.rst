@@ -52,6 +52,25 @@ The startup panel:
 
 ____________________________________________________
 
+Glossary
+========
+
+List of terms that you may encounter in this user guide.
+
+=========================== ===================================
+**working directory**       | the directory (folder) that contains the files for the analyses.
+                            | The outputs will be written into this directory
+**paired-end data**         | obtained by sequencing two ends of the same DNA fragment, 
+                            | which results in read 1 (R1) and read 2 (R2) files per library or per sample
+**single-end data**         | only one sequencing file per library or per sample. 
+                            | Herein, may mean also assembled paired-end data.
+**demultiplexed data**      | sequences are sorted into separate files, representing individual samples 
+**multiplexed data**        | file(s) that represent a pool of sequences from different samples
+**read/sequence**           | DNA sequence; herein, reads and sequences are used interchangeably 
+=========================== ===================================
+
+____________________________________________________
+
 Docker images 
 ==============
 
@@ -448,7 +467,7 @@ Analyses step                                                        Default set
 :ref:`DEMULTIPLEX <demux>` (optional)                                 --
 :ref:`REORIENT <reorient>` (optional)                                 --
 :ref:`REMOVE PRIMERS <remove_primers>` (optional)                     --
-:ref:`MERGE READS <vsearch_merge>`                                   | ``min_overlap`` = 12
+:ref:`MERGE READS <merge_vsearch>`                                   | ``min_overlap`` = 12
                                                                      | ``min_length`` = 32
                                                                      | ``allow_merge_stagger`` = TRUE 
                                                                      | ``include only R1`` = FALSE 
@@ -457,7 +476,7 @@ Analyses step                                                        Default set
                                                                      | ``max_len`` = 600
                                                                      | ``keep_disjoined`` = FALSE 
                                                                      | ``fastq_qmax`` = 41
-:ref:`QUALITY FILTERING with vsearch <vsearch_qfilt>`                | ``maxEE`` = 1
+:ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>`                | ``maxEE`` = 1
                                                                      | ``maxN`` = 0
                                                                      | ``minLen`` = 32
                                                                      | ``max_length`` = undefined
@@ -784,7 +803,7 @@ Quality filter and trim sequences.
 | **Fastq** formatted paired-end and single-end data are supported.
 | **Outputs** are fastq files in ``qualFiltered_out`` directory.
 
-.. _vsearch_qfilt:
+.. _qfilt_vsearch:
 
 `vsearch <https://github.com/torognes/vsearch>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -796,10 +815,18 @@ Quality filter and trim sequences.
                                  | Sequences with higher error rates will be discarded
 ``maxN``                         | discard sequences with more than the specified number of Ns
 ``minLen``                       | minimum length of the filtered output sequence
-``max_length``                   | discard sequences with more than the specified number of bases
+``max_length``                   | discard sequences with more than the specified number of bases. 
+                                 | Note that if 'trunc length' setting is specified, then 'max length' 
+                                 | SHOULD NOT be lower than 'trunc lenght' (otherwise all reads are discared) 
+                                 | [empty field = no action taken] 
+                                 | Note that if 'trunc length' setting is specified, then 'min length' 
+                                 | SHOULD BE lower than 'trunc lenght' (otherwise all reads are discared)
 ``qmax``                         | specify the maximum quality score accepted when reading FASTQ files. 
                                  | The default is 41, which is usual for recent Sanger/Illumina 1.8+ files. 
                                  | **For PacBio data use 93**
+``trunc_length``                 | truncate sequences to the specified length. Shorter sequences are discarded; 
+                                 | thus if specified, check that 'min length' setting is lower than 'trunc length' 
+                                 | ('min lenght' therefore has basically no effect) [empty field = no action taken]
 ``qmin``                         | the minimum quality score accepted for FASTQ files. The default is 0, which is 
                                  | usual for recent Sanger/Illumina 1.8+ files. 
                                  | Older formats may use scores between -5 and 2
@@ -809,7 +836,7 @@ Quality filter and trim sequences.
 
 | 
 
-.. _trimmomatic_qfilt:
+.. _qfilt_trimmomatic:
 
 `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -836,7 +863,7 @@ Quality filter and trim sequences.
 
 | 
 
-.. _fastp_qfilt:
+.. _qfilt_fastp:
 
 `fastp <https://github.com/OpenGene/fastp>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -866,7 +893,7 @@ Quality filter and trim sequences.
 
 | 
 
-.. _dada2_qfilt:
+.. _qfilt_dada2:
 
 `DADA2 <https://github.com/benjjneb/dada2>`_ ('filterAndTrim' function)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -937,7 +964,7 @@ these taxa will be represented in the final output. But when using :ref:`ITSx <i
 **Outputs** are fastq files in ``assembled_out`` directory.
 
 
-.. _vsearch_merge:
+.. _merge_vsearch:
 
 `vsearch <https://github.com/torognes/vsearch>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -963,7 +990,7 @@ Setting                          Tooltip
 |
 
 
-.. _dada2_merge:
+.. _merge_dada2:
 
 `DADA2 <https://github.com/benjjneb/dada2>`_
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1072,6 +1099,10 @@ extract ITS regions with `ITS Extractor <https://microbiology.se/software/itsx/>
 | **Fastq/fasta** formatted single-end data is supported [fastq inputs will be converted to fasta].
 | **Outputs** are fasta files in ``ITSx_out`` directory.
 
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR`` and the ``sequence files extension``, but the read types (single-end or paired-end) and data format (demultiplexed or multiplexed) does not matter here (just click 'Next').
+
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
@@ -1106,14 +1137,14 @@ ____________________________________________________
 CLUSTERING
 ----------
 
-Cluster sequences, form OTUs.
+Cluster sequences, generate OTUs.
 
 | Supported file format for the input data is **fasta**.
 | **Outputs** are **OTUs.fasta** and **OTU_table.txt** files in ``clustering_out`` directory.
 
 .. note::
 
- OTU table filed separator is 'tab'.
+ output OTU table is tab delimited text file.
 
 .. _clustering_vsearch:
 
@@ -1148,12 +1179,80 @@ Cluster sequences, form OTUs.
 ``output_UC``                                   | output clustering results in tab-separated UCLAST-like format
 =============================================== =========================
 
+____________________________________________________
+
+.. _postclustering:
+
+POSTCLUSTERING
+---------------
+
+Perform OTU post-clustering. Merge co-occurring 'daughter' OTUs.
+
+
+.. _postclustering_lulu:
+
+`LULU <https://github.com/tobiasgf/lulu>`_ 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+LULU description from the `LULU repository <https://github.com/tobiasgf/lulu>`_: the purpose of LULU is to reduce the number of 
+erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. 
+By evaluating the co-occurence patterns of OTUs among samples LULU identifies OTUs that consistently satisfy some user selected 
+criteria for being errors of more abundant OTUs and merges these. It has been shown that curation with LULU consistently result 
+in more realistic diversity metrics. 
+
+Additional information:
+ - `LULU repository <https://github.com/tobiasgf/lulu>`_
+ - `LULU paper <https://doi.org/10.1038/s41467-017-01312-x>`_
+  
+| Input data is tab delimited **OTU table** (``table``) and **OTU sequences** (``rep_seqs``) in fasta format (see input examples below). 
+| `EXAMPLE table here <https://github.com/tobiasgf/lulu/blob/master/Example_data/otutable_test.txt>`_ *(from LULU repository)*
+| `EXAMPLE fasta here <https://github.com/tobiasgf/lulu/blob/master/Example_data/centroids_test.txt>`_ *(from LULU repository)*
+
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
+
+
+| **Output** files in ``lulu_out`` directory:
+| # lulu_out_table.txt     = curated table in tab delimited txt format
+| # lulu_out_RepSeqs.fasta = fasta file for the molecular units (OTUs or ASVs) in the curated table
+| # match_list.lulu        = match list file that was used by LULU to merge 'daughter' molecular units
+| # discarded_units.lulu   = molecular units (OTUs or ASVs) that were merged with other units based on specified thresholds)
+
+=============================================== =========================
+`Setting <https://github.com/tobiasgf/lulu>`_   Tooltip
+=============================================== =========================
+``table``                                       | select OTU/ASV table. If no file is selected, then PipeCraft will 
+                                                | look OTU_table.txt or ASV_table.txt in the working directory.
+                                                | `EXAMPLE table here <https://github.com/tobiasgf/lulu/blob/master/Example_data/otutable_test.txt>`_
+``rep_seqs``                                    | select fasta formatted sequence file containing your OTU/ASV reads.
+                                                | `EXAMPLE file here <https://github.com/tobiasgf/lulu/blob/master/Example_data/centroids_test.txt>`_
+``min_ratio_type``                              | sets whether a potential error must have lower abundance than the parent 
+                                                | in all samples 'min' (default), or if an error just needs to have lower 
+                                                | abundance on average 'avg'
+``min_ratio``                                   | set the minimim abundance ratio between a potential error and a 
+                                                | potential parent to be identified as an error
+``min_match``                                   | specify minimum threshold of sequence similarity for considering 
+                                                | any OTU as an error of another
+``min_rel_cooccurence``                         | minimum co-occurrence rate. Default = 0.95 (meaning that 1 in 20 samples 
+                                                | are allowed to have no parent presence)
+``match_list_soft``                             | use either 'blastn' or 'vsearch' to generate match list for LULU. 
+                                                | Default is 'vsearch' (much faster)
+``vsearch_similarity_type``                     | applies only when 'vsearch' is used as 'match_list_soft'. 
+                                                | Pairwise sequence identity definition (--iddef)
+``perc_identity``                               | percent identity cutoff for match list. Excluding pairwise comparisons 
+                                                | with lower sequence identity percentage than specified threshold
+``coverage_perc``                               | percent query coverage per hit. Excluding pairwise comparisons with 
+                                                | lower sequence coverage than specified threshold
+``strands``                                     | query strand to search against database. Both = search also reverse complement
+``cores``                                       | number of cores to use for generating match list for LULU
+=============================================== =========================
+
 .. _assign_taxonomy:
 
 ____________________________________________________
 
 |
-
 
 ASSIGN TAXONOMY
 ---------------
@@ -1165,7 +1264,7 @@ Implemented tools for taxonomy annotation:
 `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_ (`Camacho et al. 2009 <https://doi.org/10.1186/1471-2105-10-421>`_)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| BLAST search sequences againt selected database. 
+| BLAST search sequences againt selected :ref:`database <databases>`. 
 
 .. important::
 
@@ -1174,7 +1273,14 @@ Implemented tools for taxonomy annotation:
  'ASSIGN TAXONOMY' panel.
 
 | Supported file format for the input data is **fasta**.
-| **Outputs** are **BLAST_1st_best_hit.txt** and **BLAST_10_best_hits.txt** files in ``taxonomy_out`` directory.
+| 
+| **Output** files in``taxonomy_out`` directory:
+| # BLAST_1st_best_hit.txt = BLAST results for the 1st best hit in the used database.
+| # BLAST_10_best_hits.txt = BLAST results for the 10 best hits in the used database.
+
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR`` and the ``sequence files extension`` (to look for input OTUs/ASVs fasta file), but the read types (single-end or paired-end) and data format (demultiplexed or multiplexed) does not matter here (just click 'Next').
 
 .. note::
 
@@ -1199,6 +1305,39 @@ Setting                          Tooltip
 ``gap_extend``                   | cost to extend a gap
 ================================ =========================
 
+____________________________________________________
+
+|
+
+.. _assign_taxonomy_dada2:
+
+`DADA2 RDP naive Bayesian classifier <https://github.com/benjjneb/dada2>`_ 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| Classify sequences with DADA2 RDP naive Bayesian classifier (function assignTaxonomy) againt selected :ref:`database <databases>`.
+
+| Supported file format for the input data is **fasta**.
+| 
+| **Output** files in``taxonomy_out.dada2`` directory:
+| # taxonomy.txt = classifier results with bootstrap values.
+
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR`` and the ``sequence files extension`` (to look for input OTUs/ASVs fasta file), but the read types (single-end or paired-end) and data format (demultiplexed or multiplexed) does not matter here (just click 'Next').
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+ ``dada2_database``              | select a reference database fasta file for taxonomy annotation
+``minBoot``                      | the minimum bootstrap confidence for assigning a taxonomic level
+``tryRC``                        | the reverse-complement of each sequences will be used for classification 
+                                 | if it is a better match to the reference sequences than the forward sequence
+================================ =========================
+
+____________________________________________________
+
+|
+
 .. _databases:
 
 A list of public databases available for taxonomy annotation
@@ -1212,51 +1351,97 @@ Database                                                             Version  De
 `SILVA <https://www.arb-silva.de/projects/ssu-ref-nr/>`_ 99%         | 138.1  | `16S/18S (SSU), Bacteria, Archaea and Eukarya <https://www.arb-silva.de/fileadmin/silva_databases/release_138.1/Exports/SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz>`_
 `MIDORI <http://www.reference-midori.info/>`_                        | 246    | `Eukaryota mitochondrial genes <http://www.reference-midori.info/download.php#>`_
 `CO1 Classifier <https://github.com/terrimporter/CO1Classifier>`_    | 4      | `Metazoa COI <https://github.com/terrimporter/CO1Classifier/releases/tag/v4-ref>`_
+DADA2-formatted reference databases                                  |        | `DADA2-formatted reference databases  <https://benjjneb.github.io/dada2/training.html>`_
 ==================================================================== ======== ===================================================================================================================================================================
 
 ____________________________________________________
+
+.. _postprocessing:
+
+POSTPROCESSING
+---------------
+
+Post-processing tools. :ref:`See this page <postprocessingtools>`
+
 
 .. _expert_mode:
 
 Expert-mode (PipeCraft console)
 ===============================
 
-All bioinformatic tools used by PipeCraft are available as docker images and can be used via dockers CLI.
+Bioinformatic tools used by PipeCraft are stored on `Dockerhub <https://hub.docker.com/u/pipecraft>`_ as Docker images. 
+These images can be used to launch any tool manually with the Docker CLI to even further customize your operations.
+Especially useful in Windows OS, where majority of implemented modules are not compatible. 
 
-Specify the working directory under the -v flag, 
-or enter the working directory via the terminal to specify the working directory as $pwd 
+:ref:`See list of docker images with implemented software below. <dockerimages>`
 
-docker run --interactive --tty -v $pwd:shared pipecraft/dada2:1.20 
+Show a list of all images in your system:
 
-docker run -v $pwd\:/shared -w /shared -i -t pipecraft/dada2:1.20 bash
+.. code-block::
 
+  docker images 
 
-Quit (exit from the container)
+Download an image if required (from `Dockerhub <https://hub.docker.com/u/pipecraft>`_):
 
-:: 
+.. code-block::
+  :caption: docker pull pipecraft/IMAGE:TAG
+  
+  docker pull pipecraft/vsearch:2.18
 
- > exit
+Delete an image
 
-|console|
+.. code-block::
+  :caption: docker rmi IMAGE 
 
+  docker rmi pipecraft/vsearch:2.18
 
+Run docker container in your working directory to access the files. Outputs will be generated into the working directory.
+Specify the working directory under the -v flag:
 
-Docker images (latest)
+.. code-block::
+
+  docker run -i --tty -v users/Tom/myFiles/:/Files pipecraft/vsearch:2.18
+
+or enter into the working directory via the terminal to specify the working directory as $pwd 
+
+.. code-block::
+
+  docker run -i --tty -v $pwd/:/Files pipecraft/vsearch:2.18
+
+Once inside the container, move to /Files directory, which represents your working directory in the container; and run analyses
+
+.. code-block::
+
+  cd Files
+  vsearch --help
+      
+
+Exit from the container:
+
+.. code-block:: 
+
+  exit
+
+____________________________________________________
+
+.. _dockerimages:
+
+Working docker images
 ----------------------
 
 ====================================  =============================================================== 
 Image                                 Software                                                         
 ====================================  ===============================================================
-ewels/multiqc                         mutliqc
-staphb/fastqc                         fastqc               
-pipecraft/cutadapt                    cutadapt, seqkit                                      
-pipecraft/dada2                       dada2                                                   
-pipecraft/reorient                    fqgrep, seqkit                                                         
-pipecraft/trimmomatic                 trimmomatic, seqkit                             
-pipecraft/vsearch                     vsearch, seqkit           
-pipecraft/itx                         ITSx, biopython, seqkit, mothur                                       
-pipecraft/blast                       BLAST                           
-pipecraft/deicode                     DEICODE, qiime2 
-pipecraft/fastp                       fastp                            
+ewels/multiqc:latest                  mutliqc v1.12
+staphb/fastqc:0.11.9                  fastqc v0.11.9               
+pipecraft/cutadapt:3.5                cutadapt v3.5, seqkit v2.0.0                                        
+pipecraft/dada2:1.20                  dada2 v1.20, seqkit v2.0.0, lulu v0.1.0, R                                                  
+pipecraft/reorient:1                  fqgrep v0.4.4, seqkit v2.0.0, mothur v.1.43.0                                                        
+pipecraft/trimmomatic:0.39            trimmomatic 0.39, seqkit v2.0.0                             
+pipecraft/vsearch:2.18                vsearch v2.18, seqkit v2.0.0           
+pipecraft/itsx:1.1.3                  ITSx v1.1.3, seqkit v2.0.0, mothur v1.46.1                                      
+pipecraft/blast:2.12                  BLAST v2.12.0+                           
+pipecraft/deicode:0.2.4               DEICODE v0.2.4, qiime2-2002.2
+pipecraft/fastp:0.23.2                fastp v0.23.2                            
 ====================================  ===============================================================
 

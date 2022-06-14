@@ -57,19 +57,7 @@ ____________________________________________________
 
 **Possible reason**: Some samples have completely discarded by quality filtering process. 
 
-**Fix**: Examine **seq_count_summary.csv** file in ``qualFiltered_out.dada2`` folder and discard samples, which had 0 quality filtered sequences (poor quality samples). Or edit the quality filtering settings.
-
-____________________________________________________
-
-.. error::
-
- "Error in dimnames(x) <- dn : length of 'dimnames' [2] not equal to array extent"
-
- |dimnames|
-
-**Possible reason**: Using only one or two samples to generate ASVs table.
-
-**Fix**: Include at least three samples to ASVs workflow to generate ASVs table. Note: fixing this error in the upcoming releases. 
+**Fix**: Examine **seq_count_summary.txt** file in ``qualFiltered_out`` folder and discard samples, which had 0 quality filtered sequences (poor quality samples). Or edit the quality filtering settings.
 
 ____________________________________________________
 

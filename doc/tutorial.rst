@@ -189,7 +189,7 @@ will improve the DADA2 sensitivity to rare sequence variants.
 
 | ``ASVs_out.dada2``: 
 | ASVs_table.txt = ASV distribution table per sample (tab delimited file)
-| ASVs.fasta     = FASTA formated representative ASV sequences (this file is used for taxonomy assignment)
+| ASVs.fasta     = FASTA formatted representative ASV sequences (this file is used for taxonomy assignment)
 
 |
 
@@ -455,7 +455,7 @@ Lower qualities of R2 reads are characteristic for Illumina sequencing data, and
 |vsearch_qfilt|
 
 | *This step performs quality filtering using vsearch.* 
-| *vsearch quality filtering settings* :ref:`here <vsearch_qfilt>`
+| *vsearch quality filtering settings* :ref:`here <qfilt_vsearch>`
 | 
 | **Output** directory = ``qualFiltered_out``
 
@@ -653,7 +653,7 @@ Working with paired-end raw multiplexed data.
 
 | Secify
 | ``sequencing data format`` as **multiplexed**;
-| ``sequence files extension`` as **\*.fastq/fq**;  
+| ``sequence files extension`` as **may be fastq or fasta** formatted files;  
 | ``sequencing read types`` as **paired-end**.
 
 :: 
@@ -698,16 +698,17 @@ or
 *(click on the image for enlargement)*
 |demux_expand|
 
-unknown.fastq files contain sequences where specified index combinations were not found. 
-
-| *This step distributes sequences to samples according to the information in the index_file.fasta. See* :ref:`specifics here <demux_settings>`
+| This step distributes sequences to samples according to the information in the index_file.fasta. See :ref:`specifics here <demux_settings>`
 | 
-| **Output** directory = ``demultiplex_out``. 
+| **Output** directory = ``demultiplex_out``:
+| * fastq or fasta files per sample (as specified in the :ref:`index file <indexes>`)
+| * unknown.fastq/fasta files contain sequences where specified index combinations were not found. 
+
 |
 
 ::
   
-  4.  'REORIENT'
+  1.  'REORIENT'
 
 .. |reorient_expand| image:: _static/reorient_expand.png
   :width: 550

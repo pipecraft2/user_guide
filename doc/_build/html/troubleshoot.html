@@ -106,15 +106,7 @@
 <p><a class="reference internal" href="_images/learnErrors.png"><img alt="Alternative text" src="_images/learnErrors.png" style="width: 250px;" /></a></p>
 </div>
 <p><strong>Possible reason</strong>: Some samples have completely discarded by quality filtering process.</p>
-<p><strong>Fix</strong>: Examine <strong>seq_count_summary.csv</strong> file in <code class="docutils literal notranslate"><span class="pre">qualFiltered_out.dada2</span></code> folder and discard samples, which had 0 quality filtered sequences (poor quality samples). Or edit the quality filtering settings.</p>
-<hr class="docutils" />
-<div class="admonition error">
-<p class="admonition-title">Error</p>
-<p>“Error in dimnames(x) &lt;- dn : length of ‘dimnames’ [2] not equal to array extent”</p>
-<p><a class="reference internal" href="_images/dimnames.png"><img alt="Alternative text" src="_images/dimnames.png" style="width: 250px;" /></a></p>
-</div>
-<p><strong>Possible reason</strong>: Using only one or two samples to generate ASVs table.</p>
-<p><strong>Fix</strong>: Include at least three samples to ASVs workflow to generate ASVs table. Note: fixing this error in the upcoming releases.</p>
+<p><strong>Fix</strong>: Examine <strong>seq_count_summary.txt</strong> file in <code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code> folder and discard samples, which had 0 quality filtered sequences (poor quality samples). Or edit the quality filtering settings.</p>
 <hr class="docutils" />
 <div class="admonition error">
 <p class="admonition-title">Error</p>

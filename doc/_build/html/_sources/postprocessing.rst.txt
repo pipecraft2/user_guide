@@ -26,6 +26,9 @@
 |PipeCraft2_logo|
   `github <https://github.com/SuvalineVana/pipecraft>`_
 
+
+.. _postprocessingtools:
+
 =====================
 Post-processing tools
 =====================
@@ -40,10 +43,10 @@ Post-processing tools
 
 ____________________________________________________
 
-.. _lulu:
+.. _postprocessing_lulu:
 
-Post-clustering (LULU)
------------------------
+`LULU <https://github.com/tobiasgf/lulu>`_ 
+-------------------------------------------
 
 LULU description from the `LULU repository <https://github.com/tobiasgf/lulu>`_: the purpose of LULU is to reduce the number of 
 erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. 
@@ -51,27 +54,16 @@ By evaluating the co-occurence patterns of OTUs among samples LULU identifies OT
 criteria for being errors of more abundant OTUs and merges these. It has been shown that curation with LULU consistently result 
 in more realistic diversity metrics. 
 
-Required input = 
- - tab-delimited OTU/ASV table (if not specified, then OTU_table.txt or ASVs_table.txt will be searched from the workingDir). 
-  `EXAMPLE table here <https://github.com/tobiasgf/lulu/blob/master/Example_data/otutable_test.txt>`_
- - representative sequences file (fasta file) per molecular unit (OTU/ASV) is searched from the workingDir as based on the specified ed file extension (SELECT WORKDIR). 
-  `EXAMPLE fasta here <https://github.com/tobiasgf/lulu/blob/master/Example_data/centroids_test.txt>`_
+| This is implemented also under POSTCLUSTERING panel, :ref:`see here <postclustering_lulu>` 
 
-.. note::
+____________________________________________________
 
-  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
+.. _postprocessing_deicode: 
 
+`DEICODE <https://github.com/biocore/DEICODE>`_ 
+-------------------------------------------------
 
-Additional information:
- - `LULU repository <https://github.com/tobiasgf/lulu>`_
- - `LULU paper <https://doi.org/10.1038/s41467-017-01312-x>`_
-
-.. _deicode: 
-
-DEICODE
--------
-
-DEICODE (Martino et al., 2019; DOI 10.1128/mSystems.00016-19) is used to perform beta diversity analysis 
+DEICODE (`Martino et al., 2019 <https://doi.org/10.1128/mSystems.00016-19>`_) is used to perform beta diversity analysis 
 by applying robust Aitchison PCA on the OTU/ASV table. To consider the compositional nature of data, 
 it preprocesses data with rCLR transformation (centered log-ratio on only non-zero values, without adding pseudo count). 
 As a second step, it performs dimensionality reduction of the data using robust PCA (also applied only to the non-zero values of the data), 
@@ -82,25 +74,76 @@ Additional information:
  - `DEICODE repository <https://github.com/biocore/DEICODE>`_
  - `DEICODE paper <https://journals.asm.org/doi/10.1128/mSystems.00016-19>`_
 
-The output provided:
-
-====================================  ========================================================================
-Filename                              Description                                                    
-====================================  ========================================================================
-DEICODE_out/otutab.biom               Full OTU table in BIOM format
-DEICODE_out/rclr_subset.tsv           rCLR-transformed subset of OTU table *
-DEICODE_out/full/distance-matrix.tsv  Distance matrix between the samples, based on full OTU table
-DEICODE_out/full/ordination.txt       Ordination scores for samples and OTUs, based on full OTU table
-DEICODE_out/full/rclr.tsv             rCLR-transformed OTU table
-DEICODE_out/subs/distance-matrix.tsv  Distance matrix between the samples, based on a subset of OTU table *
-DEICODE_out/subs/ordination.txt       Ordination scores for samples and OTUs, based on a subset of OTU table *
-====================================  ========================================================================
-
-*, files are present only if 'subset_IDs' variable was specified
 
 
-PERMANOVA and PERMDISP example using the robust Aitchison distance
-  .. code-block:: r
+| Input data is tab delimited **OTU table** and optionally **subset of OTU ids** to generate results also for the selected subset (see input examples below). 
+
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
+
+| **Output** files in ``DEICODE_out`` directory:
+| #   - otutab.biom          =  full OTU table in BIOM format
+| #   - rclr_subset.tsv      =  rCLR-transformed subset of OTU table *
+| # DEICODE_out/full/
+| #   - distance-matrix.tsv  =  distance matrix between the samples, based on full OTU table
+| #   - ordination.txt       =  ordination scores for samples and OTUs, based on full OTU table
+| #   - rclr.tsv             =  rCLR-transformed OTU table
+| # DEICODE_out/subs/
+| #   - distance-matrix.tsv  =  distance matrix between the samples, based on a subset of OTU table *
+| #   - ordination.txt       =  ordination scores for samples and OTUs, based a subset of OTU table *
+| # \*, files are present only if 'subset_IDs' variable was specified
+
+
+=============================================== =========================
+Setting                                         Tooltip
+=============================================== =========================
+``table``                                       | select OTU/ASV table. If no file is selected, then PipeCraft will 
+                                                | look OTU_table.txt or ASV_table.txt in the working directory.
+                                                | See OTU table example below
+``subset_IDs``                                  | select list of OTU/ASV IDs for analysing a subset from the full table
+                                                | see subset_IDs file example below
+``min_otu_reads``                               | cutoff for reads per OTU/ASV. OTUs/ASVs with lower reads then specified 
+                                                | cutoff will be excluded from the analysis
+``min_sample_reads``                            | cutoff for reads per sample. Samples with lower reads then 
+                                                | specified cutoff will be excluded from the analysis
+=============================================== =========================
+
+
+Example of input ``table`` (tab delimited text file):
+
+================== ============== ============== ============== ==============
+OTU_id             sample1        sample2        sample3        sample4
+================== ============== ============== ============== ==============
+00fc1569196587dde  106            271            584            20
+02d84ed0175c2c79e  81             44             88             14
+0407ee3bd15ca7206  3              4              3              0
+042e5f0b5e38dff09  20             83             131            4
+07411b848fcda497f  1              0              2              0
+07e7806a732c67ef0  18             22             83             7
+0836d270877aed22c  1              1              0              0
+0aa6e7da5819c1197  1              4              5              0
+0c1c219a4756bb729  18             17             40             7
+================== ============== ============== ============== ==============
+
+Example of input ``subset_IDs``:
+
+.. code-block::
+
+  07411b848fcda497f
+  042e5f0b5e38dff09
+  0836d270877aed22c
+  0c1c219a4756bb729
+  ...
+
+| 
+
+
+
+**PERMANOVA and PERMDISP example using the robust Aitchison distance**
+
+.. code-block::
+
       library(vegan)
 
       ## Load distance matrix
@@ -127,7 +170,8 @@ PERMANOVA and PERMDISP example using the robust Aitchison distance
       plot(permdisp)
 
 Example of plotting the ordination scores
-  .. code-block:: r
+
+.. code-block::
 
       library(ggplot2)
 

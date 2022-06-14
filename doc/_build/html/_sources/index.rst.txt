@@ -89,20 +89,20 @@ ____________________________________________________
 Docker images (latest)
 ----------------------
 
-====================================  ===============================================================  =========
-Image                                 Task                                                             Size
-====================================  ===============================================================  =========
-ewels/multiqc                         fastq files quality checking; QualityCheck panel                 202 Mb
-staphb/fastqc                         fastq files quality checking; QualityCheck panel                 485 Mb
-pipecraft/cutadapt                    DEMULTIPLEX, CUT PRIMERS                                         582 Mb
-pipecraft/dada2                       ASV workflow                                                     1.43 Bb
-pipecraft/reorient                    REORIENT                                                         340 Mb
-pipecraft/trimmomatic                 QUALITY FILTERING with trimmomatic                               99 Mb
-pipecraft/vsearch                     QUALITY FILTERING, ASSEMBLE, CHIMERA FILTERING ...               278 Mb
-pipecraft/itx                         ITS EXTRACTOR                                                    609 Mb
-pipecraft/blast                       TAXONOMY ASSIGNMENT with BLAST                                   2.73 Gb
-pipecraft/deicode                     DEICODE (beta-diversity analysis)                                3.09 Gb
-pipecraft/fastp                       QUALITY FILTERING with fastp                                     255 Mb
-====================================  ===============================================================  =========
+====================================  ===============================================================
+Image                                 Task                                                            
+====================================  =============================================================== 
+ewels/multiqc                         fastq files quality checking; QualityCheck panel                 
+staphb/fastqc                         fastq files quality checking; QualityCheck panel                 
+pipecraft/cutadapt                    DEMULTIPLEX, CUT PRIMERS                                      
+pipecraft/dada2                       ASV workflow                                                   
+pipecraft/reorient                    REORIENT                                                        
+pipecraft/trimmomatic                 QUALITY FILTERING with trimmomatic                            
+pipecraft/vsearch                     QUALITY FILTERING, ASSEMBLE, CHIMERA FILTERING ...             
+pipecraft/itx                         ITS EXTRACTOR                                                    
+pipecraft/blast                       TAXONOMY ASSIGNMENT with BLAST                                   
+pipecraft/deicode                     DEICODE (beta-diversity analysis)                                
+pipecraft/fastp                       QUALITY FILTERING with fastp                                     
+====================================  =============================================================== 
 
 

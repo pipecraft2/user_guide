@@ -34,8 +34,11 @@ ____________________________________________________
 * added LULU post-clustering 
 * added DEICODE (postprocessing)
 * added fastp quality filtering
-* added DADA2 assignTaxonomy under genereal 'ADD STEP' -> 'ASSIGN TAXONOMY' panel
-* added --fastq_truncqual option for vsearch quality filtering
+* added DADA2 quality filtering under 'ADD STEP' -> 'QUALITY FILTERING' panel
+* added DADA2 denoise and assemble paired-end data under 'ADD STEP' -> 'ASSEMBLE PAIRED-END' panel
+* added DADA2 assignTaxonomy under 'ADD STEP' -> 'ASSIGN TAXONOMY' panel
+* added trunc_length option for vsearch quality filtering
+* python3 module fix for ITSx for removing empty sequeces 
     
 Implemented software:
 *(software in red font denote new additions; 'version' in bold denotes version upgrade)*
