@@ -742,7 +742,7 @@ If the input data contains PCR primers (or e.g. adapters), these can be removed 
 CUT PRIMERS processes mostly relies on `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_ (`Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_). 
 
 For generating OTUs or ASVs, it is recommended to truncate the primers from the reads 
-(unless ITS Extractor is used later to remove flanking primer binding regions from ITS1/ITS2/full ITS). 
+(**unless ITS Extractor is used** later to remove flanking primer binding regions from ITS1/ITS2/full ITS; in that case keep the primers better detection of the 18S, 5.8S and/or 28S regions). 
 Sequences where PCR primer strings were not detected are discarded by default (but stored in 'untrimmed' directory). 
 Reverse complementary search of the primers in the sequences is also performed. 
 Thus, primers are clipped from both 5'-3' and 3'-5' oriented reads. However, note that **paired-end reads will not be reoriented** to 5'-3' during this process, 
@@ -1096,6 +1096,10 @@ ____________________________________________________
 When working with ITS amplicons, then 
 extract ITS regions with `ITS Extractor <https://microbiology.se/software/itsx/>`_ (`Bengtsson-Palme et al. 2013 <https://doi.org/10.1111/2041-210X.12073>`_)
 
+.. note::
+
+  Note that for better detection of the 18S, 5.8S and/or 28S regions, keep the primers (i.e. do not use 'CUT PRIMERS')
+
 | **Fastq/fasta** formatted single-end data is supported [fastq inputs will be converted to fasta].
 | **Outputs** are fasta files in ``ITSx_out`` directory.
 
@@ -1352,6 +1356,7 @@ Database                                                             Version  De
 `MIDORI <http://www.reference-midori.info/>`_                        | 246    | `Eukaryota mitochondrial genes <http://www.reference-midori.info/download.php#>`_
 `CO1 Classifier <https://github.com/terrimporter/CO1Classifier>`_    | 4      | `Metazoa COI <https://github.com/terrimporter/CO1Classifier/releases/tag/v4-ref>`_
 DADA2-formatted reference databases                                  |        | `DADA2-formatted reference databases  <https://benjjneb.github.io/dada2/training.html>`_
+DIAT.BARCODE database                                                 |        | `rbcL/18S, diatoms <https://www6.inrae.fr/carrtel-collection_eng/Barcoding-database/Database-download>`_
 ==================================================================== ======== ===================================================================================================================================================================
 
 ____________________________________________________

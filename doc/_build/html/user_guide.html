@@ -1124,7 +1124,7 @@ Primers are <strong>not truncated</strong> from the sequences; this can be done 
 <p>If the input data contains PCR primers (or e.g. adapters), these can be removed in the <code class="docutils literal notranslate"><span class="pre">CUT</span> <span class="pre">PRIMERS</span></code> panel.
 CUT PRIMERS processes mostly relies on <a class="reference external" href="https://cutadapt.readthedocs.io/en/stable/">cutadapt</a> (<a class="reference external" href="https://doi.org/10.14806/ej.17.1.200">Martin 2011</a>).</p>
 <p>For generating OTUs or ASVs, it is recommended to truncate the primers from the reads
-(unless ITS Extractor is used later to remove flanking primer binding regions from ITS1/ITS2/full ITS).
+(<strong>unless ITS Extractor is used</strong> later to remove flanking primer binding regions from ITS1/ITS2/full ITS; in that case keep the primers better detection of the 18S, 5.8S and/or 28S regions).
 Sequences where PCR primer strings were not detected are discarded by default (but stored in ‘untrimmed’ directory).
 Reverse complementary search of the primers in the sequences is also performed.
 Thus, primers are clipped from both 5’-3’ and 3’-5’ oriented reads. However, note that <strong>paired-end reads will not be reoriented</strong> to 5’-3’ during this process,
@@ -1870,6 +1870,10 @@ only A/T/C/Gs.</p>
 <h3><a class="reference external" href="https://microbiology.se/software/itsx/">ITS Extractor</a><a class="headerlink" href="#id16" title="Permalink to this headline"></a></h3>
 <p>When working with ITS amplicons, then
 extract ITS regions with <a class="reference external" href="https://microbiology.se/software/itsx/">ITS Extractor</a> (<a class="reference external" href="https://doi.org/10.1111/2041-210X.12073">Bengtsson-Palme et al. 2013</a>)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that for better detection of the 18S, 5.8S and/or 28S regions, keep the primers (i.e. do not use ‘CUT PRIMERS’)</p>
+</div>
 <div class="line-block">
 <div class="line"><strong>Fastq/fasta</strong> formatted single-end data is supported [fastq inputs will be converted to fasta].</div>
 <div class="line"><strong>Outputs</strong> are fasta files in <code class="docutils literal notranslate"><span class="pre">ITSx_out</span></code> directory.</div>
@@ -2439,6 +2443,16 @@ as filed separator to align the columns.</p>
 </td>
 <td><div class="line-block">
 <div class="line"><a class="reference external" href="https://benjjneb.github.io/dada2/training.html">DADA2-formatted reference databases</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>DIAT.BARCODE database</p></td>
+<td><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><a class="reference external" href="https://www6.inrae.fr/carrtel-collection_eng/Barcoding-database/Database-download">rbcL/18S, diatoms</a></div>
 </div>
 </td>
 </tr>
