@@ -611,7 +611,7 @@ Indexes file example (fasta formatted)
 | AGGTACGCAATT...AGGTACGCAATT
 
 .. note::
-  
+
  Anchored indexes (https://cutadapt.readthedocs.io/en/stable/guide.html#anchored-5adapters) with ^ symbol are **not supported** in PipeCraft demultiplex GUI panel. 
 
  DO NOT USE, e.g. 
@@ -1409,12 +1409,6 @@ Specify the working directory under the -v flag:
 .. code-block::
 
   docker run -i --tty -v users/Tom/myFiles/:/Files pipecraft/vsearch:2.18
-
-or enter into the working directory via the terminal to specify the working directory as $pwd 
-
-.. code-block::
-
-  docker run -i --tty -v $pwd/:/Files pipecraft/vsearch:2.18
 
 Once inside the container, move to /Files directory, which represents your working directory in the container; and run analyses
 
