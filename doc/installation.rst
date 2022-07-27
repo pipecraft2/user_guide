@@ -114,7 +114,7 @@ PipeCraft was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions 
    
 .. note::
 
-   When you encounter ERROR during installation, then uninstall the previous version of PipeCraft ``sudo dpkg --remove pipecraft``
+   When you encounter ERROR during installation, then uninstall the previous version of PipeCraft ``sudo dpkg --remove pipecraft-v0.1.3``
 
 5. Run PipeCraft. If PipeCraft shortcut does not appear on the Desktop, then search the app and generate shortcut manually (installed in */opt/pipecraft* directory)
 
