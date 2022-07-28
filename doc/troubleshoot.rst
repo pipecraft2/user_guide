@@ -35,6 +35,30 @@ This page is developing based on the user feedback.
 
 ____________________________________________________
 
+
+General
+=======
+
+.. error::
+
+ Conflict. The container name XXX is already in use by container "XXX".
+ You have to remove (or rename) that container to be able to reuse that name.
+
+**Reason**: Process stopped unexpectedly and docker container was not closed.
+
+**Fix**: Remove the docker container (not image!) that is causing the conflict
+
+
+.. error::
+
+ No files in the output folder, but PipeCraft said "Workflow finished".
+
+**Reason**: ?
+
+**Fix**: Check if there was a README.txt output and read that. Please :ref:`report <contact>` unexpexted errors. 
+
+
+
 ASVs workflow
 ==============
 
@@ -85,14 +109,4 @@ ____________________________________________________
 **Fix**: use OTU workflow.
 
 
-General
-=======
 
-.. error::
-
- Conflict. The container name XXX is already in use by container "XXX".
- You have to remove (or rename) that container to be able to reuse that name.
-
-**Reason**: Process stopped unexpectedly and docker container was not closed.
-
-**Fix**: Remove the docker container (not image!) that is causing the conflict

@@ -110,7 +110,7 @@ Load workflow
 
 .. note ::
 
- Prior loading the workflow, make sure that the saved workflow configuration has a .JSON extension. 
+ Prior loading the workflow, make sure that the saved workflow configuration has a .JSON extension. Note also that **workflows saved in older PipeCraft version** might not run in newer version, but anyhow the selected options will be visible for reproducibility.
 
 Press the ``LOAD WORKFLOW`` button on the :ref:`right-ribbon <interface>` and select appropriate JSON file.
 The configuration will be loaded; ``SELECT WORKDIR`` and run analyses.
@@ -490,7 +490,7 @@ Analyses step                                                        Default set
                                                                      | ``reference_based`` = undefined
                                                                      | ``abundance_skew`` = 2
                                                                      | ``min_h`` = 0.28
-:ref:`ITS Extractor <itsextractor>` (optional)                       | ``organisms`` = Fungi 
+:ref:`ITS Extractor <itsextractor>` (optional)                       | ``organisms`` = all 
                                                                      | ``regions`` = all
                                                                      | ``partial`` = 50
                                                                      | ``e_value`` = 1e-5
@@ -526,7 +526,7 @@ ANALYSES PANELS
 .. _demux:
 
 DEMULTIPLEX
-------------
+===============
 
 If data is **multiplexed, the first step would be demultiplexing** (using `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_ (`Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_)).
 This is done based on the user specified :ref:`indexes file <indexes>`, which includes molecular identifier sequences (so called indexes/tags/barcodes) per sample. 
@@ -682,7 +682,7 @@ ____________________________________________________
 .. _reorient:
 
 REORIENT
---------
+=========
 
 Sequences are often (if not always) in both, 5'-3' and 3'-5', orientations in the raw sequencing data sets. 
 If the data still contains PCR primers that were used to generate amplicons, 
@@ -739,7 +739,7 @@ ____________________________________________________
 .. _remove_primers:
 
 CUT PRIMERS
------------
+============
 
 If the input data contains PCR primers (or e.g. adapters), these can be removed in the ``CUT PRIMERS`` panel.
 CUT PRIMERS processes mostly relies on `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_ (`Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_). 
@@ -799,7 +799,7 @@ ____________________________________________________
 .. _qual_filt:
 
 QUALITY FILTERING
-------------------
+==================
 
 Quality filter and trim sequences.
 
@@ -950,7 +950,7 @@ ____________________________________________________
 .. _merge_pairs:
 
 ASSEMBLE PAIRED-END reads 
---------------------------
+=========================
 
 Assemble paired-end sequences (such as those from Illumina or MGI-Tech platforms). 
 
@@ -1049,7 +1049,7 @@ ____________________________________________________
 |
 
 CHIMERA FILTERING
------------------
+=================
 
 Perform de-novo and or reference database based chimera filtering. 
 
@@ -1094,7 +1094,7 @@ ____________________________________________________
 |
 
 `ITS Extractor <https://microbiology.se/software/itsx/>`_
------------------------------------------------------------
+==========================================================
 
 When working with ITS amplicons, then 
 extract ITS regions with `ITS Extractor <https://microbiology.se/software/itsx/>`_ (`Bengtsson-Palme et al. 2013 <https://doi.org/10.1111/2041-210X.12073>`_)
@@ -1142,7 +1142,7 @@ ____________________________________________________
 .. _clustering:
 
 CLUSTERING
-----------
+==========
 
 Cluster sequences, generate OTUs.
 
@@ -1191,7 +1191,7 @@ ____________________________________________________
 .. _postclustering:
 
 POSTCLUSTERING
----------------
+==============
 
 Perform OTU post-clustering. Merge co-occurring 'daughter' OTUs.
 
@@ -1262,7 +1262,7 @@ ____________________________________________________
 |
 
 ASSIGN TAXONOMY
----------------
+===============
 
 Implemented tools for taxonomy annotation:
 
@@ -1347,8 +1347,10 @@ ____________________________________________________
 
 .. _databases:
 
-A list of public databases available for taxonomy annotation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sequence databases
+------------------
+
+A *(noncomprehensive)* list of public databases available for taxonomy annotation
 
 ==================================================================== ======== ===================================================================================================================================================================
 Database                                                             Version  Description (click to download) 
@@ -1359,7 +1361,7 @@ Database                                                             Version  De
 `MIDORI <http://www.reference-midori.info/>`_                        | 246    | `Eukaryota mitochondrial genes <http://www.reference-midori.info/download.php#>`_
 `CO1 Classifier <https://github.com/terrimporter/CO1Classifier>`_    | 4      | `Metazoa COI <https://github.com/terrimporter/CO1Classifier/releases/tag/v4-ref>`_
 DADA2-formatted reference databases                                  |        | `DADA2-formatted reference databases  <https://benjjneb.github.io/dada2/training.html>`_
-DIAT.BARCODE database                                                 |        | `rbcL/18S, diatoms <https://www6.inrae.fr/carrtel-collection_eng/Barcoding-database/Database-download>`_
+DIAT.BARCODE database                                                |        | `rbcL/18S, diatoms <https://www6.inrae.fr/carrtel-collection_eng/Barcoding-database/Database-download>`_
 ==================================================================== ======== ===================================================================================================================================================================
 
 ____________________________________________________
@@ -1367,7 +1369,7 @@ ____________________________________________________
 .. _postprocessing:
 
 POSTPROCESSING
----------------
+==============
 
 Post-processing tools. :ref:`See this page <postprocessingtools>`
 
@@ -1383,7 +1385,7 @@ Especially useful in Windows OS, where majority of implemented modules are not c
 
 :ref:`See list of docker images with implemented software below. <dockerimages>`
 
-Show a list of all images in your system:
+Show a list of all images in your system (using e.g. **Expert-mode**):
 
 .. code-block::
 
@@ -1403,7 +1405,7 @@ Delete an image
 
   docker rmi pipecraft/vsearch:2.18
 
-Run docker container in your working directory to access the files. Outputs will be generated into the working directory.
+Run docker container in your working directory to access the files. Outputs will be generated into the specified working directory.
 Specify the working directory under the -v flag:
 
 .. code-block::
@@ -1416,6 +1418,7 @@ Once inside the container, move to /Files directory, which represents your worki
 
   cd Files
   vsearch --help
+  vsearch *--whateversettings*
       
 
 Exit from the container:
@@ -1436,14 +1439,15 @@ Image                                 Software
 ====================================  ===============================================================
 ewels/multiqc:latest                  mutliqc v1.12
 staphb/fastqc:0.11.9                  fastqc v0.11.9               
-pipecraft/cutadapt:3.5                cutadapt v3.5, seqkit v2.0.0                                        
+pipecraft/cutadapt:3.5                cutadapt v3.5, seqkit v2.0.0, python3, biopython                                        
 pipecraft/dada2:1.20                  dada2 v1.20, seqkit v2.0.0, lulu v0.1.0, R                                                  
 pipecraft/reorient:1                  fqgrep v0.4.4, seqkit v2.0.0, mothur v.1.43.0                                                        
 pipecraft/trimmomatic:0.39            trimmomatic 0.39, seqkit v2.0.0                             
-pipecraft/vsearch:2.18                vsearch v2.18, seqkit v2.0.0           
+pipecraft/vsearch:2.18                vsearch v2.18, seqkit v2.0.0, GNU parallel           
 pipecraft/itsx:1.1.3                  ITSx v1.1.3, seqkit v2.0.0, mothur v1.46.1                                      
 pipecraft/blast:2.12                  BLAST v2.12.0+                           
 pipecraft/deicode:0.2.4               DEICODE v0.2.4, qiime2-2002.2
-pipecraft/fastp:0.23.2                fastp v0.23.2                            
+pipecraft/fastp:0.23.2                fastp v0.23.2
+pipecraft/blast:2.12                  BLAST 2.12.0+, biopython, python3, gawk                             
 ====================================  ===============================================================
 

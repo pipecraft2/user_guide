@@ -46,8 +46,8 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Walkthrough</a></li>
 <li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing tools</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#asvs-workflow">ASVs workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#general">General</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#asvs-workflow">ASVs workflow</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
@@ -88,6 +88,22 @@
 <h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline"></a></h1>
 <p>This page is developing based on the user feedback.</p>
 <hr class="docutils" />
+<section id="general">
+<h2>General<a class="headerlink" href="#general" title="Permalink to this headline"></a></h2>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>Conflict. The container name XXX is already in use by container “XXX”.
+You have to remove (or rename) that container to be able to reuse that name.</p>
+</div>
+<p><strong>Reason</strong>: Process stopped unexpectedly and docker container was not closed.</p>
+<p><strong>Fix</strong>: Remove the docker container (not image!) that is causing the conflict</p>
+<div class="admonition error">
+<p class="admonition-title">Error</p>
+<p>No files in the output folder, but PipeCraft said “Workflow finished”.</p>
+</div>
+<p><strong>Reason</strong>: ?</p>
+<p><strong>Fix</strong>: Check if there was a README.txt output and read that. Please <a class="reference internal" href="contact.html#contact"><span class="std std-ref">report</span></a> unexpexted errors.</p>
+</section>
 <section id="asvs-workflow">
 <h2>ASVs workflow<a class="headerlink" href="#asvs-workflow" title="Permalink to this headline"></a></h2>
 <div class="admonition error">
@@ -127,16 +143,6 @@ ____________________________________________________</p>
 </div>
 <p><strong>Possible reason</strong>: Too small data set; samples contain too few reads for DADA2 denoising.</p>
 <p><strong>Fix</strong>: use OTU workflow.</p>
-</section>
-<section id="general">
-<h2>General<a class="headerlink" href="#general" title="Permalink to this headline"></a></h2>
-<div class="admonition error">
-<p class="admonition-title">Error</p>
-<p>Conflict. The container name XXX is already in use by container “XXX”.
-You have to remove (or rename) that container to be able to reuse that name.</p>
-</div>
-<p><strong>Reason</strong>: Process stopped unexpectedly and docker container was not closed.</p>
-<p><strong>Fix</strong>: Remove the docker container (not image!) that is causing the conflict</p>
 </section>
 </section>
 

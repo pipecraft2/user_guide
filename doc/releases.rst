@@ -25,11 +25,26 @@ Releases
 
 ____________________________________________________
 
- 
+.. _0.1.3:
+
+0.1.3 (28.07.2022)
+==================
+
+`DOWNLOAD link for v0.1.3 <https://github.com/SuvalineVana/pipecraft/releases/tag/v0.1.3>`_
+
+* updated BLAST 2.11.0+ to BLAST 2.12.0+ and added biopython to BLAST container (fixed the coverage% calculation)
+* fixed the megaBLAST, when gapextend=undefined
+* quality Check module edit (does not stop when browsing around)
+* fixed ASVs workflow error message when using <2 samples
+* added lock panels when starting a process
+* few cosmetic front-end adds  
+
 .. _0.1.2:
 
 0.1.2 (07.06.2022)
 ==================
+
+`DOWNLOAD link for v0.1.2 <https://github.com/SuvalineVana/pipecraft/releases/tag/v0.1.2>`_
 
 * added LULU post-clustering 
 * added DEICODE (postprocessing)
@@ -70,7 +85,7 @@ ____________________________________________________
 ==================
 
 Minor cosmetic changes and bug fixes. 
-`DOWNLOADS <https://github.com/SuvalineVana/pipecraft/releases/tag/0.1.1>`_
+`DOWNLOAD link for v0.1.1 <https://github.com/SuvalineVana/pipecraft/releases/tag/0.1.1>`_
 
 * separate output forlder for unused index combinations in demultiplexing.  
 * resolved issues with sample renaiming when using dual combinational indexes for paired-end data 
@@ -85,7 +100,7 @@ ____________________________________________________
 0.1.0 pre-release (14.12.2021)
 ==============================
 
-`DOWNLOADS <https://github.com/SuvalineVana/pipecraft/releases/tag/0.1.0>`_
+`DOWNLOAD link for v0.1.0 <https://github.com/SuvalineVana/pipecraft/releases/tag/0.1.0>`_
 
 * ASV workflow with DADA2 for paired-end data.
 * vsearch based OTU workflow.
