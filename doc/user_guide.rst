@@ -570,7 +570,7 @@ Setting                          Tooltip
 .. _indexes:
 
 Indexes file example (fasta formatted)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------
 
 .. note::
 
@@ -809,7 +809,7 @@ Quality filter and trim sequences.
 .. _qfilt_vsearch:
 
 `vsearch <https://github.com/torognes/vsearch>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------------
 
 ================================ =========================
 **vsearch** setting              Tooltip
@@ -842,7 +842,7 @@ Quality filter and trim sequences.
 .. _qfilt_trimmomatic:
 
 `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------------------------
 
 ================================ =========================
 **trimmomatic** setting          Tooltip
@@ -869,7 +869,7 @@ Quality filter and trim sequences.
 .. _qfilt_fastp:
 
 `fastp <https://github.com/OpenGene/fastp>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------------------
 
 ================================ =========================
 **fastp** setting                Tooltip
@@ -899,7 +899,7 @@ Quality filter and trim sequences.
 .. _qfilt_dada2:
 
 `DADA2 <https://github.com/benjjneb/dada2>`_ ('filterAndTrim' function)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------------------------------
 
 ================================ =========================
 **DADA2** setting                Tooltip
@@ -970,7 +970,7 @@ these taxa will be represented in the final output. But when using :ref:`ITSx <i
 .. _merge_vsearch:
 
 `vsearch <https://github.com/torognes/vsearch>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------------
 
 ================================ =========================
 Setting                          Tooltip
@@ -996,7 +996,7 @@ Setting                          Tooltip
 .. _merge_dada2:
 
 `DADA2 <https://github.com/benjjneb/dada2>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------------------------
 
 .. important::
 
@@ -1061,7 +1061,7 @@ Chimera filtering is performed by **sample-wise approach** (i.e. each sample (in
 .. _chimFilt_vsearch:
 
 `vsearch <https://github.com/torognes/vsearch>`_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------------
 
 ================================ =========================
 Setting                          Tooltip
@@ -1156,7 +1156,7 @@ Cluster sequences, generate OTUs.
 .. _clustering_vsearch:
 
 `vsearch <https://github.com/torognes/vsearch>`_ 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------------------
 
 =============================================== =========================
 `Setting <_static/vsearch_2.18.0_manual.pdf>`_  Tooltip
@@ -1199,7 +1199,7 @@ Perform OTU post-clustering. Merge co-occurring 'daughter' OTUs.
 .. _postclustering_lulu:
 
 `LULU <https://github.com/tobiasgf/lulu>`_ 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------------
 
 LULU description from the `LULU repository <https://github.com/tobiasgf/lulu>`_: the purpose of LULU is to reduce the number of 
 erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. 
@@ -1269,7 +1269,7 @@ Implemented tools for taxonomy annotation:
 .. _assign_taxonomy_blast:
 
 `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_ (`Camacho et al. 2009 <https://doi.org/10.1186/1471-2105-10-421>`_)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------------------------------------------------------------------------------------------
 
 | BLAST search sequences againt selected :ref:`database <databases>`. 
 
@@ -1318,8 +1318,8 @@ ____________________________________________________
 
 .. _assign_taxonomy_dada2:
 
-`DADA2 RDP naive Bayesian classifier <https://github.com/benjjneb/dada2>`_ 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`DADA2 classifier <https://github.com/benjjneb/dada2>`_ 
+---------------------------------------------------------
 
 | Classify sequences with DADA2 RDP naive Bayesian classifier (function assignTaxonomy) againt selected :ref:`database <databases>`.
 

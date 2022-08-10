@@ -66,6 +66,12 @@ PipeCraft was tested on **Windows 10** and **Windows 11**. Older Windows version
 
 3. Install PipeCraft via the setup executable
 
+.. warning::
+
+  In Windows, please keep you working directory path as short as possible. Maximum path lenght in Windows is 260 characters. 
+  PipeCraft may not be able to work with files, that are buried "deep inside" (i.e. the path is too long).
+
+
 .. note::
 
  Resource limits for Docker are managed by Windows; 

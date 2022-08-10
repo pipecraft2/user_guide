@@ -64,16 +64,43 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#analyses-panels">ANALYSES PANELS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#demultiplex">DEMULTIPLEX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#demultiplex">DEMULTIPLEX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#indexes-file-example-fasta-formatted">Indexes file example (fasta formatted)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-to-compose-indexes-fasta">How to compose indexes.fasta</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#reorient">REORIENT</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cut-primers">CUT PRIMERS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#quality-filtering">QUALITY FILTERING</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#assemble-paired-end-reads">ASSEMBLE PAIRED-END reads</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#chimera-filtering">CHIMERA FILTERING</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">ITS Extractor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#clustering">CLUSTERING</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#postclustering">POSTCLUSTERING</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id12">ASSIGN TAXONOMY</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#quality-filtering">QUALITY FILTERING</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#qfilt-vsearch">vsearch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">trimmomatic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qfilt-fastp">fastp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dada2-filterandtrim-function">DADA2 (‘filterAndTrim’ function)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#assemble-paired-end-reads">ASSEMBLE PAIRED-END reads</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#merge-vsearch">vsearch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">DADA2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#chimera-filtering">CHIMERA FILTERING</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#chimfilt-vsearch">vsearch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id16">ITS Extractor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clustering">CLUSTERING</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#clustering-vsearch">vsearch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id21">POSTCLUSTERING</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#postclustering-lulu">LULU</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id26">ASSIGN TAXONOMY</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#blast-camacho-et-al-2009">BLAST (Camacho et al. 2009)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assign-taxonomy-dada2">DADA2 classifier</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sequence-databases">Sequence databases</a></li>
 </ul>
 </li>
@@ -122,44 +149,74 @@
 </dd>
 </dl>
 <style> .red {color:#ff0000; font-weight:bold; font-size:16px} </style><section id="user-guide">
-<h1><a class="toc-backref" href="#id19">User guide</a><a class="headerlink" href="#user-guide" title="Permalink to this headline"></a></h1>
+<h1><a class="toc-backref" href="#id34">User guide</a><a class="headerlink" href="#user-guide" title="Permalink to this headline"></a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#user-guide" id="id19">User guide</a></p>
+<li><p><a class="reference internal" href="#user-guide" id="id34">User guide</a></p>
 <ul>
-<li><p><a class="reference internal" href="#the-interface" id="id20">The interface</a></p></li>
-<li><p><a class="reference internal" href="#glossary" id="id21">Glossary</a></p></li>
-<li><p><a class="reference internal" href="#docker-images" id="id22">Docker images</a></p></li>
-<li><p><a class="reference internal" href="#save-workflow" id="id23">Save workflow</a></p></li>
-<li><p><a class="reference internal" href="#load-workflow" id="id24">Load workflow</a></p></li>
-<li><p><a class="reference internal" href="#quality-and-basic-statistics-screening-of-the-data" id="id25">Quality and basic statistics screening of the data</a></p></li>
-<li><p><a class="reference internal" href="#select-workdir-and-run-analyses" id="id26">Select workdir and run analyses</a></p></li>
-<li><p><a class="reference internal" href="#full-pipeline-panels" id="id27">FULL PIPELINE PANELS</a></p>
+<li><p><a class="reference internal" href="#the-interface" id="id35">The interface</a></p></li>
+<li><p><a class="reference internal" href="#glossary" id="id36">Glossary</a></p></li>
+<li><p><a class="reference internal" href="#docker-images" id="id37">Docker images</a></p></li>
+<li><p><a class="reference internal" href="#save-workflow" id="id38">Save workflow</a></p></li>
+<li><p><a class="reference internal" href="#load-workflow" id="id39">Load workflow</a></p></li>
+<li><p><a class="reference internal" href="#quality-and-basic-statistics-screening-of-the-data" id="id40">Quality and basic statistics screening of the data</a></p></li>
+<li><p><a class="reference internal" href="#select-workdir-and-run-analyses" id="id41">Select workdir and run analyses</a></p></li>
+<li><p><a class="reference internal" href="#full-pipeline-panels" id="id42">FULL PIPELINE PANELS</a></p>
 <ul>
-<li><p><a class="reference internal" href="#asvs-workflow-panel-with-dada2" id="id28">ASVs workflow panel (with DADA2)</a></p></li>
-<li><p><a class="reference internal" href="#otus-workflow-panel" id="id29">OTUs workflow panel</a></p></li>
+<li><p><a class="reference internal" href="#asvs-workflow-panel-with-dada2" id="id43">ASVs workflow panel (with DADA2)</a></p></li>
+<li><p><a class="reference internal" href="#otus-workflow-panel" id="id44">OTUs workflow panel</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#analyses-panels" id="id30">ANALYSES PANELS</a></p></li>
-<li><p><a class="reference internal" href="#demultiplex" id="id31">DEMULTIPLEX</a></p></li>
-<li><p><a class="reference internal" href="#reorient" id="id32">REORIENT</a></p></li>
-<li><p><a class="reference internal" href="#cut-primers" id="id33">CUT PRIMERS</a></p></li>
-<li><p><a class="reference internal" href="#quality-filtering" id="id34">QUALITY FILTERING</a></p></li>
-<li><p><a class="reference internal" href="#assemble-paired-end-reads" id="id35">ASSEMBLE PAIRED-END reads</a></p></li>
-<li><p><a class="reference internal" href="#chimera-filtering" id="id36">CHIMERA FILTERING</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id37">ITS Extractor</a></p></li>
-<li><p><a class="reference internal" href="#clustering" id="id38">CLUSTERING</a></p></li>
-<li><p><a class="reference internal" href="#postclustering" id="id39">POSTCLUSTERING</a></p></li>
-<li><p><a class="reference internal" href="#id12" id="id40">ASSIGN TAXONOMY</a></p>
+<li><p><a class="reference internal" href="#analyses-panels" id="id45">ANALYSES PANELS</a></p></li>
+<li><p><a class="reference internal" href="#demultiplex" id="id46">DEMULTIPLEX</a></p>
 <ul>
-<li><p><a class="reference internal" href="#sequence-databases" id="id41">Sequence databases</a></p></li>
+<li><p><a class="reference internal" href="#indexes-file-example-fasta-formatted" id="id47">Indexes file example (fasta formatted)</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#postprocessing" id="id42">POSTPROCESSING</a></p></li>
-<li><p><a class="reference internal" href="#expert-mode-pipecraft-console" id="id43">Expert-mode (PipeCraft console)</a></p>
+<li><p><a class="reference internal" href="#reorient" id="id48">REORIENT</a></p></li>
+<li><p><a class="reference internal" href="#cut-primers" id="id49">CUT PRIMERS</a></p></li>
+<li><p><a class="reference internal" href="#quality-filtering" id="id50">QUALITY FILTERING</a></p>
 <ul>
-<li><p><a class="reference internal" href="#working-docker-images" id="id44">Working docker images</a></p></li>
+<li><p><a class="reference internal" href="#qfilt-vsearch" id="id51">vsearch</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id52">trimmomatic</a></p></li>
+<li><p><a class="reference internal" href="#qfilt-fastp" id="id53">fastp</a></p></li>
+<li><p><a class="reference internal" href="#dada2-filterandtrim-function" id="id54">DADA2 (‘filterAndTrim’ function)</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#assemble-paired-end-reads" id="id55">ASSEMBLE PAIRED-END reads</a></p>
+<ul>
+<li><p><a class="reference internal" href="#merge-vsearch" id="id56">vsearch</a></p></li>
+<li><p><a class="reference internal" href="#id13" id="id57">DADA2</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#chimera-filtering" id="id58">CHIMERA FILTERING</a></p>
+<ul>
+<li><p><a class="reference internal" href="#chimfilt-vsearch" id="id59">vsearch</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id16" id="id60">ITS Extractor</a></p></li>
+<li><p><a class="reference internal" href="#clustering" id="id61">CLUSTERING</a></p>
+<ul>
+<li><p><a class="reference internal" href="#clustering-vsearch" id="id62">vsearch</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id21" id="id63">POSTCLUSTERING</a></p>
+<ul>
+<li><p><a class="reference internal" href="#postclustering-lulu" id="id64">LULU</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id26" id="id65">ASSIGN TAXONOMY</a></p>
+<ul>
+<li><p><a class="reference internal" href="#blast-camacho-et-al-2009" id="id66">BLAST (Camacho et al. 2009)</a></p></li>
+<li><p><a class="reference internal" href="#assign-taxonomy-dada2" id="id67">DADA2 classifier</a></p></li>
+<li><p><a class="reference internal" href="#sequence-databases" id="id68">Sequence databases</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#postprocessing" id="id69">POSTPROCESSING</a></p></li>
+<li><p><a class="reference internal" href="#expert-mode-pipecraft-console" id="id70">Expert-mode (PipeCraft console)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#working-docker-images" id="id71">Working docker images</a></p></li>
 </ul>
 </li>
 </ul>
@@ -168,14 +225,14 @@
 </div>
 <hr class="docutils" />
 <section id="the-interface">
-<span id="interface"></span><h2><a class="toc-backref" href="#id20">The interface</a><a class="headerlink" href="#the-interface" title="Permalink to this headline"></a></h2>
+<span id="interface"></span><h2><a class="toc-backref" href="#id35">The interface</a><a class="headerlink" href="#the-interface" title="Permalink to this headline"></a></h2>
 <p>The startup panel:</p>
 <p><em>(click on the image for enlargement)</em>
 <a class="reference internal" href="_images/main_interface.png"><img alt="Alternative text" src="_images/main_interface.png" style="width: 2000px;" /></a></p>
 </section>
 <hr class="docutils" />
 <section id="glossary">
-<h2><a class="toc-backref" href="#id21">Glossary</a><a class="headerlink" href="#glossary" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id36">Glossary</a><a class="headerlink" href="#glossary" title="Permalink to this headline"></a></h2>
 <p>List of terms that you may encounter in this user guide.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -227,7 +284,7 @@
 </section>
 <hr class="docutils" />
 <section id="docker-images">
-<h2><a class="toc-backref" href="#id22">Docker images</a><a class="headerlink" href="#docker-images" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id37">Docker images</a><a class="headerlink" href="#docker-images" title="Permalink to this headline"></a></h2>
 <p>Initial PipeCraft installation does not contain any software for sequence data processing.
 All the processes are run through <a class="reference external" href="https://www.docker.com/">docker</a>, where the PipeCraft’s simply GUI mediates the
 information exchange. Therefore, whenever a process is initiated for the <strong>first time</strong>,
@@ -238,7 +295,7 @@ a relevant Docker image (contains required software for the analyses step) will 
 </section>
 <hr class="docutils" />
 <section id="save-workflow">
-<h2><a class="toc-backref" href="#id23">Save workflow</a><a class="headerlink" href="#save-workflow" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id38">Save workflow</a><a class="headerlink" href="#save-workflow" title="Permalink to this headline"></a></h2>
 <p>Once the workflow settings are selected, save the workflow by pressin <code class="docutils literal notranslate"><span class="pre">SAVE</span> <span class="pre">WORKFLOW</span></code> button on the <a class="reference internal" href="#interface"><span class="std std-ref">right-ribbon</span></a>.
 For saving, working directory ( <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> ) does not have to be selected.</p>
 <div class="admonition important">
@@ -249,17 +306,17 @@ When trying to load the workflow, only .JSON files will be permitted as input. <
 </section>
 <hr class="docutils" />
 <section id="load-workflow">
-<h2><a class="toc-backref" href="#id24">Load workflow</a><a class="headerlink" href="#load-workflow" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id39">Load workflow</a><a class="headerlink" href="#load-workflow" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Prior loading the workflow, make sure that the saved workflow configuration has a .JSON extension. Note also that <strong>workflows saved in older PipeCraft version</strong> might not run in newer version, but anyhow the selected options will be visible.</p>
+<p>Prior loading the workflow, make sure that the saved workflow configuration has a .JSON extension. Note also that <strong>workflows saved in older PipeCraft version</strong> might not run in newer version, but anyhow the selected options will be visible for reproducibility.</p>
 </div>
 <p>Press the <code class="docutils literal notranslate"><span class="pre">LOAD</span> <span class="pre">WORKFLOW</span></code> button on the <a class="reference internal" href="#interface"><span class="std std-ref">right-ribbon</span></a> and select appropriate JSON file.
 The configuration will be loaded; <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> and run analyses.</p>
 <hr class="docutils" />
 </section>
 <section id="quality-and-basic-statistics-screening-of-the-data">
-<span id="qualitycheck"></span><h2><a class="toc-backref" href="#id25">Quality and basic statistics screening of the data</a><a class="headerlink" href="#quality-and-basic-statistics-screening-of-the-data" title="Permalink to this headline"></a></h2>
+<span id="qualitycheck"></span><h2><a class="toc-backref" href="#id40">Quality and basic statistics screening of the data</a><a class="headerlink" href="#quality-and-basic-statistics-screening-of-the-data" title="Permalink to this headline"></a></h2>
 <p>Quality and basic statistics screening of the data can be done via <code class="docutils literal notranslate"><span class="pre">QualityCheck</span></code> panel.
 QualityCheck panel implements <a class="reference external" href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a> and <a class="reference external" href="https://multiqc.info/">MultiQC</a> to screen the input <strong>fastq</strong> files.</p>
 <p><a class="reference internal" href="_images/multiQC_main.png"><img alt="Alternative text" src="_images/multiQC_main.png" style="width: 1000px;" /></a></p>
@@ -296,7 +353,7 @@ so you may delete all individual ‘_fastqc.zip’ and ‘_fastqc.html’ files.
 </section>
 <hr class="docutils" />
 <section id="select-workdir-and-run-analyses">
-<h2><a class="toc-backref" href="#id26">Select workdir and run analyses</a><a class="headerlink" href="#select-workdir-and-run-analyses" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id41">Select workdir and run analyses</a><a class="headerlink" href="#select-workdir-and-run-analyses" title="Permalink to this headline"></a></h2>
 <p>1. Open your working directory by pressing the <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> button. E.g., if working with <strong>FASTQ</strong> files,
 then be sure that the working directory contains <strong>only relevant FASTQ files</strong> because the selected process will be
 applied to all FASTQ files in the working directory!</p>
@@ -338,7 +395,7 @@ inside the selected working directory.
 </section>
 <hr class="docutils" />
 <section id="full-pipeline-panels">
-<h2><a class="toc-backref" href="#id27">FULL PIPELINE PANELS</a><a class="headerlink" href="#full-pipeline-panels" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id42">FULL PIPELINE PANELS</a><a class="headerlink" href="#full-pipeline-panels" title="Permalink to this headline"></a></h2>
 <section id="asvs-workflow-panel-with-dada2">
 <span id="asvpipe"></span><h3>ASVs workflow panel (with <a class="reference external" href="https://benjjneb.github.io/dada2/index.html">DADA2</a>)<a class="headerlink" href="#asvs-workflow-panel-with-dada2" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
@@ -713,7 +770,7 @@ Outputs classified fasta files into <code class="docutils literal notranslate"><
 </section>
 </section>
 <section id="otus-workflow-panel">
-<span id="otupipe"></span><h3><a class="toc-backref" href="#id29">OTUs workflow panel</a><a class="headerlink" href="#otus-workflow-panel" title="Permalink to this headline"></a></h3>
+<span id="otupipe"></span><h3><a class="toc-backref" href="#id44">OTUs workflow panel</a><a class="headerlink" href="#otus-workflow-panel" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This OTU workflow works with paired-end (e.g. Illumina, MGI-Tech) as well as single-end reads (e.g. PacBio, assembled Illumina reads)</p>
@@ -834,10 +891,10 @@ Outputs classified fasta files into <code class="docutils literal notranslate"><
 </section>
 </section>
 <section id="analyses-panels">
-<span id="panels"></span><h2><a class="toc-backref" href="#id30">ANALYSES PANELS</a><a class="headerlink" href="#analyses-panels" title="Permalink to this headline"></a></h2>
+<span id="panels"></span><h2><a class="toc-backref" href="#id45">ANALYSES PANELS</a><a class="headerlink" href="#analyses-panels" title="Permalink to this headline"></a></h2>
 </section>
 <section id="demultiplex">
-<span id="demux"></span><h2><a class="toc-backref" href="#id31">DEMULTIPLEX</a><a class="headerlink" href="#demultiplex" title="Permalink to this headline"></a></h2>
+<span id="demux"></span><h2><a class="toc-backref" href="#id46">DEMULTIPLEX</a><a class="headerlink" href="#demultiplex" title="Permalink to this headline"></a></h2>
 <p>If data is <strong>multiplexed, the first step would be demultiplexing</strong> (using <a class="reference external" href="https://cutadapt.readthedocs.io/en/stable/">cutadapt</a> (<a class="reference external" href="https://doi.org/10.14806/ej.17.1.200">Martin 2011</a>)).
 This is done based on the user specified <a class="reference internal" href="#indexes"><span class="std std-ref">indexes file</span></a>, which includes molecular identifier sequences (so called indexes/tags/barcodes) per sample.
 Note that reverse complementary matches will also be searched.</p>
@@ -907,6 +964,8 @@ Simply remove those files if not needed or use to estimate tag-switching error i
 <p class="admonition-title">Note</p>
 <p>Heterogenity spacers or any redundant base pairs attached to index sequences do not affect demultiplexing. Indexes are trimmed from the best matching position.</p>
 </div>
+<section id="indexes-file-example-fasta-formatted">
+<span id="indexes"></span><h3><a class="toc-backref" href="#id47">Indexes file example (fasta formatted)</a><a class="headerlink" href="#indexes-file-example-fasta-formatted" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Only <strong>IUPAC codes</strong> are allowed in the sequences. Avoid using ‘.’ in the sample names (e.g. instead of sample.1, use sample_1)</p>
@@ -966,6 +1025,8 @@ Simply remove those files if not needed or use to estimate tag-switching error i
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+<section id="how-to-compose-indexes-fasta">
+<h4>How to compose indexes.fasta<a class="headerlink" href="#how-to-compose-indexes-fasta" title="Permalink to this headline"></a></h4>
 <p>In Excel (or any alternative program);
 first column represents sample names,
 second (and third) column represent indexes (or index combinations) per sample:</p>
@@ -1017,8 +1078,10 @@ replace with \n (denotes the new line).</p>
 </ul>
 <hr class="docutils" />
 </section>
+</section>
+</section>
 <section id="reorient">
-<span id="id1"></span><h2><a class="toc-backref" href="#id32">REORIENT</a><a class="headerlink" href="#reorient" title="Permalink to this headline"></a></h2>
+<span id="id1"></span><h2><a class="toc-backref" href="#id48">REORIENT</a><a class="headerlink" href="#reorient" title="Permalink to this headline"></a></h2>
 <p>Sequences are often (if not always) in both, 5’-3’ and 3’-5’, orientations in the raw sequencing data sets.
 If the data still contains PCR primers that were used to generate amplicons,
 then by specifying these PCR primers, this panel will perform sequence reorientation
@@ -1089,7 +1152,7 @@ Primers are <strong>not truncated</strong> from the sequences; this can be done 
 <hr class="docutils" />
 </section>
 <section id="cut-primers">
-<span id="remove-primers"></span><h2><a class="toc-backref" href="#id33">CUT PRIMERS</a><a class="headerlink" href="#cut-primers" title="Permalink to this headline"></a></h2>
+<span id="remove-primers"></span><h2><a class="toc-backref" href="#id49">CUT PRIMERS</a><a class="headerlink" href="#cut-primers" title="Permalink to this headline"></a></h2>
 <p>If the input data contains PCR primers (or e.g. adapters), these can be removed in the <code class="docutils literal notranslate"><span class="pre">CUT</span> <span class="pre">PRIMERS</span></code> panel.
 CUT PRIMERS processes mostly relies on <a class="reference external" href="https://cutadapt.readthedocs.io/en/stable/">cutadapt</a> (<a class="reference external" href="https://doi.org/10.14806/ej.17.1.200">Martin 2011</a>).</p>
 <p>For generating OTUs or ASVs, it is recommended to truncate the primers from the reads
@@ -1194,12 +1257,14 @@ but <strong>single-end reads will be reoriented</strong> to 5’-3’ (thus no e
 </div>
 </section>
 <section id="quality-filtering">
-<span id="qual-filt"></span><h2><a class="toc-backref" href="#id34">QUALITY FILTERING</a><a class="headerlink" href="#quality-filtering" title="Permalink to this headline"></a></h2>
+<span id="qual-filt"></span><h2><a class="toc-backref" href="#id50">QUALITY FILTERING</a><a class="headerlink" href="#quality-filtering" title="Permalink to this headline"></a></h2>
 <p>Quality filter and trim sequences.</p>
 <div class="line-block">
 <div class="line"><strong>Fastq</strong> formatted paired-end and single-end data are supported.</div>
 <div class="line"><strong>Outputs</strong> are fastq files in <code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code> directory.</div>
 </div>
+<section id="qfilt-vsearch">
+<span id="id6"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#qfilt-vsearch" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 22%" />
@@ -1282,6 +1347,9 @@ but <strong>single-end reads will be reoriented</strong> to 5’-3’ (thus no e
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+</section>
+<section id="id7">
+<h3><a class="reference external" href="http://www.usadellab.org/cms/?page=trimmomatic">trimmomatic</a><a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 27%" />
@@ -1342,6 +1410,9 @@ but <strong>single-end reads will be reoriented</strong> to 5’-3’ (thus no e
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+</section>
+<section id="qfilt-fastp">
+<span id="id8"></span><h3><a class="reference external" href="https://github.com/OpenGene/fastp">fastp</a><a class="headerlink" href="#qfilt-fastp" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 27%" />
@@ -1431,6 +1502,9 @@ but <strong>single-end reads will be reoriented</strong> to 5’-3’ (thus no e
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+</section>
+<section id="dada2-filterandtrim-function">
+<span id="qfilt-dada2"></span><h3><a class="reference external" href="https://github.com/benjjneb/dada2">DADA2</a> (‘filterAndTrim’ function)<a class="headerlink" href="#dada2-filterandtrim-function" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 27%" />
@@ -1546,8 +1620,9 @@ but <strong>single-end reads will be reoriented</strong> to 5’-3’ (thus no e
 <div class="line"><br /></div>
 </div>
 </section>
+</section>
 <section id="assemble-paired-end-reads">
-<span id="merge-pairs"></span><h2><a class="toc-backref" href="#id35">ASSEMBLE PAIRED-END reads</a><a class="headerlink" href="#assemble-paired-end-reads" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id55">ASSEMBLE PAIRED-END reads</a><a class="headerlink" href="#assemble-paired-end-reads" title="Permalink to this headline"></a></h2>
 <p>Assemble paired-end sequences (such as those from Illumina or MGI-Tech platforms).</p>
 <p><code class="docutils literal notranslate"><span class="pre">include_only_R1</span></code> represents additional in-built module. If TRUE,
 unassembled R1 reads will be included to the set of assembled reads per sample.
@@ -1559,6 +1634,8 @@ these taxa will be represented in the final output. But when using <a class="ref
 , keep <code class="docutils literal notranslate"><span class="pre">only_full</span></code> = FALSE and include <code class="docutils literal notranslate"><span class="pre">partial</span></code> = 50.</p>
 <p><strong>Fastq</strong> formatted paired-end data is supported.
 <strong>Outputs</strong> are fastq files in <code class="docutils literal notranslate"><span class="pre">assembled_out</span></code> directory.</p>
+<section id="merge-vsearch">
+<span id="id11"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#merge-vsearch" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 29%" />
@@ -1633,6 +1710,9 @@ these taxa will be represented in the final output. But when using <a class="ref
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+</section>
+<section id="id13">
+<h3><a class="reference external" href="https://github.com/benjjneb/dada2">DADA2</a><a class="headerlink" href="#id13" title="Permalink to this headline"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Here, dada2 will perform denoising (function ‘dada’) before assembling paired-end data.
@@ -1739,14 +1819,17 @@ only A/T/C/Gs.</p>
 <div class="line"><br /></div>
 </div>
 </section>
+</section>
 <section id="chimera-filtering">
-<h2><a class="toc-backref" href="#id36">CHIMERA FILTERING</a><a class="headerlink" href="#chimera-filtering" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id58">CHIMERA FILTERING</a><a class="headerlink" href="#chimera-filtering" title="Permalink to this headline"></a></h2>
 <p>Perform de-novo and or reference database based chimera filtering.</p>
 <p>Chimera filtering is performed by <strong>sample-wise approach</strong> (i.e. each sample (input file) is treated separately).</p>
 <div class="line-block">
 <div class="line"><strong>Fastq/fasta</strong> formatted single-end data is supported [fastq inputs will be converted to fasta].</div>
 <div class="line"><strong>Outputs</strong> are fasta files in <code class="docutils literal notranslate"><span class="pre">chimera_Filtered_out</span></code> directory.</div>
 </div>
+<section id="chimfilt-vsearch">
+<span id="id15"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#chimfilt-vsearch" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 18%" />
@@ -1814,8 +1897,9 @@ only A/T/C/Gs.</p>
 <div class="line"><br /></div>
 </div>
 </section>
-<section id="id5">
-<h2><a class="reference external" href="https://microbiology.se/software/itsx/">ITS Extractor</a><a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
+</section>
+<section id="id16">
+<h2><a class="reference external" href="https://microbiology.se/software/itsx/">ITS Extractor</a><a class="headerlink" href="#id16" title="Permalink to this headline"></a></h2>
 <p>When working with ITS amplicons, then
 extract ITS regions with <a class="reference external" href="https://microbiology.se/software/itsx/">ITS Extractor</a> (<a class="reference external" href="https://doi.org/10.1111/2041-210X.12073">Bengtsson-Palme et al. 2013</a>)</p>
 <div class="admonition note">
@@ -1914,7 +1998,7 @@ extract ITS regions with <a class="reference external" href="https://microbiolog
 </div>
 </section>
 <section id="clustering">
-<span id="id7"></span><h2><a class="toc-backref" href="#id38">CLUSTERING</a><a class="headerlink" href="#clustering" title="Permalink to this headline"></a></h2>
+<span id="id18"></span><h2><a class="toc-backref" href="#id61">CLUSTERING</a><a class="headerlink" href="#clustering" title="Permalink to this headline"></a></h2>
 <p>Cluster sequences, generate OTUs.</p>
 <div class="line-block">
 <div class="line">Supported file format for the input data is <strong>fasta</strong>.</div>
@@ -1924,6 +2008,8 @@ extract ITS regions with <a class="reference external" href="https://microbiolog
 <p class="admonition-title">Note</p>
 <p>output OTU table is tab delimited text file.</p>
 </div>
+<section id="clustering-vsearch">
+<span id="id20"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#clustering-vsearch" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 35%" />
@@ -2022,9 +2108,12 @@ extract ITS regions with <a class="reference external" href="https://microbiolog
 </table>
 <hr class="docutils" />
 </section>
-<section id="postclustering">
-<span id="id8"></span><h2><a class="toc-backref" href="#id39">POSTCLUSTERING</a><a class="headerlink" href="#postclustering" title="Permalink to this headline"></a></h2>
+</section>
+<section id="id21">
+<h2><a class="toc-backref" href="#id63">POSTCLUSTERING</a><a class="headerlink" href="#id21" title="Permalink to this headline"></a></h2>
 <p>Perform OTU post-clustering. Merge co-occurring ‘daughter’ OTUs.</p>
+<section id="postclustering-lulu">
+<span id="id22"></span><h3><a class="reference external" href="https://github.com/tobiasgf/lulu">LULU</a><a class="headerlink" href="#postclustering-lulu" title="Permalink to this headline"></a></h3>
 <p>LULU description from the <a class="reference external" href="https://github.com/tobiasgf/lulu">LULU repository</a>: the purpose of LULU is to reduce the number of
 erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics.
 By evaluating the co-occurence patterns of OTUs among samples LULU identifies OTUs that consistently satisfy some user selected
@@ -2155,9 +2244,12 @@ in more realistic diversity metrics.</p>
 <div class="line"><br /></div>
 </div>
 </section>
-<section id="id12">
-<h2><a class="toc-backref" href="#id40">ASSIGN TAXONOMY</a><a class="headerlink" href="#id12" title="Permalink to this headline"></a></h2>
+</section>
+<section id="id26">
+<h2><a class="toc-backref" href="#id65">ASSIGN TAXONOMY</a><a class="headerlink" href="#id26" title="Permalink to this headline"></a></h2>
 <p>Implemented tools for taxonomy annotation:</p>
+<section id="blast-camacho-et-al-2009">
+<span id="assign-taxonomy-blast"></span><h3><a class="reference external" href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> (<a class="reference external" href="https://doi.org/10.1186/1471-2105-10-421">Camacho et al. 2009</a>)<a class="headerlink" href="#blast-camacho-et-al-2009" title="Permalink to this headline"></a></h3>
 <div class="line-block">
 <div class="line">BLAST search sequences againt selected <a class="reference internal" href="#databases"><span class="std std-ref">database</span></a>.</div>
 </div>
@@ -2258,6 +2350,9 @@ as filed separator to align the columns.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+</section>
+<section id="assign-taxonomy-dada2">
+<span id="id27"></span><h3><a class="reference external" href="https://github.com/benjjneb/dada2">DADA2 classifier</a><a class="headerlink" href="#assign-taxonomy-dada2" title="Permalink to this headline"></a></h3>
 <div class="line-block">
 <div class="line">Classify sequences with DADA2 RDP naive Bayesian classifier (function assignTaxonomy) againt selected <a class="reference internal" href="#databases"><span class="std std-ref">database</span></a>.</div>
 </div>
@@ -2307,8 +2402,9 @@ as filed separator to align the columns.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
+</section>
 <section id="sequence-databases">
-<span id="databases"></span><h3><a class="toc-backref" href="#id41">Sequence databases</a><a class="headerlink" href="#sequence-databases" title="Permalink to this headline"></a></h3>
+<span id="databases"></span><h3><a class="toc-backref" href="#id68">Sequence databases</a><a class="headerlink" href="#sequence-databases" title="Permalink to this headline"></a></h3>
 <p>A <em>(noncomprehensive)</em> list of public databases available for taxonomy annotation</p>
 <table class="docutils align-default">
 <colgroup>
@@ -2399,11 +2495,11 @@ as filed separator to align the columns.</p>
 </section>
 </section>
 <section id="postprocessing">
-<span id="id15"></span><h2><a class="toc-backref" href="#id42">POSTPROCESSING</a><a class="headerlink" href="#postprocessing" title="Permalink to this headline"></a></h2>
+<span id="id30"></span><h2><a class="toc-backref" href="#id69">POSTPROCESSING</a><a class="headerlink" href="#postprocessing" title="Permalink to this headline"></a></h2>
 <p>Post-processing tools. <a class="reference internal" href="postprocessing.html#postprocessingtools"><span class="std std-ref">See this page</span></a></p>
 </section>
 <section id="expert-mode-pipecraft-console">
-<span id="expert-mode"></span><h2><a class="toc-backref" href="#id43">Expert-mode (PipeCraft console)</a><a class="headerlink" href="#expert-mode-pipecraft-console" title="Permalink to this headline"></a></h2>
+<span id="expert-mode"></span><h2><a class="toc-backref" href="#id70">Expert-mode (PipeCraft console)</a><a class="headerlink" href="#expert-mode-pipecraft-console" title="Permalink to this headline"></a></h2>
 <p>Bioinformatic tools used by PipeCraft are stored on <a class="reference external" href="https://hub.docker.com/u/pipecraft">Dockerhub</a> as Docker images.
 These images can be used to launch any tool manually with the Docker CLI to even further customize your operations.
 Especially useful in Windows OS, where majority of implemented modules are not compatible.</p>
@@ -2413,15 +2509,15 @@ Especially useful in Windows OS, where majority of implemented modules are not c
 </pre></div>
 </div>
 <p>Download an image if required (from <a class="reference external" href="https://hub.docker.com/u/pipecraft">Dockerhub</a>):</p>
-<div class="literal-block-wrapper docutils container" id="id17">
-<div class="code-block-caption"><span class="caption-text">docker pull pipecraft/IMAGE:TAG</span><a class="headerlink" href="#id17" title="Permalink to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id32">
+<div class="code-block-caption"><span class="caption-text">docker pull pipecraft/IMAGE:TAG</span><a class="headerlink" href="#id32" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="n">pipecraft</span><span class="o">/</span><span class="n">vsearch</span><span class="p">:</span><span class="mf">2.18</span>
 </pre></div>
 </div>
 </div>
 <p>Delete an image</p>
-<div class="literal-block-wrapper docutils container" id="id18">
-<div class="code-block-caption"><span class="caption-text">docker rmi IMAGE</span><a class="headerlink" href="#id18" title="Permalink to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id33">
+<div class="code-block-caption"><span class="caption-text">docker rmi IMAGE</span><a class="headerlink" href="#id33" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">rmi</span> <span class="n">pipecraft</span><span class="o">/</span><span class="n">vsearch</span><span class="p">:</span><span class="mf">2.18</span>
 </pre></div>
 </div>
@@ -2443,7 +2539,7 @@ Specify the working directory under the -v flag:</p>
 </div>
 <hr class="docutils" />
 <section id="working-docker-images">
-<span id="dockerimages"></span><h3><a class="toc-backref" href="#id44">Working docker images</a><a class="headerlink" href="#working-docker-images" title="Permalink to this headline"></a></h3>
+<span id="dockerimages"></span><h3><a class="toc-backref" href="#id71">Working docker images</a><a class="headerlink" href="#working-docker-images" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 36%" />

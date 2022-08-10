@@ -135,9 +135,14 @@ Relevant Docker container will be downloaded prior the analysis.</p>
 <p>PipeCraft was tested on <strong>Windows 10</strong> and <strong>Windows 11</strong>. Older Windows versions do not support PipeCraft GUI workflow through Docker.</p>
 <ol class="arabic simple">
 <li><p>Download <a class="reference external" href="https://www.docker.com/get-started">Docker for windows</a></p></li>
-<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/v0.1.2/pipecraft_v0.1.2.exe">Windows: 0.1.3</a></p></li>
+<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/v0.1.3/pipecraft_v0.1.3.exe">Windows: v0.1.3</a></p></li>
 <li><p>Install PipeCraft via the setup executable</p></li>
 </ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>In Windows, please keep you working directory path as short as possible. Maximum path lenght in Windows is 260 characters.
+PipeCraft may not be able to work with files, that are buried “deep inside” (i.e. the path is too long).</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Resource limits for Docker are managed by Windows;
@@ -150,7 +155,7 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
 <p>PipeCraft is supported on macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through Docker.</p>
 <ol class="arabic simple">
 <li><p>Check your Mac chip (Apple or Intel) and download <a class="reference external" href="https://www.docker.com/get-started">Docker for Mac</a></p></li>
-<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/v0.1.2/pipecraft_v0.1.2.pkg">Mac: 0.1.3</a></p></li>
+<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/v0.1.3/pipecraft_v0.1.3.pkg">Mac: v0.1.3</a></p></li>
 <li><p>Install PipeCraft via <strong>pkg</strong> file</p></li>
 <li><p>Currently, this app might be identified as app from an unidentified developer. Grant an exception for a blocked app by clicking the “<strong>Open Anyway</strong>” button in the General panel of <strong>Security &amp; Privacy</strong> preferences</p></li>
 </ol>
@@ -176,12 +181,12 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
 <ol class="arabic simple">
 <li><p>Install Docker; <a class="reference external" href="https://docs.docker.com/engine/install/">follow the guidelines under appropriate Linux distribution</a></p></li>
 <li><p>If you are a non-root user complete these <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">post-install steps</a></p></li>
-<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/v0.1.2/pipecraft_v0.1.2.deb">Linux: 0.1.3</a></p></li>
+<li><p>Download PipeCraft for <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/releases/download/v0.1.3/pipecraft_v0.1.3.deb">Linux: v0.1.3</a></p></li>
 <li><p>Right click on the pipecraft_*.deb file and “Open With GDebi Package Installer” (Install Package) or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">dpkg</span> <span class="pre">-i</span> <span class="pre">path_to_deb_file</span></code></p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When you encounter ERROR during installation, then uninstall the previous version of PipeCraft <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">dpkg</span> <span class="pre">--remove</span> <span class="pre">pipecraft</span></code></p>
+<p>When you encounter ERROR during installation, then uninstall the previous version of PipeCraft <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">dpkg</span> <span class="pre">--remove</span> <span class="pre">pipecraft-v0.1.3</span></code></p>
 </div>
 <ol class="arabic simple" start="5">
 <li><p>Run PipeCraft. If PipeCraft shortcut does not appear on the Desktop, then search the app and generate shortcut manually (installed in <em>/opt/pipecraft</em> directory)</p></li>
