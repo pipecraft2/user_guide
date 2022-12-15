@@ -20,10 +20,10 @@
 
 .. meta::
     :description lang=en:
-        PipeCraft manual. User guide for PipeCraft
+        PipeCraft2 manual. User guide for PipeCraft2
 
 |PipeCraft2_logo|
-  `github <https://github.com/SuvalineVana/pipecraft>`_
+  `github <https://github.com/pipecraft2/pipecraft>`_
 
 .. raw:: html
 
@@ -79,21 +79,25 @@ Docker images
   :alt: Alternative text
 
 
-Initial PipeCraft installation does not contain any software for sequence data processing. 
+Initial PipeCraft2 installation does not contain any software for sequence data processing. 
 All the processes are run through `docker <https://www.docker.com/>`_, where the PipeCraft's simply GUI mediates the 
 information exchange. Therefore, whenever a process is initiated for the **first time**, 
 a relevant Docker image (contains required software for the analyses step) will be pulled from `Docker Hub <https://hub.docker.com/u/pipecraft>`_.
 
 Example: running DEMULTIPLEXING for the first time |pulling_image|
 
-Thus working **Internet connection** is initially required. Once the Docker images are pulled, PipeCraft can work without an Internet connection. 
+Thus working **Internet connection** is initially required. Once the Docker images are pulled, PipeCraft2 can work without an Internet connection. 
 
-:ref:`Docker images <containers>` vary in size, and the speed of the first process is extended by the docker image download time.
+:ref:`Docker images <dockerimages>` vary in size, and the speed of the first process is extended by the docker image download time.
  
 ____________________________________________________
 
 Save workflow
 ==============
+
+.. note ::
+
+  starting fro m ersion 0.1.4, PipeCraft2 will automatically save the settings into selected WORKDIR prior starting the analyses
 
 Once the workflow settings are selected, save the workflow by pressin ``SAVE WORKFLOW`` button on the :ref:`right-ribbon <interface>`.
 For saving, working directory ( ``SELECT WORKDIR`` ) does not have to be selected. 
@@ -110,7 +114,7 @@ Load workflow
 
 .. note ::
 
- Prior loading the workflow, make sure that the saved workflow configuration has a .JSON extension. Note also that **workflows saved in older PipeCraft version** might not run in newer version, but anyhow the selected options will be visible for reproducibility.
+ Prior loading the workflow, make sure that the saved workflow configuration has a .JSON extension. Note also that **workflows saved in older PipeCraft2 version** might not run in newer version, but anyhow the selected options will be visible for reproducibility.
 
 Press the ``LOAD WORKFLOW`` button on the :ref:`right-ribbon <interface>` and select appropriate JSON file.
 The configuration will be loaded; ``SELECT WORKDIR`` and run analyses.
@@ -246,35 +250,39 @@ This automated workflow is based on the `DADA2 tutorial <https://benjjneb.github
 
 **Default options:**
 
-================================================== =========================
-Analyses step                                      Default setting
-================================================== =========================
-:ref:`DEMULTIPLEX <demux>` (optional)              --
-:ref:`REORIENT <reorient>` (optional)              --
-:ref:`REMOVE PRIMERS <remove_primers>` (optional)  --
-:ref:`QUALITY FILTERING <dada2_qual_filt>`         | ``read_R1`` = \\.R1
-                                                   | ``read_R2`` = \\.R2
-                                                   | ``samp_ID`` = \\.
-                                                   | ``maxEE`` = 2
-                                                   | ``maxN`` = 0
-                                                   | ``minLen`` = 20
-                                                   | ``truncQ`` = 2
-                                                   | ``truncLen`` = 0
-                                                   | ``maxLen`` = 9999
-                                                   | ``minQ`` = 2
-                                                   | ``matchIDs`` = TRUE
-:ref:`DENOISE <dada2_denoise>`                     | ``pool`` = FALSE
-                                                   | ``selfConsist`` = FASLE
-                                                   | ``qualityType`` = Auto
-:ref:`MERGE PAIRED-END READS <dada2_merge_pairs>`  | ``minOverlap`` = 12
-                                                   | ``maxMismatch`` = 0
-                                                   | ``trimOverhang`` = FALSE
-                                                   | ``justConcatenate`` = FALSE
-:ref:`CHIMERA FILTERING <dada2_chimeras>`          | ``method`` = consensus
-:ref:`ASSIGN TAXONOMY <dada2_taxonomy>` (optional) | ``minBoot`` = 50
-                                                   | ``tryRC`` = FALSE
-                                                   | ``dada2 database`` = select a database
-================================================== =========================
+=========================================================== =========================
+Analyses step                                               Default setting
+=========================================================== =========================
+:ref:`DEMULTIPLEX <demux>` (optional)                       | --
+:ref:`REORIENT <reorient>` (optional)                       | --
+:ref:`REMOVE PRIMERS <remove_primers>` (optional)           | --
+:ref:`QUALITY FILTERING <dada2_qual_filt>`                  | ``read_R1`` = \\.R1
+                                                            | ``read_R2`` = \\.R2
+                                                            | ``samp_ID`` = \\.
+                                                            | ``maxEE`` = 2
+                                                            | ``maxN`` = 0
+                                                            | ``minLen`` = 20
+                                                            | ``truncQ`` = 2
+                                                            | ``truncLen`` = 0
+                                                            | ``maxLen`` = 9999
+                                                            | ``minQ`` = 2
+                                                            | ``matchIDs`` = TRUE
+:ref:`DENOISE <dada2_denoise>`                              | ``pool`` = FALSE
+                                                            | ``selfConsist`` = FASLE
+                                                            | ``qualityType`` = Auto
+:ref:`MERGE PAIRED-END READS <dada2_merge_pairs>`           | ``minOverlap`` = 12
+                                                            | ``maxMismatch`` = 0
+                                                            | ``trimOverhang`` = FALSE
+                                                            | ``justConcatenate`` = FALSE
+:ref:`CHIMERA FILTERING <dada2_chimeras>`                   | ``method`` = consensus
+:ref:`Filter ASV table <dada2_table_filtering>` (optional)  | ``collapseNoMismatch`` = TRUE
+                                                            | ``by_length`` = 250
+                                                            | ``minOverlap`` = 20
+                                                            | ``vec`` = TRUE
+:ref:`ASSIGN TAXONOMY <dada2_taxonomy>` (optional)          | ``minBoot`` = 50
+                                                            | ``tryRC`` = FALSE
+                                                            | ``dada2 database`` = select a database
+=========================================================== =========================
 
 ____________________________________________________
 
@@ -407,6 +415,32 @@ Setting               Tooltip
 
 see :ref:`default settings <dada2_defaults>`
 
+.. _dada2_table_filtering:
+
+____________________________________________________
+
+filter ASV table [ASVs workflow] 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+DADA2 `collapseNoMismatch <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to collapse identical ASVs; 
+and ASVs filtering based on minimum accepted sequence length (custom R functions). 
+Outputs filtered ASV table and fasta files into ``ASVs_out.dada2/filtered`` directory.
+
+========================== ============
+Setting                    Tooltip
+========================== ============
+``collapseNoMismatch``     | collapses ASVs that are identical up to shifts or 
+                           | length variation, i.e. that have no mismatches or internal indels
+``by_length``              | discard ASVs from the ASV table that are shorter than specified 
+                           | value (in base pairs). Value 0 means OFF, no filtering by length
+``minOverlap``             | collapseNoMismatch setting. Default = 20. The minimum overlap of 
+                           | base pairs between ASV sequences required to collapse them together
+``vec``                    | collapseNoMismatch setting. Default = TRUE. Use the vectorized 
+                           | aligner. Should be turned off if sequences exceed 2kb in length
+========================== ============
+
+see :ref:`default settings <dada2_defaults>`
+
 ____________________________________________________
 
 .. _dada2_taxonomy:
@@ -452,7 +486,7 @@ OTUs workflow panel
 OTU workflow is active (green icon) |otuon|
 ; OTU workflow is off |otuoff| 
 
-This automated workflow is mostly based on `vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_) [`manual <_static/vsearch_2.18.0_manual.pdf>`_]
+This automated workflow is mostly based on `vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_) [`manual <_static/vsearch_manual_2.22.1.pdf>`_]
  | Note that ``demultiplexing``, ``reorient`` and ``remove primers`` steps are optional. Nevertheless, it is advisable to :ref:`reorient <reorient>` your reads (to 5'-3') and :ref:`remove primers <remove_primers>` before proceeding.
 
  
@@ -467,7 +501,8 @@ Analyses step                                                        Default set
 :ref:`DEMULTIPLEX <demux>` (optional)                                 --
 :ref:`REORIENT <reorient>` (optional)                                 --
 :ref:`REMOVE PRIMERS <remove_primers>` (optional)                     --
-:ref:`MERGE READS <merge_vsearch>`                                   | ``min_overlap`` = 12
+:ref:`MERGE READS <merge_vsearch>`                                   | ``read_R1`` = \\.R1
+                                                                     | ``min_overlap`` = 12
                                                                      | ``min_length`` = 32
                                                                      | ``allow_merge_stagger`` = TRUE 
                                                                      | ``include only R1`` = FALSE 
@@ -483,8 +518,7 @@ Analyses step                                                        Default set
                                                                      | ``qmax`` = 41
                                                                      | ``qmin`` = 0
                                                                      | ``maxee_rate`` = undefined
-                                                                     | ``minsize`` = 1
-:ref:`CHIMERA FILTERING with vsearch <chimFilt_vsearch>`             | ``pre_cluster`` = 0.98
+:ref:`CHIMERA FILTERING with uchime_denovo <chimFilt_vsearch>`       | ``pre_cluster`` = 0.98
                                                                      | ``min_unique_size`` = 1
                                                                      | ``denovo`` = TRUE 
                                                                      | ``reference_based`` = undefined
@@ -493,7 +527,9 @@ Analyses step                                                        Default set
 :ref:`ITS Extractor <itsextractor>` (optional)                       | ``organisms`` = all 
                                                                      | ``regions`` = all
                                                                      | ``partial`` = 50
-                                                                     | ``e_value`` = 1e-5
+                                                                     | ``region_for_clustering`` = ITS2
+                                                                     | ``cluster_full_and_partial`` = TRUE
+                                                                     | ``e_value`` = 1e-2
                                                                      | ``scores`` = 0
                                                                      | ``domains`` = 2
                                                                      | ``complement`` = TRUE 
@@ -502,15 +538,13 @@ Analyses step                                                        Default set
 :ref:`CLUSTERING with vsearch <clustering_vsearch>`                  | ``OTU_type`` = centroid
                                                                      | ``similarity_threshold`` = 0.97
                                                                      | ``strands`` = both
-                                                                     | ``min_OTU_size`` = 2
+                                                                     | ``remove_singletons`` = false
                                                                      | ``similarity_type`` = 2
                                                                      | ``sequence_sorting`` = cluster_size
                                                                      | ``centroid_type`` = similarity
                                                                      | ``max_hits`` = 1
-                                                                     | ``relabel`` = sha1
                                                                      | ``mask`` = dust
                                                                      | ``dbmask`` = dust
-                                                                     | ``output_UC`` = FALSE
 :ref:`ASSIGN TAXONOMY with BLAST <assign_taxonomy_blast>` (optional) | ``database_file`` = select a database
                                                                      | ``task`` = blastn
                                                                      | ``strands`` = both
@@ -534,7 +568,7 @@ Note that reverse complementary matches will also be searched.
 
 | **Fastq/fasta** formatted paired-end and single-end data are supported.
 | **Outputs** are fastq/fasta files per sample in ``demultiplexed_out`` directory. Indexes are **truncated** from the sequences. 
-| Samples get ``.R1`` and ``.R2`` read identifiers (relevant for :ref:`DADA2 QUALITY FILTERING <dada2_qual_filt>` ).
+| Paired-end samples get ``.R1`` and ``.R2`` read identifiers.
 | **unknown.fastq** file(s) contain sequences where specified index combinations were not found. 
 
 .. note:: 
@@ -778,7 +812,7 @@ Setting                          Tooltip
                                  | in the specified mismatch error range)
 ``seqs to keep``                 | keep sequences where at least one primer was found (fwd or rev); 
                                  | recommended when cutting primers from paired-end data (unassembled), 
-                                 | when individual R1 or R2 read lenghts are shorther than the expected 
+                                 | when individual R1 or R2 read lengths are shorther than the expected 
                                  | amplicon length. 'keep_only_linked' = keep sequences if primers are found 
                                  | in both ends (fwd…rev); discards the read if both primers were not found 
                                  | in this read
@@ -820,16 +854,16 @@ Quality filter and trim sequences.
 ``minLen``                       | minimum length of the filtered output sequence
 ``max_length``                   | discard sequences with more than the specified number of bases. 
                                  | Note that if 'trunc length' setting is specified, then 'max length' 
-                                 | SHOULD NOT be lower than 'trunc lenght' (otherwise all reads are discared) 
+                                 | SHOULD NOT be lower than 'trunc length' (otherwise all reads are discared) 
                                  | [empty field = no action taken] 
                                  | Note that if 'trunc length' setting is specified, then 'min length' 
-                                 | SHOULD BE lower than 'trunc lenght' (otherwise all reads are discared)
+                                 | SHOULD BE lower than 'trunc length' (otherwise all reads are discared)
 ``qmax``                         | specify the maximum quality score accepted when reading FASTQ files. 
                                  | The default is 41, which is usual for recent Sanger/Illumina 1.8+ files. 
                                  | **For PacBio data use 93**
 ``trunc_length``                 | truncate sequences to the specified length. Shorter sequences are discarded; 
                                  | thus if specified, check that 'min length' setting is lower than 'trunc length' 
-                                 | ('min lenght' therefore has basically no effect) [empty field = no action taken]
+                                 | ('min length' therefore has basically no effect) [empty field = no action taken]
 ``qmin``                         | the minimum quality score accepted for FASTQ files. The default is 0, which is 
                                  | usual for recent Sanger/Illumina 1.8+ files. 
                                  | Older formats may use scores between -5 and 2
@@ -975,6 +1009,10 @@ these taxa will be represented in the final output. But when using :ref:`ITSx <i
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
+``read_R1``                      | applies only for paired-end data. Identifyer string that is common 
+                                 | for all R1 reads (e.g. when all R1 files have '.R1' string, then 
+                                 | enter '\\.R1'. Note that backslash is only needed to escape dot 
+                                 | regex; e.g. when all R1 files have '_R1' string, then enter '_R1')'
 ``min_overlap``                  | minimum overlap between the merged reads
 ``min_length``                   | minimum length of the merged sequence
 ``allow_merge_stagger``          | allow to merge staggered read pairs. Staggered pairs are pairs 
@@ -1000,7 +1038,7 @@ Setting                          Tooltip
 
 .. important::
 
-  Here, dada2 will perform denoising (function 'dada') before assembling paired-end data. 
+  Here, dada2 will perform also denoising (function 'dada') before assembling paired-end data. 
   Because of that, input sequences (in **fastq** format) must consist of 
   only A/T/C/Gs. 
 
@@ -1051,7 +1089,7 @@ ____________________________________________________
 CHIMERA FILTERING
 =================
 
-Perform de-novo and or reference database based chimera filtering. 
+Perform de-novo and reference database based chimera filtering. 
 
 Chimera filtering is performed by **sample-wise approach** (i.e. each sample (input file) is treated separately). 
 
@@ -1060,8 +1098,44 @@ Chimera filtering is performed by **sample-wise approach** (i.e. each sample (in
 
 .. _chimFilt_vsearch:
 
-`vsearch <https://github.com/torognes/vsearch>`_
---------------------------------------------------
+uchime_denovo
+---------------
+
+| Perform chimera filtering with **uchime_denovo** and **uchime_ref** algorithms in `vsearch <https://github.com/torognes/vsearch>`_ 
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``pre_cluster``                  | identity percentage when performing 'pre-clustering' with --cluster_size 
+                                 | for denovo chimera filtering with --uchime_denovo
+``min_unique_size``              | minimum amount of a unique sequences in a fasta file. If value = 1, then 
+                                 | no sequences are discarded after dereplication; if value = 2, then sequences,
+                                 | which are represented only once in a given file are discarded; and so on
+``denovo``                       | if TRUE, then perform denovo chimera filtering with --uchime_denovo
+``reference_based``              | perform reference database based chimera filtering with --uchime_ref. 
+                                 | Select fasta formatted reference database (e.g. `UNITE for ITS reads <https://unite.ut.ee/sh_files/uchime_reference_dataset_28.06.2017.zip>`_). 
+                                 | If denovo = TRUE, then reference based chimera filtering will be performed 
+                                 | after denovo. 
+``abundance_skew``               | the abundance skew is used to distinguish in a threeway alignment which 
+                                 | sequence is the chimera and which are the parents. The assumption is that 
+                                 | chimeras appear later in the PCR amplification process and are therefore 
+                                 | less abundant than their parents. The default value is 2.0, which means that 
+                                 | the parents should be at least 2 times more abundant than their chimera. 
+                                 | Any positive value equal or greater than 1.0 can be used
+``min_h``                        | minimum score (h). Increasing this value tends to reduce the number of false 
+                                 | positives and to decrease sensitivity. Values ranging from 0.0 to 1.0 included 
+                                 | are accepted
+================================ =========================
+
+
+.. _chimFilt_vsearch_uchime3:
+
+uchime3_denovo
+------------------------------------------------------------------------
+
+| Perform chimera filtering with **uchime3_denovo** algorithm in `vsearch <https://github.com/torognes/vsearch>`_ 
+| Designed for denoised amplicons. 
+| uchime3_denovo can be applied also in :ref:`UNOISE3 clustering <clustering_unoise3>`
 
 ================================ =========================
 Setting                          Tooltip
@@ -1144,10 +1218,10 @@ ____________________________________________________
 CLUSTERING
 ==========
 
-Cluster sequences, generate OTUs.
+Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
 
 | Supported file format for the input data is **fasta**.
-| **Outputs** are **OTUs.fasta** and **OTU_table.txt** files in ``clustering_out`` directory.
+| **Outputs** are **OTUs.fasta**, **OTU_table.txt** and **OTUs.uc** files in ``clustering_out`` directory.
 
 .. note::
 
@@ -1159,7 +1233,7 @@ Cluster sequences, generate OTUs.
 --------------------------------------------------
 
 =============================================== =========================
-`Setting <_static/vsearch_2.18.0_manual.pdf>`_  Tooltip
+`Setting <_static/vsearch_manual_2.22.1.pdf>`_  Tooltip
 =============================================== =========================
 ``OTU_type``                                    | centroid" = output centroid sequences; "consensus" = output 
                                                 | consensus sequences
@@ -1167,9 +1241,8 @@ Cluster sequences, generate OTUs.
                                                 | similarity threshold
 ``strands``                                     | when comparing sequences with the cluster seed, check both strands 
                                                 | (forward and reverse complementary) or the plus strand only
-``min_OTU_size``                                | minimum read count per output OTU (e.g., if value = 2, then 
-                                                | singleton OTUs will be discarded [OTUs with only one sequence])
-``similarity_type``                             | pairwise sequence identity definition `--iddef <_static/vsearch_2.18.0_manual.pdf>`_
+``remove_singletons``                           | if TRUE, then singleton OTUs will be discarded (OTUs with only one sequence)
+``similarity_type``                             | pairwise sequence identity definition `--iddef <_static/vsearch_manual_2.22.1.pdf>`_
 ``sequence_sorting``                            | size = sort the sequences by decreasing abundance; 
                                                 | "length" = sort the sequences by decreasing length (--cluster_fast); 
                                                 | "no" = do not sort sequences (--cluster_smallmem --usersort)
@@ -1179,11 +1252,44 @@ Cluster sequences, generate OTUs.
                                                 | (abundance-based greedy clustering; --sizeorder), ``max_hits`` should be > 1
 ``max_hits``                                    | maximum number of hits to accept before stopping the search 
                                                 | (should be > 1 for abundance-based selection of centroids [centroid type])
-``relabel``                                     | relabel sequence identifiers (none = do not relabel)
 ``mask``                                        | mask regions in sequences using the "dust" method, or do not mask ("none")
 ``dbmask``                                      | prior the OTU table creation, mask regions in sequences using the 
                                                 | "dust" method, or do not mask ("none")
-``output_UC``                                   | output clustering results in tab-separated UCLAST-like format
+=============================================== =========================
+
+.. _clustering_unoise3:
+
+`UNOISE3, with vsearch <https://github.com/torognes/vsearch>`_ 
+-----------------------------------------------------------------
+
+=============================================== =========================
+`Setting <_static/vsearch_manual_2.22.1.pdf>`_  Tooltip
+=============================================== =========================
+``zOTUs_thresh``                                | sequence similarity threshold for zOTU table creation; 
+                                                | 1 = 100% similarity threshold for zOTUs 
+``similarity_threshold``                        | optionally cluster zOTUs to OTUs based on the sequence similarity threshold; 
+                                                | if id = 1, no OTU clustering will be performed
+``similarity_type``                             | pairwise sequence identity definition for OTU clustering 
+                                                | `--iddef <_static/vsearch_manual_2.22.1.pdf>`_
+``maxaccepts``                                  | maximum number of hits to accept before stopping the search
+``maxrejects``                                  | maximum number of non-matching target sequences to consider before stopping the search
+``mask``                                        | mask regions in sequences using the "dust" method, or do not mask ("none")                                     
+``strands``                                     | when comparing sequences with the cluster seed, 
+                                                | check both strands (forward and reverse complementary) or the plus strand only
+``minsize``                                     | minimum abundance of sequences for denoising
+                                                | 
+``unoise_alpha``                                | alpha parameter to the vsearch --cluster_unoise command.
+                                                | default = 2.0.  
+``denoise_level``                               | at which level to perform denoising; global = by pooling samples, 
+                                                | individual = independently for each sample 
+                                                | (if samples are denoised individually, reducing minsize to 4 may 
+                                                | be more reasonable for higher sensitivity)
+``remove_chimeras``                             | perform chimera removal with **uchime3_denovo** algoritm
+``abskew``                                      | the abundance skew of chimeric sequences in comparsion with 
+                                                | parental sequences (by default, parents should be at least 
+                                                | 16 times more abundant than their chimera)
+``cores``                                       | number of cores to use for clustering
+
 =============================================== =========================
 
 ____________________________________________________
@@ -1254,6 +1360,44 @@ Additional information:
 ``strands``                                     | query strand to search against database. Both = search also reverse complement
 ``cores``                                       | number of cores to use for generating match list for LULU
 =============================================== =========================
+
+
+
+.. _postclustering_dada2_table_filtering:
+
+____________________________________________________
+
+DADA2 collapse ASVs
+---------------------
+
+DADA2 `collapseNoMismatch <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to collapse identical ASVs; 
+and ASVs filtering based on minimum accepted sequence length (custom R functions). 
+
+To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
+
+| **Output** files in ``filtered_table`` directory:
+| # ASVs_table_collapsed.txt = ASV table after collapsing identical ASVs
+| # ASVs_collapsed.fasta     = ASV sequences after collapsing identical ASVs
+| # ASV_table_collapsed.rds  = ASV table in RDS format after collapsing identical ASVs. 
+| If length filtering was applied (if 'by length' setting > 0) [performed after collapsing identical ASVs]:
+| # ASV_table_lenFilt.txt    = ASV table after filtering out ASVs with shorther than specified sequence length
+| # ASVs_lenFilt.fasta       = ASV sequences after filtering out ASVs with shorther than specified sequence length
+
+
+========================== ============
+Setting                    Tooltip
+========================== ============
+``DADA2 table``            | select the RDS file (ASV table), output from DADA2 workflow; 
+                           | usually in ASVs_out.dada2/ASVs_table.denoised-merged.rds
+``collapseNoMismatch``     | collapses ASVs that are identical up to shifts or 
+                           | length variation, i.e. that have no mismatches or internal indels
+``by_length``              | discard ASVs from the ASV table that are shorter than specified 
+                           | value (in base pairs). Value 0 means OFF, no filtering by length
+``minOverlap``             | collapseNoMismatch setting. Default = 20. The minimum overlap of 
+                           | base pairs between ASV sequences required to collapse them together
+``vec``                    | collapseNoMismatch setting. Default = TRUE. Use the vectorized 
+                           | aligner. Should be turned off if sequences exceed 2kb in length
+========================== ============
 
 .. _assign_taxonomy:
 
@@ -1376,14 +1520,14 @@ Post-processing tools. :ref:`See this page <postprocessingtools>`
 
 .. _expert_mode:
 
-Expert-mode (PipeCraft console)
-===============================
+Expert-mode (PipeCraft2 console)
+=================================
 
-Bioinformatic tools used by PipeCraft are stored on `Dockerhub <https://hub.docker.com/u/pipecraft>`_ as Docker images. 
-These images can be used to launch any tool manually with the Docker CLI to even further customize your operations.
+Bioinformatic tools used by PipeCraft2 are stored on `Dockerhub <https://hub.docker.com/u/pipecraft>`_ as Docker images. 
+These images can be used to launch any tool with the Docker CLI to utilize the compiled tools.
 Especially useful in Windows OS, where majority of implemented modules are not compatible. 
 
-:ref:`See list of docker images with implemented software below. <dockerimages>`
+:ref:`See list of docker images with implemented software here <dockerimages>`
 
 Show a list of all images in your system (using e.g. **Expert-mode**):
 
@@ -1426,28 +1570,3 @@ Exit from the container:
 .. code-block:: 
 
   exit
-
-____________________________________________________
-
-.. _dockerimages:
-
-Working docker images
-----------------------
-
-====================================  =============================================================== 
-Image                                 Software                                                         
-====================================  ===============================================================
-ewels/multiqc:latest                  mutliqc v1.12
-staphb/fastqc:0.11.9                  fastqc v0.11.9               
-pipecraft/cutadapt:3.5                cutadapt v3.5, seqkit v2.0.0, python3, biopython                                        
-pipecraft/dada2:1.20                  dada2 v1.20, seqkit v2.0.0, lulu v0.1.0, R                                                  
-pipecraft/reorient:1                  fqgrep v0.4.4, seqkit v2.0.0, mothur v.1.43.0                                                        
-pipecraft/trimmomatic:0.39            trimmomatic 0.39, seqkit v2.0.0                             
-pipecraft/vsearch:2.18                vsearch v2.18, seqkit v2.0.0, GNU parallel           
-pipecraft/itsx:1.1.3                  ITSx v1.1.3, seqkit v2.0.0, mothur v1.46.1                                      
-pipecraft/blast:2.12                  BLAST v2.12.0+                           
-pipecraft/deicode:0.2.4               DEICODE v0.2.4, qiime2-2002.2
-pipecraft/fastp:0.23.2                fastp v0.23.2
-pipecraft/blast:2.12                  BLAST 2.12.0+, biopython, python3, gawk                             
-====================================  ===============================================================
-

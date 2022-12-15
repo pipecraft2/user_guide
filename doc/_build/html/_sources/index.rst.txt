@@ -11,6 +11,7 @@
         PipeCraft manual. PipeCraft in a Graphical User Interface software for metabarcoding data analyses
 
 |PipeCraft2_logo|
+  `github <https://github.com/pipecraft2/pipecraft>`_
 
 ==========================================
 Manual for PipeCraft 2
@@ -45,6 +46,7 @@ Contents
    contact
    citation
    releases
+   docker_images
 
 | 
 | 
@@ -57,6 +59,8 @@ ____________________________________________________
 
 Currently implemented software
 ------------------------------
+
+:ref:`See software version on the 'Releases' page <releases>`
 
 =======================================================================  =========================================================================================  =============
 Software                                                                 Reference                                                                                  Task
@@ -81,28 +85,3 @@ Software                                                                 Referen
 =======================================================================  =========================================================================================  =============
 
 Let us know if you would like to have a specific software implemeted to PipeCraft (:ref:`contacts <contact>`) or create an issue in the `main repository <https://github.com/SuvalineVana/pipecraft/issues>`_.
-
-____________________________________________________
-
-.. _containers:
-
-Docker images (latest)
-----------------------
-
-====================================  ===============================================================
-Image                                 Task                                                            
-====================================  =============================================================== 
-ewels/multiqc                         fastq files quality checking; QualityCheck panel                 
-staphb/fastqc                         fastq files quality checking; QualityCheck panel                 
-pipecraft/cutadapt                    DEMULTIPLEX, CUT PRIMERS                                      
-pipecraft/dada2                       ASV workflow                                                   
-pipecraft/reorient                    REORIENT                                                        
-pipecraft/trimmomatic                 QUALITY FILTERING with trimmomatic                            
-pipecraft/vsearch                     QUALITY FILTERING, ASSEMBLE, CHIMERA FILTERING ...             
-pipecraft/itx                         ITS EXTRACTOR                                                    
-pipecraft/blast                       TAXONOMY ASSIGNMENT with BLAST                                   
-pipecraft/deicode                     DEICODE (beta-diversity analysis)                                
-pipecraft/fastp                       QUALITY FILTERING with fastp                                     
-====================================  =============================================================== 
-
-

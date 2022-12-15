@@ -21,7 +21,7 @@
 
 
 |PipeCraft2_logo|
-  `github <https://github.com/SuvalineVana/pipecraft>`_
+  `github <https://github.com/pipecraft2/pipecraft>`_
 
 ==============
 Installation
@@ -44,31 +44,31 @@ See OS-specific (Windows, Mac, Linux) docker installation guidelines below.
 
 .. note:: 
 
- Modules of PipeCraft are distributed through Docker containers, which will liberate the users from the
+ Modules of PipeCraft2 are distributed through Docker containers, which will liberate the users from the
  struggle to install/compile various software for metabarcoding data analyses.
  **Thus, all processes are run in Docker containers**.
- Relevant Docker container will be downloaded prior the analysis.
+ Relevant Docker container will be automatically downloaded prior the analysis.
 
 .. warning::
 
- Your OS might warn that PipeCraft is dangerous software! Please ignore the warning in this case. 
+ Your OS might warn that PipeCraft2 is dangerous software! Please ignore the warning in this case. 
 
 ____________________________________________________
 
 Windows
 -------
 
-PipeCraft was tested on **Windows 10** and **Windows 11**. Older Windows versions do not support PipeCraft GUI workflow through Docker.
+PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versions do not support PipeCraft GUI workflow through Docker.
 
 1. Download `Docker for windows <https://www.docker.com/get-started>`_ 
 
-2. Download PipeCraft for `Windows: v0.1.3 <https://github.com/SuvalineVana/pipecraft/releases/download/v0.1.3/pipecraft_v0.1.3.exe>`_
+2. Download PipeCraft for `Windows: v0.1.4 <https://github.com/pipecraft2/pipecraft/releases/download/v0.1.4/pipecraft-Setup-0.1.4.exe>`_
 
 3. Install PipeCraft via the setup executable
 
 .. warning::
 
-  In Windows, please keep you working directory path as short as possible. Maximum path lenght in Windows is 260 characters. 
+  In Windows, please keep you working directory path as short as possible. Maximum path length in Windows is 260 characters. 
   PipeCraft may not be able to work with files, that are buried "deep inside" (i.e. the path is too long).
 
 
@@ -86,7 +86,7 @@ PipeCraft is supported on macOS 10.15+. Older OS versions might not support Pipe
 
 1. Check your Mac chip (Apple or Intel) and download `Docker for Mac <https://www.docker.com/get-started>`_
 
-2. Download PipeCraft for `Mac: v0.1.3 <https://github.com/SuvalineVana/pipecraft/releases/download/v0.1.3/pipecraft_v0.1.3.pkg>`_
+2. Download PipeCraft for `Mac: v0.1.4 <https://github.com/pipecraft2/pipecraft/releases/download/v0.1.4/pipecraft-0.1.4.pkg>`_
 
 3. Install PipeCraft via **pkg** file
 
@@ -114,7 +114,7 @@ PipeCraft was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions 
 
 2. If you are a non-root user complete these `post-install steps <https://docs.docker.com/engine/install/linux-postinstall/>`_
 
-3. Download PipeCraft for `Linux: v0.1.3 <https://github.com/SuvalineVana/pipecraft/releases/download/v0.1.3/pipecraft_v0.1.3.deb>`_
+3. Download PipeCraft for `Linux: v0.1.4 <https://github.com/pipecraft2/pipecraft/releases/download/v0.1.4/pipecraft_v0.1.4.deb>`_
 
 4. Right click on the pipecraft_*.deb file and "Open With GDebi Package Installer" (Install Package) or ``sudo dpkg -i path_to_deb_file``
    
@@ -130,10 +130,12 @@ PipeCraft was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions 
 
 ____________________________________________________
 
-Update PipeCraft
-----------------
+Updating PipeCraft2
+--------------------
 
-To avaoid any potential software conflicts, all Docker images of previous PipeCraft version should be removed. 
+To avaoid any potential software conflicts from PipeCraft2 **v0.1.1 to v0.1.4**, all Docker images of older PipeCraft2 version should be removed. 
+*Starting from v0.1.5 --> if docker container is updated, it will get a new tag for new PipeCraft2 version*
+
 See :ref:`removing docker images <removedockerimages>` section.
 
 .. note::
@@ -159,6 +161,7 @@ Removing Docker images
 ----------------------
 
 | On **MacOS** and **Windows**: Docker images and container can be easily managed from the Docker dashboard. For more info visit https://docs.docker.com/desktop/dashboard/
+| See **command-line** based way below.
 
 .. |purge_docker_Win| image:: _static/purge_docker_Win.png
   :width: 500

@@ -24,7 +24,7 @@
         PipeCraft manual. tutorial
 
 |PipeCraft2_logo|
-  `github <https://github.com/SuvalineVana/pipecraft>`_
+  `github <https://github.com/pipecraft2/pipecraft>`_
 
 
 .. _postprocessingtools:

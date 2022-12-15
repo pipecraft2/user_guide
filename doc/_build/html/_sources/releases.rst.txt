@@ -4,7 +4,7 @@
 
 
 |PipeCraft2_logo|
-  `github <https://github.com/SuvalineVana/pipecraft>`_
+  `github <https://github.com/pipecraft2/pipecraft>`_
  
 
 .. raw:: html
@@ -24,6 +24,51 @@ Releases
    :depth: 2
 
 ____________________________________________________
+
+.. _0.1.4:
+
+0.1.4 (15.12.2022)
+==================
+
+`DOWNLOAD link for v0.1.4 <https://github.com/pipecraft2/pipecraft/releases/tag/v0.1.4>`_
+
+* added 2nd round of cut primers to properly remove fwd and rev primers form the paired-end data set
+* added UNOISE3 module to generate zOTUs (under clustering)
+* added uchime3 chimera filtering (for denoised amplicons)
+* edited sequence count statistics process after the process (using seqkit)
+* only fasta (fa, fas) format is accepted for clustering
+* edited OTU table making strategy for OTU clustering (was --usearch_global before)
+* added table filtering options for DADA2 ASV table (collapse mismatch, filter by length)
+* added ASV to OTU module (clustering DADA2 ASVs into OTUs)
+* select region to cluster after ITSx in OTUs workflow
+* automatically saves the PipeCraft workflow settings into loadable JSON file
+* outputs log file (in development)
+* merged vsearch and dada2 containers (had a lot in common)
+  
+Implemented software:
+*(software version in bold denotes version upgrade)*
+
+=======================================================================  ==========  =========================================================================================
+Software                                                                 version     Reference                                                                                  
+=======================================================================  ==========  =========================================================================================
+`DADA2 <https://benjjneb.github.io/dada2/index.html>`_                   1.20        `Callahan et. al 2016 <https://www.nature.com/articles/nmeth.3869>`_                      
+`vsearch <https://github.com/torognes/vsearch>`_                         **2.22.1**  `Rognes et. al 2016 <https://peerj.com/articles/2584/>`_                                  
+`trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_          0.39        `Bolger et al. 2014 <https://doi.org/10.1093/bioinformatics/btu170>`_                     
+`seqkit <https://bioinf.shenwei.me/seqkit/>`_                            **2.3.0**   `Shen et al. 2016 <https://doi.org/10.1371/journal.pone.0163962>`_                        
+`cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_                 3.5         `Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_                                     
+`mothur <https://github.com/mothur/mothur>`_                             1.46.1      `Schloss et al. 2009 <https://doi.org/10.1128/AEM.01541-09>`_                             
+`ITS Extractor <https://microbiology.se/software/itsx/>`_                1.1.3       `Bengtsson-Palme et al. 2013 <https://doi.org/10.1111/2041-210X.12073>`_                  
+`fqgrep <https://github.com/indraniel/fqgrep>`_                          0.4.4       `Indraniel Das 2011 <https://github.com/indraniel/fqgrep>`_                               
+`BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                      2.11.0+     `Camacho et al. 2009 <https://doi.org/10.1186/1471-2105-10-421>`_                         
+`FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_   0.11.9      `Andrews 2019 <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_              
+`MultiQC <https://multiqc.info/>`_                                       1.12        `Ewels et al. 2016 <https://doi.org/10.1093/bioinformatics/btw354>`_                      
+`LULU <https://github.com/tobiasgf/lulu>`_                               0.1.0       `Froslev et al. 2017 <https://doi.org/10.1038/s41467-017-01312-x>`_
+`fastp <https://github.com/OpenGene/fastp>`_                             0.23.2      `Chen et al. 2018 <https://doi.org/10.1093/bioinformatics/bty560>`_
+`DEICODE <https://github.com/biocore/DEICODE>`_                          0.2.4       `Martion et al. 2019 <https://journals.asm.org/doi/10.1128/mSystems.00016-19>`_
+=======================================================================  ==========  =========================================================================================
+
+____________________________________________________
+
 
 .. _0.1.3:
 
