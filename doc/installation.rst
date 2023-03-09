@@ -90,7 +90,10 @@ PipeCraft is supported on macOS 10.15+. Older OS versions might not support Pipe
 
 3. Install PipeCraft via **pkg** file
 
-4. Currently, this app might be identified as app from an unidentified developer. Grant an exception for a blocked app by clicking the "**Open Anyway**" button in the General panel of **Security & Privacy** preferences
+4. Currently macOS will flag pipecraft as an app from an unidentified developer. Grant an exception for a blocked app by clicking the "**Open Anyway**" button in the General panel of **Security & Privacy** preferences. Installing on latest versions of macOS (13.0+) will require you to disable gatekeeper entirely, to do so paste the following command into a terminal.	
+.. code-block::
+
+sudo spctl --master-disable  
 
  |openanyway|
 
