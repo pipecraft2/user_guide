@@ -34,10 +34,8 @@ pipecraft/vsearch_dada2:1             vsearch v2.22.1, dada2 v1.20, seqkit v2.3.
 ewels/multiqc:latest                  mutliqc v1.12
 staphb/fastqc:0.11.9                  fastqc v0.11.9               
 pipecraft/cutadapt:3.5                cutadapt v3.5, seqkit v2.3.0, python3, biopython                                        
-pipecraft/dada2:1.20                  dada2 v1.20, seqkit v2.3.0, lulu v0.1.0, R                                                  
 pipecraft/reorient:1                  fqgrep v0.4.4, seqkit v2.3.0                                                       
 pipecraft/trimmomatic:0.39            trimmomatic 0.39, seqkit v2.3.0                             
-pipecraft/vsearch:2.18                vsearch v2.18, seqkit v2.3.0, GNU parallel           
 pipecraft/itsx:1.1.3                  ITSx v1.1.3, seqkit v2.3.0, mothur v1.46.1                                                          
 pipecraft/deicode:0.2.4               DEICODE v0.2.4, qiime2-2002.2
 pipecraft/fastp:0.23.2                fastp v0.23.2

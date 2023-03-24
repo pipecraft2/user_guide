@@ -15,7 +15,7 @@ Contact
 
 ::
 
-    Sten Anslan <sten.anslan[at]ut.ee>
+    Sten Anslan <sten.anslan[at]gmail.com>
     Martin Metsoja <martin.metsoja[at]gmail.com>
     Vladimir Mikryukov <vladimir.mikryukov[at]ut.ee>
     Ali Hakimzadeh <ali.hakimzadeh[at]ut.ee>
