@@ -55,8 +55,8 @@ See OS-specific (Windows, Mac, Linux) docker installation guidelines below.
 
 ____________________________________________________
 
-Installation to Windows
-------------------------
+Windows
+-------
 
 PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versions do not support PipeCraft GUI workflow through Docker.
 
