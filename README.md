@@ -1,9 +1,9 @@
-# PipeCraft
+# PipeCraft2
 
-This is repo for PipeCraft 2 manual
+This is repo for PipeCraft2 user guide
 https://pipecraft2-manual.readthedocs.io/en/stable/
 
-PipeCraft development repo -> https://github.com/pipecraft2/pipecraft
+PipeCraft2 development repo -> https://github.com/pipecraft2/pipecraft
 
 ______________________________________________________
 
