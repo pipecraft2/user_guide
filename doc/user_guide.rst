@@ -242,7 +242,7 @@ ASV workflow is active (green icon) |asvon|
 ; ASV workflow is off |asvoff| 
 
 This automated workflow is based on the `DADA2 tutorial <https://benjjneb.github.io/dada2/tutorial.html>`_ 
- | Note that ``demultiplexing``, ``reorienting``, and ``primer removal`` steps are optional and do not represent parts from the DADA2 tutorial. Nevertheless, it is advisable to :ref:`reorient <reorient>` your reads (to 5'-3') and :ref:`remove primers <remove_primers>` before proceeding with ASV generation with DADA2.
+ | Note that ``demultiplexing``, ``reorienting``, and ``primer removal`` steps are optional and do not represent parts from the DADA2 tutorial. Nevertheless, it is advisable to :ref:`remove primers <remove_primers>` before proceeding with ASV generation with DADA2.
 
 | The official DADA2 manual is available `here <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_
  
@@ -748,9 +748,7 @@ Reorienting sequences **will not remove** primer strings from the sequences.
  the 'cut primers' process (see below); therefore this step may be skipped
  when working with single-end data (such as data from PacBio machines OR already assembled paired-end data).
 
-Reorienting reads may be relevant for generating ASVs with DADA2 
-as reverse complement sequences will represent separate ASVs. 
-In the clustering step of an OTU pipeline, both strands of the sequences can be compared prior 
+If in the clustering step of an "OTU pipeline", both strands of the sequences can be compared prior 
 forming OTUs; thus this step may be skipped in the OTU pipeline. 
 
 Supported file formats for paired-end input data are only **fastq**,

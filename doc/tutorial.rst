@@ -72,7 +72,6 @@ Here, we perform example analyses of paired-end data using `mothur MiSeq SOP exa
 This data set represents demultiplexed set (per-sample fastq files) of 16S rRNA gene V4 amplicon sequences where sample indexes and primers have already been removed. 
 
 * If working with multiplexed data, :ref:`see here <multiplexed_PE>`.
-* If you need to reorient reads (based on primer sequences), :ref:`see here <reorient>`.
 * If you need to trim the primers/adapters, :ref:`see here <remove_primers>`.
 
 .. warning::
