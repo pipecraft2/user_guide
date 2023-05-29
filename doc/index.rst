@@ -47,6 +47,7 @@ Contents
    citation
    releases
    docker_images
+   for_developers
 
 | 
 | 
