@@ -1,0 +1,2773 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<meta content="PipeCraft2 manual. User guide for PipeCraft2" lang="en" name="description" xml:lang="en" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User guide &mdash; PipeCraft 2 0.1.5 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Walkthrough" href="tutorial.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PipeCraft 2
+          </a>
+              <div class="version">
+                0.1.5
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-interface">The interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-images">Docker images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#save-workflow">Save workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#load-workflow">Load workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quality-and-basic-statistics-screening-of-the-data">Quality and basic statistics screening of the data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#select-workdir-and-run-analyses">Select workdir and run analyses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#full-pipeline-panels">FULL PIPELINE PANELS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#asvs-workflow-panel-with-dada2">ASVs workflow panel (with DADA2)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#quality-filtering-asvs-workflow">QUALITY FILTERING [ASVs workflow]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#denoising-asvs-workflow">DENOISING [ASVs workflow]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#merge-pairs-asvs-workflow">MERGE PAIRS [ASVs workflow]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chimera-filtering-asvs-workflow">CHIMERA FILTERING [ASVs workflow]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#filter-asv-table-asvs-workflow">filter ASV table [ASVs workflow]</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#assign-taxonomy-asvs-workflow">ASSIGN TAXONOMY [ASVs workflow]</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#otus-workflow-panel">OTUs workflow panel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#analyses-panels">ANALYSES PANELS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#demultiplex">DEMULTIPLEX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#indexes-file-example-fasta-formatted">Indexes file example (fasta formatted)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-to-compose-indexes-fasta">How to compose indexes.fasta</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reorient">REORIENT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cut-primers">CUT PRIMERS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quality-filtering">QUALITY FILTERING</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#qfilt-vsearch">vsearch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qfilt-trimmomatic">trimmomatic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qfilt-fastp">fastp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dada2-filterandtrim-function">DADA2 (‘filterAndTrim’ function)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#assemble-paired-end-reads">ASSEMBLE PAIRED-END reads</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#merge-vsearch">vsearch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#merge-dada2">DADA2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#chimera-filtering">CHIMERA FILTERING</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#uchime-denovo">uchime_denovo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uchime3-denovo">uchime3_denovo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id17">ITS Extractor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clustering">CLUSTERING</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#clustering-vsearch">vsearch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clustering-unoise3">UNOISE3, with vsearch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#postclustering">POSTCLUSTERING</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#postclustering-lulu">LULU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dada2-collapse-asvs">DADA2 collapse ASVs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id31">ASSIGN TAXONOMY</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#blast-camacho-et-al-2009">BLAST (Camacho et al. 2009)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assign-taxonomy-dada2">DADA2 classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sequence-databases">Sequence databases</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#postprocessing">POSTPROCESSING</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#expert-mode-pipecraft2-console">Expert-mode (PipeCraft2 console)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licence.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citation.html">How to cite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker_images.html">Docker images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="for_developers.html">For Developers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PipeCraft 2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">User guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/user_guide.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <dl class="simple">
+<dt><a class="reference internal" href="_images/PipeCraft2_icon_v2.png"><img alt="Alternative text" src="_images/PipeCraft2_icon_v2.png" style="width: 100px;" /></a></dt><dd><p><a class="reference external" href="https://github.com/pipecraft2/pipecraft">github</a></p>
+</dd>
+</dl>
+<style> .red {color:#ff0000; font-weight:bold; font-size:16px} </style><section id="user-guide">
+<h1><a class="toc-backref" href="#id39" role="doc-backlink">User guide</a><a class="headerlink" href="#user-guide" title="Permalink to this heading"></a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#user-guide" id="id39">User guide</a></p>
+<ul>
+<li><p><a class="reference internal" href="#the-interface" id="id40">The interface</a></p></li>
+<li><p><a class="reference internal" href="#glossary" id="id41">Glossary</a></p></li>
+<li><p><a class="reference internal" href="#docker-images" id="id42">Docker images</a></p></li>
+<li><p><a class="reference internal" href="#save-workflow" id="id43">Save workflow</a></p></li>
+<li><p><a class="reference internal" href="#load-workflow" id="id44">Load workflow</a></p></li>
+<li><p><a class="reference internal" href="#quality-and-basic-statistics-screening-of-the-data" id="id45">Quality and basic statistics screening of the data</a></p></li>
+<li><p><a class="reference internal" href="#select-workdir-and-run-analyses" id="id46">Select workdir and run analyses</a></p></li>
+<li><p><a class="reference internal" href="#full-pipeline-panels" id="id47">FULL PIPELINE PANELS</a></p>
+<ul>
+<li><p><a class="reference internal" href="#asvs-workflow-panel-with-dada2" id="id48">ASVs workflow panel (with DADA2)</a></p></li>
+<li><p><a class="reference internal" href="#otus-workflow-panel" id="id49">OTUs workflow panel</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#analyses-panels" id="id50">ANALYSES PANELS</a></p></li>
+<li><p><a class="reference internal" href="#demultiplex" id="id51">DEMULTIPLEX</a></p>
+<ul>
+<li><p><a class="reference internal" href="#indexes-file-example-fasta-formatted" id="id52">Indexes file example (fasta formatted)</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#reorient" id="id53">REORIENT</a></p></li>
+<li><p><a class="reference internal" href="#cut-primers" id="id54">CUT PRIMERS</a></p></li>
+<li><p><a class="reference internal" href="#quality-filtering" id="id55">QUALITY FILTERING</a></p>
+<ul>
+<li><p><a class="reference internal" href="#qfilt-vsearch" id="id56">vsearch</a></p></li>
+<li><p><a class="reference internal" href="#qfilt-trimmomatic" id="id57">trimmomatic</a></p></li>
+<li><p><a class="reference internal" href="#qfilt-fastp" id="id58">fastp</a></p></li>
+<li><p><a class="reference internal" href="#dada2-filterandtrim-function" id="id59">DADA2 (‘filterAndTrim’ function)</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#assemble-paired-end-reads" id="id60">ASSEMBLE PAIRED-END reads</a></p>
+<ul>
+<li><p><a class="reference internal" href="#merge-vsearch" id="id61">vsearch</a></p></li>
+<li><p><a class="reference internal" href="#merge-dada2" id="id62">DADA2</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#chimera-filtering" id="id63">CHIMERA FILTERING</a></p>
+<ul>
+<li><p><a class="reference internal" href="#uchime-denovo" id="id64">uchime_denovo</a></p></li>
+<li><p><a class="reference internal" href="#uchime3-denovo" id="id65">uchime3_denovo</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id17" id="id66">ITS Extractor</a></p></li>
+<li><p><a class="reference internal" href="#clustering" id="id67">CLUSTERING</a></p>
+<ul>
+<li><p><a class="reference internal" href="#clustering-vsearch" id="id68">vsearch</a></p></li>
+<li><p><a class="reference internal" href="#clustering-unoise3" id="id69">UNOISE3, with vsearch</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#postclustering" id="id70">POSTCLUSTERING</a></p>
+<ul>
+<li><p><a class="reference internal" href="#postclustering-lulu" id="id71">LULU</a></p></li>
+<li><p><a class="reference internal" href="#dada2-collapse-asvs" id="id72">DADA2 collapse ASVs</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id31" id="id73">ASSIGN TAXONOMY</a></p>
+<ul>
+<li><p><a class="reference internal" href="#blast-camacho-et-al-2009" id="id74">BLAST (Camacho et al. 2009)</a></p></li>
+<li><p><a class="reference internal" href="#assign-taxonomy-dada2" id="id75">DADA2 classifier</a></p></li>
+<li><p><a class="reference internal" href="#sequence-databases" id="id76">Sequence databases</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#postprocessing" id="id77">POSTPROCESSING</a></p></li>
+<li><p><a class="reference internal" href="#expert-mode-pipecraft2-console" id="id78">Expert-mode (PipeCraft2 console)</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<hr class="docutils" />
+<section id="the-interface">
+<span id="interface"></span><h2><a class="toc-backref" href="#id40" role="doc-backlink">The interface</a><a class="headerlink" href="#the-interface" title="Permalink to this heading"></a></h2>
+<p>The startup panel:</p>
+<p><em>(click on the image for enlargement)</em>
+<a class="reference internal" href="_images/main_interface.png"><img alt="Alternative text" src="_images/main_interface.png" style="width: 2000px;" /></a></p>
+</section>
+<hr class="docutils" />
+<section id="glossary">
+<h2><a class="toc-backref" href="#id41" role="doc-backlink">Glossary</a><a class="headerlink" href="#glossary" title="Permalink to this heading"></a></h2>
+<p>List of terms that you may encounter in this user guide.</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>working directory</strong></p></td>
+<td><div class="line-block">
+<div class="line">the directory (folder) that contains the files for the analyses.</div>
+<div class="line">The outputs will be written into this directory</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>paired-end data</strong></p></td>
+<td><div class="line-block">
+<div class="line">obtained by sequencing two ends of the same DNA fragment,</div>
+<div class="line">which results in read 1 (R1) and read 2 (R2) files per library or per sample</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>single-end data</strong></p></td>
+<td><div class="line-block">
+<div class="line">only one sequencing file per library or per sample.</div>
+<div class="line">Herein, may mean also assembled paired-end data.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>demultiplexed data</strong></p></td>
+<td><div class="line-block">
+<div class="line">sequences are sorted into separate files, representing individual samples</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>multiplexed data</strong></p></td>
+<td><div class="line-block">
+<div class="line">file(s) that represent a pool of sequences from different samples</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>read/sequence</strong></p></td>
+<td><div class="line-block">
+<div class="line">DNA sequence; herein, reads and sequences are used interchangeably</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" />
+<section id="docker-images">
+<h2><a class="toc-backref" href="#id42" role="doc-backlink">Docker images</a><a class="headerlink" href="#docker-images" title="Permalink to this heading"></a></h2>
+<p>Initial PipeCraft2 installation does not contain any software for sequence data processing.
+All the processes are run through <a class="reference external" href="https://www.docker.com/">docker</a>, where the PipeCraft’s simply GUI mediates the
+information exchange. Therefore, whenever a process is initiated for the <strong>first time</strong>,
+a relevant Docker image (contains required software for the analyses step) will be pulled from <a class="reference external" href="https://hub.docker.com/u/pipecraft">Docker Hub</a>.</p>
+<p>Example: running DEMULTIPLEXING for the first time <a class="reference internal" href="_images/pulling_image.png"><img alt="Alternative text" src="_images/pulling_image.png" style="width: 280px;" /></a></p>
+<p>Thus working <strong>Internet connection</strong> is initially required. Once the Docker images are pulled, PipeCraft2 can work without an Internet connection.</p>
+<p><a class="reference internal" href="docker_images.html#dockerimages"><span class="std std-ref">Docker images</span></a> vary in size, and the speed of the first process is extended by the docker image download time.</p>
+</section>
+<hr class="docutils" />
+<section id="save-workflow">
+<h2><a class="toc-backref" href="#id43" role="doc-backlink">Save workflow</a><a class="headerlink" href="#save-workflow" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>starting fro m ersion 0.1.4, PipeCraft2 will automatically save the settings into selected WORKDIR prior starting the analyses</p>
+</div>
+<p>Once the workflow settings are selected, save the workflow by pressin <code class="docutils literal notranslate"><span class="pre">SAVE</span> <span class="pre">WORKFLOW</span></code> button on the <a class="reference internal" href="#interface"><span class="std std-ref">right-ribbon</span></a>.
+For saving, working directory ( <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> ) does not have to be selected.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When <strong>saiving workflow</strong> settings in <strong>Linux</strong>, specify the file extension as <strong>JSON</strong> (e.g. my_16S_ASVs_pipe.JSON).
+When trying to load the workflow, only .JSON files will be permitted as input. <em>Windows and Mac OS automatically extend files as JSON (so you may just save “my_16S_ASVs_pipe”).</em></p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="load-workflow">
+<h2><a class="toc-backref" href="#id44" role="doc-backlink">Load workflow</a><a class="headerlink" href="#load-workflow" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Prior loading the workflow, make sure that the saved workflow configuration has a .JSON extension. Note also that <strong>workflows saved in older PipeCraft2 version</strong> might not run in newer version, but anyhow the selected options will be visible for reproducibility.</p>
+</div>
+<p>Press the <code class="docutils literal notranslate"><span class="pre">LOAD</span> <span class="pre">WORKFLOW</span></code> button on the <a class="reference internal" href="#interface"><span class="std std-ref">right-ribbon</span></a> and select appropriate JSON file.
+The configuration will be loaded; <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> and run analyses.</p>
+<hr class="docutils" />
+</section>
+<section id="quality-and-basic-statistics-screening-of-the-data">
+<span id="qualitycheck"></span><h2><a class="toc-backref" href="#id45" role="doc-backlink">Quality and basic statistics screening of the data</a><a class="headerlink" href="#quality-and-basic-statistics-screening-of-the-data" title="Permalink to this heading"></a></h2>
+<p>Quality and basic statistics screening of the data can be done via <code class="docutils literal notranslate"><span class="pre">QualityCheck</span></code> panel.
+QualityCheck panel implements <a class="reference external" href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a> and <a class="reference external" href="https://multiqc.info/">MultiQC</a> to screen the input <strong>fastq</strong> files.</p>
+<p><a class="reference internal" href="_images/multiQC_main.png"><img alt="Alternative text" src="_images/multiQC_main.png" style="width: 1000px;" /></a></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>To start:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><strong>Select folder</strong> (a working directory) which contains only <strong>fastq</strong> (fastq/fq) files that you aim to inspect.</p></li>
+<li><p>Press <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">REPORT</span></code> to start MultiQC</p></li>
+<li><p>“LOADING …” will be displayed while the report is being generated</p></li>
+</ol>
+</div></blockquote>
+<p><a class="reference internal" href="_images/multiQC_1-3.png"><img alt="Alternative text" src="_images/multiQC_1-3.png" style="width: 550px;" /></a></p>
+<p><a class="reference internal" href="_images/multiQC_view_report.png"><img alt="Alternative text" src="_images/multiQC_view_report.png" style="width: 550px;" /></a></p>
+<blockquote>
+<div><ol class="arabic" start="4">
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">VIEW</span> <span class="pre">REPORT</span></code>. A html file (multiqc_report.html) will open in your default web browser.</p>
+<p><em>If the summary does not open, check your working floder for the presence of</em> <strong>multiqc_report.html</strong> <em>and try to open with some other web browser.</em>
+<em>Something went wrong if the file multiqc_report.html</em> <strong>does not exist</strong> <em>(may fail when maximum number of fastq files in the folder is extremely large, &gt;10 000).</em></p>
+</li>
+<li><p>Check out  <a class="reference external" href="https://multiqc.info/docs/#using-multiqc-reports">“using MultiQC reports”</a> in MultiQC web page.</p></li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that ‘_fastqc.zip’ and ‘_fastqc.html’ are generated for each fastq file in the <strong>‘quality_check’</strong> directory. These are summarized in <strong>multiqc_report.html</strong>,
+so you may delete all individual ‘_fastqc.zip’ and ‘_fastqc.html’ files.</p>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="select-workdir-and-run-analyses">
+<h2><a class="toc-backref" href="#id46" role="doc-backlink">Select workdir and run analyses</a><a class="headerlink" href="#select-workdir-and-run-analyses" title="Permalink to this heading"></a></h2>
+<p>1. Open your working directory by pressing the <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> button. E.g., if working with <strong>FASTQ</strong> files,
+then be sure that the working directory contains <strong>only relevant FASTQ files</strong> because the selected process will be
+applied to all FASTQ files in the working directory!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using Windows OS, the selection window might not display the files while browsing through the directories.</p>
+</div>
+<p>After selecting a working directory, PipeCraft needs you to specify if
+the working directory consists of</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>multiplexed or demultiplexed data</p></li>
+<li><p>the data is paired-end or single-end</p></li>
+<li><p>and the extension of the data (fastq or fasta)</p></li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">multiplexed</span></code> –&gt; only one file (or a pair of files, R1 and R2) per sequencing data (library)</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code> –&gt; multiple per-sample sequencing files per library</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">paired-end</span> <span class="pre">data</span></code> –&gt; such as data from Illumina or MGI-Tech platforms (R1 and R2 files). <span class="red">Be sure to have **R1** and **R2** strings in the paired-end files (not simply _1 and _2)</span></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">single-end</span> <span class="pre">data</span></code> –&gt; such as data from PacBio, or assembled paired-end data (single file per library or per sample)</div>
+</div>
+<p>2. Select <a class="reference internal" href="#asvpipe"><span class="std std-ref">ASV</span></a> or <a class="reference internal" href="#otupipe"><span class="std std-ref">OTU</span></a> workflow panel or press <code class="docutils literal notranslate"><span class="pre">ADD</span> <span class="pre">STEP</span></code> button
+to select relevant <a class="reference internal" href="#panels"><span class="std std-ref">step</span></a> [or <strong>load the PipeCraft settings file</strong>];
+edit settings if needed (<strong>SAVE the settings for later use</strong>) and <strong>start
+running the analyses</strong> by pressing the <code class="docutils literal notranslate"><span class="pre">RUN</span> <span class="pre">WORKFLOW</span></code> button.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Step-by-step analyses</strong>: after <code class="docutils literal notranslate"><span class="pre">RUN</span> <span class="pre">WORKFLOW</span></code> is finished, then press <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> to specify inputs for the next process</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <strong>output files will be overwritten</strong> if running the same
+analysis step <strong>multiple times in the same working directory</strong></p>
+</div>
+<p>3. Each process creates a separate output directory with the processed files
+inside the selected working directory.
+<strong>README</strong> file about the process and <strong>sequence count summary</strong> statistics are included in the output directory.</p>
+</section>
+<hr class="docutils" />
+<section id="full-pipeline-panels">
+<h2><a class="toc-backref" href="#id47" role="doc-backlink">FULL PIPELINE PANELS</a><a class="headerlink" href="#full-pipeline-panels" title="Permalink to this heading"></a></h2>
+<section id="asvs-workflow-panel-with-dada2">
+<span id="asvpipe"></span><h3>ASVs workflow panel (with <a class="reference external" href="https://benjjneb.github.io/dada2/index.html">DADA2</a>)<a class="headerlink" href="#asvs-workflow-panel-with-dada2" title="Permalink to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Current ASVs workflow supports only <strong>PAIRED-END</strong> reads!
+Working directory must contain paired-end reads for at <strong>least 2 samples</strong>.</p>
+</div>
+<p><a class="reference internal" href="_images/asv_main.png"><img alt="Alternative text" src="_images/asv_main.png" style="width: 1500px;" /></a></p>
+<p>ASV workflow is active (green icon) <a class="reference internal" href="_images/ASV_on.png"><img alt="Alternative text" src="_images/ASV_on.png" style="width: 50px;" /></a>
+; ASV workflow is off <a class="reference internal" href="_images/ASV_off.png"><img alt="Alternative text" src="_images/ASV_off.png" style="width: 50px;" /></a></p>
+<dl>
+<dt>This automated workflow is based on the <a class="reference external" href="https://benjjneb.github.io/dada2/tutorial.html">DADA2 tutorial</a></dt><dd><div class="line-block">
+<div class="line">Note that <code class="docutils literal notranslate"><span class="pre">demultiplexing</span></code>, <code class="docutils literal notranslate"><span class="pre">reorienting</span></code>, and <code class="docutils literal notranslate"><span class="pre">primer</span> <span class="pre">removal</span></code> steps are optional and do not represent parts from the DADA2 tutorial. Nevertheless, it is advisable to <a class="reference internal" href="#remove-primers"><span class="std std-ref">remove primers</span></a> before proceeding with ASV generation with DADA2.</div>
+</div>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">The official DADA2 manual is available <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">here</a></div>
+</div>
+<p id="dada2-defaults"><strong>Default options:</strong></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Analyses step</p></th>
+<th class="head"><p>Default setting</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#demux"><span class="std std-ref">DEMULTIPLEX</span></a> (optional)</p></td>
+<td><div class="line-block">
+<div class="line">–</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#reorient"><span class="std std-ref">REORIENT</span></a> (optional)</p></td>
+<td><div class="line-block">
+<div class="line">–</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#remove-primers"><span class="std std-ref">REMOVE PRIMERS</span></a> (optional)</p></td>
+<td><div class="line-block">
+<div class="line">–</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dada2-qual-filt"><span class="std std-ref">QUALITY FILTERING</span></a></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">read_R1</span></code> = \.R1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">read_R2</span></code> = \.R2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">samp_ID</span></code> = \.</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">maxEE</span></code> = 2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">maxN</span></code> = 0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">minLen</span></code> = 20</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">truncQ</span></code> = 2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">truncLen</span></code> = 0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">maxLen</span></code> = 9999</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">minQ</span></code> = 2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">matchIDs</span></code> = TRUE</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dada2-denoise"><span class="std std-ref">DENOISE</span></a></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">pool</span></code> = FALSE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">selfConsist</span></code> = FASLE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">qualityType</span></code> = Auto</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dada2-merge-pairs"><span class="std std-ref">MERGE PAIRED-END READS</span></a></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">minOverlap</span></code> = 12</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">maxMismatch</span></code> = 0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">trimOverhang</span></code> = FALSE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">justConcatenate</span></code> = FALSE</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dada2-chimeras"><span class="std std-ref">CHIMERA FILTERING</span></a></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">method</span></code> = consensus</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#dada2-table-filtering"><span class="std std-ref">Filter ASV table</span></a> (optional)</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">collapseNoMismatch</span></code> = TRUE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">by_length</span></code> = 250</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">minOverlap</span></code> = 20</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">vec</span></code> = TRUE</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#dada2-taxonomy"><span class="std std-ref">ASSIGN TAXONOMY</span></a> (optional)</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">minBoot</span></code> = 50</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">tryRC</span></code> = FALSE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">dada2</span> <span class="pre">database</span></code> = select a database</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<section id="quality-filtering-asvs-workflow">
+<span id="dada2-qual-filt"></span><h4>QUALITY FILTERING [ASVs workflow]<a class="headerlink" href="#quality-filtering-asvs-workflow" title="Permalink to this heading"></a></h4>
+<p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">filterAndTrim</a> function performs quality filtering on input FASTQ files based on user-selected criteria. Outputs include filtered FASTQ files located in the <code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code> directory.</p>
+<p>Quality profiles may be examined using the <a class="reference internal" href="#interface"><span class="std std-ref">QualityCheck module</span></a>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">read_R1</span></code></p></td>
+<td><div class="line-block">
+<div class="line">applies only for <strong>paired-end</strong> data.</div>
+<div class="line">Identifyer string that is common for all R1 reads</div>
+<div class="line">(e.g. when all R1 files have ‘.R1’ string, then enter ‘\.R1’.</div>
+<div class="line">Note that backslash is only needed to escape dot regex; e.g.</div>
+<div class="line">when all R1 files have ‘_R1’ string, then enter ‘_R1’.).</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">read_R2</span></code></p></td>
+<td><div class="line-block">
+<div class="line">applies only for <strong>paired-end</strong> data.</div>
+<div class="line">Identifyer string that is common for all R2 reads</div>
+<div class="line">(e.g. when all R2 files have ‘.R2’ string, then enter ‘\.R2’.</div>
+<div class="line">Note that backslash is only needed to escape dot regex; e.g.</div>
+<div class="line">when all R2 files have ‘_R1’ string, then enter ‘_R2’.).</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">samp_ID</span></code></p></td>
+<td><div class="line-block">
+<div class="line">applies only for <strong>paired-end</strong> data.</div>
+<div class="line">Identifyer string that separates the sample name from redundant</div>
+<div class="line">charachters (e.g. file name = sample1.R1.fastq, then</div>
+<div class="line">underscore ‘\.’ would be the ‘identifier string’ (sample name = sampl84));</div>
+<div class="line">note that backslash is only needed to</div>
+<div class="line">escape dot regex (e.g. when file name = sample1_R1.fastq then specify as ‘_’)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maxEE</span></code></p></td>
+<td><div class="line-block">
+<div class="line">discard sequences with more than the specified number of expected errors</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maxN</span></code></p></td>
+<td><div class="line-block">
+<div class="line">discard sequences with more than the specified number of N’s (ambiguous bases)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">minLen</span></code></p></td>
+<td><div class="line-block">
+<div class="line">remove reads with length less than minLen. minLen is enforced</div>
+<div class="line">after all other trimming and truncation</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">truncQ</span></code></p></td>
+<td><div class="line-block">
+<div class="line">truncate reads at the first instance of a quality score less than or equal to truncQ</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">truncLen</span></code></p></td>
+<td><div class="line-block">
+<div class="line">truncate reads after truncLen bases</div>
+<div class="line">(applies to <strong>R1 reads</strong> when working with <strong>paired-end</strong> data).</div>
+<div class="line">Reads shorter than this are discarded.</div>
+<div class="line">Explore quality profiles (with QualityCheck module) and</div>
+<div class="line">see whether poor quality ends needs to be truncated</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">truncLen_R2</span></code></p></td>
+<td><div class="line-block">
+<div class="line">applies only for <strong>paired-end</strong> data.</div>
+<div class="line">Truncate <strong>R2 reads</strong> after truncLen bases.</div>
+<div class="line">Reads shorter than this are discarded.</div>
+<div class="line">Explore quality profiles (with QualityCheck module) and</div>
+<div class="line">see whether poor quality ends needs to truncated</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maxLen</span></code></p></td>
+<td><div class="line-block">
+<div class="line">remove reads with length greater than maxLen.</div>
+<div class="line">maxLen is enforced on the raw reads.</div>
+<div class="line">In dada2, the default = Inf, but here set as 9999</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">minQ</span></code></p></td>
+<td><div class="line-block">
+<div class="line">after truncation, reads contain a quality score below minQ will be discarded</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">matchIDs</span></code></p></td>
+<td><div class="line-block">
+<div class="line">applies only for <strong>paired-end</strong> data.</div>
+<div class="line">If TRUE, then double-checking (with seqkit pair) that only paired reads</div>
+<div class="line">that share ids are outputted.</div>
+<div class="line"><span class="red">Note that ‘seqkit’ will be used for this process</span>, because when</div>
+<div class="line">using e.g. SRA fastq files where original fastq headers have been</div>
+<div class="line">replaced, dada2 does not recognize those fastq id strings</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>see <a class="reference internal" href="#dada2-defaults"><span class="std std-ref">default settings</span></a></p>
+<hr class="docutils" />
+</section>
+<section id="denoising-asvs-workflow">
+<span id="dada2-denoise"></span><h4>DENOISING [ASVs workflow]<a class="headerlink" href="#denoising-asvs-workflow" title="Permalink to this heading"></a></h4>
+<p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">dada</a> function to remove sequencing errors.
+Outputs filtered fasta files into <code class="docutils literal notranslate"><span class="pre">denoised_assembled.dada2</span></code> directory.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pool</span></code></p></td>
+<td><div class="line-block">
+<div class="line">if TRUE, the algorithm will pool together all samples prior to sample inference.</div>
+<div class="line">Pooling improves the detection of rare variants, but is computationally more expensive.</div>
+<div class="line">If pool = ‘pseudo’, the algorithm will perform pseudo-pooling between individually</div>
+<div class="line">processed samples.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">selfConsist</span></code></p></td>
+<td><div class="line-block">
+<div class="line">if TRUE, the algorithm will alternate between sample inference and error rate estimation</div>
+<div class="line">until convergence</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">qualityType</span></code></p></td>
+<td><div class="line-block">
+<div class="line">‘Auto’ means to attempt to auto-detect the fastq quality encoding.</div>
+<div class="line">This may fail for PacBio files with uniformly high quality scores,</div>
+<div class="line">in which case use ‘FastqQuality’</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>see <a class="reference internal" href="#dada2-defaults"><span class="std std-ref">default settings</span></a></p>
+<hr class="docutils" />
+</section>
+<section id="merge-pairs-asvs-workflow">
+<span id="dada2-merge-pairs"></span><h4>MERGE PAIRS [ASVs workflow]<a class="headerlink" href="#merge-pairs-asvs-workflow" title="Permalink to this heading"></a></h4>
+<p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">mergePairs</a> function to merge paired-end reads.
+Outputs merged fasta files into <code class="docutils literal notranslate"><span class="pre">denoised_assembled.dada2</span></code> directory.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">minOverlap</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the minimum length of the overlap required for merging the forward and reverse reads</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maxMismatch</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the maximum mismatches allowed in the overlap region</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">trimOverhang</span></code></p></td>
+<td><div class="line-block">
+<div class="line">if TRUE, overhangs in the alignment between the forwards and reverse read are</div>
+<div class="line">trimmed off. Overhangs are when the reverse read extends past the start of</div>
+<div class="line">the forward read, and vice-versa, as can happen when reads are longer than the</div>
+<div class="line">amplicon and read into the other-direction primer region</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">justConcatenate</span></code></p></td>
+<td><div class="line-block">
+<div class="line">if TRUE, the forward and reverse-complemented reverse read are concatenated</div>
+<div class="line">rather than merged, with a NNNNNNNNNN (10 Ns) spacer inserted between them</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>see <a class="reference internal" href="#dada2-defaults"><span class="std std-ref">default settings</span></a></p>
+</section>
+<hr class="docutils" id="dada2-chimeras" />
+<section id="chimera-filtering-asvs-workflow">
+<h4>CHIMERA FILTERING [ASVs workflow]<a class="headerlink" href="#chimera-filtering-asvs-workflow" title="Permalink to this heading"></a></h4>
+<p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">removeBimeraDenovo</a> function to remove chimeras.
+Outputs filtered fasta files into <code class="docutils literal notranslate"><span class="pre">chimeraFiltered_out.dada2</span></code> and final ASVs to <code class="docutils literal notranslate"><span class="pre">ASVs_out.dada2</span></code> directory.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">method</span></code></p></td>
+<td><div class="line-block">
+<div class="line">‘consensus’ - the samples are independently checked for chimeras, and a consensus</div>
+<div class="line">decision on each sequence variant is made.</div>
+<div class="line">If ‘pooled’, the samples are all pooled together for chimera identification.</div>
+<div class="line">If ‘per-sample’, the samples are independently checked for chimeras</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>see <a class="reference internal" href="#dada2-defaults"><span class="std std-ref">default settings</span></a></p>
+</section>
+<hr class="docutils" id="dada2-table-filtering" />
+<section id="filter-asv-table-asvs-workflow">
+<h4>filter ASV table [ASVs workflow]<a class="headerlink" href="#filter-asv-table-asvs-workflow" title="Permalink to this heading"></a></h4>
+<p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">collapseNoMismatch</a> function to collapse identical ASVs;
+and ASVs filtering based on minimum accepted sequence length (custom R functions).
+Outputs filtered ASV table and fasta files into <code class="docutils literal notranslate"><span class="pre">ASVs_out.dada2/filtered</span></code> directory.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">collapseNoMismatch</span></code></p></td>
+<td><div class="line-block">
+<div class="line">collapses ASVs that are identical up to shifts or</div>
+<div class="line">length variation, i.e. that have no mismatches or internal indels</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">by_length</span></code></p></td>
+<td><div class="line-block">
+<div class="line">discard ASVs from the ASV table that are shorter than specified</div>
+<div class="line">value (in base pairs). Value 0 means OFF, no filtering by length</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">minOverlap</span></code></p></td>
+<td><div class="line-block">
+<div class="line">collapseNoMismatch setting. Default = 20. The minimum overlap of</div>
+<div class="line">base pairs between ASV sequences required to collapse them together</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vec</span></code></p></td>
+<td><div class="line-block">
+<div class="line">collapseNoMismatch setting. Default = TRUE. Use the vectorized</div>
+<div class="line">aligner. Should be turned off if sequences exceed 2kb in length</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>see <a class="reference internal" href="#dada2-defaults"><span class="std std-ref">default settings</span></a></p>
+<hr class="docutils" />
+</section>
+<section id="assign-taxonomy-asvs-workflow">
+<span id="dada2-taxonomy"></span><h4>ASSIGN TAXONOMY [ASVs workflow]<a class="headerlink" href="#assign-taxonomy-asvs-workflow" title="Permalink to this heading"></a></h4>
+<p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">assignTaxonomy</a> function to classify ASVs.
+Outputs classified fasta files into <code class="docutils literal notranslate"><span class="pre">taxonomy_out.dada2</span></code> directory.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">minBoot</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the minimum bootstrap confidence for assigning a taxonomic level</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tryRC</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the reverse-complement of each sequences will be used for classification</div>
+<div class="line">if it is a better match to the reference sequences than the forward sequence</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dada2</span> <span class="pre">database</span></code></p></td>
+<td><div class="line-block">
+<div class="line">select a reference database fasta file for taxonomy annotation</div>
+<div class="line"><a class="reference external" href="https://benjjneb.github.io/dada2/training.html">Download DADA2-formatted reference databases here</a></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>see <a class="reference internal" href="#dada2-defaults"><span class="std std-ref">default settings</span></a></p>
+<hr class="docutils" />
+</section>
+</section>
+<section id="otus-workflow-panel">
+<span id="otupipe"></span><h3><a class="toc-backref" href="#id49" role="doc-backlink">OTUs workflow panel</a><a class="headerlink" href="#otus-workflow-panel" title="Permalink to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This OTU workflow works with paired-end (e.g. Illumina, MGI-Tech) as well as single-end reads (e.g. PacBio, assembled Illumina reads)</p>
+</div>
+<p><a class="reference internal" href="_images/otu_main.png"><img alt="Alternative text" src="_images/otu_main.png" style="width: 1500px;" /></a></p>
+<p>OTU workflow is active (green icon) <a class="reference internal" href="_images/OTU_on.png"><img alt="Alternative text" src="_images/OTU_on.png" style="width: 50px;" /></a>
+; OTU workflow is off <a class="reference internal" href="_images/OTU_off.png"><img alt="Alternative text" src="_images/OTU_off.png" style="width: 50px;" /></a></p>
+<dl>
+<dt>This automated workflow is mostly based on <a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a> (<a class="reference external" href="https://peerj.com/articles/2584/">Rognes et. al 2016</a>) [<a class="reference external" href="_static/vsearch_manual_2.22.1.pdf">manual</a>]</dt><dd><div class="line-block">
+<div class="line">Note that <code class="docutils literal notranslate"><span class="pre">demultiplexing</span></code>, <code class="docutils literal notranslate"><span class="pre">reorient</span></code> and <code class="docutils literal notranslate"><span class="pre">remove</span> <span class="pre">primers</span></code> steps are optional. Nevertheless, it is advisable to <a class="reference internal" href="#reorient"><span class="std std-ref">reorient</span></a> your reads (to 5’-3’) and <a class="reference internal" href="#remove-primers"><span class="std std-ref">remove primers</span></a> before proceeding.</div>
+</div>
+</dd>
+</dl>
+<div class="line-block" id="otupipe-defaults">
+<div class="line"><strong>Default options:</strong></div>
+<div class="line"><em>click on analyses step for more info</em></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Analyses step</p></th>
+<th class="head"><p>Default setting</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#demux"><span class="std std-ref">DEMULTIPLEX</span></a> (optional)</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#reorient"><span class="std std-ref">REORIENT</span></a> (optional)</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#remove-primers"><span class="std std-ref">REMOVE PRIMERS</span></a> (optional)</p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#merge-vsearch"><span class="std std-ref">MERGE READS</span></a></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">read_R1</span></code> = \.R1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">min_overlap</span></code> = 12</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">min_length</span></code> = 32</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">allow_merge_stagger</span></code> = TRUE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">include</span> <span class="pre">only</span> <span class="pre">R1</span></code> = FALSE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">max_diffs</span></code> = 20</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">max_Ns</span></code> = 0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">max_len</span></code> = 600</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">keep_disjoined</span></code> = FALSE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">fastq_qmax</span></code> = 41</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#qfilt-vsearch"><span class="std std-ref">QUALITY FILTERING with vsearch</span></a></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">maxEE</span></code> = 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">maxN</span></code> = 0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">minLen</span></code> = 32</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">max_length</span></code> = undefined</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">qmax</span></code> = 41</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">qmin</span></code> = 0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">maxee_rate</span></code> = undefined</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#chimfilt-vsearch"><span class="std std-ref">CHIMERA FILTERING with uchime_denovo</span></a></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">pre_cluster</span></code> = 0.98</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">min_unique_size</span></code> = 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">denovo</span></code> = TRUE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">reference_based</span></code> = undefined</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">abundance_skew</span></code> = 2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">min_h</span></code> = 0.28</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#itsextractor"><span class="std std-ref">ITS Extractor</span></a> (optional)</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">organisms</span></code> = all</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">regions</span></code> = all</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">partial</span></code> = 50</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">region_for_clustering</span></code> = ITS2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">cluster_full_and_partial</span></code> = TRUE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">e_value</span></code> = 1e-2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">scores</span></code> = 0</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">domains</span></code> = 2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">complement</span></code> = TRUE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">only_full</span></code> = FALSE</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">truncate</span></code> = TRUE</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#clustering-vsearch"><span class="std std-ref">CLUSTERING with vsearch</span></a></p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">OTU_type</span></code> = centroid</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">similarity_threshold</span></code> = 0.97</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">strands</span></code> = both</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">remove_singletons</span></code> = false</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">similarity_type</span></code> = 2</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sequence_sorting</span></code> = cluster_size</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">centroid_type</span></code> = similarity</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">max_hits</span></code> = 1</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mask</span></code> = dust</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">dbmask</span></code> = dust</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#assign-taxonomy-blast"><span class="std std-ref">ASSIGN TAXONOMY with BLAST</span></a> (optional)</p></td>
+<td><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">database_file</span></code> = select a database</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">task</span></code> = blastn</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">strands</span></code> = both</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</section>
+</section>
+<section id="analyses-panels">
+<span id="panels"></span><h2><a class="toc-backref" href="#id50" role="doc-backlink">ANALYSES PANELS</a><a class="headerlink" href="#analyses-panels" title="Permalink to this heading"></a></h2>
+</section>
+<section id="demultiplex">
+<span id="demux"></span><h2><a class="toc-backref" href="#id51" role="doc-backlink">DEMULTIPLEX</a><a class="headerlink" href="#demultiplex" title="Permalink to this heading"></a></h2>
+<p>If data is <strong>multiplexed, the first step would be demultiplexing</strong> (using <a class="reference external" href="https://cutadapt.readthedocs.io/en/stable/">cutadapt</a> (<a class="reference external" href="https://doi.org/10.14806/ej.17.1.200">Martin 2011</a>)).
+This is done based on the user specified <a class="reference internal" href="#indexes"><span class="std std-ref">indexes file</span></a>, which includes molecular identifier sequences (so called indexes/tags/barcodes) per sample.
+Note that reverse complementary matches will also be searched.</p>
+<div class="line-block">
+<div class="line"><strong>Fastq/fasta</strong> formatted paired-end and single-end data are supported.</div>
+<div class="line"><strong>Outputs</strong> are fastq/fasta files per sample in <code class="docutils literal notranslate"><span class="pre">demultiplexed_out</span></code> directory. Indexes are <strong>truncated</strong> from the sequences.</div>
+<div class="line">Paired-end samples get <code class="docutils literal notranslate"><span class="pre">.R1</span></code> and <code class="docutils literal notranslate"><span class="pre">.R2</span></code> read identifiers.</div>
+<div class="line"><strong>unknown.fastq</strong> file(s) contain sequences where specified index combinations were not found.</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If found, sequences with any index combination will be outputted <strong>when using paired indexes</strong>.
+That means, if, for example, your sample_1 is indexed with <em>indexFwd_1-indexRev_1</em> and
+sample_2 with <em>indexFwd_2-indexRev_2</em>, then files with <em>indexFwd_1-indexRev_2</em> and <em>indexFwd_2-indexRev_1</em>
+are also written (although latter index combinations were not used in the lab to index any sample [i.e. represent tag-switches]).
+Simply remove those files if not needed or use to estimate tag-switching error if relevant.</p>
+</div>
+<table class="docutils align-default" id="demux-settings">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">file</span></code></p></td>
+<td><div class="line-block">
+<div class="line">select your fasta formatted indexes file for demultiplexing (<a class="reference internal" href="#indexes"><span class="std std-ref">see guide here</span></a>),</div>
+<div class="line">where fasta headers are sample names, and sequences are sample</div>
+<div class="line">specific index or index combination</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">index</span> <span class="pre">mismatch</span></code></p></td>
+<td><div class="line-block">
+<div class="line">allowed mismatches during the index search</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">overlap</span></code></p></td>
+<td><div class="line-block">
+<div class="line">number of overlap bases with the index</div>
+<div class="line">Recommended overlap is the maximum length of the index for</div>
+<div class="line">confident sequence assignments to samples</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min</span> <span class="pre">seq</span> <span class="pre">length</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum length of the output sequence</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">indels</span></code></p></td>
+<td><div class="line-block">
+<div class="line">do not allow insertions or deletions is primer search.</div>
+<div class="line">Mismatches are the only type of errors accounted in the error rate parameter</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Heterogenity spacers or any redundant base pairs attached to index sequences do not affect demultiplexing. Indexes are trimmed from the best matching position.</p>
+</div>
+<section id="indexes-file-example-fasta-formatted">
+<span id="indexes"></span><h3><a class="toc-backref" href="#id52" role="doc-backlink">Indexes file example (fasta formatted)</a><a class="headerlink" href="#indexes-file-example-fasta-formatted" title="Permalink to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only <strong>IUPAC codes</strong> are allowed in the sequences. Avoid using ‘.’ in the sample names (e.g. instead of sample.1, use sample_1)</p>
+</div>
+<ol class="arabic simple">
+<li><p><strong>Demultiplexing using single indexes</strong>:</p></li>
+</ol>
+<blockquote>
+<div><div class="line-block">
+<div class="line">&gt;sample1</div>
+<div class="line">AGCTGCACCTAA</div>
+<div class="line">&gt;sample2</div>
+<div class="line">AGCTGTCAAGCT</div>
+<div class="line">&gt;sample3</div>
+<div class="line">AGCTTCGACAGT</div>
+<div class="line">&gt;sample4</div>
+<div class="line">AGGCTCCATGTA</div>
+<div class="line">&gt;sample5</div>
+<div class="line">AGGCTTACGTGT</div>
+<div class="line">&gt;sample6</div>
+<div class="line">AGGTACGCAATT</div>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p><strong>Demultiplexing using dual (paired) indexes:</strong></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>IMPORTANT!</strong> reverse indexes will be automatically oriented to 5’-3’ (for the search); so you can simply copy-paste the indexes from your lab protocol.</p>
+</div>
+<div class="line-block">
+<div class="line">&gt;sample1</div>
+<div class="line">AGCTGCACCTAA…AGCTGCACCTAA</div>
+<div class="line">&gt;sample2</div>
+<div class="line">AGCTGTCAAGCT…AGCTGTCAAGCT</div>
+<div class="line">&gt;sample3</div>
+<div class="line">AGCTTCGACAGT…AGCTTCGACAGT</div>
+<div class="line">&gt;sample4</div>
+<div class="line">AGGCTCCATGTA…AGGCTCCATGTA</div>
+<div class="line">&gt;sample5</div>
+<div class="line">AGGCTTACGTGT…AGGCTTACGTGT</div>
+<div class="line">&gt;sample6</div>
+<div class="line">AGGTACGCAATT…AGGTACGCAATT</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Anchored indexes (<a class="reference external" href="https://cutadapt.readthedocs.io/en/stable/guide.html#anchored-5adapters">https://cutadapt.readthedocs.io/en/stable/guide.html#anchored-5adapters</a>) with ^ symbol are <strong>not supported</strong> in PipeCraft demultiplex GUI panel.</p>
+<p>DO NOT USE, e.g.</p>
+<div class="line-block">
+<div class="line">&gt;sample1</div>
+<div class="line">^AGCTGCACCTAA</div>
+<div class="line"><br /></div>
+<div class="line">&gt;sample1</div>
+<div class="line">^AGCTGCACCTAA…AGCTGCACCTAA</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<section id="how-to-compose-indexes-fasta">
+<h4>How to compose indexes.fasta<a class="headerlink" href="#how-to-compose-indexes-fasta" title="Permalink to this heading"></a></h4>
+<p>In Excel (or any alternative program);
+first column represents sample names,
+second (and third) column represent indexes (or index combinations) per sample:</p>
+<p>Exaples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sample1</span>    <span class="n">AGCTGCACCTAA</span>
+<span class="n">sample2</span>    <span class="n">AGCTGTCAAGCT</span>
+<span class="n">sample3</span>    <span class="n">AGCTTCGACAGT</span>
+<span class="n">sample4</span>    <span class="n">AGGCTCCATGTA</span>
+<span class="n">sample5</span>    <span class="n">AGGCTTACGTGT</span>
+<span class="n">sample6</span>    <span class="n">AGGTACGCAATT</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sample1</span>    <span class="n">AGCTGCACCTAA</span>    <span class="n">AGCTGCACCTAA</span>
+<span class="n">sample2</span>    <span class="n">AGCTGTCAAGCT</span>    <span class="n">AGCTGTCAAGCT</span>
+<span class="n">sample3</span>    <span class="n">AGCTTCGACAGT</span>    <span class="n">AGCTTCGACAGT</span>
+<span class="n">sample4</span>    <span class="n">AGGCTCCATGTA</span>    <span class="n">AGGCTCCATGTA</span>
+<span class="n">sample5</span>    <span class="n">AGGCTTACGTGT</span>    <span class="n">AGGCTTACGTGT</span>
+<span class="n">sample6</span>    <span class="n">AGGTACGCAATT</span>    <span class="n">AGGTACGCAATT</span>
+</pre></div>
+</div>
+<p>Copy those two (or three) columns to text editor that support regular expressions, such as NotePad++ or Sublime Text.
+If using <strong>PAIRED</strong> indexes (three columns), proceed to bullet no. 5</p>
+<ul>
+<li><p>single-end indexes:</p>
+<ol class="arabic">
+<li><p>Open ‘find &amp; replace’
+Find ^   (which denotes the beginning of each line).
+Replace with &gt;  (and DELETE THE LAST &gt; in the beginning of empty row).</p></li>
+<li><p>Find \t   (which denotes tab).
+Replace with \n   (which denotes the new line).</p>
+<p><strong>FASTA FORMATTED (single-end indexes) indexes.fasta file is ready; SAVE the file.</strong></p>
+</li>
+</ol>
+</li>
+<li><p>Only for paired-indexes:</p>
+<ol class="arabic">
+<li><p>Open ‘find &amp; replace’:
+Find ^   (denotes the beginning of each line);
+replace with &gt;  (and DELETE THE LAST &gt; in the beginning of empty row).</p></li>
+<li><p>Find .*\K\t (which captures the second tab);
+replace with … (to mark the linked paired-indexes).</p></li>
+<li><p>Find \t (denotes the tab);
+replace with \n (denotes the new line).</p>
+<p><strong>FASTA FORMATTED (paired indexes) indexes.fasta file is ready; SAVE the file.</strong></p>
+</li>
+</ol>
+</li>
+</ul>
+<hr class="docutils" />
+</section>
+</section>
+</section>
+<section id="reorient">
+<span id="id1"></span><h2><a class="toc-backref" href="#id53" role="doc-backlink">REORIENT</a><a class="headerlink" href="#reorient" title="Permalink to this heading"></a></h2>
+<p>Sequences are often (if not always) in both, 5’-3’ and 3’-5’, orientations in the raw sequencing data sets.
+If the data still contains PCR primers that were used to generate amplicons,
+then by specifying these PCR primers, this panel will perform sequence reorientation
+of all sequences.</p>
+<p>For reorienting,
+first the forward primer will be searched (using <a class="reference external" href="https://github.com/indraniel/fqgrep">fqgrep</a>)
+and if detected then the read is considered as forward complementary (5’-3’).
+Then the reverse primer will be searched (using <a class="reference external" href="https://github.com/indraniel/fqgrep">fqgrep</a>)
+from the same input data and if detected, then the read is considered to be in
+reverse complementary orientation (3’-5’). Latter reads will be transformed to 5’-3’
+orientation and merged with other 5’-3’ reads.
+Note that for paired-end data, R1 files will be reoriented to 5’-3’
+but R2 reads will be reoriented to 3’-5’ in order to merge paired-end reads.</p>
+<p>At least one of the PCR primers must be found in the sequence.
+For example, read will be recorded if forward primer was found even
+though reverse primer was not found (and vice versa).
+<strong>Sequence is discarded if none of the PCR primers are found.</strong></p>
+<p>Sequences that contain <strong>multiple forward or reverse primers (multi-primer artefacts)
+are discarded</strong> as it is highly likely that these are chimeric sequences.
+Reorienting sequences <strong>will not remove</strong> primer strings from the sequences.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For single-end data, sequences will be reoriented also during
+the ‘cut primers’ process (see below); therefore this step may be skipped
+when working with single-end data (such as data from PacBio machines OR already assembled paired-end data).</p>
+</div>
+<p>If in the clustering step of an “OTU pipeline”, both strands of the sequences can be compared prior
+forming OTUs; thus this step may be skipped in the OTU pipeline.</p>
+<p>Supported file formats for paired-end input data are only <strong>fastq</strong>,
+but also <strong>fasta</strong> for single-end data.
+<strong>Outputs</strong> are fastq/fasta files in <code class="docutils literal notranslate"><span class="pre">reoriented_out</span></code> directory.
+Primers are <strong>not truncated</strong> from the sequences; this can be done using <a class="reference internal" href="#remove-primers"><span class="std std-ref">CUT PRIMER panel</span></a></p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mismatches</span></code></p></td>
+<td><div class="line-block">
+<div class="line">allowed mismatches in the primer search</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">forward_primers</span></code></p></td>
+<td><div class="line-block">
+<div class="line">specify forward primer <strong>(5’-3’)</strong>; IUPAC codes allowed;</div>
+<div class="line">add up to 13 primers</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">reverse_primers</span></code></p></td>
+<td><div class="line-block">
+<div class="line">specify reverse primer <strong>(3’-5’)</strong>; IUPAC codes allowed;</div>
+<div class="line">add up to 13 primers</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</section>
+<section id="cut-primers">
+<span id="remove-primers"></span><h2><a class="toc-backref" href="#id54" role="doc-backlink">CUT PRIMERS</a><a class="headerlink" href="#cut-primers" title="Permalink to this heading"></a></h2>
+<p>If the input data contains PCR primers (or e.g. adapters), these can be removed in the <code class="docutils literal notranslate"><span class="pre">CUT</span> <span class="pre">PRIMERS</span></code> panel.
+CUT PRIMERS processes mostly relies on <a class="reference external" href="https://cutadapt.readthedocs.io/en/stable/">cutadapt</a> (<a class="reference external" href="https://doi.org/10.14806/ej.17.1.200">Martin 2011</a>).</p>
+<p>For generating OTUs or ASVs, it is recommended to truncate the primers from the reads
+(<strong>unless ITS Extractor is used</strong> later to remove flanking primer binding regions from ITS1/ITS2/full ITS; in that case keep the primers better detection of the 18S, 5.8S and/or 28S regions).
+Sequences where PCR primer strings were not detected are discarded by default (but stored in ‘untrimmed’ directory).
+Reverse complementary search of the primers in the sequences is also performed.
+Thus, primers are clipped from both 5’-3’ and 3’-5’ oriented reads. However, note that <strong>paired-end reads will not be reoriented</strong> to 5’-3’ during this process,
+but <strong>single-end reads will be reoriented</strong> to 5’-3’ (thus no extra reorient step needed for single-end data).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For paired-end data, the <strong>seqs_to_keep option should be left as default (‘keep_all’)</strong>. This will output sequences where at least one primer has been clipped.
+‘keep_only_linked’ option outputs only sequences where both the forward and reverse primers are found (i.e. 5’-forward…reverse-3’).
+‘keep_only_linked’ may be used for single-end data to keep only <strong>full-length amplicons</strong>.</p>
+</div>
+<div class="line-block">
+<div class="line"><strong>Fastq</strong>/<strong>fasta</strong> formatted paired-end and single-end data are supported.</div>
+<div class="line"><strong>Outputs</strong> are fastq/fasta files in <code class="docutils literal notranslate"><span class="pre">primersCut_out</span></code> directory. Primers are <strong>truncated</strong> from the sequences.</div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">forward</span> <span class="pre">primers</span></code></p></td>
+<td><div class="line-block">
+<div class="line">specify forward primer <strong>(5’-3’)</strong>; IUPAC codes allowed;</div>
+<div class="line">add up to 13 primers</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reverse</span> <span class="pre">primers</span></code></p></td>
+<td><div class="line-block">
+<div class="line">specify reverse primer <strong>(3’-5’)</strong>; IUPAC codes allowed;</div>
+<div class="line">add up to 13 primers</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mismatches</span></code></p></td>
+<td><div class="line-block">
+<div class="line">allowed mismatches in the primer search</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min</span> <span class="pre">overlap</span></code></p></td>
+<td><div class="line-block">
+<div class="line">number of overlap bases with the primer sequence.</div>
+<div class="line">Partial matches are allowed, but short matches may occur by chance,</div>
+<div class="line">leading to erroneously clipped bases.</div>
+<div class="line">Specifying higher overlap than the length of primer sequnce</div>
+<div class="line">will still clip the primer (e.g. primer length is 22 bp,</div>
+<div class="line">but overlap is specified as 25 - this does not affect the</div>
+<div class="line">identification and clipping of the primer as long as the match is</div>
+<div class="line">in the specified mismatch error range)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">seqs</span> <span class="pre">to</span> <span class="pre">keep</span></code></p></td>
+<td><div class="line-block">
+<div class="line">keep sequences where at least one primer was found (fwd or rev);</div>
+<div class="line">recommended when cutting primers from paired-end data (unassembled),</div>
+<div class="line">when individual R1 or R2 read lengths are shorther than the expected</div>
+<div class="line">amplicon length. ‘keep_only_linked’ = keep sequences if primers are found</div>
+<div class="line">in both ends (fwd…rev); discards the read if both primers were not found</div>
+<div class="line">in this read</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pair</span> <span class="pre">filter</span></code></p></td>
+<td><div class="line-block">
+<div class="line"><strong>applies only for paired-end data.</strong></div>
+<div class="line">‘both’, means that a read is discarded only if both, corresponding R1 and R2,</div>
+<div class="line">reads  do not contain primer strings (i.e. a read is kept if R1 contains</div>
+<div class="line">primer string, but no primer string found in R2 read). Option ‘any’ discards</div>
+<div class="line">the read if primers are not found in both, R1 and R2 reads</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min</span> <span class="pre">seq</span> <span class="pre">length</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum length of the output sequence</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">indels</span></code></p></td>
+<td><div class="line-block">
+<div class="line">do not allow insertions or deletions is primer search. Mismatches are the</div>
+<div class="line">only type of errprs accounted in the error rate parameter</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="quality-filtering">
+<span id="qual-filt"></span><h2><a class="toc-backref" href="#id55" role="doc-backlink">QUALITY FILTERING</a><a class="headerlink" href="#quality-filtering" title="Permalink to this heading"></a></h2>
+<p>Quality filter and trim sequences.</p>
+<div class="line-block">
+<div class="line"><strong>Fastq</strong> formatted paired-end and single-end data are supported.</div>
+<div class="line"><strong>Outputs</strong> are fastq files in <code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code> directory.</div>
+</div>
+<section id="qfilt-vsearch">
+<span id="id6"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#qfilt-vsearch" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>vsearch</strong> setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maxEE</span></code></p></td>
+<td><div class="line-block">
+<div class="line">maximum number of expected errors per sequence (<a class="reference external" href="https://drive5.com/usearch/manual/exp_errs.html">see here</a>).</div>
+<div class="line">Sequences with higher error rates will be discarded</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maxN</span></code></p></td>
+<td><div class="line-block">
+<div class="line">discard sequences with more than the specified number of Ns</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">minLen</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum length of the filtered output sequence</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_length</span></code></p></td>
+<td><div class="line-block">
+<div class="line">discard sequences with more than the specified number of bases.</div>
+<div class="line">Note that if ‘trunc length’ setting is specified, then ‘max length’</div>
+<div class="line">SHOULD NOT be lower than ‘trunc length’ (otherwise all reads are discared)</div>
+<div class="line">[empty field = no action taken]</div>
+<div class="line">Note that if ‘trunc length’ setting is specified, then ‘min length’</div>
+<div class="line">SHOULD BE lower than ‘trunc length’ (otherwise all reads are discared)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">qmax</span></code></p></td>
+<td><div class="line-block">
+<div class="line">specify the maximum quality score accepted when reading FASTQ files.</div>
+<div class="line">The default is 41, which is usual for recent Sanger/Illumina 1.8+ files.</div>
+<div class="line"><strong>For PacBio data use 93</strong></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">trunc_length</span></code></p></td>
+<td><div class="line-block">
+<div class="line">truncate sequences to the specified length. Shorter sequences are discarded;</div>
+<div class="line">thus if specified, check that ‘min length’ setting is lower than ‘trunc length’</div>
+<div class="line">(‘min length’ therefore has basically no effect) [empty field = no action taken]</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">qmin</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the minimum quality score accepted for FASTQ files. The default is 0, which is</div>
+<div class="line">usual for recent Sanger/Illumina 1.8+ files.</div>
+<div class="line">Older formats may use scores between -5 and 2</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maxee_rate</span></code></p></td>
+<td><div class="line-block">
+<div class="line">discard sequences with more than the specified number of expected errors per base</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">minsize</span></code></p></td>
+<td><div class="line-block">
+<div class="line">discard sequences with an abundance lower than the specified value</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="qfilt-trimmomatic">
+<span id="id7"></span><h3><a class="reference external" href="http://www.usadellab.org/cms/?page=trimmomatic">trimmomatic</a><a class="headerlink" href="#qfilt-trimmomatic" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>trimmomatic</strong> setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">window_size</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the number of bases to average base qualities</div>
+<div class="line">Starts scanning at the 5’-end of a sequence and trimms the read once the</div>
+<div class="line">average required quality (required_qual) within the window size falls</div>
+<div class="line">below the threshold</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">required_quality</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the average quality required for selected window size</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min_length</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum length of the filtered output sequence</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">leading_qual_threshold</span></code></p></td>
+<td><div class="line-block">
+<div class="line">quality score threshold to remove low quality bases from the beginning of the read.</div>
+<div class="line">As long as a base has a value below this threshold the base is removed and</div>
+<div class="line">the next base will be investigated</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">trailing_qual_threshold</span></code></p></td>
+<td><div class="line-block">
+<div class="line">quality score threshold to remove low quality bases from the end of the read.</div>
+<div class="line">As long as a base has a value below this threshold the base is removed and</div>
+<div class="line">the next base will be investigated</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">phred</span></code></p></td>
+<td><div class="line-block">
+<div class="line">phred quality scored encoding.</div>
+<div class="line">Use phred64 if working with data from older Illumina (Solexa) machines</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="qfilt-fastp">
+<span id="id8"></span><h3><a class="reference external" href="https://github.com/OpenGene/fastp">fastp</a><a class="headerlink" href="#qfilt-fastp" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>fastp</strong> setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">window_size</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the window size for calculating mean quality</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">required_qual</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the mean quality requirement per sliding window (window_size)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min_qual</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the quality value that a base is qualified. Default 15 means</div>
+<div class="line">phred quality &gt;=Q15 is qualified</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_qual_thresh</span></code></p></td>
+<td><div class="line-block">
+<div class="line">how many percents of bases are allowed to be unqualified (0-100)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maxNs</span></code></p></td>
+<td><div class="line-block">
+<div class="line">discard sequences with more than the specified number of Ns</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_length</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum length of the filtered output sequence. Shorter sequences are discarded</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_length</span></code></p></td>
+<td><div class="line-block">
+<div class="line">reads longer than ‘max length’ will be discarded, default 0 means no limitation</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">trunc_length</span></code></p></td>
+<td><div class="line-block">
+<div class="line">truncate sequences to specified length. Shorter sequences are discarded;</div>
+<div class="line">thus check that ‘min length’ setting is lower than ‘trunc length’</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">aver_qual</span></code></p></td>
+<td><div class="line-block">
+<div class="line">if one read’s average quality score &lt;’aver_qual’, then this read/pair is discarded.</div>
+<div class="line">Default 0 means no requirement</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">low_complexity_filter</span></code></p></td>
+<td><div class="line-block">
+<div class="line">enables low complexity filter and specify the threshold for low complexity filter.</div>
+<div class="line">The complexity is defined as the percentage of base that is different from its</div>
+<div class="line">next base (base[i] != base[i+1]).</div>
+<div class="line">E.g. vaule 30 means then 30% complexity is required.</div>
+<div class="line">Not specified = filter not applied</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cores</span></code></p></td>
+<td><div class="line-block">
+<div class="line">number of cores to use</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="dada2-filterandtrim-function">
+<span id="qfilt-dada2"></span><h3><a class="reference external" href="https://github.com/benjjneb/dada2">DADA2</a> (‘filterAndTrim’ function)<a class="headerlink" href="#dada2-filterandtrim-function" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>DADA2</strong> setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">read_R1</span></code></p></td>
+<td><div class="line-block">
+<div class="line">applies only for <strong>paired-end</strong> data.</div>
+<div class="line">Identifyer string that is common for all R1 reads</div>
+<div class="line">(e.g. when all R1 files have ‘.R1’ string, then enter ‘\.R1’.</div>
+<div class="line">Note that backslash is only needed to escape dot regex; e.g.</div>
+<div class="line">when all R1 files have ‘_R1’ string, then enter ‘_R1’.).</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">read_R2</span></code></p></td>
+<td><div class="line-block">
+<div class="line">applies only for <strong>paired-end</strong> data.</div>
+<div class="line">Identifyer string that is common for all R2 reads</div>
+<div class="line">(e.g. when all R2 files have ‘.R2’ string, then enter ‘\.R2’.</div>
+<div class="line">Note that backslash is only needed to escape dot regex; e.g.</div>
+<div class="line">when all R2 files have ‘_R1’ string, then enter ‘_R2’.).</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">samp_ID</span></code></p></td>
+<td><div class="line-block">
+<div class="line">applies only for <strong>paired-end</strong> data.</div>
+<div class="line">Identifyer string that separates the sample name from redundant</div>
+<div class="line">charachters (e.g. file name = sample1.R1.fastq, then</div>
+<div class="line">underscore ‘\.’ would be the ‘identifier string’ (sample name = sampl84));</div>
+<div class="line">note that backslash is only needed to</div>
+<div class="line">escape dot regex (e.g. when file name = sample1_R1.fastq then specify as ‘_’)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maxEE</span></code></p></td>
+<td><div class="line-block">
+<div class="line">discard sequences with more than the specified number of expected errors</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maxN</span></code></p></td>
+<td><div class="line-block">
+<div class="line">discard sequences with more than the specified number of N’s (ambiguous bases)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">minLen</span></code></p></td>
+<td><div class="line-block">
+<div class="line">remove reads with length less than minLen. minLen is enforced</div>
+<div class="line">after all other trimming and truncation</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">truncQ</span></code></p></td>
+<td><div class="line-block">
+<div class="line">truncate reads at the first instance of a quality score less than or equal to truncQ</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">truncLen</span></code></p></td>
+<td><div class="line-block">
+<div class="line">truncate reads after truncLen bases</div>
+<div class="line">(applies to <strong>R1 reads</strong> when working with <strong>paired-end</strong> data).</div>
+<div class="line">Reads shorter than this are discarded.</div>
+<div class="line">Explore quality profiles (with QualityCheck module) and</div>
+<div class="line">see whether poor quality ends needs to be truncated</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">truncLen_R2</span></code></p></td>
+<td><div class="line-block">
+<div class="line">applies only for <strong>paired-end</strong> data.</div>
+<div class="line">Truncate <strong>R2 reads</strong> after truncLen bases.</div>
+<div class="line">Reads shorter than this are discarded.</div>
+<div class="line">Explore quality profiles (with QualityCheck module) and</div>
+<div class="line">see whether poor quality ends needs to truncated</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maxLen</span></code></p></td>
+<td><div class="line-block">
+<div class="line">remove reads with length greater than maxLen.</div>
+<div class="line">maxLen is enforced on the raw reads.</div>
+<div class="line">In dada2, the default = Inf, but here set as 9999</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">minQ</span></code></p></td>
+<td><div class="line-block">
+<div class="line">after truncation, reads contain a quality score below minQ will be discarded</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">matchIDs</span></code></p></td>
+<td><div class="line-block">
+<div class="line">applies only for <strong>paired-end</strong> data.</div>
+<div class="line">after truncation, reads contain a quality score below minQ will be discarded</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="assemble-paired-end-reads">
+<span id="merge-pairs"></span><h2><a class="toc-backref" href="#id60" role="doc-backlink">ASSEMBLE PAIRED-END reads</a><a class="headerlink" href="#assemble-paired-end-reads" title="Permalink to this heading"></a></h2>
+<p>Assemble paired-end sequences (such as those from Illumina or MGI-Tech platforms).</p>
+<p><code class="docutils literal notranslate"><span class="pre">include_only_R1</span></code> represents additional in-built module. If TRUE,
+unassembled R1 reads will be included to the set of assembled reads per sample.
+This may be relevant when working with e.g. ITS2 sequences, because the ITS2 region in some
+taxa is too long for paired-end assembly using current short-read sequencing technology.
+Therefore longer ITS2 amplicon sequences are discarded completely after the assembly process.
+Thus, including also unassembled R1 reads (<code class="docutils literal notranslate"><span class="pre">include_only_R1</span></code> = TRUE), partial ITS2 sequences for
+these taxa will be represented in the final output. But when using <a class="reference internal" href="#itsextractor"><span class="std std-ref">ITSx</span></a>
+, keep <code class="docutils literal notranslate"><span class="pre">only_full</span></code> = FALSE and include <code class="docutils literal notranslate"><span class="pre">partial</span></code> = 50.</p>
+<p><strong>Fastq</strong> formatted paired-end data is supported.
+<strong>Outputs</strong> are fastq files in <code class="docutils literal notranslate"><span class="pre">assembled_out</span></code> directory.</p>
+<section id="merge-vsearch">
+<span id="id11"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#merge-vsearch" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">read_R1</span></code></p></td>
+<td><div class="line-block">
+<div class="line">applies only for paired-end data. Identifyer string that is common</div>
+<div class="line">for all R1 reads (e.g. when all R1 files have ‘.R1’ string, then</div>
+<div class="line">enter ‘\.R1’. Note that backslash is only needed to escape dot</div>
+<div class="line">regex; e.g. when all R1 files have ‘_R1’ string, then enter ‘_R1’)’</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_overlap</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum overlap between the merged reads</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min_length</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum length of the merged sequence</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">allow_merge_stagger</span></code></p></td>
+<td><div class="line-block">
+<div class="line">allow to merge staggered read pairs. Staggered pairs are pairs</div>
+<div class="line">where the 3’ end of the reverse read has an overhang to the left</div>
+<div class="line">of the 5’ end of the forward read. This situation can occur when a</div>
+<div class="line">very short fragment is sequenced</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">include_only_R1</span></code></p></td>
+<td><div class="line-block">
+<div class="line">include unassembled R1 reads to the set of assembled reads per sample</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_diffs</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the maximum number of non-matching nucleotides allowed in the overlap region</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_Ns</span></code></p></td>
+<td><div class="line-block">
+<div class="line">discard sequences with more than the specified number of Ns</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_len</span></code></p></td>
+<td><div class="line-block">
+<div class="line">maximum length of the merged sequence</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">keep_disjoined</span></code></p></td>
+<td><div class="line-block">
+<div class="line">output reads that were not merged into separate FASTQ files</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fastq_qmax</span></code></p></td>
+<td><div class="line-block">
+<div class="line">maximum quality score accepted when reading FASTQ files.</div>
+<div class="line">The default is 41, which is usual for recent Sanger/Illumina 1.8+ files</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="merge-dada2">
+<span id="id13"></span><h3><a class="reference external" href="https://github.com/benjjneb/dada2">DADA2</a><a class="headerlink" href="#merge-dada2" title="Permalink to this heading"></a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Here, dada2 will perform also denoising (function ‘dada’) before assembling paired-end data.
+Because of that, input sequences (in <strong>fastq</strong> format) must consist of
+only A/T/C/Gs.</p>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">read_R1</span></code></p></td>
+<td><div class="line-block">
+<div class="line">identifyer string that is common for all R1 reads</div>
+<div class="line">(e.g. when all R1 files have ‘.R1’ string, then enter ‘\.R1’.</div>
+<div class="line">Note that backslash is only needed to escape dot regex; e.g.</div>
+<div class="line">when all R1 files have ‘_R1’ string, then enter ‘_R1’.)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">read_R2</span></code></p></td>
+<td><div class="line-block">
+<div class="line">identifyer string that is common for all R2 reads</div>
+<div class="line">(e.g. when all R2 files have ‘.R2’ string, then enter ‘\.R2’.</div>
+<div class="line">Note that backslash is only needed to escape dot regex; e.g.</div>
+<div class="line">when all R2 files have ‘_R1’ string, then enter ‘_R2’.)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">samp_ID</span></code></p></td>
+<td><div class="line-block">
+<div class="line">identifyer string that separates the sample name from redundant</div>
+<div class="line">charachters (e.g. file name = sample1.R1.fastq, then</div>
+<div class="line">underscore ‘\.’ would be the ‘identifier string’ (sample name = sampl84));</div>
+<div class="line">note that backslash is only needed to escape dot regex</div>
+<div class="line">(e.g. when file name = sample1_R1.fastq then specify as ‘_’)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">minOverlap</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the minimum length of the overlap required for merging the forward and</div>
+<div class="line">reverse reads</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maxMismatch</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the maximum mismatches allowed in the overlap region</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">trimOverhang</span></code></p></td>
+<td><div class="line-block">
+<div class="line">if TRUE, overhangs in the alignment between the forwards and reverse read are</div>
+<div class="line">trimmed off. Overhangs are when the reverse read extends past the start of</div>
+<div class="line">the forward read, and vice-versa, as can happen when reads are longer than the</div>
+<div class="line">amplicon and read into the other-direction primer region</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">justConcatenate</span></code></p></td>
+<td><div class="line-block">
+<div class="line">if TRUE, the forward and reverse-complemented reverse read are concatenated</div>
+<div class="line">rather than merged, with a NNNNNNNNNN (10 Ns) spacer inserted between them</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pool</span></code></p></td>
+<td><div class="line-block">
+<div class="line">denoising setting. If TRUE, the algorithm will pool together all samples</div>
+<div class="line">prior to sample inference. Pooling improves the detection of rare variants,</div>
+<div class="line">but is computationally more expensive.</div>
+<div class="line">If pool = ‘pseudo’, the algorithm will perform pseudo-pooling between</div>
+<div class="line">individually processed samples.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">selfConsist</span></code></p></td>
+<td><div class="line-block">
+<div class="line">denoising setting. If TRUE, the algorithm will alternate between sample</div>
+<div class="line">inference and error rate estimation until convergence</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">qualityType</span></code></p></td>
+<td><div class="line-block">
+<div class="line">‘Auto’ means to attempt to auto-detect the fastq quality encoding.</div>
+<div class="line">This may fail for PacBio files with uniformly high quality scores,</div>
+<div class="line">in which case use ‘FastqQuality’</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" id="chimfilt" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="chimera-filtering">
+<h2><a class="toc-backref" href="#id63" role="doc-backlink">CHIMERA FILTERING</a><a class="headerlink" href="#chimera-filtering" title="Permalink to this heading"></a></h2>
+<p>Perform de-novo and reference database based chimera filtering.</p>
+<p>Chimera filtering is performed by <strong>sample-wise approach</strong> (i.e. each sample (input file) is treated separately).</p>
+<div class="line-block">
+<div class="line"><strong>Fastq/fasta</strong> formatted single-end data is supported [fastq inputs will be converted to fasta].</div>
+<div class="line"><strong>Outputs</strong> are fasta files in <code class="docutils literal notranslate"><span class="pre">chimera_Filtered_out</span></code> directory.</div>
+</div>
+<section id="uchime-denovo">
+<span id="chimfilt-vsearch"></span><h3><a class="toc-backref" href="#id64" role="doc-backlink">uchime_denovo</a><a class="headerlink" href="#uchime-denovo" title="Permalink to this heading"></a></h3>
+<div class="line-block">
+<div class="line">Perform chimera filtering with <strong>uchime_denovo</strong> and <strong>uchime_ref</strong> algorithms in <a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pre_cluster</span></code></p></td>
+<td><div class="line-block">
+<div class="line">identity percentage when performing ‘pre-clustering’ with –cluster_size</div>
+<div class="line">for denovo chimera filtering with –uchime_denovo</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_unique_size</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum amount of a unique sequences in a fasta file. If value = 1, then</div>
+<div class="line">no sequences are discarded after dereplication; if value = 2, then sequences,</div>
+<div class="line">which are represented only once in a given file are discarded; and so on</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">denovo</span></code></p></td>
+<td><div class="line-block">
+<div class="line">if TRUE, then perform denovo chimera filtering with –uchime_denovo</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reference_based</span></code></p></td>
+<td><div class="line-block">
+<div class="line">perform reference database based chimera filtering with –uchime_ref.</div>
+<div class="line">Select fasta formatted reference database (e.g. <a class="reference external" href="https://unite.ut.ee/sh_files/uchime_reference_dataset_28.06.2017.zip">UNITE for ITS reads</a>).</div>
+<div class="line">If denovo = TRUE, then reference based chimera filtering will be performed</div>
+<div class="line">after denovo.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">abundance_skew</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the abundance skew is used to distinguish in a threeway alignment which</div>
+<div class="line">sequence is the chimera and which are the parents. The assumption is that</div>
+<div class="line">chimeras appear later in the PCR amplification process and are therefore</div>
+<div class="line">less abundant than their parents. The default value is 2.0, which means that</div>
+<div class="line">the parents should be at least 2 times more abundant than their chimera.</div>
+<div class="line">Any positive value equal or greater than 1.0 can be used</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_h</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum score (h). Increasing this value tends to reduce the number of false</div>
+<div class="line">positives and to decrease sensitivity. Values ranging from 0.0 to 1.0 included</div>
+<div class="line">are accepted</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="uchime3-denovo">
+<span id="chimfilt-vsearch-uchime3"></span><h3><a class="toc-backref" href="#id65" role="doc-backlink">uchime3_denovo</a><a class="headerlink" href="#uchime3-denovo" title="Permalink to this heading"></a></h3>
+<div class="line-block">
+<div class="line">Perform chimera filtering with <strong>uchime3_denovo</strong> algorithm in <a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a></div>
+<div class="line">Designed for denoised amplicons.</div>
+<div class="line">uchime3_denovo can be applied also in <a class="reference internal" href="#clustering-unoise3"><span class="std std-ref">UNOISE3 clustering</span></a></div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pre_cluster</span></code></p></td>
+<td><div class="line-block">
+<div class="line">identity percentage when performing ‘pre-clustering’ with –cluster_size</div>
+<div class="line">for denovo chimera filtering with –uchime_denovo</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_unique_size</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum amount of a unique sequences in a fasta file. If value = 1, then</div>
+<div class="line">no sequences are discarded after dereplication; if value = 2, then sequences,</div>
+<div class="line">which are represented only once in a given file are discarded; and so on</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">denovo</span></code></p></td>
+<td><div class="line-block">
+<div class="line">if TRUE, then perform denovo chimera filtering with –uchime_denovo</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reference_based</span></code></p></td>
+<td><div class="line-block">
+<div class="line">perform reference database based chimera filtering with –uchime_ref.</div>
+<div class="line">Select fasta formatted reference database (e.g. <a class="reference external" href="https://unite.ut.ee/sh_files/uchime_reference_dataset_28.06.2017.zip">UNITE for ITS reads</a>).</div>
+<div class="line">If denovo = TRUE, then reference based chimera filtering will be performed</div>
+<div class="line">after denovo.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">abundance_skew</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the abundance skew is used to distinguish in a threeway alignment which</div>
+<div class="line">sequence is the chimera and which are the parents. The assumption is that</div>
+<div class="line">chimeras appear later in the PCR amplification process and are therefore</div>
+<div class="line">less abundant than their parents. The default value is 2.0, which means that</div>
+<div class="line">the parents should be at least 2 times more abundant than their chimera.</div>
+<div class="line">Any positive value equal or greater than 1.0 can be used</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_h</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum score (h). Increasing this value tends to reduce the number of false</div>
+<div class="line">positives and to decrease sensitivity. Values ranging from 0.0 to 1.0 included</div>
+<div class="line">are accepted</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" id="itsextractor" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="id17">
+<h2><a class="reference external" href="https://microbiology.se/software/itsx/">ITS Extractor</a><a class="headerlink" href="#id17" title="Permalink to this heading"></a></h2>
+<p>When working with ITS amplicons, then
+extract ITS regions with <a class="reference external" href="https://microbiology.se/software/itsx/">ITS Extractor</a> (<a class="reference external" href="https://doi.org/10.1111/2041-210X.12073">Bengtsson-Palme et al. 2013</a>)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that for better detection of the 18S, 5.8S and/or 28S regions, keep the primers (i.e. do not use ‘CUT PRIMERS’)</p>
+</div>
+<div class="line-block">
+<div class="line"><strong>Fastq/fasta</strong> formatted single-end data is supported [fastq inputs will be converted to fasta].</div>
+<div class="line"><strong>Outputs</strong> are fasta files in <code class="docutils literal notranslate"><span class="pre">ITSx_out</span></code> directory.</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To <strong>START</strong>, specify working directory under <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> and the <code class="docutils literal notranslate"><span class="pre">sequence</span> <span class="pre">files</span> <span class="pre">extension</span></code>, but the read types (single-end or paired-end) and data format (demultiplexed or multiplexed) does not matter here (just click ‘Next’).</p>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">organisms</span></code></p></td>
+<td><div class="line-block">
+<div class="line">set of profiles to use for the search. Can be used to restrict the search to</div>
+<div class="line">only a few organism groups types to save time, if one or more of the origins</div>
+<div class="line">are not relevant to the dataset under study</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">regions</span></code></p></td>
+<td><div class="line-block">
+<div class="line">ITS regions to output (note that ‘all’ will output also full ITS region [ITS1-5.8S-ITS2])</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">partial</span></code></p></td>
+<td><div class="line-block">
+<div class="line">if larger than 0, ITSx will save additional FASTA-files for full and partial ITS sequences</div>
+<div class="line">longer than the specified cutoff value. If his setting is left to 0 (zero),</div>
+<div class="line">it means OFF</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e-value</span></code></p></td>
+<td><div class="line-block">
+<div class="line">domain e-value cutoff a sequence must obtain in the HMMER-based step to be</div>
+<div class="line">included in the output</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scores</span></code></p></td>
+<td><div class="line-block">
+<div class="line">domain score cutoff that a sequence must obtain in the HMMER-based step to</div>
+<div class="line">be included in the output</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">domains</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the minimum number of domains (different HMM gene profiles) that must match</div>
+<div class="line">a sequence for it to be included in the output (detected as an ITS sequence).</div>
+<div class="line">Setting the value lower than two will increase the number of false positives,</div>
+<div class="line">while increasing it above two will decrease ITSx detection abilities</div>
+<div class="line">on fragmentary data</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">complement</span></code></p></td>
+<td><div class="line-block">
+<div class="line">if TRUE, ITSx checks both DNA strands for matches to HMM-profiles</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">only</span> <span class="pre">full</span></code></p></td>
+<td><div class="line-block">
+<div class="line">If TRUE, the output is limited to full-length ITS1 and ITS2 regions only</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">truncate</span></code></p></td>
+<td><div class="line-block">
+<div class="line">removes ends of ITS sequences if they are outside of the ITS region.</div>
+<div class="line">If FALSE, the whole input sequence is saved</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="clustering">
+<span id="id19"></span><h2><a class="toc-backref" href="#id67" role="doc-backlink">CLUSTERING</a><a class="headerlink" href="#clustering" title="Permalink to this heading"></a></h2>
+<p>Cluster sequences, generate OTUs or zOTUs (with UNOISE3)</p>
+<div class="line-block">
+<div class="line">Supported file format for the input data is <strong>fasta</strong>.</div>
+<div class="line"><strong>Outputs</strong> are <strong>OTUs.fasta</strong>, <strong>OTU_table.txt</strong> and <strong>OTUs.uc</strong> files in <code class="docutils literal notranslate"><span class="pre">clustering_out</span></code> directory.</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>output OTU table is tab delimited text file.</p>
+</div>
+<section id="clustering-vsearch">
+<span id="id21"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#clustering-vsearch" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><a class="reference external" href="_static/vsearch_manual_2.22.1.pdf">Setting</a></p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OTU_type</span></code></p></td>
+<td><div class="line-block">
+<div class="line">centroid” = output centroid sequences; “consensus” = output</div>
+<div class="line">consensus sequences</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">similarity_threshold</span></code></p></td>
+<td><div class="line-block">
+<div class="line">define OTUs based on the sequence similarity threshold; 0.97 = 97%</div>
+<div class="line">similarity threshold</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">strands</span></code></p></td>
+<td><div class="line-block">
+<div class="line">when comparing sequences with the cluster seed, check both strands</div>
+<div class="line">(forward and reverse complementary) or the plus strand only</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">remove_singletons</span></code></p></td>
+<td><div class="line-block">
+<div class="line">if TRUE, then singleton OTUs will be discarded (OTUs with only one sequence)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">similarity_type</span></code></p></td>
+<td><div class="line-block">
+<div class="line">pairwise sequence identity definition <a class="reference external" href="_static/vsearch_manual_2.22.1.pdf">–iddef</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sequence_sorting</span></code></p></td>
+<td><div class="line-block">
+<div class="line">size = sort the sequences by decreasing abundance;</div>
+<div class="line">“length” = sort the sequences by decreasing length (–cluster_fast);</div>
+<div class="line">“no” = do not sort sequences (–cluster_smallmem –usersort)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">centroid_type</span></code></p></td>
+<td><div class="line-block">
+<div class="line">“similarity” = assign representative sequence to the closest (most similar)</div>
+<div class="line">centroid (distance-based greedy clustering);</div>
+<div class="line">“abundance” = assign representative sequence to the most abundant centroid</div>
+<div class="line">(abundance-based greedy clustering; –sizeorder), <code class="docutils literal notranslate"><span class="pre">max_hits</span></code> should be &gt; 1</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_hits</span></code></p></td>
+<td><div class="line-block">
+<div class="line">maximum number of hits to accept before stopping the search</div>
+<div class="line">(should be &gt; 1 for abundance-based selection of centroids [centroid type])</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mask</span></code></p></td>
+<td><div class="line-block">
+<div class="line">mask regions in sequences using the “dust” method, or do not mask (“none”)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dbmask</span></code></p></td>
+<td><div class="line-block">
+<div class="line">prior the OTU table creation, mask regions in sequences using the</div>
+<div class="line">“dust” method, or do not mask (“none”)</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="clustering-unoise3">
+<span id="id22"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">UNOISE3, with vsearch</a><a class="headerlink" href="#clustering-unoise3" title="Permalink to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><a class="reference external" href="_static/vsearch_manual_2.22.1.pdf">Setting</a></p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">zOTUs_thresh</span></code></p></td>
+<td><div class="line-block">
+<div class="line">sequence similarity threshold for zOTU table creation;</div>
+<div class="line">1 = 100% similarity threshold for zOTUs</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">similarity_threshold</span></code></p></td>
+<td><div class="line-block">
+<div class="line">optionally cluster zOTUs to OTUs based on the sequence similarity threshold;</div>
+<div class="line">if id = 1, no OTU clustering will be performed</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">similarity_type</span></code></p></td>
+<td><div class="line-block">
+<div class="line">pairwise sequence identity definition for OTU clustering</div>
+<div class="line"><a class="reference external" href="_static/vsearch_manual_2.22.1.pdf">–iddef</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">maxaccepts</span></code></p></td>
+<td><div class="line-block">
+<div class="line">maximum number of hits to accept before stopping the search</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maxrejects</span></code></p></td>
+<td><div class="line-block">
+<div class="line">maximum number of non-matching target sequences to consider before stopping the search</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mask</span></code></p></td>
+<td><div class="line-block">
+<div class="line">mask regions in sequences using the “dust” method, or do not mask (“none”)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">strands</span></code></p></td>
+<td><div class="line-block">
+<div class="line">when comparing sequences with the cluster seed,</div>
+<div class="line">check both strands (forward and reverse complementary) or the plus strand only</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">minsize</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum abundance of sequences for denoising</div>
+<div class="line"><br /></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">unoise_alpha</span></code></p></td>
+<td><div class="line-block">
+<div class="line">alpha parameter to the vsearch –cluster_unoise command.</div>
+<div class="line">default = 2.0.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">denoise_level</span></code></p></td>
+<td><div class="line-block">
+<div class="line">at which level to perform denoising; global = by pooling samples,</div>
+<div class="line">individual = independently for each sample</div>
+<div class="line">(if samples are denoised individually, reducing minsize to 4 may</div>
+<div class="line">be more reasonable for higher sensitivity)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">remove_chimeras</span></code></p></td>
+<td><div class="line-block">
+<div class="line">perform chimera removal with <strong>uchime3_denovo</strong> algoritm</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">abskew</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the abundance skew of chimeric sequences in comparsion with</div>
+<div class="line">parental sequences (by default, parents should be at least</div>
+<div class="line">16 times more abundant than their chimera)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cores</span></code></p></td>
+<td><div class="line-block">
+<div class="line">number of cores to use for clustering</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</section>
+</section>
+<section id="postclustering">
+<span id="id25"></span><h2><a class="toc-backref" href="#id70" role="doc-backlink">POSTCLUSTERING</a><a class="headerlink" href="#postclustering" title="Permalink to this heading"></a></h2>
+<p>Perform OTU post-clustering. Merge co-occurring ‘daughter’ OTUs.</p>
+<section id="postclustering-lulu">
+<span id="id26"></span><h3><a class="reference external" href="https://github.com/tobiasgf/lulu">LULU</a><a class="headerlink" href="#postclustering-lulu" title="Permalink to this heading"></a></h3>
+<p>LULU description from the <a class="reference external" href="https://github.com/tobiasgf/lulu">LULU repository</a>: the purpose of LULU is to reduce the number of
+erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics.
+By evaluating the co-occurence patterns of OTUs among samples LULU identifies OTUs that consistently satisfy some user selected
+criteria for being errors of more abundant OTUs and merges these. It has been shown that curation with LULU consistently result
+in more realistic diversity metrics.</p>
+<dl class="simple">
+<dt>Additional information:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/tobiasgf/lulu">LULU repository</a></p></li>
+<li><p><a class="reference external" href="https://doi.org/10.1038/s41467-017-01312-x">LULU paper</a></p></li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line">Input data is tab delimited <strong>OTU table</strong> (<code class="docutils literal notranslate"><span class="pre">table</span></code>) and <strong>OTU sequences</strong> (<code class="docutils literal notranslate"><span class="pre">rep_seqs</span></code>) in fasta format (see input examples below).</div>
+<div class="line"><a class="reference external" href="https://github.com/tobiasgf/lulu/blob/master/Example_data/otutable_test.txt">EXAMPLE table here</a> <em>(from LULU repository)</em></div>
+<div class="line"><a class="reference external" href="https://github.com/tobiasgf/lulu/blob/master/Example_data/centroids_test.txt">EXAMPLE fasta here</a> <em>(from LULU repository)</em></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To <strong>START</strong>, specify working directory under <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code>, but the file formats do not matter here (just click ‘Next’).</p>
+</div>
+<div class="line-block">
+<div class="line"><strong>Output</strong> files in <code class="docutils literal notranslate"><span class="pre">lulu_out</span></code> directory:</div>
+<div class="line"># lulu_out_table.txt     = curated table in tab delimited txt format</div>
+<div class="line"># lulu_out_RepSeqs.fasta = fasta file for the molecular units (OTUs or ASVs) in the curated table</div>
+<div class="line"># match_list.lulu        = match list file that was used by LULU to merge ‘daughter’ molecular units</div>
+<div class="line"># discarded_units.lulu   = molecular units (OTUs or ASVs) that were merged with other units based on specified thresholds)</div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><a class="reference external" href="https://github.com/tobiasgf/lulu">Setting</a></p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">table</span></code></p></td>
+<td><div class="line-block">
+<div class="line">select OTU/ASV table. If no file is selected, then PipeCraft will</div>
+<div class="line">look OTU_table.txt or ASV_table.txt in the working directory.</div>
+<div class="line"><a class="reference external" href="https://github.com/tobiasgf/lulu/blob/master/Example_data/otutable_test.txt">EXAMPLE table here</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rep_seqs</span></code></p></td>
+<td><div class="line-block">
+<div class="line">select fasta formatted sequence file containing your OTU/ASV reads.</div>
+<div class="line"><a class="reference external" href="https://github.com/tobiasgf/lulu/blob/master/Example_data/centroids_test.txt">EXAMPLE file here</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min_ratio_type</span></code></p></td>
+<td><div class="line-block">
+<div class="line">sets whether a potential error must have lower abundance than the parent</div>
+<div class="line">in all samples ‘min’ (default), or if an error just needs to have lower</div>
+<div class="line">abundance on average ‘avg’</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_ratio</span></code></p></td>
+<td><div class="line-block">
+<div class="line">set the minimim abundance ratio between a potential error and a</div>
+<div class="line">potential parent to be identified as an error</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min_match</span></code></p></td>
+<td><div class="line-block">
+<div class="line">specify minimum threshold of sequence similarity for considering</div>
+<div class="line">any OTU as an error of another</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_rel_cooccurence</span></code></p></td>
+<td><div class="line-block">
+<div class="line">minimum co-occurrence rate. Default = 0.95 (meaning that 1 in 20 samples</div>
+<div class="line">are allowed to have no parent presence)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">match_list_soft</span></code></p></td>
+<td><div class="line-block">
+<div class="line">use either ‘blastn’ or ‘vsearch’ to generate match list for LULU.</div>
+<div class="line">Default is ‘vsearch’ (much faster)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vsearch_similarity_type</span></code></p></td>
+<td><div class="line-block">
+<div class="line">applies only when ‘vsearch’ is used as ‘match_list_soft’.</div>
+<div class="line">Pairwise sequence identity definition (–iddef)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">perc_identity</span></code></p></td>
+<td><div class="line-block">
+<div class="line">percent identity cutoff for match list. Excluding pairwise comparisons</div>
+<div class="line">with lower sequence identity percentage than specified threshold</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">coverage_perc</span></code></p></td>
+<td><div class="line-block">
+<div class="line">percent query coverage per hit. Excluding pairwise comparisons with</div>
+<div class="line">lower sequence coverage than specified threshold</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">strands</span></code></p></td>
+<td><div class="line-block">
+<div class="line">query strand to search against database. Both = search also reverse complement</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cores</span></code></p></td>
+<td><div class="line-block">
+<div class="line">number of cores to use for generating match list for LULU</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" id="postclustering-dada2-table-filtering" />
+<section id="dada2-collapse-asvs">
+<h3><a class="toc-backref" href="#id72" role="doc-backlink">DADA2 collapse ASVs</a><a class="headerlink" href="#dada2-collapse-asvs" title="Permalink to this heading"></a></h3>
+<p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">collapseNoMismatch</a> function to collapse identical ASVs;
+and ASVs filtering based on minimum accepted sequence length (custom R functions).</p>
+<p>To <strong>START</strong>, specify working directory under <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code>, but the file formats do not matter here (just click ‘Next’).</p>
+<div class="line-block">
+<div class="line"><strong>Output</strong> files in <code class="docutils literal notranslate"><span class="pre">filtered_table</span></code> directory:</div>
+<div class="line"># ASVs_table_collapsed.txt = ASV table after collapsing identical ASVs</div>
+<div class="line"># ASVs_collapsed.fasta     = ASV sequences after collapsing identical ASVs</div>
+<div class="line"># ASV_table_collapsed.rds  = ASV table in RDS format after collapsing identical ASVs.</div>
+<div class="line">If length filtering was applied (if ‘by length’ setting &gt; 0) [performed after collapsing identical ASVs]:</div>
+<div class="line"># ASV_table_lenFilt.txt    = ASV table after filtering out ASVs with shorther than specified sequence length</div>
+<div class="line"># ASVs_lenFilt.fasta       = ASV sequences after filtering out ASVs with shorther than specified sequence length</div>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DADA2</span> <span class="pre">table</span></code></p></td>
+<td><div class="line-block">
+<div class="line">select the RDS file (ASV table), output from DADA2 workflow;</div>
+<div class="line">usually in ASVs_out.dada2/ASVs_table.denoised-merged.rds</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collapseNoMismatch</span></code></p></td>
+<td><div class="line-block">
+<div class="line">collapses ASVs that are identical up to shifts or</div>
+<div class="line">length variation, i.e. that have no mismatches or internal indels</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">by_length</span></code></p></td>
+<td><div class="line-block">
+<div class="line">discard ASVs from the ASV table that are shorter than specified</div>
+<div class="line">value (in base pairs). Value 0 means OFF, no filtering by length</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">minOverlap</span></code></p></td>
+<td><div class="line-block">
+<div class="line">collapseNoMismatch setting. Default = 20. The minimum overlap of</div>
+<div class="line">base pairs between ASV sequences required to collapse them together</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vec</span></code></p></td>
+<td><div class="line-block">
+<div class="line">collapseNoMismatch setting. Default = TRUE. Use the vectorized</div>
+<div class="line">aligner. Should be turned off if sequences exceed 2kb in length</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" id="assign-taxonomy" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="id31">
+<h2><a class="toc-backref" href="#id73" role="doc-backlink">ASSIGN TAXONOMY</a><a class="headerlink" href="#id31" title="Permalink to this heading"></a></h2>
+<p>Implemented tools for taxonomy annotation:</p>
+<section id="blast-camacho-et-al-2009">
+<span id="assign-taxonomy-blast"></span><h3><a class="reference external" href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> (<a class="reference external" href="https://doi.org/10.1186/1471-2105-10-421">Camacho et al. 2009</a>)<a class="headerlink" href="#blast-camacho-et-al-2009" title="Permalink to this heading"></a></h3>
+<div class="line-block">
+<div class="line">BLAST search sequences againt selected <a class="reference internal" href="#databases"><span class="std std-ref">database</span></a>.</div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>BLAST database needs to be an unzipped fasta file in a separate folder</strong> (fasta will be automatically converted to BLAST database files).
+If converted BLAST database files (.ndb, .nhr, .nin, .not, .nsq, .ntf, .nto) already exist, then just SELECT <strong>one</strong> of those files as BLAST database in
+‘ASSIGN TAXONOMY’ panel.</p>
+</div>
+<div class="line-block">
+<div class="line">Supported file format for the input data is <strong>fasta</strong>.</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Output</strong> files in``taxonomy_out`` directory:</div>
+<div class="line"># BLAST_1st_best_hit.txt = BLAST results for the 1st best hit in the used database.</div>
+<div class="line"># BLAST_10_best_hits.txt = BLAST results for the 10 best hits in the used database.</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To <strong>START</strong>, specify working directory under <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> and the <code class="docutils literal notranslate"><span class="pre">sequence</span> <span class="pre">files</span> <span class="pre">extension</span></code> (to look for input OTUs/ASVs fasta file), but the read types (single-end or paired-end) and data format (demultiplexed or multiplexed) does not matter here (just click ‘Next’).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>BLAST values filed separator is ‘+’. When pasting the taxonomy results to e.g. Excel, then first denote ‘+’ as
+as filed separator to align the columns.</p>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">database_file</span></code></p></td>
+<td><div class="line-block">
+<div class="line">select a database file in fasta format.</div>
+<div class="line">Fasta format will be automatically converted to BLAST database</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">task</span></code></p></td>
+<td><div class="line-block">
+<div class="line">BLAST search settings according to blastn or megablast</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">strands</span></code></p></td>
+<td><div class="line-block">
+<div class="line">query strand to search against database. Both = search also reverse complement</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">e_value</span></code></p></td>
+<td><div class="line-block">
+<div class="line">a parameter that describes the number of hits one can expect to see</div>
+<div class="line">by chance when searching a database of a particular size.</div>
+<div class="line">The lower the e-value the more ‘significant’ the match is</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">word_size</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the size of the initial word that must be matched between the database</div>
+<div class="line">and the query sequence</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reward</span></code></p></td>
+<td><div class="line-block">
+<div class="line">reward for a match</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">penalty</span></code></p></td>
+<td><div class="line-block">
+<div class="line">penalty for a mismatch</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gap_open</span></code></p></td>
+<td><div class="line-block">
+<div class="line">cost to open a gap</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gap_extend</span></code></p></td>
+<td><div class="line-block">
+<div class="line">cost to extend a gap</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="assign-taxonomy-dada2">
+<span id="id32"></span><h3><a class="reference external" href="https://github.com/benjjneb/dada2">DADA2 classifier</a><a class="headerlink" href="#assign-taxonomy-dada2" title="Permalink to this heading"></a></h3>
+<div class="line-block">
+<div class="line">Classify sequences with DADA2 RDP naive Bayesian classifier (function assignTaxonomy) againt selected <a class="reference internal" href="#databases"><span class="std std-ref">database</span></a>.</div>
+</div>
+<div class="line-block">
+<div class="line">Supported file format for the input data is <strong>fasta</strong>.</div>
+<div class="line"><br /></div>
+<div class="line"><strong>Output</strong> files in``taxonomy_out.dada2`` directory:</div>
+<div class="line"># taxonomy.txt = classifier results with bootstrap values.</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To <strong>START</strong>, specify working directory under <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> and the <code class="docutils literal notranslate"><span class="pre">sequence</span> <span class="pre">files</span> <span class="pre">extension</span></code> (to look for input OTUs/ASVs fasta file), but the read types (single-end or paired-end) and data format (demultiplexed or multiplexed) does not matter here (just click ‘Next’).</p>
+</div>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Tooltip</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dada2_database</span></code></p></td>
+<td><div class="line-block">
+<div class="line">select a reference database fasta file for taxonomy annotation</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">minBoot</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the minimum bootstrap confidence for assigning a taxonomic level</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tryRC</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the reverse-complement of each sequences will be used for classification</div>
+<div class="line">if it is a better match to the reference sequences than the forward sequence</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="sequence-databases">
+<span id="databases"></span><h3><a class="toc-backref" href="#id76" role="doc-backlink">Sequence databases</a><a class="headerlink" href="#sequence-databases" title="Permalink to this heading"></a></h3>
+<p>A <em>(noncomprehensive)</em> list of public databases available for taxonomy annotation</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Database</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>Description (click to download)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://unite.ut.ee/">UNITE</a></p></td>
+<td><div class="line-block">
+<div class="line">8.3</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><a class="reference external" href="https://plutof.ut.ee/#/doi/10.15156/BIO/1281567">ITS region, all Eukaryotes</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://www.arb-silva.de/">SILVA</a></p></td>
+<td><div class="line-block">
+<div class="line">138.1</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><a class="reference external" href="https://www.arb-silva.de/fileadmin/silva_databases/release_138.1/Exports/SILVA_138.1_SSURef_tax_silva.fasta.gz">16S/18S (SSU), Bacteria, Archaea and Eukarya</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://www.arb-silva.de/projects/ssu-ref-nr/">SILVA</a> 99%</p></td>
+<td><div class="line-block">
+<div class="line">138.1</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><a class="reference external" href="https://www.arb-silva.de/fileadmin/silva_databases/release_138.1/Exports/SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz">16S/18S (SSU), Bacteria, Archaea and Eukarya</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="http://www.reference-midori.info/">MIDORI</a></p></td>
+<td><div class="line-block">
+<div class="line">246</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><a class="reference external" href="http://www.reference-midori.info/download.php#">Eukaryota mitochondrial genes</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/terrimporter/CO1Classifier">CO1 Classifier</a></p></td>
+<td><div class="line-block">
+<div class="line">4</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><a class="reference external" href="https://github.com/terrimporter/CO1Classifier/releases/tag/v4-ref">Metazoa COI</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>DADA2-formatted reference databases</p></td>
+<td><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><a class="reference external" href="https://benjjneb.github.io/dada2/training.html">DADA2-formatted reference databases</a></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p>DIAT.BARCODE database</p></td>
+<td><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line"><a class="reference external" href="https://www6.inrae.fr/carrtel-collection_eng/Barcoding-database/Database-download">rbcL/18S, diatoms</a></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+</section>
+</section>
+<section id="postprocessing">
+<span id="id35"></span><h2><a class="toc-backref" href="#id77" role="doc-backlink">POSTPROCESSING</a><a class="headerlink" href="#postprocessing" title="Permalink to this heading"></a></h2>
+<p>Post-processing tools. <a class="reference internal" href="postprocessing.html#postprocessingtools"><span class="std std-ref">See this page</span></a></p>
+</section>
+<section id="expert-mode-pipecraft2-console">
+<span id="expert-mode"></span><h2><a class="toc-backref" href="#id78" role="doc-backlink">Expert-mode (PipeCraft2 console)</a><a class="headerlink" href="#expert-mode-pipecraft2-console" title="Permalink to this heading"></a></h2>
+<p>Bioinformatic tools used by PipeCraft2 are stored on <a class="reference external" href="https://hub.docker.com/u/pipecraft">Dockerhub</a> as Docker images.
+These images can be used to launch any tool with the Docker CLI to utilize the compiled tools.
+Especially useful in Windows OS, where majority of implemented modules are not compatible.</p>
+<p><a class="reference internal" href="docker_images.html#dockerimages"><span class="std std-ref">See list of docker images with implemented software here</span></a></p>
+<p>Show a list of all images in your system (using e.g. <strong>Expert-mode</strong>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">images</span>
+</pre></div>
+</div>
+<p>Download an image if required (from <a class="reference external" href="https://hub.docker.com/u/pipecraft">Dockerhub</a>):</p>
+<div class="literal-block-wrapper docutils container" id="id37">
+<div class="code-block-caption"><span class="caption-text">docker pull pipecraft/IMAGE:TAG</span><a class="headerlink" href="#id37" title="Permalink to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="n">pipecraft</span><span class="o">/</span><span class="n">vsearch</span><span class="p">:</span><span class="mf">2.18</span>
+</pre></div>
+</div>
+</div>
+<p>Delete an image</p>
+<div class="literal-block-wrapper docutils container" id="id38">
+<div class="code-block-caption"><span class="caption-text">docker rmi IMAGE</span><a class="headerlink" href="#id38" title="Permalink to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">rmi</span> <span class="n">pipecraft</span><span class="o">/</span><span class="n">vsearch</span><span class="p">:</span><span class="mf">2.18</span>
+</pre></div>
+</div>
+</div>
+<p>Run docker container in your working directory to access the files. Outputs will be generated into the specified working directory.
+Specify the working directory under the -v flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">i</span> <span class="o">--</span><span class="n">tty</span> <span class="o">-</span><span class="n">v</span> <span class="n">users</span><span class="o">/</span><span class="n">Tom</span><span class="o">/</span><span class="n">myFiles</span><span class="o">/</span><span class="p">:</span><span class="o">/</span><span class="n">Files</span> <span class="n">pipecraft</span><span class="o">/</span><span class="n">vsearch</span><span class="p">:</span><span class="mf">2.18</span>
+</pre></div>
+</div>
+<p>Once inside the container, move to /Files directory, which represents your working directory in the container; and run analyses</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">Files</span>
+<span class="n">vsearch</span> <span class="o">--</span><span class="n">help</span>
+<span class="n">vsearch</span> <span class="o">*--</span><span class="n">whateversettings</span><span class="o">*</span>
+</pre></div>
+</div>
+<p>Exit from the container:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">exit</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Walkthrough" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sten Anslan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
