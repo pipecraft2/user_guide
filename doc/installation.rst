@@ -60,11 +60,13 @@ Windows
 
 PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versions do not support PipeCraft GUI workflow through Docker.
 
-1. Download `Docker for windows <https://www.docker.com/get-started>`_ 
 
-2. Download PipeCraft for `Windows: v0.1.4 <https://github.com/pipecraft2/pipecraft/releases/download/v0.1.4/pipecraft-Setup-0.1.4.exe>`_
+1. Download PipeCraft for `Windows: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.exe>`_
 
-3. Install PipeCraft via the setup executable
+2. Install PipeCraft via the setup executable
+   
+3. Download `Docker for windows <https://www.docker.com/get-started>`_  - ONLY ONCE (no need, when updating PipeCraft)
+
 
 .. warning::
 
@@ -84,19 +86,19 @@ MacOS
 
 PipeCraft is supported on macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through Docker.
 
-1. Check your Mac chip (Apple or Intel) and download `Docker for Mac <https://www.docker.com/get-started>`_
+1. Download PipeCraft for `Mac: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.pkg>`_
 
-2. Download PipeCraft for `Mac: v0.1.4 <https://github.com/pipecraft2/pipecraft/releases/download/v0.1.4/pipecraft-0.1.4.pkg>`_
+2. Install PipeCraft via **pkg** file
 
-3. Install PipeCraft via **pkg** file
+3. Currently macOS will flag pipecraft as an app from an unidentified developer. Grant an exception for a blocked app by clicking the "**Open Anyway**" button in the General panel of **Security & Privacy** preferences. Installing on latest versions of macOS (13.0+) will require you to disable gatekeeper entirely, to do so paste the following command into a terminal.
 
-4. Currently macOS will flag pipecraft as an app from an unidentified developer. Grant an exception for a blocked app by clicking the "**Open Anyway**" button in the General panel of **Security & Privacy** preferences. Installing on latest versions of macOS (13.0+) will require you to disable gatekeeper entirely, to do so paste the following command into a terminal.
+4. Check your Mac chip (Apple or Intel) and download `Docker for Mac <https://www.docker.com/get-started>`_ - ONLY ONCE (no need, when updating PipeCraft) 
 
 .. code-block::
 
-sudo spctl --master-disable  
+ sudo spctl --master-disable  
 
- |openanyway|
+|openanyway|
 
 5. Open **Docker dashboard**: Settings -> Resources -> File Sharing; and add the directory where **pipecraft.app** was installed (it is usually /Appications)
 
@@ -114,13 +116,14 @@ Linux
 
 PipeCraft was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions might not support PipeCraft GUI workflow through Docker.
 
-1. Install Docker; `follow the guidelines under appropriate Linux distribution <https://docs.docker.com/engine/install/>`_
+1. Download PipeCraft for `Linux: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0_amd64.deb>`_
+   
+2. Right click on the pipecraft_*.deb file and "Open With GDebi Package Installer" (Install Package) or ``sudo dpkg -i path_to_deb_file``
 
-2. If you are a non-root user complete these `post-install steps <https://docs.docker.com/engine/install/linux-postinstall/>`_
+3. Install Docker - ONLY ONCE (no need, when updating PipeCraft); `follow the guidelines under appropriate Linux distribution <https://docs.docker.com/engine/install/>`_
 
-3. Download PipeCraft for `Linux: v0.1.4 <https://github.com/pipecraft2/pipecraft/releases/download/v0.1.4/pipecraft_v0.1.4.deb>`_
+4. If you are a non-root user complete these `post-install steps <https://docs.docker.com/engine/install/linux-postinstall/>`_
 
-4. Right click on the pipecraft_*.deb file and "Open With GDebi Package Installer" (Install Package) or ``sudo dpkg -i path_to_deb_file``
    
 .. note::
 
@@ -138,13 +141,15 @@ Updating PipeCraft2
 --------------------
 
 To avaoid any potential software conflicts from PipeCraft2 **v0.1.1 to v0.1.4**, all Docker images of older PipeCraft2 version should be removed. 
-*Starting from v0.1.5 --> if docker container is updated, it will get a new tag for new PipeCraft2 version*
+*Starting from v1.0.0 --> if docker container is updated, it will get a new tag for new PipeCraft2 version*
 
 See :ref:`removing docker images <removedockerimages>` section.
 
 .. note::
 
  | Currently available versions :ref:`HERE <releases>`
+
+Trying to enable auto-updates soon! 
 
 ____________________________________________________
 

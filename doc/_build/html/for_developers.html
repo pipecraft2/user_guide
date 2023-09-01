@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For Developers &mdash; PipeCraft 2 0.1.5 documentation</title>
+  <title>For Developers &mdash; PipeCraft 2 1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -12,8 +12,9 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -25,18 +26,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            PipeCraft 2
+            <a href="index.html" class="icon icon-home"> PipeCraft 2
           </a>
               <div class="version">
-                0.1.5
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -44,9 +41,11 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user_guide.html">User guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Walkthrough</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">General overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pre-defined_pipelines.html">Pre-defined pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quicktools.html">Individual steps (Quick Tools)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Example data analyses</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
@@ -74,8 +73,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">For Developers</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>For Developers</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/for_developers.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,9 +89,9 @@
 </dd>
 </dl>
 <section id="for-developers">
-<h1>For Developers<a class="headerlink" href="#for-developers" title="Permalink to this heading"></a></h1>
+<h1>For Developers<a class="headerlink" href="#for-developers" title="Permalink to this headline"></a></h1>
 <section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">Docker Desktop</div>
 <div class="line"><a class="reference external" href="https://www.docker.com/products/docker-desktop/">https://www.docker.com/products/docker-desktop/</a></div>
@@ -114,7 +113,7 @@
 </section>
 <hr class="docutils" />
 <section id="setting-up-the-environment">
-<h2>Setting up the environment<a class="headerlink" href="#setting-up-the-environment" title="Permalink to this heading"></a></h2>
+<h2>Setting up the environment<a class="headerlink" href="#setting-up-the-environment" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">Clone the repository:</div>
 </div>
@@ -132,7 +131,7 @@
 </section>
 <hr class="docutils" />
 <section id="developer-tools">
-<h2>Developer tools<a class="headerlink" href="#developer-tools" title="Permalink to this heading"></a></h2>
+<h2>Developer tools<a class="headerlink" href="#developer-tools" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">The apps front-end desing, data storage and navigation are built using the Vue framework and its plugins. To build new or to modify exiting components will reiqure a some proficiency in JavaScript and the Vue framework.</div>
 <div class="line">Other important tools include electron which is mainly used for interacting with the file system and dockerode which is used for controlling docker.</div>

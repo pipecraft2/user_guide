@@ -18,6 +18,10 @@
   :width: 250
   :alt: Alternative text
 
+.. |debug| image:: _static/debug.png
+  :width: 100
+  :alt: Alternative text
+
 .. |DADA2_read_identifiers| image:: _static/troubleshoot/DADA2_read_identifiers.png
   :width: 250
   :alt: Alternative text
@@ -27,11 +31,20 @@
 |PipeCraft2_logo|
   `github <https://github.com/pipecraft2/pipecraft>`_
 
-================
+===============
 Troubleshooting
-================
+===============
 
 This page is developing based on the user feedback.
+
+____________________________________________________
+
+Debugging mode
+==============
+
+Turn on '**debugging mode**' (bottom-right button) to keep temporary (log) files for identifying the cause of the error
+
+|debug|
 
 ____________________________________________________
 
@@ -48,6 +61,7 @@ General
 
 **Fix**: Remove the docker container (not image!) that is causing the conflict
 
+____________________________________________________
 
 .. error::
 
@@ -57,10 +71,21 @@ General
 
 **Fix**: Check if there was a README.txt output and read that. Please :ref:`report <contact>` unexpexted errors. 
 
+____________________________________________________
+
+.. error::
+
+ No OTU_table.txt with version v0.1.4
+
+**Reason**: known bug.
+
+**Fix**: Fixed the bug. Reinstall PipeCraft v0.1.4 (or higher)
+
+____________________________________________________
 
 
-ASVs workflow
-==============
+DADA2 ASVs workflow
+===================
 
 .. error::
   "Workflow stopped"
@@ -73,17 +98,6 @@ ASVs workflow
 
 ____________________________________________________
 
-.. error::
-
- "Error in derepFastq(fls[[i]], qualityType = qualityType) : Not all provided files exist. Calls: learnErrors -> derepFastq. Execution halted"
-
- |learnErrors| 
-
-**Possible reason**: Some samples have completely discarded by quality filtering process. 
-
-**Fix**: Examine **seq_count_summary.txt** file in ``qualFiltered_out`` folder and discard samples, which had 0 quality filtered sequences (poor quality samples). Or edit the quality filtering settings.
-
-____________________________________________________
 
 .. error::
 
@@ -95,7 +109,7 @@ ____________________________________________________
 
 **Fix**: Check the input fastq file names and edit the identifiers. 
 Specify identifyer string that is common for all R1 reads (e.g. when all R1 files have '.R1' string, then enter '\\.R1'. 
-Note that backslash is only needed to escape dot regex; e.g. when all R1 files have '_R1' string, then enter '_R1'.). When demultiplexing data in during ASV (DADA2) workflow, then specify as '\\.R1'
+Note that backslash is only needed to escape dot regex; e.g. when all R1 files have '_R1' string, then enter '_R1'.). 
 ____________________________________________________
 
 .. error::

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <meta content="PipeCraft manual. tutorial" lang="en" name="description" xml:lang="en" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Walkthrough &mdash; PipeCraft 2 0.1.5 documentation</title>
+  <title>Example data analyses &mdash; PipeCraft 2 1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -13,13 +13,14 @@
   <![endif]-->
   
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Post-processing tools" href="postprocessing.html" />
-    <link rel="prev" title="User guide" href="user_guide.html" /> 
+    <link rel="next" title="Troubleshooting" href="troubleshoot.html" />
+    <link rel="prev" title="Post-processing tools" href="postprocessing.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -27,18 +28,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            PipeCraft 2
+            <a href="index.html" class="icon icon-home"> PipeCraft 2
           </a>
               <div class="version">
-                0.1.5
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -46,8 +43,11 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user_guide.html">User guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Walkthrough</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">General overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pre-defined_pipelines.html">Pre-defined pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quicktools.html">Individual steps (Quick Tools)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing tools</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Example data analyses</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#inspect-quality-profiles">Inspect quality profiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#paired-end-illumina-or-mgi-tech-data">Paired-end Illumina (or MGI-Tech) data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#demultiplexed-paired-end-data-asv-workflow-with-dada2">Demultiplexed paired-end data; ASV workflow with DADA2</a><ul>
@@ -64,9 +64,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#single-end-pacbio-or-assembled-paired-end-data">Single-end (PacBio or assembled paired-end) data</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing tools</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Troubleshooting</a></li>
-<li class="toctree-l1"><a class="reference internal" href="licence.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citation.html">How to cite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
@@ -87,8 +86,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Walkthrough</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Example data analyses</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -102,18 +101,18 @@
 <dt><a class="reference internal" href="_images/PipeCraft2_icon_v2.png"><img alt="Alternative text" src="_images/PipeCraft2_icon_v2.png" style="width: 100px;" /></a></dt><dd><p><a class="reference external" href="https://github.com/pipecraft2/pipecraft">github</a></p>
 </dd>
 </dl>
-<section id="walkthrough">
-<h1><a class="toc-backref" href="#id4" role="doc-backlink">Walkthrough</a><a class="headerlink" href="#walkthrough" title="Permalink to this heading"></a></h1>
+<section id="example-data-analyses">
+<h1><a class="toc-backref" href="#id4">Example data analyses</a><a class="headerlink" href="#example-data-analyses" title="Permalink to this headline"></a></h1>
 <p>Some example analyses pipelines.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When samples of interest are distributed between different sequencing libraries, then first demultiplex (if needed)
 libraries separately and place samples of interest into separate working directory.</p>
 </div>
-<nav class="contents" id="contents">
+<div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#walkthrough" id="id4">Walkthrough</a></p>
+<li><p><a class="reference internal" href="#example-data-analyses" id="id4">Example data analyses</a></p>
 <ul>
 <li><p><a class="reference internal" href="#inspect-quality-profiles" id="id5">Inspect quality profiles</a></p></li>
 <li><p><a class="reference internal" href="#paired-end-illumina-or-mgi-tech-data" id="id6">Paired-end Illumina (or MGI-Tech) data</a></p>
@@ -135,10 +134,10 @@ libraries separately and place samples of interest into separate working directo
 </ul>
 </li>
 </ul>
-</nav>
+</div>
 <hr class="docutils" />
 <section id="inspect-quality-profiles">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">Inspect quality profiles</a><a class="headerlink" href="#inspect-quality-profiles" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id5">Inspect quality profiles</a><a class="headerlink" href="#inspect-quality-profiles" title="Permalink to this headline"></a></h2>
 <p>Examine the quality profiles and basic statistics of the your data set using <strong>QualityCheck module</strong>. <a class="reference internal" href="user_guide.html#qualitycheck"><span class="std std-ref">See here</span></a>.</p>
 <hr class="docutils" />
 <div class="line-block">
@@ -146,10 +145,10 @@ libraries separately and place samples of interest into separate working directo
 </div>
 </section>
 <section id="paired-end-illumina-or-mgi-tech-data">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">Paired-end Illumina (or MGI-Tech) data</a><a class="headerlink" href="#paired-end-illumina-or-mgi-tech-data" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id6">Paired-end Illumina (or MGI-Tech) data</a><a class="headerlink" href="#paired-end-illumina-or-mgi-tech-data" title="Permalink to this headline"></a></h2>
 <p>Example analyses of paired-end data. Starting with raw paired-end fastq files, finishing with ASV/OTU table and taxonomy table.</p>
 <section id="demultiplexed-paired-end-data-asv-workflow-with-dada2">
-<span id="demultiplexed-pe-asv"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink">Demultiplexed paired-end data; ASV workflow with DADA2</a><a class="headerlink" href="#demultiplexed-paired-end-data-asv-workflow-with-dada2" title="Permalink to this heading"></a></h3>
+<span id="demultiplexed-pe-asv"></span><h3><a class="toc-backref" href="#id7">Demultiplexed paired-end data; ASV workflow with DADA2</a><a class="headerlink" href="#demultiplexed-paired-end-data-asv-workflow-with-dada2" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This tutorial follows <a class="reference external" href="https://benjjneb.github.io/dada2/tutorial.html">DADA2 Pipeline Tutorial</a>.</p>
@@ -159,13 +158,13 @@ libraries separately and place samples of interest into separate working directo
 This data set represents demultiplexed set (per-sample fastq files) of 16S rRNA gene V4 amplicon sequences where sample indexes and primers have already been removed.</p>
 <ul class="simple">
 <li><p>If working with multiplexed data, <a class="reference internal" href="#multiplexed-pe"><span class="std std-ref">see here</span></a>.</p></li>
-<li><p>If you need to trim the primers/adapters, <a class="reference internal" href="user_guide.html#remove-primers"><span class="std std-ref">see here</span></a>.</p></li>
+<li><p>If you need to trim the primers/adapters, <a class="reference internal" href="quicktools.html#remove-primers"><span class="std std-ref">see here</span></a>.</p></li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Be sure that all sequences have <strong>same orientation</strong> (5’-3’ or 3’-5’) in your input data set(s)! If sequences are in <strong>mixed orientation</strong>
 (i.e. some sequences are recorded as 5’-3’ and some as 3’-5’; as usually in the raw data),
-then exactly the same ASV may be reported twice, where one is just the reverse complementary ASV: 1) ASV with sequence orientation of 5’-3’; and 2) ASV with sequence orientation of 3’-5’. <strong>Reorient sequences</strong> based on primer sequene using <code class="docutils literal notranslate"><span class="pre">REORIENT</span></code> panel; <a class="reference internal" href="user_guide.html#reorient"><span class="std std-ref">see here</span></a>.</p>
+then exactly the same ASV may be reported twice, where one is just the reverse complementary ASV: 1) ASV with sequence orientation of 5’-3’; and 2) ASV with sequence orientation of 3’-5’. <strong>Reorient sequences</strong> based on primer sequene using <code class="docutils literal notranslate"><span class="pre">REORIENT</span></code> panel; <a class="reference internal" href="quicktools.html#reorient"><span class="std std-ref">see here</span></a>.</p>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -191,7 +190,7 @@ then exactly the same ASV may be reported twice, where one is just the reverse c
 </div>
 <ul class="simple">
 <li><p>Here, working with demultiplexed data, where primers have already been removed; so <strong>do not tick</strong> <code class="docutils literal notranslate"><span class="pre">DEMULTIPLEX</span></code>, <code class="docutils literal notranslate"><span class="pre">REORIENT</span></code>, <code class="docutils literal notranslate"><span class="pre">CUT</span> <span class="pre">PRIMERS</span></code>
-(<a class="reference internal" href="#multiplexed-pe"><span class="std std-ref">see here</span></a> to analyse multiplexed data, and <a class="reference internal" href="user_guide.html#remove-primers"><span class="std std-ref">here</span></a> if you need to cut primers/adapters).</p></li>
+(<a class="reference internal" href="#multiplexed-pe"><span class="std std-ref">see here</span></a> to analyse multiplexed data, and <a class="reference internal" href="quicktools.html#remove-primers"><span class="std std-ref">here</span></a> if you need to cut primers/adapters).</p></li>
 </ul>
 <p><a class="reference internal" href="_images/ASVs_tut1.png"><img alt="Alternative text" src="_images/ASVs_tut1.png" style="width: 1000px;" /></a></p>
 <div class="line-block">
@@ -218,7 +217,7 @@ will improve the DADA2 sensitivity to rare sequence variants.</p>
 <a class="reference internal" href="_images/DADA2_quality_filt_expand_dadaTut.png"><img alt="Alternative text" src="_images/DADA2_quality_filt_expand_dadaTut.png" style="width: 550px;" /></a></p>
 <div class="line-block">
 <div class="line"><em>This step performs quality filtering.</em></div>
-<div class="line"><em>Quality filtering settings</em> <a class="reference internal" href="user_guide.html#dada2-qual-filt"><span class="std std-ref">here</span></a></div>
+<div class="line"><em>Quality filtering settings</em> <a class="reference internal" href="pre-defined_pipelines.html#dada2-qual-filt"><span class="std std-ref">here</span></a></div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code>:</div>
 <div class="line">*_filt.fastq          = quality filtered sequences per sample in FASTQ format</div>
@@ -230,7 +229,7 @@ will improve the DADA2 sensitivity to rare sequence variants.</p>
 </div>
 <div class="line-block">
 <div class="line"><em>This step performs denoising and merging of paired-end sequences.</em></div>
-<div class="line"><em>Denoise settings</em> : <a class="reference internal" href="user_guide.html#dada2-denoise"><span class="std std-ref">here</span></a>, <em>merge pairs settings</em> <a class="reference internal" href="user_guide.html#dada2-merge-pairs"><span class="std std-ref">here</span></a>)</div>
+<div class="line"><em>Denoise settings</em> : <a class="reference internal" href="pre-defined_pipelines.html#dada2-denoise"><span class="std std-ref">here</span></a>, <em>merge pairs settings</em> <a class="reference internal" href="pre-defined_pipelines.html#dada2-merge-pairs"><span class="std std-ref">here</span></a>)</div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">denoised_assembled.dada2</span></code>.</div>
 <div class="line">*.merged_ASVs.fasta   = denoised and assembled ASVs per sample. ‘Size’ denotes the abundance of the ASV sequence</div>
@@ -245,7 +244,7 @@ will improve the DADA2 sensitivity to rare sequence variants.</p>
 <div class="line-block">
 <div class="line"><em>This step performs chimera filtering on denoised and merged reads.</em></div>
 <div class="line"><em>ASV table is generated during this step</em></div>
-<div class="line"><em>Chimera filtering settings</em> <a class="reference internal" href="user_guide.html#dada2-chimeras"><span class="std std-ref">here</span></a></div>
+<div class="line"><em>Chimera filtering settings</em> <a class="reference internal" href="pre-defined_pipelines.html#dada2-chimeras"><span class="std std-ref">here</span></a></div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directories -&gt;</div>
 <div class="line"><code class="docutils literal notranslate"><span class="pre">chimeraFiltered_out.dada2</span></code>:</div>
@@ -269,13 +268,13 @@ will improve the DADA2 sensitivity to rare sequence variants.</p>
 <li><p>press <code class="docutils literal notranslate"><span class="pre">DOWNLOAD</span> <span class="pre">DATABASES</span></code> which direct you to the DADA2-formatted reference databases <a class="reference external" href="https://benjjneb.github.io/dada2/training.html">web page</a>.</p></li>
 <li><p>download SILVA (silva_nr99_v138.1_wSpecies_train_set.fa.gz) database for assigning taxonomy to our 16S ASVs. <a class="reference external" href="https://zenodo.org/record/4587955/files/silva_nr99_v138.1_wSpecies_train_set.fa.gz?download=1">Download link here</a></p></li>
 <li><p>specify the location of your downloaded DADA2 database by pressing <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">FASTA</span></code></p></li>
-<li><p>since primers were already removed from this data set, we could not <a class="reference internal" href="user_guide.html#reorient"><span class="std std-ref">reorient all sequences to uniform orientation as based on primers</span></a>. Therefore, <strong>swithc ON</strong> <code class="docutils literal notranslate"><span class="pre">tryRC</span></code>
+<li><p>since primers were already removed from this data set, we could not <a class="reference internal" href="quicktools.html#reorient"><span class="std std-ref">reorient all sequences to uniform orientation as based on primers</span></a>. Therefore, <strong>swithc ON</strong> <code class="docutils literal notranslate"><span class="pre">tryRC</span></code>
 to include reverse-complement search.</p></li>
 </ul>
 <p><a class="reference internal" href="_images/DADA2_assign_taxRC.png"><img alt="Alternative text" src="_images/DADA2_assign_taxRC.png" style="width: 550px;" /></a></p>
 <div class="line-block">
 <div class="line"><em>This step assigns taxonomy to ASVs using DADA2</em> <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">assignTaxonomy</a> function.</div>
-<div class="line"><em>Assign taxonomy settings</em> <a class="reference internal" href="user_guide.html#dada2-taxonomy"><span class="std std-ref">here</span></a></div>
+<div class="line"><em>Assign taxonomy settings</em> <a class="reference internal" href="pre-defined_pipelines.html#dada2-taxonomy"><span class="std std-ref">here</span></a></div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">taxonomy_out.dada2</span></code>:</div>
 <div class="line">taxonomy.txt = classifier results with bootstrap values</div>
@@ -283,7 +282,7 @@ to include reverse-complement search.</p></li>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>6.1. Save the workflow by pressing ``SAVE WORKFLOW`` button on the right-ribbon.
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">7.</span>  <span class="n">Press</span><span class="o">**</span> <span class="s1">&#39;RUN WORKFLOW&#39;</span> <span class="o">**</span><span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">analyses</span><span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">7.</span>  <span class="n">Press</span><span class="o">**</span> <span class="s1">&#39;START&#39;</span> <span class="o">**</span><span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">analyses</span><span class="o">.</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -306,7 +305,7 @@ to include reverse-complement search.</p></li>
 </div>
 <p>-&gt;</p>
 <section id="examine-the-outputs">
-<h4><a class="toc-backref" href="#id8" role="doc-backlink">Examine the outputs</a><a class="headerlink" href="#examine-the-outputs" title="Permalink to this heading"></a></h4>
+<h4><a class="toc-backref" href="#id8">Examine the outputs</a><a class="headerlink" href="#examine-the-outputs" title="Permalink to this headline"></a></h4>
 <p>Several process-specific output folders are generated:</p>
 <div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code> -&gt; quality filtered paired-end <strong>fastq</strong> files per sample</div>
@@ -323,6 +322,14 @@ Examine those to track the read counts throughout the pipeline.</p>
 pipeline and number of ASVs per sample.</p>
 </div></blockquote>
 <table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 9%" />
+<col style="width: 21%" />
+<col style="width: 11%" />
+<col style="width: 29%" />
+<col style="width: 18%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>sample</p></th>
 <th class="head"><p>input</p></th>
@@ -483,6 +490,14 @@ pipeline and number of ASVs per sample.</p>
 and all following columns represent samples (number of sequences per ASV in a sample). This is tab delimited text file.</p>
 <p><em>ASVs_table.txt; first 4 samples</em></p>
 <table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 33%" />
+<col style="width: 12%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>ASV</p></th>
 <th class="head"><p>Sequence</p></th>
@@ -564,6 +579,24 @@ and all following columns represent samples (number of sequences per ASV in a sa
 Last columns with integers (for ‘Kingdom’ to ‘Species’) represent bootstrap values for the correspoinding taxonomic unit.</p>
 <p><em>taxonomy.txt; first 10 ASVs</em></p>
 <table class="docutils align-default">
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 19%" />
+<col style="width: 6%" />
+<col style="width: 4%" />
+<col style="width: 4%" />
+<col style="width: 3%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+<col style="width: 3%" />
+<col style="width: 4%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>ASV</p></th>
 <th class="head"><p>Sequence</p></th>
@@ -763,7 +796,7 @@ Last columns with integers (for ‘Kingdom’ to ‘Species’) represent bootst
 </section>
 </section>
 <section id="demultiplexed-paired-end-data-otu-workflow">
-<span id="demultiplexed-pe-otu"></span><h3><a class="toc-backref" href="#id9" role="doc-backlink">Demultiplexed paired-end data; OTU workflow</a><a class="headerlink" href="#demultiplexed-paired-end-data-otu-workflow" title="Permalink to this heading"></a></h3>
+<span id="demultiplexed-pe-otu"></span><h3><a class="toc-backref" href="#id9">Demultiplexed paired-end data; OTU workflow</a><a class="headerlink" href="#demultiplexed-paired-end-data-otu-workflow" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Built-in panel for OTU workflow with (mostly) vsearch.</p>
@@ -773,11 +806,11 @@ Last columns with integers (for ‘Kingdom’ to ‘Species’) represent bootst
 This data set represents demultiplexed set (per-sample fastq files) of 16S rRNA gene V4 amplicon sequences where sample indexes and primers have already been removed.</p>
 <ul class="simple">
 <li><p>If working with multiplexed data, <a class="reference internal" href="#multiplexed-pe"><span class="std std-ref">see here</span></a>.</p></li>
-<li><p>If you need to trim the primers/adapters, <a class="reference internal" href="user_guide.html#remove-primers"><span class="std std-ref">see here</span></a>.</p></li>
+<li><p>If you need to trim the primers/adapters, <a class="reference internal" href="quicktools.html#remove-primers"><span class="std std-ref">see here</span></a>.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When working with your own data, then consider <strong>reorienting</strong> reads; <a class="reference internal" href="user_guide.html#reorient"><span class="std std-ref">see here</span></a>. Although, in the OTU formation step (clustering), both sequence strands
+<p>When working with your own data, then consider <strong>reorienting</strong> reads; <a class="reference internal" href="quicktools.html#reorient"><span class="std std-ref">see here</span></a>. Although, in the OTU formation step (clustering), both sequence strands
 will be compared to generate OTUs, the time for BLAST (taxonomy annotation step) can be reduced when there is no need to search reverse complementary matches.</p>
 </div>
 <div class="admonition important">
@@ -804,7 +837,7 @@ will be compared to generate OTUs, the time for BLAST (taxonomy annotation step)
 </div>
 <ul class="simple">
 <li><p>Here, working with demultiplexed data, where primers have already been removed; so <strong>do not tick</strong> <code class="docutils literal notranslate"><span class="pre">DEMULTIPLEX</span></code>, <code class="docutils literal notranslate"><span class="pre">REORIENT</span></code>, <code class="docutils literal notranslate"><span class="pre">CUT</span> <span class="pre">PRIMERS</span></code>
-(<a class="reference internal" href="#multiplexed-pe"><span class="std std-ref">see here</span></a> to analyse multiplexed data, and <a class="reference internal" href="user_guide.html#remove-primers"><span class="std std-ref">here</span></a> if you need to cut primers/adapters).</p></li>
+(<a class="reference internal" href="#multiplexed-pe"><span class="std std-ref">see here</span></a> to analyse multiplexed data, and <a class="reference internal" href="quicktools.html#remove-primers"><span class="std std-ref">here</span></a> if you need to cut primers/adapters).</p></li>
 </ul>
 <p><a class="reference internal" href="_images/OTUs_workflow.png"><img alt="Alternative text" src="_images/OTUs_workflow.png" style="width: 1000px;" /></a></p>
 <div class="line-block">
@@ -829,7 +862,7 @@ This may be useful when working with e.g. ITS2 sequences, because the ITS2 regio
 taxa is too long for paired-end assembly using current short-read sequencing technology.
 Therefore longer ITS2 amplicon sequences are discarded completely after the assembly process.
 Thus, including also unassembled R1 reads (<code class="docutils literal notranslate"><span class="pre">include_only_R1</span></code> = TRUE), partial ITS2 sequences for
-these taxa will be represented in the final output. But when using <a class="reference internal" href="user_guide.html#itsextractor"><span class="std std-ref">ITSx</span></a>
+these taxa will be represented in the final output. But when using <a class="reference internal" href="quicktools.html#itsextractor"><span class="std std-ref">ITSx</span></a>
 , keep <code class="docutils literal notranslate"><span class="pre">only_full</span></code> = FALSE and include <code class="docutils literal notranslate"><span class="pre">partial</span></code> = 50.
 |
 If include only R1 option = TRUE, then other specified options (lenght, max error rate etc.) have not been
@@ -838,7 +871,7 @@ should be run on the ‘assembled’ data. But in this built-in OTU workflow, th
 </div>
 <div class="line-block">
 <div class="line"><em>This step performs merging of paired-end sequences using vsearch –fastq_mergepairs.</em></div>
-<div class="line"><em>Merge pairs settings</em> <a class="reference internal" href="user_guide.html#merge-pairs"><span class="std std-ref">here</span></a>)</div>
+<div class="line"><em>Merge pairs settings</em> <a class="reference internal" href="quicktools.html#merge-pairs"><span class="std std-ref">here</span></a>)</div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">assembled_out</span></code>.</div>
 </div>
@@ -854,7 +887,7 @@ should be run on the ‘assembled’ data. But in this built-in OTU workflow, th
 <p><a class="reference internal" href="_images/vsearch_qfilt.png"><img alt="Alternative text" src="_images/vsearch_qfilt.png" style="width: 600px;" /></a></p>
 <div class="line-block">
 <div class="line"><em>This step performs quality filtering using vsearch.</em></div>
-<div class="line"><em>vsearch quality filtering settings</em> <a class="reference internal" href="user_guide.html#qfilt-vsearch"><span class="std std-ref">here</span></a></div>
+<div class="line"><em>vsearch quality filtering settings</em> <a class="reference internal" href="quicktools.html#qfilt-vsearch"><span class="std std-ref">here</span></a></div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code></div>
 </div>
@@ -878,7 +911,7 @@ should be run on the ‘assembled’ data. But in this built-in OTU workflow, th
 <p><a class="reference internal" href="_images/vsearch_chimeraFilt.png"><img alt="Alternative text" src="_images/vsearch_chimeraFilt.png" style="width: 600px;" /></a></p>
 <div class="line-block">
 <div class="line"><em>This step performs chimera filtering using vsearch</em></div>
-<div class="line"><em>Chimera filtering settings</em> <a class="reference internal" href="user_guide.html#chimfilt"><span class="std std-ref">here</span></a></div>
+<div class="line"><em>Chimera filtering settings</em> <a class="reference internal" href="quicktools.html#chimfilt"><span class="std std-ref">here</span></a></div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">chimeraFiltered_out</span></code></div>
 </div>
@@ -888,7 +921,7 @@ should be run on the ‘assembled’ data. But in this built-in OTU workflow, th
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">6.</span> <span class="n">Consideration</span> <span class="n">when</span> <span class="n">working</span> <span class="k">with</span> <span class="n">ITS</span> <span class="n">data</span>
 </pre></div>
 </div>
-<p>Identify and extract the ITS regions using ITSx; <a class="reference internal" href="user_guide.html#itsextractor"><span class="std std-ref">see here</span></a></p>
+<p>Identify and extract the ITS regions using ITSx; <a class="reference internal" href="quicktools.html#itsextractor"><span class="std std-ref">see here</span></a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>because ITSx outputs multiple directories for different ITS sub-regions
@@ -898,7 +931,7 @@ Select appropriate ITSx output folder for CLUSTERING after the process is finish
 </div>
 <div class="line-block">
 <div class="line"><em>This step extracts ITS reads using ITSx</em></div>
-<div class="line"><em>ITSx settings</em> <a class="reference internal" href="user_guide.html#itsextractor"><span class="std std-ref">here</span></a></div>
+<div class="line"><em>ITSx settings</em> <a class="reference internal" href="quicktools.html#itsextractor"><span class="std std-ref">here</span></a></div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">ITSx_out</span></code></div>
 <div class="line"><br /></div>
@@ -911,7 +944,7 @@ Select appropriate ITSx output folder for CLUSTERING after the process is finish
 </ul>
 <div class="line-block">
 <div class="line"><em>This step performs clustering using vsearch.</em></div>
-<div class="line"><em>vsearch clustering settings</em> <a class="reference internal" href="user_guide.html#clustering"><span class="std std-ref">here</span></a></div>
+<div class="line"><em>vsearch clustering settings</em> <a class="reference internal" href="quicktools.html#clustering"><span class="std std-ref">here</span></a></div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">clustering_out</span></code></div>
 </div>
@@ -923,22 +956,22 @@ Select appropriate ITSx output folder for CLUSTERING after the process is finish
 </div>
 <ul class="simple">
 <li><p>Tick <code class="docutils literal notranslate"><span class="pre">ASSIGN</span> <span class="pre">TAXONOMY</span></code> to perform taxonomy assignment with BLAST</p></li>
-<li><p>download SILVA 99% database <a class="reference internal" href="user_guide.html#databases"><span class="std std-ref">here</span></a> (SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz)</p></li>
+<li><p>download SILVA 99% database <a class="reference internal" href="quicktools.html#databases"><span class="std std-ref">here</span></a> (SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz)</p></li>
 <li><p><strong>unzip</strong> the downloaded database and place this into separete folder (to automatically make blast database from that fasta file)</p></li>
 <li><p>specify the location of your downloaded SILVA database by pressing <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">FILE</span></code> under ‘database file’ option</p></li>
-<li><p>since primers were already removed from this data set, we could not <a class="reference internal" href="user_guide.html#reorient"><span class="std std-ref">reorient all sequences to uniform orientation as based on primers</span></a>. Therefore, <strong>keep ON</strong> the <code class="docutils literal notranslate"><span class="pre">strands</span></code> = both to include reverse-complement search.</p></li>
+<li><p>since primers were already removed from this data set, we could not <a class="reference internal" href="quicktools.html#reorient"><span class="std std-ref">reorient all sequences to uniform orientation as based on primers</span></a>. Therefore, <strong>keep ON</strong> the <code class="docutils literal notranslate"><span class="pre">strands</span></code> = both to include reverse-complement search.</p></li>
 </ul>
 <p><a class="reference internal" href="_images/assign_taxonomy_blast.png"><img alt="Alternative text" src="_images/assign_taxonomy_blast.png" style="width: 600px;" /></a></p>
 <div class="line-block">
 <div class="line"><em>This step assigns taxonomy to OTUs using BLAST</em></div>
-<div class="line"><em>Assign taxonomy settings</em> <a class="reference internal" href="user_guide.html#assign-taxonomy"><span class="std std-ref">here</span></a></div>
+<div class="line"><em>Assign taxonomy settings</em> <a class="reference internal" href="quicktools.html#assign-taxonomy"><span class="std std-ref">here</span></a></div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">taxonomy_out</span></code></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>8.1. Save the workflow by pressing ``SAVE WORKFLOW`` button on the right-ribbon.
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span>  <span class="n">Press</span><span class="o">**</span> <span class="s1">&#39;RUN WORKFLOW&#39;</span> <span class="o">**</span><span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">analyses</span><span class="o">.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span>  <span class="n">Press</span><span class="o">**</span> <span class="s1">&#39;START&#39;</span> <span class="o">**</span><span class="n">to</span> <span class="n">start</span> <span class="n">the</span> <span class="n">analyses</span><span class="o">.</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -961,7 +994,7 @@ Select appropriate ITSx output folder for CLUSTERING after the process is finish
 </div>
 <p>-&gt;</p>
 <section id="id3">
-<h4><a class="toc-backref" href="#id10" role="doc-backlink">Examine the outputs</a><a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
+<h4><a class="toc-backref" href="#id10">Examine the outputs</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h4>
 <p>Several process-specific output folders are generated:</p>
 <div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">assembled_out</span></code> –&gt; assembled <strong>fastq</strong> files per sample</div>
@@ -978,6 +1011,13 @@ and all following columns represent samples (number of sequences per OTU in a sa
 The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta) in <code class="docutils literal notranslate"><span class="pre">clustering_out</span></code> directory.</p>
 <p><em>OTUs_table.txt; first 4 samples</em></p>
 <table class="docutils align-default">
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>OTU_id</p></th>
 <th class="head"><p>F3D0_S188_L001</p></th>
@@ -1047,6 +1087,10 @@ The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta
 <strong>Blast values are separated by</strong> <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">tab</span></code> [be sure to specify the delimiter when aligning columns in e.g. LibreOffice or Excel].
 “NO_BLAST_HIT” denotes that the OTU sequence did not get any match againt the selected database.</p>
 <table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 84%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>blast values</p></th>
 <th class="head"></th>
@@ -1106,7 +1150,7 @@ The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta
 </section>
 </section>
 <section id="multiplexed-library">
-<span id="multiplexed-pe"></span><h3><a class="toc-backref" href="#id11" role="doc-backlink">Multiplexed library</a><a class="headerlink" href="#multiplexed-library" title="Permalink to this heading"></a></h3>
+<span id="multiplexed-pe"></span><h3><a class="toc-backref" href="#id11">Multiplexed library</a><a class="headerlink" href="#multiplexed-library" title="Permalink to this headline"></a></h3>
 <p>Working with paired-end raw multiplexed data.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Select</span> <span class="n">working</span> <span class="n">directory</span> <span class="n">by</span> <span class="n">pressing</span> <span class="n">the</span> <span class="s1">&#39;SELECT WORKDIR&#39;</span> <span class="n">button</span><span class="o">.</span>
 </pre></div>
@@ -1137,16 +1181,16 @@ The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>select your FASTA formatted <strong>index_file.fasta</strong> (<a class="reference internal" href="user_guide.html#indexes"><span class="std std-ref">general index file guide here</span></a>)</p></li>
+<li><p>select your FASTA formatted <strong>index_file.fasta</strong> (<a class="reference internal" href="quicktools.html#indexes"><span class="std std-ref">general index file guide here</span></a>)</p></li>
 <li><p>adjust <code class="docutils literal notranslate"><span class="pre">overlap</span></code> setting to fully match the length (in base pairs) of the indexes in the index_file.fasta.</p></li>
 </ul>
 <p><em>(click on the image for enlargement)</em>
 <a class="reference internal" href="_images/demux_expand.png"><img alt="Alternative text" src="_images/demux_expand.png" style="width: 550px;" /></a></p>
 <div class="line-block">
-<div class="line">This step distributes sequences to samples according to the information in the index_file.fasta. See <a class="reference internal" href="user_guide.html#demux-settings"><span class="std std-ref">specifics here</span></a></div>
+<div class="line">This step distributes sequences to samples according to the information in the index_file.fasta. See <a class="reference internal" href="quicktools.html#demux-settings"><span class="std std-ref">specifics here</span></a></div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">demultiplex_out</span></code>:</div>
-<div class="line">* fastq or fasta files per sample (as specified in the <a class="reference internal" href="user_guide.html#indexes"><span class="std std-ref">index file</span></a>)</div>
+<div class="line">* fastq or fasta files per sample (as specified in the <a class="reference internal" href="quicktools.html#indexes"><span class="std std-ref">index file</span></a>)</div>
 <div class="line">* unknown.fastq/fasta files contain sequences where specified index combinations were not found.</div>
 </div>
 <div class="line-block">
@@ -1163,7 +1207,7 @@ The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta
 <p><em>(click on the image for enlargement)</em>
 <a class="reference internal" href="_images/reorient_expand.png"><img alt="Alternative text" src="_images/reorient_expand.png" style="width: 550px;" /></a></p>
 <div class="line-block">
-<div class="line"><em>This step reorients sequences to 5’-3’ as based on specified forward and reverse primers. See</em> <a class="reference internal" href="user_guide.html#reorient"><span class="std std-ref">specifics here</span></a></div>
+<div class="line"><em>This step reorients sequences to 5’-3’ as based on specified forward and reverse primers. See</em> <a class="reference internal" href="quicktools.html#reorient"><span class="std std-ref">specifics here</span></a></div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">reorient_out</span></code></div>
 </div>
@@ -1182,7 +1226,7 @@ The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta
 <p><em>(click on the image for enlargement)</em>
 <a class="reference internal" href="_images/cut_primers_expand.png"><img alt="Alternative text" src="_images/cut_primers_expand.png" style="width: 550px;" /></a></p>
 <div class="line-block">
-<div class="line"><em>This step clipps specified primer sequences from the reads (if primers are found). See</em> <a class="reference internal" href="user_guide.html#remove-primers"><span class="std std-ref">specifics here</span></a>.</div>
+<div class="line"><em>This step clipps specified primer sequences from the reads (if primers are found). See</em> <a class="reference internal" href="quicktools.html#remove-primers"><span class="std std-ref">specifics here</span></a>.</div>
 <div class="line"><em>Discards the reads where primer sequences are not detected.</em></div>
 <div class="line"><br /></div>
 <div class="line"><strong>Output</strong> directory = <code class="docutils literal notranslate"><span class="pre">primersCut_out</span></code></div>
@@ -1195,7 +1239,7 @@ The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta
 </section>
 <hr class="docutils" />
 <section id="single-end-pacbio-or-assembled-paired-end-data">
-<h2><a class="toc-backref" href="#id12" role="doc-backlink">Single-end (PacBio or assembled paired-end) data</a><a class="headerlink" href="#single-end-pacbio-or-assembled-paired-end-data" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id12">Single-end (PacBio or assembled paired-end) data</a><a class="headerlink" href="#single-end-pacbio-or-assembled-paired-end-data" title="Permalink to this headline"></a></h2>
 <p>coming soon …</p>
 </section>
 </section>
@@ -1204,8 +1248,8 @@ The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="user_guide.html" class="btn btn-neutral float-left" title="User guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="postprocessing.html" class="btn btn-neutral float-right" title="Post-processing tools" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="postprocessing.html" class="btn btn-neutral float-left" title="Post-processing tools" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="troubleshoot.html" class="btn btn-neutral float-right" title="Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

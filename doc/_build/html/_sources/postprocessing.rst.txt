@@ -2,10 +2,6 @@
   :width: 100
   :alt: Alternative text
 
-.. |otu_main| image:: _static/otu_main.png
-  :width: 1500
-  :alt: Alternative text
-
 .. raw:: html
 
     <style> .red {color:#ff0000; font-weight:bold; font-size:16px} </style>
@@ -61,7 +57,7 @@ ____________________________________________________
 .. _postprocessing_deicode: 
 
 `DEICODE <https://github.com/biocore/DEICODE>`_ 
--------------------------------------------------
+-----------------------------------------------
 
 DEICODE (`Martino et al., 2019 <https://doi.org/10.1128/mSystems.00016-19>`_) is used to perform beta diversity analysis 
 by applying robust Aitchison PCA on the OTU/ASV table. To consider the compositional nature of data, 

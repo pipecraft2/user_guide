@@ -16,12 +16,68 @@
 
 .. _releases:
 
-=========
+========
 Releases
-=========
+========
 
 .. contents:: Contents
    :depth: 2
+
+____________________________________________________
+
+.. hide 
+
+    for next release - BLAST dabasese resource link to GUI
+    xxx
+
+
+
+
+
+.. _1.0.0:
+
+1.0.0 (01.09.2023)
+==================
+
+`DOWNLOAD link for v1.0.0 <XXX>`_
+
+* major updates in the front-end; individual tools on the right, pipelines on left.
+* added debugging mode and improved log info 
+* added NextITS pipeline for PacBio ITS sequences (not available for MacOS release)
+* added ORFfinder + HMM bsed pseudogene/off-targets filtering for protein coding genes
+* added RDP classifier
+* added DADA2 pipeline for PacBio data 
+* added DADA2 pipeline for paired-end mixed oriented amplicons (fwd_orient and rev_orient are denoised separately and then merged)
+* implemented DADA2 denoising sensitivity editing
+* all features will get sha1 ID 
+* added ASVs to OTUs module (cluster ASVs into OTUs with vsearch)
+* added tag-jumps filtering module (UNCROSS2)
+* fixed the vsearch_dada2 container issues for MacOS 
+  
+Implemented software:
+*(software in red font denote new additions; 'version' in bold denotes version upgrade)*
+
+=======================================================================  ==========
+Software                                                                 version                                                                                       
+=======================================================================  ==========
+:red:`NextITS pipeline` `(link) <https://next-its.github.io/>`_          **0.3.0**
+:red:`ORFfinder` `(link) <https://www.ncbi.nlm.nih.gov/orffinder/>`_     **v0.4.3**
+:red:`RDP classifier`                                                    **v2.13**
+`DADA2 <https://benjjneb.github.io/dada2/index.html>`_                   **1.27**
+`vsearch <https://github.com/torognes/vsearch>`_                         **2.23**
+`trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_          0.39
+`seqkit <https://bioinf.shenwei.me/seqkit/>`_                            2.3.0
+`cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_                 **4.4**
+`mothur <https://github.com/mothur/mothur>`_                             1.46.1
+`ITS Extractor <https://microbiology.se/software/itsx/>`_                1.1.3
+`fqgrep <https://github.com/indraniel/fqgrep>`_                          0.4.4
+`BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                      **2.12**
+`FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_   0.11.9
+`MultiQC <https://multiqc.info/>`_                                       1.12
+`LULU <https://github.com/tobiasgf/lulu>`_                               0.1.0
+`fastp <https://github.com/OpenGene/fastp>`_                             0.23.2
+`DEICODE <https://github.com/biocore/DEICODE>`_                          0.2.4
+=======================================================================  ==========
 
 ____________________________________________________
 

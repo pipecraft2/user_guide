@@ -16,21 +16,21 @@
 
 .. _dockerimages:
 
-===============
+=============
 Docker images
-===============
+=============
 
 Bioinformatic tools used by PipeCraft2 are stored on `Dockerhub <https://hub.docker.com/u/pipecraft>`_ as Docker images. 
 These images can be used to launch any tool with the Docker CLI to utilize the compiled tools.
 
 
 Images in use
----------------
+-------------
 
 ====================================  ========================================================================== 
 Image                                 Software                                                         
 ====================================  ==========================================================================
-pipecraft/vsearch_dada2:1             vsearch v2.22.1, dada2 v1.20, seqkit v2.3.0, lulu v0.1.0, R, GNU parallel
+pipecraft/vsearch_dada2:2             vsearch v2.23, dada2 v1.27, seqkit v2.3.0, lulu v0.1.0, R, GNU parallel etc
 ewels/multiqc:latest                  mutliqc v1.12
 staphb/fastqc:0.11.9                  fastqc v0.11.9               
 pipecraft/cutadapt:3.5                cutadapt v3.5, seqkit v2.3.0, python3, biopython                                        
@@ -45,12 +45,10 @@ pipecraft/blast:2.12                  BLAST 2.12.0+, biopython, python3, gawk
 Other images
 ----------------
 
-====================================  ========================================================================== 
+====================================  ================================================================================================== 
 Image                                 Software                                                         
-====================================  ==========================================================================                                  
+====================================  ==================================================================================================                                  
 pipecraft/dada2:1.20                  dada2 v1.20, seqkit v2.3.0, lulu v0.1.0, R                                                                           
-pipecraft/vsearch:2.18                vsearch v2.18, seqkit v2.3.0, GNU parallel                                    
-====================================  ==========================================================================
-
-
-
+pipecraft/vsearch:2.18                vsearch v2.18, seqkit v2.3.0, GNU parallel                  
+pipecraft/vsearch_dada2:1             has issues with MacOS. vsearch v2.22.1, dada2 v1.20, seqkit v2.3.0, lulu v0.1.0, R, GNU parallel                  
+====================================  ==================================================================================================

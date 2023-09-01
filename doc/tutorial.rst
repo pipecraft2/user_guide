@@ -2,10 +2,6 @@
   :width: 100
   :alt: Alternative text
 
-.. |otu_main| image:: _static/otu_main.png
-  :width: 1500
-  :alt: Alternative text
-
 .. raw:: html
 
     <style> .red {color:#ff0000; font-weight:bold; font-size:16px} </style>
@@ -26,9 +22,9 @@
 |PipeCraft2_logo|
   `github <https://github.com/pipecraft2/pipecraft>`_
 
-===========
-Walkthrough
-===========
+=====================
+Example data analyses 
+=====================
 
 Some example analyses pipelines.
 
@@ -61,7 +57,7 @@ Example analyses of paired-end data. Starting with raw paired-end fastq files, f
 .. _demultiplexed_PE_ASV:
 
 Demultiplexed paired-end data; ASV workflow with DADA2
---------------------------------------------------------
+------------------------------------------------------
 
 .. note::
 
@@ -222,7 +218,7 @@ will improve the DADA2 sensitivity to rare sequence variants.
 
 ::
 
- 7.  Press** 'RUN WORKFLOW' **to start the analyses.
+ 7.  Press** 'START' **to start the analyses.
 
 .. |workflow_finished| image:: _static/workflow_finished.png
   :width: 300
@@ -252,7 +248,7 @@ will improve the DADA2 sensitivity to rare sequence variants.
 ->
 
 Examine the outputs
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 Several process-specific output folders are generated:
 
@@ -349,7 +345,7 @@ ____________________________________________________
 .. _demultiplexed_PE_OTU:
 
 Demultiplexed paired-end data; OTU workflow
---------------------------------------------
+-------------------------------------------
 
 .. note::
 
@@ -549,7 +545,7 @@ Identify and extract the ITS regions using ITSx; :ref:`see here <itsextractor>`
 
 ::
 
- 1.  Press** 'RUN WORKFLOW' **to start the analyses.
+ 1.  Press** 'START' **to start the analyses.
 
 .. note ::
 
@@ -572,7 +568,7 @@ Identify and extract the ITS regions using ITSx; :ref:`see here <itsextractor>`
 ->
 
 Examine the outputs
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 Several process-specific output folders are generated:
 
@@ -642,7 +638,7 @@ ____________________________________________________
 .. _multiplexed_PE:
 
 Multiplexed library
---------------------
+-------------------
 
 Working with paired-end raw multiplexed data. 
 
