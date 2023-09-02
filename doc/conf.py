@@ -16,7 +16,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'PipeCraft 2'
+project = 'PipeCraft2'
 copyright = '2023, Sten Anslan'
 author = 'Sten Anslan'
 

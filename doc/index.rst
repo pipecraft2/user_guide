@@ -32,9 +32,9 @@ Latest version
 
 :red:`download links for the new release updated, but updating the rest of the user guide ASAP`
 
-==========================================
-Manual for PipeCraft 2
-==========================================
+======================
+Manual for PipeCraft2
+======================
 
 
 | **PipeCraft2** is a Graphical User Interface (GUI) software that implements :ref:`various popular tools <tools>` for **metabarcoding** data analyses. 
