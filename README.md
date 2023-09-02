@@ -1,7 +1,7 @@
 # PipeCraft2
 
 This is repo for PipeCraft2 user guide
-https://pipecraft2-manual.readthedocs.io/en/stable/
+https://pipecraft2-manual.rtfd.io/
 
 PipeCraft2 development repo -> https://github.com/pipecraft2/pipecraft
 
