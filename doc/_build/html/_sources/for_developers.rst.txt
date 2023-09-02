@@ -83,6 +83,13 @@ ____________________________________________________
 
     - pages dissapear: too long header underline. And/or no blank line at the end of the page. 
 
+
+    git branches for each version
+    -----------------------------
+    git branch -c 1.0.0     # your new "1.0.0" branch
+    git switch 1.0.0        # switch to your 1.0.0 branch
+
+    
     Project structure
     -----------------
 
