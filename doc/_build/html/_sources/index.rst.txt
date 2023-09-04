@@ -2,10 +2,6 @@
   :width: 150
   :alt: Alternative text
 
-.. |add_step_interface| image:: _static/add_step.png
-  :width: 600
-  :alt: Alternative text
-
 .. |main_interface| image:: _static/main_interface.png
   :width: 2000
   :alt: Alternative text
@@ -32,14 +28,17 @@ Latest version
 
 :red:`download links for the new release updated, but updating the rest of the user guide ASAP`
 
-==========================================
-Manual for PipeCraft 2
-==========================================
+======================
+Manual for PipeCraft2
+======================
 
 
 | **PipeCraft2** is a Graphical User Interface (GUI) software that implements :ref:`various popular tools <tools>` for **metabarcoding** data analyses. 
 | Implements various ready-to-run (pre-defined) pipelines as well as an option to run a variety of individual steps outside of a full-pipeline.
 
+.. _interface:
+
+*(click on the image for enlargement)*
 |main_interface|
 
 | Software settings for pipeline processes contain key options for metabarcoding sequence data analyses, but all options of any implemented program may be accessed via :ref:`PipeCraft console (command line) <expert_mode>`. 
@@ -50,14 +49,83 @@ Manual for PipeCraft 2
  to proceed with next step, e.g. with chimera filtering step)*.
 
 
-Contents
---------
+Glossary
+========
+
+List of terms that you may encounter in this user guide.
+
+=========================== ===================================
+**working directory**       | the directory (folder) that contains the files for the analyses.
+                            | The outputs will be written into this directory
+**paired-end data**         | obtained by sequencing two ends of the same DNA fragment, 
+                            | which results in read 1 (R1) and read 2 (R2) files per library or per sample.
+                            | Note that PipeCraft expects that :red:`read 1 file contains the string R1` 
+                            | and :red:`read 2 contains R2` 
+                            | (not e.g. my_sample_L001_1.fastq / my_sample_L001_2.fastq)
+**single-end data**         | only one sequencing file per library or per sample. 
+                            | Herein, may mean also assembled paired-end data.
+**demultiplexed data**      | sequences are sorted into separate files, representing individual samples 
+**multiplexed data**        | file(s) that represent a pool of sequences from different samples
+**read/sequence**           | DNA sequence; herein, reads and sequences are used interchangeably 
+=========================== ===================================
+
+____________________________________________________
+
+Docker images 
+==============
+
+.. |pulling_image| image:: _static/pulling_image.png
+  :width: 280
+  :alt: Alternative text
+
+All the processes are run through `docker <https://www.docker.com/>`_, where the PipeCraft's GUI simply mediates the 
+information exchange. Therefore, whenever a process is initiated for the **first time**, 
+a relevant Docker image (contains required software for the analyses step) will be pulled from `Docker Hub <https://hub.docker.com/u/pipecraft>`_.
+Initial PipeCraft2 installation does not contain any software for sequence data processing. 
+
+Example: when running DEMULTIPLEXING for the first time |pulling_image|
+
+Thus working **Internet connection** is initially required. Once the Docker images are pulled, PipeCraft2 can work without an Internet connection. 
+
+:ref:`Docker images <dockerimages>` vary in size, and the speed of the first process is extended by the docker image download time.
+ 
+____________________________________________________
+
+Save workflow
+==============
+
+Once the workflow settings are selected, save the workflow by pressin ``SAVE WORKFLOW`` button on the :ref:`right-ribbon <interface>`.
+
+.. note ::
+
+  starting from version 0.1.4, PipeCraft2 will automatically save the settings into selected WORKDIR prior starting the analyses (file name = "**pipecraft2_config.json**")
+
+.. important::
+
+ When **saiving workflow** settings in **Linux**, specify the file extension as **json** (e.g. my_16S_ASVs_pipe.json).
+ When trying to load the workflow, only .JSON files will be permitted as input. *Windows and Mac OS automatically extend files as json (so you may just save "my_16S_ASVs_pipe").*
+
+____________________________________________________
+
+Load workflow
+==============
+
+.. note ::
+
+ Prior loading the workflow, make sure that the saved workflow configuration has a .json extension. Note also that **workflows saved in older PipeCraft2 version** might not run in newer version, but anyhow the selected options will be visible.
+
+Press the ``LOAD WORKFLOW`` button on the :ref:`right-ribbon <interface>` and select appropriate JSON file.
+The configuration will be loaded; ``SELECT WORKDIR`` and run analyses.
+
+
+Contents of this user guide
+---------------------------
 
 .. toctree::
    :maxdepth: 2
 
    installation
-   user_guide
+   quickstart
    pre-defined_pipelines
    quicktools
    postprocessing

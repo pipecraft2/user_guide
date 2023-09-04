@@ -5,7 +5,7 @@
 <meta content="PipeCraft manual. tutorial" lang="en" name="description" xml:lang="en" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Example data analyses &mdash; PipeCraft 2 1.0.0 documentation</title>
+  <title>Example data analyses &mdash; PipeCraft2 1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -28,7 +28,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> PipeCraft 2
+            <a href="index.html" class="icon icon-home"> PipeCraft2
           </a>
               <div class="version">
                 1.0.0
@@ -43,7 +43,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user_guide.html">General overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">General overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pre-defined_pipelines.html">Pre-defined pipelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quicktools.html">Individual steps (Quick Tools)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing tools</a></li>
@@ -79,7 +79,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PipeCraft 2</a>
+          <a href="index.html">PipeCraft2</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -138,7 +138,7 @@ libraries separately and place samples of interest into separate working directo
 <hr class="docutils" />
 <section id="inspect-quality-profiles">
 <h2><a class="toc-backref" href="#id5">Inspect quality profiles</a><a class="headerlink" href="#inspect-quality-profiles" title="Permalink to this headline"></a></h2>
-<p>Examine the quality profiles and basic statistics of the your data set using <strong>QualityCheck module</strong>. <a class="reference internal" href="user_guide.html#qualitycheck"><span class="std std-ref">See here</span></a>.</p>
+<p>Examine the quality profiles and basic statistics of the your data set using <strong>QualityCheck module</strong>. <a class="reference internal" href="overview.html#qualitycheck"><span class="std std-ref">See here</span></a>.</p>
 <hr class="docutils" />
 <div class="line-block">
 <div class="line"><br /></div>
@@ -200,7 +200,7 @@ then exactly the same ASV may be reported twice, where one is just the reverse c
 <div class="highlight-default notranslate" id="rest-of-pe-asv-workflow"><div class="highlight"><pre><span></span><span class="mf">3.</span> <span class="s1">&#39;QUALITY FILTERING&#39;</span>
 </pre></div>
 </div>
-<p>Before adjusting quality filtering settings, let’s have a look on the <strong>quality profile</strong> of our example data set. Below quality profile plot was generated using <code class="docutils literal notranslate"><span class="pre">QualityCheck</span></code> panel (<a class="reference internal" href="user_guide.html#qualitycheck"><span class="std std-ref">see here</span></a>).</p>
+<p>Before adjusting quality filtering settings, let’s have a look on the <strong>quality profile</strong> of our example data set. Below quality profile plot was generated using <code class="docutils literal notranslate"><span class="pre">QualityCheck</span></code> panel (<a class="reference internal" href="overview.html#qualitycheck"><span class="std std-ref">see here</span></a>).</p>
 <p><a class="reference internal" href="_images/fastqc_per_base_sequence_quality_plot.png"><img alt="Alternative text" src="_images/fastqc_per_base_sequence_quality_plot.png" style="width: 850px;" /></a></p>
 <p>In this case, all <strong>R1 files are represented with green lines</strong>, indicating good average quality per file. However, all <strong>R2 files are either yellow or red</strong>, indicating a drop in quality scores.
 Lower qualities of R2 reads are characteristic for Illumina sequencing data, and is not too alarming. DADA2 algoritm is robust to lower quality sequences, but removing the low quality read parts
@@ -844,7 +844,7 @@ will be compared to generate OTUs, the time for BLAST (taxonomy annotation step)
 <div class="line"><br /></div>
 <div class="line"><br /></div>
 </div>
-<p>Before proceeding, let’s have a look on the <strong>quality profile</strong> of our example data set. Below quality profile plot was generated using <code class="docutils literal notranslate"><span class="pre">QualityCheck</span></code> panel (<a class="reference internal" href="user_guide.html#qualitycheck"><span class="std std-ref">see here</span></a>).</p>
+<p>Before proceeding, let’s have a look on the <strong>quality profile</strong> of our example data set. Below quality profile plot was generated using <code class="docutils literal notranslate"><span class="pre">QualityCheck</span></code> panel (<a class="reference internal" href="overview.html#qualitycheck"><span class="std std-ref">see here</span></a>).</p>
 <p><a class="reference internal" href="_images/fastqc_per_base_sequence_quality_plot.png"><img alt="Alternative text" src="_images/fastqc_per_base_sequence_quality_plot.png" style="width: 850px;" /></a></p>
 <p>In this case, all <strong>R1 files are represented with green lines</strong>, indicating good average quality per file. However, all <strong>R2 files are either yellow or red</strong>, indicating a drop in quality scores.
 Lower qualities of R2 reads are characteristic for Illumina sequencing data, and is not too alarming. Nevertheless, we need to quality filter the data set.</p>

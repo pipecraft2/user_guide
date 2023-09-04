@@ -88,6 +88,10 @@ ____________________________________________________
     -----------------------------
     git branch -c 1.0.0     # your new "1.0.0" branch
     git switch 1.0.0        # switch to your 1.0.0 branch
+    #make edits
+    git add .                     # add file(s) to the new branch
+    git commit -m "comment"       # add comment 
+    git push origin head          # push your brach and it's changes
 
     
     Project structure

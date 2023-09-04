@@ -82,9 +82,13 @@ PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versio
 ____________________________________________________
 
 MacOS
-------
+-----
 
-PipeCraft is supported on macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through Docker.
+PipeCraft is supported on macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through Docker. 
+
+.. note:: 
+
+  If your MacOS has M1/M2 chips, please let us know if you encounter something weird while trying to run some analyses (:ref:`contact <contact>` or post an issue on the `github page <https://github.com/pipecraft2/pipecraft>`_).  
 
 1. Download PipeCraft for `Mac: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.pkg>`_
 
@@ -112,7 +116,7 @@ PipeCraft is supported on macOS 10.15+. Older OS versions might not support Pipe
 ____________________________________________________
 
 Linux
-------
+-----
 
 PipeCraft was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions might not support PipeCraft GUI workflow through Docker.
 
@@ -138,12 +142,13 @@ PipeCraft was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions 
 ____________________________________________________
 
 Updating PipeCraft2
---------------------
+-------------------
 
 To avaoid any potential software conflicts from PipeCraft2 **v0.1.1 to v0.1.4**, all Docker images of older PipeCraft2 version should be removed. 
 *Starting from v1.0.0 --> if docker container is updated, it will get a new tag for new PipeCraft2 version*
 
-See :ref:`removing docker images <removedockerimages>` section.
+ | See :ref:`PipeCraft2 releases here <releases>`.
+ | See :ref:`removing docker images <removedockerimages>` section.
 
 .. note::
 
@@ -180,10 +185,10 @@ Removing Docker images
 
 | 
 | On **Linux** machines: containers and images are managed via the Docker cli commands (https://docs.docker.com/engine/reference/commandline/rmi/):
-| ``sudo docker images`` --> to see which docker images exist
-| ``sudo docker rmi IMAGE_ID_here`` --> to delete selected image
+| ``sudo docker images``       --> to see which docker images exist
+| ``sudo docker rmi IMAGE_ID`` --> to delete selected image
 
 or
 
 | ``sudo docker system prune -a`` --> to delete all unused containers, networks, images 
-
+| ``sudo docker images``          --> check if images were removed

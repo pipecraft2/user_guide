@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta content="PipeCraft2 manual. User guide for PipeCraft2" lang="en" name="description" xml:lang="en" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickStart &mdash; PipeCraft2 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Pre-defined pipelines" href="pre-defined_pipelines.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> PipeCraft2
+          </a>
+              <div class="version">
+                1.0.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">QuickStart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#required-data-formats">Required data formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-start">How to START</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quality-scores-and-basic-statistics-screening-of-the-data">Quality scores and basic statistics screening of the data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pre-defined_pipelines.html">Pre-defined pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quicktools.html">Individual steps (Quick Tools)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing tools</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Example data analyses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citation.html">How to cite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker_images.html">Docker images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="for_developers.html">For Developers</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PipeCraft2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>QuickStart</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <dl class="simple">
+<dt><a class="reference internal" href="_images/PipeCraft2_icon_v2.png"><img alt="Alternative text" src="_images/PipeCraft2_icon_v2.png" style="width: 100px;" /></a></dt><dd><p><a class="reference external" href="https://github.com/pipecraft2/pipecraft">github</a></p>
+</dd>
+</dl>
+<style> .red {color:#ff0000; font-weight:bold; font-size:16px} </style><section id="quickstart">
+<span id="id1"></span><h1>QuickStart<a class="headerlink" href="#quickstart" title="Permalink to this headline"></a></h1>
+<section id="required-data-formats">
+<h2>Required data formats<a class="headerlink" href="#required-data-formats" title="Permalink to this headline"></a></h2>
+<p>There are few specifc requirements for the input data for PipeCraft.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Paired-end data</strong></dt><dd><ul>
+<li><p><span class="red">must contain **R1** and **R2** strings in the paired-end files</span>,</p></li>
+<li><dl class="simple">
+<dt><span class="red">sample names maynot contain ‘R1/R2’ strings</span></dt><dd><ul>
+<li><p><strong>OK file names</strong>: <code class="docutils literal notranslate"><span class="pre">my_sample_01_R1_L001.fastq</span></code> and <code class="docutils literal notranslate"><span class="pre">my_sample_01_R2_L001.fastq</span></code></p></li>
+<li><p><strong>NOT-OK</strong> file names: <code class="docutils literal notranslate"><span class="pre">my_R1sample_01_R1_L001.fastq</span></code> and <code class="docutils literal notranslate"><span class="pre">my_R1sample_01_R2_L001.fastq</span></code> or  <code class="docutils literal notranslate"><span class="pre">my_sample_01_1.fastq</span></code> and <code class="docutils literal notranslate"><span class="pre">my_sample_01_2.fastq</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>index/barcodes file</strong> for demultiplexing:</dt><dd><ul>
+<li><p><a class="reference internal" href="quicktools.html#indexes"><span class="std std-ref">see formatting requirements here</span></a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>specific directory structure of NextITS pipeline</dt><dd><ul>
+<li><p><a class="reference internal" href="pre-defined_pipelines.html#nextits"><span class="std std-ref">see NextITS page</span></a></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="how-to-start">
+<h2>How to START<a class="headerlink" href="#how-to-start" title="Permalink to this headline"></a></h2>
+<p>1. To <code class="docutils literal notranslate"><span class="pre">START</span></code> any analyses, you must specify the working directory (WORKDIR) by pressing the <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> button. E.g., if working with <strong>fastq</strong> files,
+then be sure that the working directory contains <strong>only relevant fastq files</strong> because the selected process will be
+applied to all fastq files in the working directory!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using Windows OS, the selection window might not display the files while browsing through the directories.</p>
+</div>
+<p>After selecting a working directory, PipeCraft needs you to specify if</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>if the data is paired-end or single-end</p></li>
+<li><p>and the extension of the data (fastq or fasta)</p></li>
+</ul>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">paired-end</span> <span class="pre">data</span></code> –&gt; such as data from Illumina or MGI-Tech platforms (R1 and R2 files). <span class="red">Be sure to have **R1** and **R2** strings in the paired-end files (not simply _1 and _2; and sample names maynot contain R1/R2 strings)</span></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">single-end</span> <span class="pre">data</span></code> –&gt; such as data from PacBio, or assembled paired-end data (single file per library or per sample)</div>
+</div>
+<p><a class="reference internal" href="_images/select_wd.png"><img alt="Alternative text" src="_images/select_wd.png" style="width: 1000px;" /></a></p>
+<p>2. <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">PIPELINE</span></code> or press <code class="docutils literal notranslate"><span class="pre">Quick</span> <span class="pre">Tools</span></code> button
+to select relevant <a class="reference internal" href="quicktools.html#quicktools"><span class="std std-ref">step</span></a>;
+edit settings if needed and <strong>start
+running the analyses</strong> by pressing the <code class="docutils literal notranslate"><span class="pre">START</span></code> button.</p>
+<p><a class="reference internal" href="_images/select_pipeline_or_quicktools.png"><img alt="Alternative text" src="_images/select_pipeline_or_quicktools.png" style="width: 1000px;" /></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>When running ‘step-by-step analyses with Quick Tools’</strong>: when one workflow is finished, then press <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> to specify inputs for the next process to ensure the correct workflow piping.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <strong>outputs will be overwritten</strong> if running the same
+analysis step <strong>multiple times in the same working directory</strong>.
+If needed, edit the default output directory name to prevent that.</p>
+</div>
+<p>Each process creates a separate output directory with the processed files.
+The <strong>README</strong> file in the output directory states some of the details about the finished process.</p>
+<hr class="docutils" />
+<blockquote>
+<div><p><a class="reference internal" href="pre-defined_pipelines.html#predefinedpipelines"><span class="std std-ref">Ready-to-run pre-defined pipelines here</span></a></p>
+<p><a class="reference internal" href="quicktools.html#quicktools"><span class="std std-ref">QuickTools page here</span></a></p>
+</div></blockquote>
+<hr class="docutils" />
+</section>
+<section id="quality-scores-and-basic-statistics-screening-of-the-data">
+<span id="qualitycheck"></span><h2>Quality scores and basic statistics screening of the data<a class="headerlink" href="#quality-scores-and-basic-statistics-screening-of-the-data" title="Permalink to this headline"></a></h2>
+<p>Quality and basic statistics screening of the data can be done via <code class="docutils literal notranslate"><span class="pre">QualityCheck</span></code> panel.
+QualityCheck panel implements <a class="reference external" href="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a> and <a class="reference external" href="https://multiqc.info/">MultiQC</a> to screen the input <strong>fastq</strong> files.</p>
+<p><a class="reference internal" href="_images/multiQC_main.png"><img alt="Alternative text" src="_images/multiQC_main.png" style="width: 1000px;" /></a></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>To start:</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><strong>Select folder</strong> (a working directory) which contains only <strong>fastq</strong> (fastq/fq) files that you aim to inspect.</p></li>
+<li><p>Press <code class="docutils literal notranslate"><span class="pre">CREATE</span> <span class="pre">REPORT</span></code> to start MultiQC</p></li>
+<li><p>“LOADING …” will be displayed while the report is being generated</p></li>
+</ol>
+</div></blockquote>
+<p><a class="reference internal" href="_images/multiQC_1-3.png"><img alt="Alternative text" src="_images/multiQC_1-3.png" style="width: 550px;" /></a></p>
+<p><a class="reference internal" href="_images/multiQC_view_report.png"><img alt="Alternative text" src="_images/multiQC_view_report.png" style="width: 550px;" /></a></p>
+<blockquote>
+<div><ol class="arabic" start="4">
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">VIEW</span> <span class="pre">REPORT</span></code>. A html file (multiqc_report.html) will open in your default web browser.</p>
+<p><em>If the summary does not open, check your working floder for the presence of</em> <strong>multiqc_report.html</strong> <em>and try to open with some other web browser.</em>
+<em>Something went wrong if the file multiqc_report.html</em> <strong>does not exist</strong> <em>(may fail when maximum number of fastq files in the folder is extremely large, &gt;10 000).</em></p>
+</li>
+<li><p>Check out  <a class="reference external" href="https://multiqc.info/docs/#using-multiqc-reports">“using MultiQC reports”</a> in MultiQC web page.</p></li>
+</ol>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that ‘_fastqc.zip’ and ‘_fastqc.html’ are generated for each fastq file in the <strong>‘quality_check’</strong> directory. These are summarized in <strong>multiqc_report.html</strong>,
+so you may delete all individual ‘_fastqc.zip’ and ‘_fastqc.html’ files if those are of no interest.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pre-defined_pipelines.html" class="btn btn-neutral float-right" title="Pre-defined pipelines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sten Anslan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
