@@ -88,7 +88,7 @@ Example: when running DEMULTIPLEXING for the first time |pulling_image|
 Thus working **Internet connection** is initially required. Once the Docker images are pulled, PipeCraft2 can work without an Internet connection. 
 
 :ref:`Docker images <dockerimages>` vary in size, and the speed of the first process is extended by the docker image download time.
- 
+
 ____________________________________________________
 
 Save workflow
