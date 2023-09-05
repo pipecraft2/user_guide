@@ -5,7 +5,7 @@
 <meta content="PipeCraft manual. How to install PipeCraft" lang="en" name="description" xml:lang="en" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation &mdash; PipeCraft 2 1.0.0 documentation</title>
+  <title>Installation &mdash; PipeCraft2 1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="General overview" href="user_guide.html" />
+    <link rel="next" title="QuickStart" href="quickstart.html" />
     <link rel="prev" title="Latest version" href="index.html" /> 
 </head>
 
@@ -28,7 +28,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> PipeCraft 2
+            <a href="index.html" class="icon icon-home"> PipeCraft2
           </a>
               <div class="version">
                 1.0.0
@@ -52,7 +52,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#removing-docker-images">Removing Docker images</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="user_guide.html">General overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">QuickStart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">General overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pre-defined_pipelines.html">Pre-defined pipelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quicktools.html">Individual steps (Quick Tools)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing tools</a></li>
@@ -72,7 +73,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">PipeCraft 2</a>
+          <a href="index.html">PipeCraft2</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -157,6 +158,10 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
 <section id="macos">
 <h2><a class="toc-backref" href="#id5">MacOS</a><a class="headerlink" href="#macos" title="Permalink to this headline"></a></h2>
 <p>PipeCraft is supported on macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through Docker.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your MacOS has M1/M2 chips, please let us know if you encounter something weird while trying to run some analyses (<a class="reference internal" href="contact.html#contact"><span class="std std-ref">contact</span></a> or post an issue on the <a class="reference external" href="https://github.com/pipecraft2/pipecraft">github page</a>).</p>
+</div>
 <ol class="arabic simple">
 <li><p>Download PipeCraft for <a class="reference external" href="https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.pkg">Mac: v1.0.0</a></p></li>
 <li><p>Install PipeCraft via <strong>pkg</strong> file</p></li>
@@ -206,7 +211,12 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
 <h2><a class="toc-backref" href="#id7">Updating PipeCraft2</a><a class="headerlink" href="#updating-pipecraft2" title="Permalink to this headline"></a></h2>
 <p>To avaoid any potential software conflicts from PipeCraft2 <strong>v0.1.1 to v0.1.4</strong>, all Docker images of older PipeCraft2 version should be removed.
 <em>Starting from v1.0.0 –&gt; if docker container is updated, it will get a new tag for new PipeCraft2 version</em></p>
-<p>See <a class="reference internal" href="#removedockerimages"><span class="std std-ref">removing docker images</span></a> section.</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">See <a class="reference internal" href="releases.html#releases"><span class="std std-ref">PipeCraft2 releases here</span></a>.</div>
+<div class="line">See <a class="reference internal" href="#removedockerimages"><span class="std std-ref">removing docker images</span></a> section.</div>
+</div>
+</div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <div class="line-block">
@@ -235,12 +245,13 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
 <div class="line-block">
 <div class="line"><br /></div>
 <div class="line">On <strong>Linux</strong> machines: containers and images are managed via the Docker cli commands (<a class="reference external" href="https://docs.docker.com/engine/reference/commandline/rmi/">https://docs.docker.com/engine/reference/commandline/rmi/</a>):</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">images</span></code> –&gt; to see which docker images exist</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">rmi</span> <span class="pre">IMAGE_ID_here</span></code> –&gt; to delete selected image</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">images</span></code>       –&gt; to see which docker images exist</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">rmi</span> <span class="pre">IMAGE_ID</span></code> –&gt; to delete selected image</div>
 </div>
 <p>or</p>
 <div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">system</span> <span class="pre">prune</span> <span class="pre">-a</span></code> –&gt; to delete all unused containers, networks, images</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">images</span></code>          –&gt; check if images were removed</div>
 </div>
 </section>
 </section>
@@ -250,7 +261,7 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Latest version" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="user_guide.html" class="btn btn-neutral float-right" title="General overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="QuickStart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

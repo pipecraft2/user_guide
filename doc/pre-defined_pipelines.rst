@@ -27,7 +27,7 @@ vsearch OTUs
 .. _otupipe:
 
 OTUs workflow panel
---------------------
+-------------------
 
 .. |otuoff| image:: _static/OTU_off.png
   :width: 50
@@ -112,7 +112,7 @@ DADA2 ASVs
 .. _asvpipe:
 
 ASVs workflow panel (with `DADA2 <https://benjjneb.github.io/dada2/index.html>`_)
-----------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
 
 .. note::
   Working directory must contain **at least 2 samples** for DADA2 pipeline.
@@ -244,7 +244,7 @@ ____________________________________________________
 .. _dada2_merge_pairs:
 
 MERGE PAIRS [ASVs workflow] 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 DADA2 `mergePairs <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to merge paired-end reads. 
 Outputs merged fasta files into ``denoised_assembled.dada2`` directory.
@@ -269,7 +269,7 @@ see :ref:`default settings <dada2_defaults>`
 ____________________________________________________
 
 CHIMERA FILTERING [ASVs workflow] 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 DADA2 `removeBimeraDenovo <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to remove chimeras. 
 Outputs filtered fasta files into ``chimeraFiltered_out.dada2`` and final ASVs to ``ASVs_out.dada2`` directory.
@@ -336,15 +336,17 @@ see :ref:`default settings <dada2_defaults>`
 ____________________________________________________
 
 
-
 UNOISE ASVs
-=============
+===========
 
 UNOISE3 pipeline for making ASVs (zOTUs) + optionally automatic clustering of those ASVs.
 Updating this section soon.
 
+
+.. _nextits: 
+
 NextITS
-========
+=======
 
 NextITS pipeline for PacBio ITS sequences. 
 Updating this section soon.

@@ -5,7 +5,7 @@
 <meta content="PipeCraft manual. PipeCraft in a Graphical User Interface software for metabarcoding data analyses" lang="en" name="description" xml:lang="en" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Latest version &mdash; PipeCraft 2 1.0.0 documentation</title>
+  <title>Latest version &mdash; PipeCraft2 1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="#" class="icon icon-home"> PipeCraft 2
+            <a href="#" class="icon icon-home"> PipeCraft2
           </a>
               <div class="version">
                 1.0.0
@@ -42,7 +42,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="user_guide.html">General overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">QuickStart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pre-defined_pipelines.html">Pre-defined pipelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quicktools.html">Individual steps (Quick Tools)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing tools</a></li>
@@ -62,7 +62,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">PipeCraft 2</a>
+          <a href="#">PipeCraft2</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -89,13 +89,14 @@
 <p>01.09.2023 - <span class="red">v1.0.0 is released</span>, <a class="reference external" href="https://github.com/pipecraft2/pipecraft/releases/tag/v1.0.0">get it here</a></p>
 <p><span class="red">download links for the new release updated, but updating the rest of the user guide ASAP</span></p>
 </section>
-<section id="manual-for-pipecraft-2">
-<h1>Manual for PipeCraft 2<a class="headerlink" href="#manual-for-pipecraft-2" title="Permalink to this headline"></a></h1>
+<section id="manual-for-pipecraft2">
+<h1>Manual for PipeCraft2<a class="headerlink" href="#manual-for-pipecraft2" title="Permalink to this headline"></a></h1>
 <div class="line-block">
 <div class="line"><strong>PipeCraft2</strong> is a Graphical User Interface (GUI) software that implements <a class="reference internal" href="#tools"><span class="std std-ref">various popular tools</span></a> for <strong>metabarcoding</strong> data analyses.</div>
 <div class="line">Implements various ready-to-run (pre-defined) pipelines as well as an option to run a variety of individual steps outside of a full-pipeline.</div>
 </div>
-<p><a class="reference internal" href="_images/main_interface.png"><img alt="Alternative text" src="_images/main_interface.png" style="width: 2000px;" /></a></p>
+<p id="interface"><em>(click on the image for enlargement)</em>
+<a class="reference internal" href="_images/main_interface.png"><img alt="Alternative text" src="_images/main_interface.png" style="width: 2000px;" /></a></p>
 <div class="line-block">
 <div class="line">Software settings for pipeline processes contain key options for metabarcoding sequence data analyses, but all options of any implemented program may be accessed via <a class="reference internal" href="quicktools.html#expert-mode"><span class="std std-ref">PipeCraft console (command line)</span></a>.</div>
 <div class="line">Default settings in the panels represent commonly used options for amplicon sequence data analyses, which may be tailored according to user experience or needs.
@@ -104,8 +105,96 @@ PipeCraft enables executing the full pipeline (user specifies the input, and out
 but supports also single-step mode (Quick Tools panel) where analyses may be performed in a step-by-step manner <em>(e.g. perform quality filtering, then examine the output and decide whether to adjust the quality filtering options of
 to proceed with next step, e.g. with chimera filtering step)</em>.</div>
 </div>
-<section id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline"></a></h2>
+<section id="glossary">
+<h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline"></a></h2>
+<p>List of terms that you may encounter in this user guide.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>working directory</strong></p></td>
+<td><div class="line-block">
+<div class="line">the directory (folder) that contains the files for the analyses.</div>
+<div class="line">The outputs will be written into this directory</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>paired-end data</strong></p></td>
+<td><div class="line-block">
+<div class="line">obtained by sequencing two ends of the same DNA fragment,</div>
+<div class="line">which results in read 1 (R1) and read 2 (R2) files per library or per sample.</div>
+<div class="line">Note that PipeCraft expects that <span class="red">read 1 file contains the string R1</span></div>
+<div class="line">and <span class="red">read 2 contains R2</span></div>
+<div class="line">(not e.g. my_sample_L001_1.fastq / my_sample_L001_2.fastq)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>single-end data</strong></p></td>
+<td><div class="line-block">
+<div class="line">only one sequencing file per library or per sample.</div>
+<div class="line">Herein, may mean also assembled paired-end data.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>demultiplexed data</strong></p></td>
+<td><div class="line-block">
+<div class="line">sequences are sorted into separate files, representing individual samples</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>multiplexed data</strong></p></td>
+<td><div class="line-block">
+<div class="line">file(s) that represent a pool of sequences from different samples</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>read/sequence</strong></p></td>
+<td><div class="line-block">
+<div class="line">DNA sequence; herein, reads and sequences are used interchangeably</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="docutils" />
+<section id="docker-images">
+<h2>Docker images<a class="headerlink" href="#docker-images" title="Permalink to this headline"></a></h2>
+<p>All the processes are run through <a class="reference external" href="https://www.docker.com/">docker</a>, where the PipeCraft’s GUI simply mediates the
+information exchange. Therefore, whenever a process is initiated for the <strong>first time</strong>,
+a relevant Docker image (contains required software for the analyses step) will be pulled from <a class="reference external" href="https://hub.docker.com/u/pipecraft">Docker Hub</a>.
+Initial PipeCraft2 installation does not contain any software for sequence data processing.</p>
+<p>Example: when running DEMULTIPLEXING for the first time <a class="reference internal" href="_images/pulling_image.png"><img alt="Alternative text" src="_images/pulling_image.png" style="width: 280px;" /></a></p>
+<p>Thus working <strong>Internet connection</strong> is initially required. Once the Docker images are pulled, PipeCraft2 can work without an Internet connection.</p>
+<p><a class="reference internal" href="docker_images.html#dockerimages"><span class="std std-ref">Docker images</span></a> vary in size, and the speed of the first process is extended by the docker image download time.</p>
+</section>
+<hr class="docutils" />
+<section id="save-workflow">
+<h2>Save workflow<a class="headerlink" href="#save-workflow" title="Permalink to this headline"></a></h2>
+<p>Once the workflow settings are selected, save the workflow by pressin <code class="docutils literal notranslate"><span class="pre">SAVE</span> <span class="pre">WORKFLOW</span></code> button on the <a class="reference internal" href="#interface"><span class="std std-ref">right-ribbon</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>starting from version 0.1.4, PipeCraft2 will automatically save the settings into selected WORKDIR prior starting the analyses (file name = “<strong>pipecraft2_config.json</strong>”)</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When <strong>saiving workflow</strong> settings in <strong>Linux</strong>, specify the file extension as <strong>json</strong> (e.g. my_16S_ASVs_pipe.json).
+When trying to load the workflow, only .JSON files will be permitted as input. <em>Windows and Mac OS automatically extend files as json (so you may just save “my_16S_ASVs_pipe”).</em></p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="load-workflow">
+<h2>Load workflow<a class="headerlink" href="#load-workflow" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Prior loading the workflow, make sure that the saved workflow configuration has a .json extension. Note also that <strong>workflows saved in older PipeCraft2 version</strong> might not run in newer version, but anyhow the selected options will be visible.</p>
+</div>
+<p>Press the <code class="docutils literal notranslate"><span class="pre">LOAD</span> <span class="pre">WORKFLOW</span></code> button on the <a class="reference internal" href="#interface"><span class="std std-ref">right-ribbon</span></a> and select appropriate JSON file.
+The configuration will be loaded; <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> and run analyses.</p>
+<section id="contents-of-this-user-guide">
+<h3>Contents of this user guide<a class="headerlink" href="#contents-of-this-user-guide" title="Permalink to this headline"></a></h3>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
@@ -118,14 +207,10 @@ to proceed with next step, e.g. with chimera filtering step)</em>.</div>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#removing-docker-images">Removing Docker images</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="user_guide.html">General overview</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#the-interface">The interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#glossary">Glossary</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#docker-images">Docker images</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#save-workflow">Save workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#load-workflow">Load workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#quality-scores-and-basic-statistics-screening-of-the-data">Quality scores and basic statistics screening of the data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#select-workdir-and-run-analyses">Select workdir and run analyses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">QuickStart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#required-data-formats">Required data formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#how-to-start">How to START</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#quality-scores-and-basic-statistics-screening-of-the-data">Quality scores and basic statistics screening of the data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pre-defined_pipelines.html">Pre-defined pipelines</a><ul>
@@ -203,7 +288,7 @@ to proceed with next step, e.g. with chimera filtering step)</em>.</div>
 <hr class="docutils" />
 </section>
 <section id="currently-implemented-software">
-<span id="tools"></span><h2>Currently implemented software<a class="headerlink" href="#currently-implemented-software" title="Permalink to this headline"></a></h2>
+<span id="tools"></span><h3>Currently implemented software<a class="headerlink" href="#currently-implemented-software" title="Permalink to this headline"></a></h3>
 <p><a class="reference internal" href="releases.html#releases"><span class="std std-ref">See software version on the ‘Releases’ page</span></a></p>
 <table class="docutils align-default">
 <colgroup>
@@ -305,6 +390,7 @@ to proceed with next step, e.g. with chimera filtering step)</em>.</div>
 </tbody>
 </table>
 <p>Let us know if you would like to have a specific software implemeted to PipeCraft (<a class="reference internal" href="contact.html#contact"><span class="std std-ref">contacts</span></a>) or create an issue in the <a class="reference external" href="https://github.com/SuvalineVana/pipecraft/issues">main repository</a>.</p>
+</section>
 </section>
 </section>
 

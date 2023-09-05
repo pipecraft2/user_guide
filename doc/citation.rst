@@ -17,9 +17,9 @@ Anslan, S, Bahram, M, Hiiesalu, I, Tedersoo, L.
 Mol Ecol Resour. 2017; 17: e234– e240.
 https://doi.org/10.1111/1755-0998.12692
 
-But please also include PipeCraft version 2 manual link: https://pipecraft2-manual.readthedocs.io/en/stable
+But please also include PipeCraft version 2 manual link: pipecraft2-manual.rtfd.io/
 
-e.g. "... using PipeCraft 2 (Anslan et al 2017; pipecraft2-manual.readthedocs.io/en/stable)"
+e.g. "... using PipeCraft 2 (Anslan et al 2017; pipecraft2-manual.rtfd.io/)"
 
 ____________________________________________________
 
