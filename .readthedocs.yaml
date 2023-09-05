@@ -10,8 +10,6 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.9"
-    sphinx: "4.3.1"
-
 
 # Build documentation in the doc/ directory with Sphinx
 sphinx:
@@ -25,4 +23,4 @@ sphinx:
 python:
    install:
    - requirements: doc/requirements.txt
-   
+  
