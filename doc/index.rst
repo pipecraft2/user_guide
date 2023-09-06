@@ -14,7 +14,7 @@
 
 .. meta::
     :description lang=en:
-        PipeCraft manual. PipeCraft in a Graphical User Interface software for metabarcoding data analyses
+        PipeCraft manual. PipeCraft is a Graphical User Interface software for metabarcoding data analyses
 
 |PipeCraft2_logo|
   `github <https://github.com/pipecraft2/pipecraft>`_

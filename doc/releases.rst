@@ -60,7 +60,7 @@ Implemented software:
 =======================================================================  ==========
 Software                                                                 version                                                                                       
 =======================================================================  ==========
-:red:`NextITS pipeline` `(link) <https://next-its.github.io/>`_          **0.3.0**
+:red:`NextITS pipeline` `(link) <https://next-its.github.io/>`_          **0.5.0**
 :red:`ORFfinder` `(link) <https://www.ncbi.nlm.nih.gov/orffinder/>`_     **v0.4.3**
 :red:`RDP classifier`                                                    **v2.13**
 `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                   **1.27**
