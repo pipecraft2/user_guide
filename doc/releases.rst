@@ -71,7 +71,7 @@ Software                                                                 version
 `mothur <https://github.com/mothur/mothur>`_                             1.46.1
 `ITS Extractor <https://microbiology.se/software/itsx/>`_                1.1.3
 `fqgrep <https://github.com/indraniel/fqgrep>`_                          0.4.4
-`BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                      **2.12**
+`BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                      **2.14.0+**
 `FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_   0.11.9
 `MultiQC <https://multiqc.info/>`_                                       1.12
 `LULU <https://github.com/tobiasgf/lulu>`_                               0.1.0

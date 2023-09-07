@@ -20,7 +20,7 @@
 Docker images
 =============
 
-Bioinformatic tools used by PipeCraft2 are stored on `Dockerhub <https://hub.docker.com/u/pipecraft>`_ as Docker images. 
+Docker images (with the bioinformatic tools) used in PipeCraft2 are stored on `Dockerhub <https://hub.docker.com/u/pipecraft>`_. 
 These images can be used to launch any tool with the Docker CLI to utilize the compiled tools.
 
 

@@ -14,7 +14,7 @@
 
 .. meta::
     :description lang=en:
-        PipeCraft manual. PipeCraft in a Graphical User Interface software for metabarcoding data analyses
+        PipeCraft manual. PipeCraft is a Graphical User Interface software for metabarcoding data analyses
 
 |PipeCraft2_logo|
   `github <https://github.com/pipecraft2/pipecraft>`_
@@ -88,7 +88,7 @@ Example: when running DEMULTIPLEXING for the first time |pulling_image|
 Thus working **Internet connection** is initially required. Once the Docker images are pulled, PipeCraft2 can work without an Internet connection. 
 
 :ref:`Docker images <dockerimages>` vary in size, and the speed of the first process is extended by the docker image download time.
- 
+
 ____________________________________________________
 
 Save workflow

@@ -121,6 +121,3 @@ ____________________________________________________
 **Possible reason**: Too small data set; samples contain too few reads for DADA2 denoising.
 
 **Fix**: use OTU workflow.
-
-
-
