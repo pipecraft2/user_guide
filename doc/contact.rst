@@ -20,7 +20,7 @@ Contact
 
 ::
 
-    Sten Anslan <sten.anslan[at]ut.ee>
+    Sten Anslan <sten.s.anslan[at]jyu.fi>
     Martin Metsoja <martin.metsoja[at]gmail.com>
     Vladimir Mikryukov <vladimir.mikryukov[at]ut.ee>
     Ali Hakimzadeh <ali.hakimzadeh[at]ut.ee>
@@ -34,8 +34,24 @@ ____________________________________________________
 
 ____________________________________________________
 
-PipeCraft2 development has been supported by
---------------------------------------------
+Acknowledgements
+----------------
 
-- **European Regional Development Fund and the programme Mobilitas Pluss, MOBTP198**.
-- .
+.. |EU_flag| image:: _static/funding/EU.png
+  :width: 200
+  :alt: Alternative text
+
+.. |mobilitas| image:: _static/funding/mobilitas.jpg
+  :width: 200
+  :alt: Alternative text
+
+**PipeCraft2 development has been supported by:** 
+
+- European Regional Development Fund and the programme Mobilitas Pluss, MOBTP198.
+- Horizon Europe under the Biodiversity, Circular Economy and Environment (REA.B.3); 
+  co-funded by the Swiss State Secretariat for Education, 
+  Research and Innovation (SERI) under contract number 22.00173; and by the UK Research and
+  Innovation (UKRI) under the Department for Business, Energy and Industrial Strategy's
+  Horizon Europe Guarantee Scheme.
+
+  |EU_flag| |mobilitas|

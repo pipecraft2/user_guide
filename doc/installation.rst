@@ -14,6 +14,11 @@
   :width: 400
   :alt: Alternative text
   
+.. raw:: html
+
+    <style> .red {color:#ff0000; font-weight:bold; font-size:16px} </style>
+
+.. role:: red
 
 .. meta::
     :description lang=en:
@@ -28,6 +33,8 @@ Installation
 ==============
 
 | Current :ref:`versions <releases>` do not work on High Performance Computing (**HPC**) clusters **yet**.
+| 
+| Herein **'PipeCraft' == 'PipeCraft2'**. Using those interchangeably. 
 
 ____________________________________________________
 
@@ -61,9 +68,9 @@ Windows
 PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versions do not support PipeCraft GUI workflow through Docker.
 
 
-1. Download PipeCraft for `Windows: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.exe>`_
+1. Download PipeCraft2 for `Windows: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.exe>`_
 
-2. Install PipeCraft via the setup executable
+2. Install PipeCraft2 via the setup executable
    
 3. Download `Docker for windows <https://www.docker.com/get-started>`_  - ONLY ONCE (no need, when updating PipeCraft)
 
@@ -84,15 +91,15 @@ ____________________________________________________
 MacOS
 -----
 
-PipeCraft is supported on macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through Docker. 
+PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through Docker. 
 
 .. note:: 
 
   If your MacOS has M1/M2 chips, please let us know if you encounter something weird while trying to run some analyses (:ref:`contact <contact>` or post an issue on the `github page <https://github.com/pipecraft2/pipecraft>`_).  
 
-1. Download PipeCraft for `Mac: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.pkg>`_
+1. Download PipeCraft2 for `Mac: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.pkg>`_
 
-2. Install PipeCraft via **pkg** file
+2. Install PipeCraft2 via **pkg** file
 
 3. Currently macOS will flag pipecraft as an app from an unidentified developer. Grant an exception for a blocked app by clicking the "**Open Anyway**" button in the General panel of **Security & Privacy** preferences. Installing on latest versions of macOS (13.0+) will require you to disable gatekeeper entirely, to do so paste the following command into a terminal.
 
@@ -118,22 +125,27 @@ ____________________________________________________
 Linux
 -----
 
-PipeCraft was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions might not support PipeCraft GUI workflow through Docker.
+PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions might not support PipeCraft GUI workflow through Docker.
 
-1. Download PipeCraft for `Linux: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0_amd64.deb>`_
+1. Download PipeCraft2 for `Linux: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0_amd64.deb>`_
    
 2. Right click on the pipecraft_*.deb file and "Open With GDebi Package Installer" (Install Package) or ``sudo dpkg -i path_to_deb_file``
 
-3. Install Docker - ONLY ONCE (no need, when updating PipeCraft); `follow the guidelines under appropriate Linux distribution <https://docs.docker.com/engine/install/>`_
+3. Install Docker - ONLY ONCE (no need, when updating PipeCraft); `follow the guidelines under appropriate Linux distribution <https://docs.docker.com/engine/install/ubuntu/>`_
+
+   .. warning:: 
+
+    | When installing Docker Engine, make sure you have not Docker Desktop already installed!
+    | :red:`Installing both might have interfering consequences`
 
 4. If you are a non-root user complete these `post-install steps <https://docs.docker.com/engine/install/linux-postinstall/>`_
 
    
 .. note::
 
-   When you encounter ERROR during installation, then uninstall the previous version of PipeCraft ``sudo dpkg --remove pipecraft-v0.1.3``
+   When you encounter ERROR during PipeCraft2 installation, then uninstall the previous version of PipeCraft2 ``sudo dpkg --remove pipecraft-v0.1.3``
 
-5. Run PipeCraft. If PipeCraft shortcut does not appear on the Desktop, then search the app and generate shortcut manually (installed in */opt/pipecraft* directory)
+5. Run PipeCraft2. If PipeCraft shortcut does not appear on the Desktop, then search the app and generate shortcut manually (installed in */opt/pipecraft* directory)
 
 .. note::
 
@@ -144,30 +156,50 @@ ____________________________________________________
 Updating PipeCraft2
 -------------------
 
-To avaoid any potential software conflicts from PipeCraft2 **v0.1.1 to v0.1.4**, all Docker images of older PipeCraft2 version should be removed. 
-*Starting from v1.0.0 --> if docker container is updated, it will get a new tag for new PipeCraft2 version*
+Auto-updates will be available (hopefully) soon [at least for Windows]! 
+
 
  | See :ref:`PipeCraft2 releases here <releases>`.
  | See :ref:`removing docker images <removedockerimages>` section.
 
-.. note::
+.. warning::
 
- | Currently available versions :ref:`HERE <releases>`
+ | To avaoid any potential software conflicts from PipeCraft2 **v0.1.1 to v0.1.4**, all Docker images of older PipeCraft2 version should be removed. 
+ | Starting **from v1.0.0**, if docker container is updated for the new PipeCraft2 version, then it will get a new tag; so, no need to purge all previous docker containers *(but to save disk space, see which containers you have not used for a while and perhaps delete those)*
 
-Trying to enable auto-updates soon! 
 
 ____________________________________________________
 
 .. _uninstalling:
 
-Uninstalling
-------------
+Uninstalling PipeCraft2
+-----------------------
 
 | **Windows**: uninstall PipeCraft via control panel
 | **MacOS**: Move pipecraft.app to Bin
 | **Linux**: remove pipecraft via Software Manager/Software Centre or via terminal ``sudo dpkg --remove pipecraft``
 
 ____________________________________________________
+
+
+Purging 'old' Docker installations
+----------------------------------
+
+.. code-block::
+   :caption: To uninstall **docker engine** and all its packages:
+
+    sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+
+
+.. code-block::
+   :caption: To uninstall **docker desktop** and clean configurations:
+
+       rm -r $HOME/.docker/desktop
+       sudo rm /usr/local/bin/com.docker.cli
+       sudo apt purge docker-desktop
+
+____________________________________________________
+
 
 .. _removedockerimages:
 
