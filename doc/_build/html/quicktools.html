@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <meta content="PipeCraft manual. PipeCraft in a Graphical User Interface software for metabarcoding data analyses" lang="en" name="description" xml:lang="en" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,10 +12,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,14 +29,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> PipeCraft2
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PipeCraft2
           </a>
               <div class="version">
                 1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -43,7 +48,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">General overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">QuickStart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pre-defined_pipelines.html">Pre-defined pipelines</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Individual steps (Quick Tools)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#demultiplex">DEMULTIPLEX</a><ul>
@@ -64,7 +69,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#assemble-paired-end-reads">ASSEMBLE PAIRED-END reads</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#merge-vsearch">vsearch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">DADA2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#merge-dada2">DADA2</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#chimera-filtering">CHIMERA FILTERING</a><ul>
@@ -75,7 +80,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#id15">ITS Extractor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#clustering">CLUSTERING</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#clustering-vsearch">vsearch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id20">UNOISE3, with vsearch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clustering-unoise3">UNOISE3, with vsearch</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#postclustering">POSTCLUSTERING</a><ul>
@@ -117,8 +122,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Individual steps (Quick Tools)</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Individual steps (Quick Tools)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/quicktools.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -133,9 +138,9 @@
 </dd>
 </dl>
 <section id="individual-steps-quick-tools">
-<span id="quicktools"></span><h1>Individual steps (Quick Tools)<a class="headerlink" href="#individual-steps-quick-tools" title="Permalink to this headline"></a></h1>
+<span id="quicktools"></span><h1>Individual steps (Quick Tools)<a class="headerlink" href="#individual-steps-quick-tools" title="Permalink to this heading"></a></h1>
 <section id="demultiplex">
-<span id="demux"></span><h2>DEMULTIPLEX<a class="headerlink" href="#demultiplex" title="Permalink to this headline"></a></h2>
+<span id="demux"></span><h2>DEMULTIPLEX<a class="headerlink" href="#demultiplex" title="Permalink to this heading"></a></h2>
 <p>If data is <strong>multiplexed, the first step would be demultiplexing</strong> (using <a class="reference external" href="https://cutadapt.readthedocs.io/en/stable/">cutadapt</a> (<a class="reference external" href="https://doi.org/10.14806/ej.17.1.200">Martin 2011</a>)).
 This is done based on the user specified <a class="reference internal" href="#indexes"><span class="std std-ref">indexes file</span></a>, which includes molecular identifier sequences (so called indexes/tags/barcodes) per sample.
 Note that reverse complementary matches will also be searched.</p>
@@ -154,10 +159,6 @@ are also written (although latter index combinations were not used in the lab to
 Simply remove those files if not needed or use to estimate tag-switching error if relevant.</p>
 </div>
 <table class="docutils align-default" id="demux-settings">
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 75%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -206,7 +207,7 @@ Simply remove those files if not needed or use to estimate tag-switching error i
 <p>Heterogenity spacers or any redundant base pairs attached to index sequences do not affect demultiplexing. Indexes are trimmed from the best matching position.</p>
 </div>
 <section id="indexes-file-example-fasta-formatted">
-<span id="indexes"></span><h3>Indexes file example (fasta formatted)<a class="headerlink" href="#indexes-file-example-fasta-formatted" title="Permalink to this headline"></a></h3>
+<span id="indexes"></span><h3>Indexes file example (fasta formatted)<a class="headerlink" href="#indexes-file-example-fasta-formatted" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Only <strong>IUPAC codes</strong> are allowed in the sequences. Avoid using ‘.’ in the sample names (e.g. instead of sample.1, use sample_1)</p>
@@ -267,7 +268,7 @@ Simply remove those files if not needed or use to estimate tag-switching error i
 <div class="line"><br /></div>
 </div>
 <section id="how-to-compose-indexes-fasta">
-<h4>How to compose indexes.fasta<a class="headerlink" href="#how-to-compose-indexes-fasta" title="Permalink to this headline"></a></h4>
+<h4>How to compose indexes.fasta<a class="headerlink" href="#how-to-compose-indexes-fasta" title="Permalink to this heading"></a></h4>
 <p>In Excel (or any alternative program);
 first column represents sample names,
 second (and third) column represent indexes (or index combinations) per sample:</p>
@@ -322,7 +323,7 @@ replace with \n (denotes the new line).</p>
 </section>
 </section>
 <section id="reorient">
-<span id="id1"></span><h2>REORIENT<a class="headerlink" href="#reorient" title="Permalink to this headline"></a></h2>
+<span id="id1"></span><h2>REORIENT<a class="headerlink" href="#reorient" title="Permalink to this heading"></a></h2>
 <p>Sequences are often (if not always) in both, 5’-3’ and 3’-5’, orientations in the raw sequencing data sets.
 If the data still contains PCR primers that were used to generate amplicons,
 then by specifying these PCR primers, this panel will perform sequence reorientation
@@ -356,10 +357,6 @@ but also <strong>fasta</strong> for single-end data.
 <strong>Outputs</strong> are fastq/fasta files in <code class="docutils literal notranslate"><span class="pre">reoriented_out</span></code> directory.
 Primers are <strong>not truncated</strong> from the sequences; this can be done using <a class="reference internal" href="#remove-primers"><span class="std std-ref">CUT PRIMER panel</span></a></p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 36%" />
-<col style="width: 64%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -391,7 +388,7 @@ Primers are <strong>not truncated</strong> from the sequences; this can be done 
 <hr class="docutils" />
 </section>
 <section id="cut-primers">
-<span id="remove-primers"></span><h2>CUT PRIMERS<a class="headerlink" href="#cut-primers" title="Permalink to this headline"></a></h2>
+<span id="remove-primers"></span><h2>CUT PRIMERS<a class="headerlink" href="#cut-primers" title="Permalink to this heading"></a></h2>
 <p>If the input data contains PCR primers (or e.g. adapters), these can be removed in the <code class="docutils literal notranslate"><span class="pre">CUT</span> <span class="pre">PRIMERS</span></code> panel.
 CUT PRIMERS processes mostly relies on <a class="reference external" href="https://cutadapt.readthedocs.io/en/stable/">cutadapt</a> (<a class="reference external" href="https://doi.org/10.14806/ej.17.1.200">Martin 2011</a>).</p>
 <p>For generating OTUs or ASVs, it is recommended to truncate the primers from the reads
@@ -411,10 +408,6 @@ but <strong>single-end reads will be reoriented</strong> to 5’-3’ (thus no e
 <div class="line"><strong>Outputs</strong> are fastq/fasta files in <code class="docutils literal notranslate"><span class="pre">primersCut_out</span></code> directory. Primers are <strong>truncated</strong> from the sequences.</div>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 29%" />
-<col style="width: 71%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -496,19 +489,15 @@ but <strong>single-end reads will be reoriented</strong> to 5’-3’ (thus no e
 </div>
 </section>
 <section id="quality-filtering">
-<span id="qual-filt"></span><h2>QUALITY FILTERING<a class="headerlink" href="#quality-filtering" title="Permalink to this headline"></a></h2>
+<span id="qual-filt"></span><h2>QUALITY FILTERING<a class="headerlink" href="#quality-filtering" title="Permalink to this heading"></a></h2>
 <p>Quality filter and trim sequences.</p>
 <div class="line-block">
 <div class="line"><strong>Fastq</strong> formatted paired-end and single-end data are supported.</div>
 <div class="line"><strong>Outputs</strong> are fastq files in <code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code> directory.</div>
 </div>
 <section id="qfilt-vsearch">
-<span id="id5"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#qfilt-vsearch" title="Permalink to this headline"></a></h3>
+<span id="id5"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#qfilt-vsearch" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 22%" />
-<col style="width: 78%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>vsearch</strong> setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -588,12 +577,8 @@ but <strong>single-end reads will be reoriented</strong> to 5’-3’ (thus no e
 </div>
 </section>
 <section id="qfilt-trimmomatic">
-<span id="id6"></span><h3><a class="reference external" href="http://www.usadellab.org/cms/?page=trimmomatic">trimmomatic</a><a class="headerlink" href="#qfilt-trimmomatic" title="Permalink to this headline"></a></h3>
+<span id="id6"></span><h3><a class="reference external" href="http://www.usadellab.org/cms/?page=trimmomatic">trimmomatic</a><a class="headerlink" href="#qfilt-trimmomatic" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 27%" />
-<col style="width: 73%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>trimmomatic</strong> setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -651,12 +636,8 @@ but <strong>single-end reads will be reoriented</strong> to 5’-3’ (thus no e
 </div>
 </section>
 <section id="qfilt-fastp">
-<span id="id7"></span><h3><a class="reference external" href="https://github.com/OpenGene/fastp">fastp</a><a class="headerlink" href="#qfilt-fastp" title="Permalink to this headline"></a></h3>
+<span id="id7"></span><h3><a class="reference external" href="https://github.com/OpenGene/fastp">fastp</a><a class="headerlink" href="#qfilt-fastp" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 27%" />
-<col style="width: 73%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>fastp</strong> setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -743,12 +724,8 @@ but <strong>single-end reads will be reoriented</strong> to 5’-3’ (thus no e
 </div>
 </section>
 <section id="dada2-filterandtrim-function">
-<span id="qfilt-dada2"></span><h3><a class="reference external" href="https://github.com/benjjneb/dada2">DADA2</a> (‘filterAndTrim’ function)<a class="headerlink" href="#dada2-filterandtrim-function" title="Permalink to this headline"></a></h3>
+<span id="qfilt-dada2"></span><h3><a class="reference external" href="https://github.com/benjjneb/dada2">DADA2</a> (‘filterAndTrim’ function)<a class="headerlink" href="#dada2-filterandtrim-function" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 27%" />
-<col style="width: 73%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>DADA2</strong> setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -850,7 +827,7 @@ but <strong>single-end reads will be reoriented</strong> to 5’-3’ (thus no e
 </section>
 </section>
 <section id="assemble-paired-end-reads">
-<span id="merge-pairs"></span><h2>ASSEMBLE PAIRED-END reads<a class="headerlink" href="#assemble-paired-end-reads" title="Permalink to this headline"></a></h2>
+<span id="merge-pairs"></span><h2>ASSEMBLE PAIRED-END reads<a class="headerlink" href="#assemble-paired-end-reads" title="Permalink to this heading"></a></h2>
 <p>Assemble paired-end sequences (such as those from Illumina or MGI-Tech platforms).</p>
 <p><code class="docutils literal notranslate"><span class="pre">include_only_R1</span></code> represents additional in-built module. If TRUE,
 unassembled R1 reads will be included to the set of assembled reads per sample.
@@ -863,12 +840,8 @@ these taxa will be represented in the final output. But when using <a class="ref
 <p><strong>Fastq</strong> formatted paired-end data is supported.
 <strong>Outputs</strong> are fastq files in <code class="docutils literal notranslate"><span class="pre">assembled_out</span></code> directory.</p>
 <section id="merge-vsearch">
-<span id="id9"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#merge-vsearch" title="Permalink to this headline"></a></h3>
+<span id="id9"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#merge-vsearch" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 29%" />
-<col style="width: 71%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -948,8 +921,8 @@ these taxa will be represented in the final output. But when using <a class="ref
 <div class="line"><br /></div>
 </div>
 </section>
-<section id="id11">
-<h3><a class="reference external" href="https://github.com/benjjneb/dada2">DADA2</a><a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
+<section id="merge-dada2">
+<span id="id11"></span><h3><a class="reference external" href="https://github.com/benjjneb/dada2">DADA2</a><a class="headerlink" href="#merge-dada2" title="Permalink to this heading"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Here, dada2 will perform also denoising (function ‘dada’) before assembling paired-end data.
@@ -957,10 +930,6 @@ Because of that, input sequences (in <strong>fastq</strong> format) must consist
 only A/T/C/Gs.</p>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 29%" />
-<col style="width: 71%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -1048,7 +1017,7 @@ only A/T/C/Gs.</p>
 </section>
 </section>
 <section id="chimera-filtering">
-<h2>CHIMERA FILTERING<a class="headerlink" href="#chimera-filtering" title="Permalink to this headline"></a></h2>
+<h2>CHIMERA FILTERING<a class="headerlink" href="#chimera-filtering" title="Permalink to this heading"></a></h2>
 <p>Perform de-novo and reference database based chimera filtering.</p>
 <p>Chimera filtering is performed by <strong>sample-wise approach</strong> (i.e. each sample (input file) is treated separately).</p>
 <div class="line-block">
@@ -1056,15 +1025,11 @@ only A/T/C/Gs.</p>
 <div class="line"><strong>Outputs</strong> are fasta files in <code class="docutils literal notranslate"><span class="pre">chimera_Filtered_out</span></code> directory.</div>
 </div>
 <section id="uchime-denovo">
-<span id="chimfilt-vsearch"></span><h3>uchime_denovo<a class="headerlink" href="#uchime-denovo" title="Permalink to this headline"></a></h3>
+<span id="chimfilt-vsearch"></span><h3>uchime_denovo<a class="headerlink" href="#uchime-denovo" title="Permalink to this heading"></a></h3>
 <div class="line-block">
 <div class="line">Perform chimera filtering with <strong>uchime_denovo</strong> and <strong>uchime_ref</strong> algorithms in <a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a></div>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 18%" />
-<col style="width: 82%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -1124,17 +1089,13 @@ only A/T/C/Gs.</p>
 </table>
 </section>
 <section id="uchime3-denovo">
-<span id="chimfilt-vsearch-uchime3"></span><h3>uchime3_denovo<a class="headerlink" href="#uchime3-denovo" title="Permalink to this headline"></a></h3>
+<span id="chimfilt-vsearch-uchime3"></span><h3>uchime3_denovo<a class="headerlink" href="#uchime3-denovo" title="Permalink to this heading"></a></h3>
 <div class="line-block">
 <div class="line">Perform chimera filtering with <strong>uchime3_denovo</strong> algorithm in <a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a></div>
 <div class="line">Designed for denoised amplicons.</div>
 <div class="line">uchime3_denovo can be applied also in <a class="reference internal" href="#clustering-unoise3"><span class="std std-ref">UNOISE3 clustering</span></a></div>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 18%" />
-<col style="width: 82%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -1199,7 +1160,7 @@ only A/T/C/Gs.</p>
 </section>
 </section>
 <section id="id15">
-<h2><a class="reference external" href="https://microbiology.se/software/itsx/">ITS Extractor</a><a class="headerlink" href="#id15" title="Permalink to this headline"></a></h2>
+<h2><a class="reference external" href="https://microbiology.se/software/itsx/">ITS Extractor</a><a class="headerlink" href="#id15" title="Permalink to this heading"></a></h2>
 <p>When working with ITS amplicons, then
 extract ITS regions with <a class="reference external" href="https://microbiology.se/software/itsx/">ITS Extractor</a> (<a class="reference external" href="https://doi.org/10.1111/2041-210X.12073">Bengtsson-Palme et al. 2013</a>)</p>
 <div class="admonition note">
@@ -1215,10 +1176,6 @@ extract ITS regions with <a class="reference external" href="https://microbiolog
 <p>To <strong>START</strong>, specify working directory under <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> and the <code class="docutils literal notranslate"><span class="pre">sequence</span> <span class="pre">files</span> <span class="pre">extension</span></code>, but the read types (single-end or paired-end) does not matter here (just click ‘Next’).</p>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 26%" />
-<col style="width: 74%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -1298,7 +1255,7 @@ extract ITS regions with <a class="reference external" href="https://microbiolog
 </div>
 </section>
 <section id="clustering">
-<span id="id17"></span><h2>CLUSTERING<a class="headerlink" href="#clustering" title="Permalink to this headline"></a></h2>
+<span id="id17"></span><h2>CLUSTERING<a class="headerlink" href="#clustering" title="Permalink to this heading"></a></h2>
 <p>Cluster sequences, generate OTUs or zOTUs (with UNOISE3)</p>
 <div class="line-block">
 <div class="line">Supported file format for the input data is <strong>fasta</strong>.</div>
@@ -1309,12 +1266,8 @@ extract ITS regions with <a class="reference external" href="https://microbiolog
 <p>output OTU table is tab delimited text file.</p>
 </div>
 <section id="clustering-vsearch">
-<span id="id19"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#clustering-vsearch" title="Permalink to this headline"></a></h3>
+<span id="id19"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a><a class="headerlink" href="#clustering-vsearch" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 35%" />
-<col style="width: 65%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><a class="reference external" href="_static/vsearch_manual_2.22.1.pdf">Setting</a></p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -1394,13 +1347,9 @@ extract ITS regions with <a class="reference external" href="https://microbiolog
 </tbody>
 </table>
 </section>
-<section id="id20">
-<h3><a class="reference external" href="https://github.com/torognes/vsearch">UNOISE3, with vsearch</a><a class="headerlink" href="#id20" title="Permalink to this headline"></a></h3>
+<section id="clustering-unoise3">
+<span id="id20"></span><h3><a class="reference external" href="https://github.com/torognes/vsearch">UNOISE3, with vsearch</a><a class="headerlink" href="#clustering-unoise3" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 35%" />
-<col style="width: 65%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><a class="reference external" href="_static/vsearch_manual_2.22.1.pdf">Setting</a></p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -1502,10 +1451,10 @@ extract ITS regions with <a class="reference external" href="https://microbiolog
 </section>
 </section>
 <section id="postclustering">
-<span id="id23"></span><h2>POSTCLUSTERING<a class="headerlink" href="#postclustering" title="Permalink to this headline"></a></h2>
+<span id="id23"></span><h2>POSTCLUSTERING<a class="headerlink" href="#postclustering" title="Permalink to this heading"></a></h2>
 <p>Perform OTU post-clustering. Merge co-occurring ‘daughter’ OTUs.</p>
 <section id="postclustering-lulu">
-<span id="id24"></span><h3><a class="reference external" href="https://github.com/tobiasgf/lulu">LULU</a><a class="headerlink" href="#postclustering-lulu" title="Permalink to this headline"></a></h3>
+<span id="id24"></span><h3><a class="reference external" href="https://github.com/tobiasgf/lulu">LULU</a><a class="headerlink" href="#postclustering-lulu" title="Permalink to this heading"></a></h3>
 <p>LULU description from the <a class="reference external" href="https://github.com/tobiasgf/lulu">LULU repository</a>: the purpose of LULU is to reduce the number of
 erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics.
 By evaluating the co-occurence patterns of OTUs among samples LULU identifies OTUs that consistently satisfy some user selected
@@ -1535,10 +1484,6 @@ in more realistic diversity metrics.</p>
 <div class="line"># discarded_units.lulu   = molecular units (OTUs or ASVs) that were merged with other units based on specified thresholds)</div>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 32%" />
-<col style="width: 68%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><a class="reference external" href="https://github.com/tobiasgf/lulu">Setting</a></p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -1634,7 +1579,7 @@ in more realistic diversity metrics.</p>
 </section>
 <hr class="docutils" id="postclustering-dada2-table-filtering" />
 <section id="dada2-collapse-asvs">
-<h3>DADA2 collapse ASVs<a class="headerlink" href="#dada2-collapse-asvs" title="Permalink to this headline"></a></h3>
+<h3>DADA2 collapse ASVs<a class="headerlink" href="#dada2-collapse-asvs" title="Permalink to this heading"></a></h3>
 <p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">collapseNoMismatch</a> function to collapse identical ASVs;
 and ASVs filtering based on minimum accepted sequence length (custom R functions).</p>
 <p>To <strong>START</strong>, specify working directory under <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code>, but the file formats do not matter here (just click ‘Next’).</p>
@@ -1648,10 +1593,6 @@ and ASVs filtering based on minimum accepted sequence length (custom R functions
 <div class="line"># ASVs_lenFilt.fasta       = ASV sequences after filtering out ASVs with shorther than specified sequence length</div>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 27%" />
-<col style="width: 73%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -1702,10 +1643,10 @@ and ASVs filtering based on minimum accepted sequence length (custom R functions
 </section>
 </section>
 <section id="id28">
-<h2>ASSIGN TAXONOMY<a class="headerlink" href="#id28" title="Permalink to this headline"></a></h2>
+<h2>ASSIGN TAXONOMY<a class="headerlink" href="#id28" title="Permalink to this heading"></a></h2>
 <p>Implemented tools for taxonomy annotation:</p>
 <section id="blast-camacho-et-al-2009">
-<span id="assign-taxonomy-blast"></span><h3><a class="reference external" href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> (<a class="reference external" href="https://doi.org/10.1186/1471-2105-10-421">Camacho et al. 2009</a>)<a class="headerlink" href="#blast-camacho-et-al-2009" title="Permalink to this headline"></a></h3>
+<span id="assign-taxonomy-blast"></span><h3><a class="reference external" href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST</a> (<a class="reference external" href="https://doi.org/10.1186/1471-2105-10-421">Camacho et al. 2009</a>)<a class="headerlink" href="#blast-camacho-et-al-2009" title="Permalink to this heading"></a></h3>
 <div class="line-block">
 <div class="line">BLAST search sequences againt selected <a class="reference internal" href="#databases"><span class="std std-ref">database</span></a>.</div>
 </div>
@@ -1732,10 +1673,6 @@ If converted BLAST database files (.ndb, .nhr, .nin, .not, .nsq, .ntf, .nto) alr
 as filed separator to align the columns.</p>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 29%" />
-<col style="width: 71%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -1808,7 +1745,7 @@ as filed separator to align the columns.</p>
 </div>
 </section>
 <section id="assign-taxonomy-dada2">
-<span id="id29"></span><h3><a class="reference external" href="https://github.com/benjjneb/dada2">DADA2 classifier</a><a class="headerlink" href="#assign-taxonomy-dada2" title="Permalink to this headline"></a></h3>
+<span id="id29"></span><h3><a class="reference external" href="https://github.com/benjjneb/dada2">DADA2 classifier</a><a class="headerlink" href="#assign-taxonomy-dada2" title="Permalink to this heading"></a></h3>
 <div class="line-block">
 <div class="line">Classify sequences with DADA2 RDP naive Bayesian classifier (function assignTaxonomy) againt selected <a class="reference internal" href="#databases"><span class="std std-ref">database</span></a>.</div>
 </div>
@@ -1823,10 +1760,6 @@ as filed separator to align the columns.</p>
 <p>To <strong>START</strong>, specify working directory under <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> and the <code class="docutils literal notranslate"><span class="pre">sequence</span> <span class="pre">files</span> <span class="pre">extension</span></code> (to look for input OTUs/ASVs fasta file), but the read types (single-end or paired-end) and data format (demultiplexed or multiplexed) does not matter here (just click ‘Next’).</p>
 </div>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 29%" />
-<col style="width: 71%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Setting</p></th>
 <th class="head"><p>Tooltip</p></th>
@@ -1860,14 +1793,9 @@ as filed separator to align the columns.</p>
 </div>
 </section>
 <section id="sequence-databases">
-<span id="databases"></span><h3>Sequence databases<a class="headerlink" href="#sequence-databases" title="Permalink to this headline"></a></h3>
+<span id="databases"></span><h3>Sequence databases<a class="headerlink" href="#sequence-databases" title="Permalink to this heading"></a></h3>
 <p>A <em>(noncomprehensive)</em> list of public databases available for taxonomy annotation</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 28%" />
-<col style="width: 3%" />
-<col style="width: 69%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Database</p></th>
 <th class="head"><p>Version</p></th>
@@ -1951,11 +1879,11 @@ as filed separator to align the columns.</p>
 </section>
 </section>
 <section id="postprocessing">
-<span id="id32"></span><h2>POSTPROCESSING<a class="headerlink" href="#postprocessing" title="Permalink to this headline"></a></h2>
+<span id="id32"></span><h2>POSTPROCESSING<a class="headerlink" href="#postprocessing" title="Permalink to this heading"></a></h2>
 <p>Post-processing tools. <a class="reference internal" href="postprocessing.html#postprocessingtools"><span class="std std-ref">See this page</span></a></p>
 </section>
 <section id="expert-mode-pipecraft2-console">
-<span id="expert-mode"></span><h2>Expert-mode (PipeCraft2 console)<a class="headerlink" href="#expert-mode-pipecraft2-console" title="Permalink to this headline"></a></h2>
+<span id="expert-mode"></span><h2>Expert-mode (PipeCraft2 console)<a class="headerlink" href="#expert-mode-pipecraft2-console" title="Permalink to this heading"></a></h2>
 <p>Bioinformatic tools used by PipeCraft2 are stored on <a class="reference external" href="https://hub.docker.com/u/pipecraft">Dockerhub</a> as Docker images.
 These images can be used to launch any tool with the Docker CLI to utilize the compiled tools.
 Especially useful in Windows OS, where majority of implemented modules are not compatible.</p>
