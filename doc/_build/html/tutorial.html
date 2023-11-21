@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <meta content="PipeCraft manual. tutorial" lang="en" name="description" xml:lang="en" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,10 +12,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,14 +29,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> PipeCraft2
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PipeCraft2
           </a>
               <div class="version">
                 1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -43,7 +48,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="overview.html">General overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">QuickStart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pre-defined_pipelines.html">Pre-defined pipelines</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quicktools.html">Individual steps (Quick Tools)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="postprocessing.html">Post-processing tools</a></li>
@@ -86,8 +91,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Example data analyses</li>
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Example data analyses</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/tutorial.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -102,14 +107,14 @@
 </dd>
 </dl>
 <section id="example-data-analyses">
-<h1><a class="toc-backref" href="#id4">Example data analyses</a><a class="headerlink" href="#example-data-analyses" title="Permalink to this headline"></a></h1>
+<h1><a class="toc-backref" href="#id4" role="doc-backlink">Example data analyses</a><a class="headerlink" href="#example-data-analyses" title="Link to this heading"></a></h1>
 <p>Some example analyses pipelines.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When samples of interest are distributed between different sequencing libraries, then first demultiplex (if needed)
 libraries separately and place samples of interest into separate working directory.</p>
 </div>
-<div class="contents topic" id="contents">
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#example-data-analyses" id="id4">Example data analyses</a></p>
@@ -134,21 +139,21 @@ libraries separately and place samples of interest into separate working directo
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <hr class="docutils" />
 <section id="inspect-quality-profiles">
-<h2><a class="toc-backref" href="#id5">Inspect quality profiles</a><a class="headerlink" href="#inspect-quality-profiles" title="Permalink to this headline"></a></h2>
-<p>Examine the quality profiles and basic statistics of the your data set using <strong>QualityCheck module</strong>. <a class="reference internal" href="overview.html#qualitycheck"><span class="std std-ref">See here</span></a>.</p>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Inspect quality profiles</a><a class="headerlink" href="#inspect-quality-profiles" title="Link to this heading"></a></h2>
+<p>Examine the quality profiles and basic statistics of the your data set using <strong>QualityCheck module</strong>. <a class="reference internal" href="quickstart.html#qualitycheck"><span class="std std-ref">See here</span></a>.</p>
 <hr class="docutils" />
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 </section>
 <section id="paired-end-illumina-or-mgi-tech-data">
-<h2><a class="toc-backref" href="#id6">Paired-end Illumina (or MGI-Tech) data</a><a class="headerlink" href="#paired-end-illumina-or-mgi-tech-data" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Paired-end Illumina (or MGI-Tech) data</a><a class="headerlink" href="#paired-end-illumina-or-mgi-tech-data" title="Link to this heading"></a></h2>
 <p>Example analyses of paired-end data. Starting with raw paired-end fastq files, finishing with ASV/OTU table and taxonomy table.</p>
 <section id="demultiplexed-paired-end-data-asv-workflow-with-dada2">
-<span id="demultiplexed-pe-asv"></span><h3><a class="toc-backref" href="#id7">Demultiplexed paired-end data; ASV workflow with DADA2</a><a class="headerlink" href="#demultiplexed-paired-end-data-asv-workflow-with-dada2" title="Permalink to this headline"></a></h3>
+<span id="demultiplexed-pe-asv"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink">Demultiplexed paired-end data; ASV workflow with DADA2</a><a class="headerlink" href="#demultiplexed-paired-end-data-asv-workflow-with-dada2" title="Link to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This tutorial follows <a class="reference external" href="https://benjjneb.github.io/dada2/tutorial.html">DADA2 Pipeline Tutorial</a>.</p>
@@ -200,7 +205,7 @@ then exactly the same ASV may be reported twice, where one is just the reverse c
 <div class="highlight-default notranslate" id="rest-of-pe-asv-workflow"><div class="highlight"><pre><span></span><span class="mf">3.</span> <span class="s1">&#39;QUALITY FILTERING&#39;</span>
 </pre></div>
 </div>
-<p>Before adjusting quality filtering settings, let’s have a look on the <strong>quality profile</strong> of our example data set. Below quality profile plot was generated using <code class="docutils literal notranslate"><span class="pre">QualityCheck</span></code> panel (<a class="reference internal" href="overview.html#qualitycheck"><span class="std std-ref">see here</span></a>).</p>
+<p>Before adjusting quality filtering settings, let’s have a look on the <strong>quality profile</strong> of our example data set. Below quality profile plot was generated using <code class="docutils literal notranslate"><span class="pre">QualityCheck</span></code> panel (<a class="reference internal" href="quickstart.html#qualitycheck"><span class="std std-ref">see here</span></a>).</p>
 <p><a class="reference internal" href="_images/fastqc_per_base_sequence_quality_plot.png"><img alt="Alternative text" src="_images/fastqc_per_base_sequence_quality_plot.png" style="width: 850px;" /></a></p>
 <p>In this case, all <strong>R1 files are represented with green lines</strong>, indicating good average quality per file. However, all <strong>R2 files are either yellow or red</strong>, indicating a drop in quality scores.
 Lower qualities of R2 reads are characteristic for Illumina sequencing data, and is not too alarming. DADA2 algoritm is robust to lower quality sequences, but removing the low quality read parts
@@ -305,7 +310,7 @@ to include reverse-complement search.</p></li>
 </div>
 <p>-&gt;</p>
 <section id="examine-the-outputs">
-<h4><a class="toc-backref" href="#id8">Examine the outputs</a><a class="headerlink" href="#examine-the-outputs" title="Permalink to this headline"></a></h4>
+<h4><a class="toc-backref" href="#id8" role="doc-backlink">Examine the outputs</a><a class="headerlink" href="#examine-the-outputs" title="Link to this heading"></a></h4>
 <p>Several process-specific output folders are generated:</p>
 <div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code> -&gt; quality filtered paired-end <strong>fastq</strong> files per sample</div>
@@ -322,14 +327,6 @@ Examine those to track the read counts throughout the pipeline.</p>
 pipeline and number of ASVs per sample.</p>
 </div></blockquote>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 13%" />
-<col style="width: 9%" />
-<col style="width: 21%" />
-<col style="width: 11%" />
-<col style="width: 29%" />
-<col style="width: 18%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>sample</p></th>
 <th class="head"><p>input</p></th>
@@ -490,14 +487,6 @@ pipeline and number of ASVs per sample.</p>
 and all following columns represent samples (number of sequences per ASV in a sample). This is tab delimited text file.</p>
 <p><em>ASVs_table.txt; first 4 samples</em></p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 33%" />
-<col style="width: 12%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>ASV</p></th>
 <th class="head"><p>Sequence</p></th>
@@ -579,24 +568,6 @@ and all following columns represent samples (number of sequences per ASV in a sa
 Last columns with integers (for ‘Kingdom’ to ‘Species’) represent bootstrap values for the correspoinding taxonomic unit.</p>
 <p><em>taxonomy.txt; first 10 ASVs</em></p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 4%" />
-<col style="width: 6%" />
-<col style="width: 5%" />
-<col style="width: 8%" />
-<col style="width: 7%" />
-<col style="width: 9%" />
-<col style="width: 9%" />
-<col style="width: 19%" />
-<col style="width: 6%" />
-<col style="width: 4%" />
-<col style="width: 4%" />
-<col style="width: 3%" />
-<col style="width: 3%" />
-<col style="width: 4%" />
-<col style="width: 3%" />
-<col style="width: 4%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>ASV</p></th>
 <th class="head"><p>Sequence</p></th>
@@ -796,7 +767,7 @@ Last columns with integers (for ‘Kingdom’ to ‘Species’) represent bootst
 </section>
 </section>
 <section id="demultiplexed-paired-end-data-otu-workflow">
-<span id="demultiplexed-pe-otu"></span><h3><a class="toc-backref" href="#id9">Demultiplexed paired-end data; OTU workflow</a><a class="headerlink" href="#demultiplexed-paired-end-data-otu-workflow" title="Permalink to this headline"></a></h3>
+<span id="demultiplexed-pe-otu"></span><h3><a class="toc-backref" href="#id9" role="doc-backlink">Demultiplexed paired-end data; OTU workflow</a><a class="headerlink" href="#demultiplexed-paired-end-data-otu-workflow" title="Link to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Built-in panel for OTU workflow with (mostly) vsearch.</p>
@@ -844,7 +815,7 @@ will be compared to generate OTUs, the time for BLAST (taxonomy annotation step)
 <div class="line"><br /></div>
 <div class="line"><br /></div>
 </div>
-<p>Before proceeding, let’s have a look on the <strong>quality profile</strong> of our example data set. Below quality profile plot was generated using <code class="docutils literal notranslate"><span class="pre">QualityCheck</span></code> panel (<a class="reference internal" href="overview.html#qualitycheck"><span class="std std-ref">see here</span></a>).</p>
+<p>Before proceeding, let’s have a look on the <strong>quality profile</strong> of our example data set. Below quality profile plot was generated using <code class="docutils literal notranslate"><span class="pre">QualityCheck</span></code> panel (<a class="reference internal" href="quickstart.html#qualitycheck"><span class="std std-ref">see here</span></a>).</p>
 <p><a class="reference internal" href="_images/fastqc_per_base_sequence_quality_plot.png"><img alt="Alternative text" src="_images/fastqc_per_base_sequence_quality_plot.png" style="width: 850px;" /></a></p>
 <p>In this case, all <strong>R1 files are represented with green lines</strong>, indicating good average quality per file. However, all <strong>R2 files are either yellow or red</strong>, indicating a drop in quality scores.
 Lower qualities of R2 reads are characteristic for Illumina sequencing data, and is not too alarming. Nevertheless, we need to quality filter the data set.</p>
@@ -994,7 +965,7 @@ Select appropriate ITSx output folder for CLUSTERING after the process is finish
 </div>
 <p>-&gt;</p>
 <section id="id3">
-<h4><a class="toc-backref" href="#id10">Examine the outputs</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h4>
+<h4><a class="toc-backref" href="#id10" role="doc-backlink">Examine the outputs</a><a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
 <p>Several process-specific output folders are generated:</p>
 <div class="line-block">
 <div class="line"><code class="docutils literal notranslate"><span class="pre">assembled_out</span></code> –&gt; assembled <strong>fastq</strong> files per sample</div>
@@ -1011,13 +982,6 @@ and all following columns represent samples (number of sequences per OTU in a sa
 The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta) in <code class="docutils literal notranslate"><span class="pre">clustering_out</span></code> directory.</p>
 <p><em>OTUs_table.txt; first 4 samples</em></p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 42%" />
-<col style="width: 15%" />
-<col style="width: 15%" />
-<col style="width: 15%" />
-<col style="width: 15%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>OTU_id</p></th>
 <th class="head"><p>F3D0_S188_L001</p></th>
@@ -1087,10 +1051,6 @@ The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta
 <strong>Blast values are separated by</strong> <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">tab</span></code> [be sure to specify the delimiter when aligning columns in e.g. LibreOffice or Excel].
 “NO_BLAST_HIT” denotes that the OTU sequence did not get any match againt the selected database.</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 84%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>blast values</p></th>
 <th class="head"></th>
@@ -1150,7 +1110,7 @@ The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta
 </section>
 </section>
 <section id="multiplexed-library">
-<span id="multiplexed-pe"></span><h3><a class="toc-backref" href="#id11">Multiplexed library</a><a class="headerlink" href="#multiplexed-library" title="Permalink to this headline"></a></h3>
+<span id="multiplexed-pe"></span><h3><a class="toc-backref" href="#id11" role="doc-backlink">Multiplexed library</a><a class="headerlink" href="#multiplexed-library" title="Link to this heading"></a></h3>
 <p>Working with paired-end raw multiplexed data.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Select</span> <span class="n">working</span> <span class="n">directory</span> <span class="n">by</span> <span class="n">pressing</span> <span class="n">the</span> <span class="s1">&#39;SELECT WORKDIR&#39;</span> <span class="n">button</span><span class="o">.</span>
 </pre></div>
@@ -1239,7 +1199,7 @@ The <strong>OTU sequences</strong> are representad in the fasta file (OTUs.fasta
 </section>
 <hr class="docutils" />
 <section id="single-end-pacbio-or-assembled-paired-end-data">
-<h2><a class="toc-backref" href="#id12">Single-end (PacBio or assembled paired-end) data</a><a class="headerlink" href="#single-end-pacbio-or-assembled-paired-end-data" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Single-end (PacBio or assembled paired-end) data</a><a class="headerlink" href="#single-end-pacbio-or-assembled-paired-end-data" title="Link to this heading"></a></h2>
 <p>coming soon …</p>
 </section>
 </section>
