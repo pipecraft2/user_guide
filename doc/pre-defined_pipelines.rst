@@ -174,7 +174,7 @@ QUALITY FILTERING [ASVs workflow]
 DADA2 `filterAndTrim <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function performs quality filtering on input FASTQ files based on user-selected criteria. Outputs include filtered FASTQ files located in the ``qualFiltered_out`` directory.
 
 Quality profiles may be examined using the :ref:`QualityCheck module <interface>`.
-doc/_build/html/pre-defined_pipelines.html
+
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
@@ -364,7 +364,6 @@ NextITS
 
 **Default options:**
 
-#see tabeli formaat on parem (hiljuti avastasin), et peaks ise oma laiust korrigeerima kui ENTER vajutada
 
 +---------------------------------------------------------------------------------------------------------------+------------------------------------+
 | Analyses step                                                                                                 | Default setting                    |
