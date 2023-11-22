@@ -1,6 +1,10 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 100
   :alt: Alternative text
+  
+.. |NextITS_file_structure| image:: _static/nextits_file_structure.png
+  :width: 1000
+  :alt: Alternative text
 
 .. meta::
     :description lang=en:
@@ -170,7 +174,7 @@ QUALITY FILTERING [ASVs workflow]
 DADA2 `filterAndTrim <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function performs quality filtering on input FASTQ files based on user-selected criteria. Outputs include filtered FASTQ files located in the ``qualFiltered_out`` directory.
 
 Quality profiles may be examined using the :ref:`QualityCheck module <interface>`.
-
+doc/_build/html/pre-defined_pipelines.html
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
@@ -348,5 +352,146 @@ Updating this section soon.
 NextITS
 =======
 
-NextITS pipeline for PacBio ITS sequences. 
-Updating this section soon.
+`NextITS <https://next-its.github.io>`_ is an automated pipeline for metabarcoding fungi and other eukaryotes with full-length ITS sequenced with PacBio.
+
+.. note::
+
+  The first step of this pipeline is executed separately for each sequencing run, to execute this pipeline your files need to be structured as shown in the graph below.
+
+|NextITS_file_structure|
+
+
+
+**Default options:**
+
+#see tabeli formaat on parem (hiljuti avastasin), et peaks ise oma laiust korrigeerima kui ENTER vajutada
+
++---------------------------------------------------------------------------------------------------------------+------------------------------------+
+| Analyses step                                                                                                 | Default setting                    |
++===============================================================================================================+====================================+
+|| STEP 1: `QUALITY CONTROL, ARTEFACT REMOVAL <https://next-its.github.io/assets/NextITS_Workflow_Step1.webp>`_ || ``primer_mismatch`` = 2           |
+||                                                                                                              || ``its_region`` = full             |
+||                                                                                                              || ``qc_maxhomopolymerlen`` = 25     |
+||                                                                                                              || ``qc_maxn`` = 4                   |
+||                                                                                                              || ``ITSx_evalue`` = 1e-2            |
+||                                                                                                              || ``ITSx_partial`` = 0              |
+||                                                                                                              || ``ITSx_tax`` = all                |
+||                                                                                                              || ``chimera_rescue_occurrence`` = 2 |
+||                                                                                                              || ``tj f`` = 0.01                   |
+||                                                                                                              || ``tj p`` = 1                      |
+||                                                                                                              || ``hp`` = TRUE                     |
++---------------------------------------------------------------------------------------------------------------+------------------------------------+
+|| STEP 2: `DATA AGGREGATION, CLUSTERING <https://next-its.github.io/assets/NextITS_Workflow_Step2.webp>`_      || ``otu_id`` = 0.98                 |
+||                                                                                                              || ``swarm_d`` = 1                   |
+||                                                                                                              || ``lulu`` = TRUE                   |
+||                                                                                                              || ``unoise`` = FALSE                |
+||                                                                                                              || ``otu_id_def`` = 2                |
+||                                                                                                              || ``otu_qmask`` = dust              |
+||                                                                                                              || ``swarm_fastidious`` = TRUE       |
+||                                                                                                              || ``unoise_alpha`` = 2              |
+||                                                                                                              || ``unoise_minsize`` = 8            |
+||                                                                                                              || ``max_MEEP`` = 0.5                |
+||                                                                                                              || ``max_chimera_score`` = 0.5       |
+||                                                                                                              || ``lulu_match`` = 95               |
+||                                                                                                              || ``lulu_ratio`` = 1                |
+||                                                                                                              || ``lulu_ratiotype`` = min          |
+||                                                                                                              || ``lulu_relcooc`` = 0.95           |
+||                                                                                                              || ``lulu_maxhits`` = 0              |
++---------------------------------------------------------------------------------------------------------------+------------------------------------+
+
+
+**REMOVAL OF MULTIPRIMER-ARTIFACTS AND REORIENTING OF READS**
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``primer_forward``               | Specify forward primer, IUPAC codes allowed
+``primer_reverse``               | Specify reverse primer, IUPAC codes allowed
+``primer_mismatch``              | Specify allowed number of mismatches for primers
+================================ =========================
+
+**QUALITY FILTERING**
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``qc_maxee``                     | Maximum number of expected errors
+``qc_maxeerate``                 | Maximum number of expected error per base
+``qc_maxn``                      | Discard sequences with more than the specified number of ambiguous nucleotides (N's)
+``qc_maxhomopolymerlen``         | Threshold for a homopolymer region lenght in a sequence
+``hp``                           | Enable or disable homopolymer correction
+================================ =========================
+
+**ITS EXTRACTION**
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``its_region``                   | ITS part selector
+``ITSx_tax``                     | Taxonomy profile for ITSx
+``ITSx_evalue``                  | E-value cutoff threshold for ITSx
+``ITSx_partial``                 | Keep partial ITS sequences (specify a minimum length cutoff)
+================================ =========================
+
+**CHIMERA IDENTIFICATION**
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``chimera_database``             | Database for reference based chimera removal (UDB)
+``chimera_rescue_occurence``     | Minimum occurence of chimeric sequences required to rescue them
+================================ =========================
+
+**TAG-JUMP REMOVAL PARAMETERS**
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``tj_f``                         | `UNCROSS <https://www.drive5.com/usearch/manual/uncross_algo.html>`_ parameter f for tag-jump filtering
+``tj_p``                         | `UNCROSS <https://www.drive5.com/usearch/manual/uncross_algo.html>`_ parameter p for tag-jump filtering
+================================ =========================
+
+**DENOISING PARAMETERS**
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``unoise``                       | Enable or disable denoising with `UNOISE <https://www.drive5.com/usearch/manual/unoise_algo.html>`_ algorithm
+``unoise_alpha``                 | Alpha parameter for `UNOISE <https://www.drive5.com/usearch/manual/unoise_algo.html>`_
+``unoise_minsize``               | Minimum sequence abundance
+================================ =========================
+
+**CLUSTERING**
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``clustering_method``            | Sequence clustering method (choose from: vsearch, swarm, unoise)
+``otu_id``                       | Sequence similarity threshold
+``otu_iddef``                    | Sequence similarity definition (applied to UNOISE as well)
+``otu_qmask``                    | Method to mask low-complexity sequences (applied to UNOISE as well)
+``swarm_d``                      | `SWARM <https://github.com/torognes/swarm>`_ clustering resolution (d)
+``swarm_fastidious``             | Link nearby low-abundance swarms (fastidious option)
+================================ =========================
+
+**OTU TABLE PREPARATION**
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``max_MEEP``                     | Maximum allowed number of expected errors per 100 bp
+``max_ChimeraScore``             | Maximum allowed de novo chimera score
+================================ =========================
+
+**POST-CLUSTERING CURATION WITH LULU**
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``lulu``                         | Enable or disable post-clustering curation with `lulu <https://github.com/tobiasgf/lulu>`_
+``lulu_match``                   | Minimum similarity threshold
+``lulu_ratio``                   | Minimum abundance ratio
+``lulu_ratiotype``               | Abundance ratio type - "min" or "avg
+``lulu_relcooc``                 | Relative co-occurrence
+``lulu_maxhits``                 | Maximum number of hits (0 = unlimited)
+================================ =========================
