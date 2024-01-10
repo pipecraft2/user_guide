@@ -152,7 +152,7 @@ Note that reverse complementary matches will also be searched.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If found, sequences with any index combination will be outputted <strong>when using paired indexes</strong>.
+<p><strong>When using paired indexes</strong>, then sequences with any index combination will be outputted to ‘unnamed_index_combinations’ dir.
 That means, if, for example, your sample_1 is indexed with <em>indexFwd_1-indexRev_1</em> and
 sample_2 with <em>indexFwd_2-indexRev_2</em>, then files with <em>indexFwd_1-indexRev_2</em> and <em>indexFwd_2-indexRev_1</em>
 are also written (although latter index combinations were not used in the lab to index any sample [i.e. represent tag-switches]).
@@ -187,13 +187,22 @@ Simply remove those files if not needed or use to estimate tag-switching error i
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min</span> <span class="pre">seq</span> <span class="pre">length</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">search</span> <span class="pre">window</span></code></p></td>
+<td><div class="line-block">
+<div class="line">the index search window size. The default 35 means that</div>
+<div class="line">the forward index is searched among the first 35 bp and the reverse</div>
+<div class="line">index among the last 35 bp. This search restriction prevents random</div>
+<div class="line">index matches in the middle of the sequence</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min</span> <span class="pre">seq</span> <span class="pre">length</span></code></p></td>
 <td><div class="line-block">
 <div class="line">minimum length of the output sequence</div>
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">indels</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">indels</span></code></p></td>
 <td><div class="line-block">
 <div class="line">do not allow insertions or deletions is primer search.</div>
 <div class="line">Mismatches are the only type of errors accounted in the error rate parameter</div>
@@ -232,7 +241,7 @@ Simply remove those files if not needed or use to estimate tag-switching error i
 </div>
 </div></blockquote>
 <ol class="arabic simple" start="2">
-<li><p><strong>Demultiplexing using dual (paired) indexes:</strong></p></li>
+<li><p><strong>Demultiplexing using paired (dual) indexes:</strong></p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -272,7 +281,7 @@ Simply remove those files if not needed or use to estimate tag-switching error i
 <p>In Excel (or any alternative program);
 first column represents sample names,
 second (and third) column represent indexes (or index combinations) per sample:</p>
-<p>Exaples:</p>
+<p>Example of <strong>single-end indexes</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sample1</span>    <span class="n">AGCTGCACCTAA</span>
 <span class="n">sample2</span>    <span class="n">AGCTGTCAAGCT</span>
 <span class="n">sample3</span>    <span class="n">AGCTTCGACAGT</span>
@@ -281,7 +290,7 @@ second (and third) column represent indexes (or index combinations) per sample:<
 <span class="n">sample6</span>    <span class="n">AGGTACGCAATT</span>
 </pre></div>
 </div>
-<p>or</p>
+<p>Example of <strong>paired indexes</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sample1</span>    <span class="n">AGCTGCACCTAA</span>    <span class="n">AGCTGCACCTAA</span>
 <span class="n">sample2</span>    <span class="n">AGCTGTCAAGCT</span>    <span class="n">AGCTGTCAAGCT</span>
 <span class="n">sample3</span>    <span class="n">AGCTTCGACAGT</span>    <span class="n">AGCTTCGACAGT</span>
@@ -290,8 +299,7 @@ second (and third) column represent indexes (or index combinations) per sample:<
 <span class="n">sample6</span>    <span class="n">AGGTACGCAATT</span>    <span class="n">AGGTACGCAATT</span>
 </pre></div>
 </div>
-<p>Copy those two (or three) columns to text editor that support regular expressions, such as NotePad++ or Sublime Text.
-If using <strong>PAIRED</strong> indexes (three columns), proceed to bullet no. 5</p>
+<p>Copy those two (or three) columns to text editor that support regular expressions, such as <strong>NotePad++ or Sublime Text</strong>.</p>
 <ul>
 <li><p>single-end indexes:</p>
 <ol class="arabic">
@@ -304,7 +312,7 @@ Replace with \n   (which denotes the new line).</p>
 </li>
 </ol>
 </li>
-<li><p>Only for paired-indexes:</p>
+<li><p>Paired indexes:</p>
 <ol class="arabic">
 <li><p>Open ‘find &amp; replace’:
 Find ^   (denotes the beginning of each line);

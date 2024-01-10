@@ -39,7 +39,7 @@ Note that reverse complementary matches will also be searched.
 
 .. note:: 
 
-  If found, sequences with any index combination will be outputted **when using paired indexes**. 
+  **When using paired indexes**, then sequences with any index combination will be outputted to 'unnamed_index_combinations' dir.
   That means, if, for example, your sample_1 is indexed with *indexFwd_1-indexRev_1* and 
   sample_2 with *indexFwd_2-indexRev_2*, then files with *indexFwd_1-indexRev_2* and *indexFwd_2-indexRev_1*
   are also written (although latter index combinations were not used in the lab to index any sample [i.e. represent tag-switches]). 
@@ -57,6 +57,10 @@ Setting                          Tooltip
 ``overlap``                      | number of overlap bases with the index
                                  | Recommended overlap is the maximum length of the index for 
                                  | confident sequence assignments to samples
+``search window``                | the index search window size. The default 35 means that 
+                                 | the forward index is searched among the first 35 bp and the reverse 
+                                 | index among the last 35 bp. This search restriction prevents random 
+                                 | index matches in the middle of the sequence
 ``min seq length``               | minimum length of the output sequence
 ``no indels``                    | do not allow insertions or deletions is primer search. 
                                  | Mismatches are the only type of errors accounted in the error rate parameter
@@ -91,7 +95,7 @@ Indexes file example (fasta formatted)
  | >sample6
  | AGGTACGCAATT
 
-2. **Demultiplexing using dual (paired) indexes:**
+2. **Demultiplexing using paired (dual) indexes:**
 
 .. note::
  **IMPORTANT!** reverse indexes will be automatically oriented to 5'-3' (for the search); so you can simply copy-paste the indexes from your lab protocol.
@@ -130,7 +134,7 @@ In Excel (or any alternative program);
 first column represents sample names,
 second (and third) column represent indexes (or index combinations) per sample:
 
-Exaples::
+Example of **single-end indexes** ::
 
      sample1	AGCTGCACCTAA
      sample2	AGCTGTCAAGCT
@@ -139,7 +143,7 @@ Exaples::
      sample5	AGGCTTACGTGT
      sample6	AGGTACGCAATT
 
-or ::
+Example of **paired indexes** ::
 
      sample1	AGCTGCACCTAA	AGCTGCACCTAA
      sample2	AGCTGTCAAGCT	AGCTGTCAAGCT
@@ -148,8 +152,7 @@ or ::
      sample5	AGGCTTACGTGT	AGGCTTACGTGT
      sample6	AGGTACGCAATT	AGGTACGCAATT
 
-Copy those two (or three) columns to text editor that support regular expressions, such as NotePad++ or Sublime Text.
-If using **PAIRED** indexes (three columns), proceed to bullet no. 5
+Copy those two (or three) columns to text editor that support regular expressions, such as **NotePad++ or Sublime Text**.
 
 * single-end indexes:
 
@@ -162,8 +165,7 @@ If using **PAIRED** indexes (three columns), proceed to bullet no. 5
 
      **FASTA FORMATTED (single-end indexes) indexes.fasta file is ready; SAVE the file.**
 
-
-* Only for paired-indexes:
+* Paired indexes:
 
   #. Open 'find & replace':
      Find ^   (denotes the beginning of each line);

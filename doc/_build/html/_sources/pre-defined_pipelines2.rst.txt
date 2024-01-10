@@ -2,18 +2,8 @@
   :width: 100
   :alt: Alternative text
   
-.. |NextITS_file_structure| image:: _static/nextits_file_structure.png
-  :width: 1000
-  :alt: Alternative text
-
-.. |NextITS_seq_cluster| image:: _static/nextits_sequence_clustering.png
-  :width: 600
-  :height: 200
-  :alt: Alternative text
-
-.. |NextITS_extraction| image:: _static/nextits_extraction.png
-  :width: 300
-  :height: 200
+.. |NextITS_file_structure| image:: _static/PipeCraft2_icon_v2.png
+  :width: 500
   :alt: Alternative text
 
 .. meta::
@@ -362,18 +352,19 @@ Updating this section soon.
 NextITS
 =======
 
-`NextITS <https://next-its.github.io>`_ is an automated pipeline for metabarcoding fungi and other eukaryotes with full-length ITS sequenced with PacBio. Input data for this pipeline must be demultiplexed, if your data is multiplexed use the demultiplexer from quick tools before running the pipeline.
+`NextITS <https://next-its.github.io>`_ is an automated pipeline for metabarcoding fungi and other eukaryotes with full-length ITS sequenced with PacBio.
 
 .. note::
 
-  This pipeline requires your data and folders to be structured in a specific way, the selected working directory should contain an Input folder in which you should have separate folders for each sequencing run. Check the example below for clarification. |NextITS_file_structure|
+  The first step of this pipeline is executed separately for each sequencing run, to execute this pipeline your files need to be structured as shown in the graph below.
 
-
+|NextITS_file_structure|
 
 
 
 **Default options:**
 
+#see tabeli formaat on parem (hiljuti avastasin), et peaks ise oma laiust korrigeerima kui ENTER vajutada
 
 +---------------------------------------------------------------------------------------------------------------+------------------------------------+
 | Analyses step                                                                                                 | Default setting                    |
@@ -408,20 +399,21 @@ NextITS
 ||                                                                                                              || ``lulu_maxhits`` = 0              |
 +---------------------------------------------------------------------------------------------------------------+------------------------------------+
 
+____________________________________________________
 
-**REMOVAL OF MULTIPRIMER-ARTIFACTS AND REORIENTING OF READS**
+REMOVAL OF MULTIPRIMER-ARTIFACTS AND REORIENTING OF READS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
-``primer_forward``               | Specify forward primer, IUPAC codes allowed
-``primer_reverse``               | Specify reverse primer, IUPAC codes allowed
-``primer_mismatch``              | Specify allowed number of mismatches for primers
+``primer_forward``              | Specify forward primer, IUPAC codes allowed
+``primer_reverse``              | Specify reverse primer, IUPAC codes allowed
+``primer_mismatch``             | Specify allowed number of mismatches for primers
 ================================ =========================
 
-**QUALITY FILTERING**
-
- | Filter sequences based on expected errors per sequence and per base, compress and correct homopolymers and discard sequences with too many ambiguous nucleotides.
+QUALITY FILTERING
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 Setting                          Tooltip
@@ -433,39 +425,20 @@ Setting                          Tooltip
 ``hp``                           | Enable or disable homopolymer correction
 ================================ =========================
 
-**ITS EXTRACTION**
-
- | When performing ITS metabarcoding, it's essential to trim the flanking 18S and 28S rRNA genes. This is crucial because:
-
- - These conserved regions don't offer species-level differentiation.
- - Random errors in these areas can disrupt sequence clustering.
- - Chimeric breakpoints, which are common in these regions, are hard to detect in short fragments ranging from 10 to 70 bases.
-
- | NextITS deploys the `ITSx software <https://microbiology.se/software/itsx/>`_ (`Bengtsson-Palme et al. 2013 <https://doi.org/10.1111/2041-210X.12073>`_) for extracting the ITS sequence. 
- | |NextITS_extraction|
+ITS EXTRACTION
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
-``its_region``                   | ITS part selector (ITS1, ITS2 or full)
-``ITSx_tax``                     | Taxonomy profile for ITSx can be used to restrict the search to only taxon(s) of interest.
+``its_region``                   | ITS part selector
+``ITSx_tax``                     | Taxonomy profile for ITSx
 ``ITSx_evalue``                  | E-value cutoff threshold for ITSx
 ``ITSx_partial``                 | Keep partial ITS sequences (specify a minimum length cutoff)
 ================================ =========================
 
-**CHIMERA IDENTIFICATION**
-
- | NextITS employs a two-pronged strategy to detect chimeras:
-
- - De novo Detection:
-   This algorithm identifies chimeras without relying on reference data. To mitigate the risk of false-positive detections, sequences flagged as chimeras by the de novo method are not discarded instantly. Instead, they're assigned a chimeric score. Filtering based on this score can be conducted in subsequent analysis stages (refer to Step-2 for more details).
-
- - Reference-based Detection:
-   This method leverages a reference database in the UDB format.
-   An example of such a database is accessible at: https://owncloud.ut.ee/owncloud/s/iaQ3i862pjwYgdy.
-
-Furthermore, NextITS offers an option to "rescue" sequences mistakenly labeled as chimeras.
-The pipeline checks if these sequences appear in other samples where they are not identified as chimeras. If a sequence is consistently observed, it's more likely to be a genuine biological sequence. You can control this functionality using the --chimera_rescue_occurrence parameter.
+CHIMERA IDENTIFICATION
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 Setting                          Tooltip
@@ -474,10 +447,8 @@ Setting                          Tooltip
 ``chimera_rescue_occurence``     | Minimum occurence of chimeric sequences required to rescue them
 ================================ =========================
 
-**TAG-JUMP REMOVAL PARAMETERS**
-
- | Tag-jumps, sometimes referred to as index-switches or index cross-talk, are significant concerns in high-throughput sequencing (HTS) data (`Tedersoo et al. 2022 <https://onlinelibrary.wiley.com/doi/full/10.1111/mec.16460>`_ ). They can cause technical cross-contamination between samples, potentially distorting estimates of microbial community composition. While carefule (approximately 0.01–0.1%) of these errors might persist in the data.
- | NextITS provides a solution to evaluate index-switches using the UNCROSS2 algorithm (`Edgar 2018 <https://www.biorxiv.org/content/10.1101/400762v1>`_ ), which assigns an ad hoc score to measure the likelihood of tag-jump events.
+TAG-JUMP REMOVAL PARAMETERS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 Setting                          Tooltip
@@ -486,9 +457,8 @@ Setting                          Tooltip
 ``tj_p``                         | `UNCROSS <https://www.drive5.com/usearch/manual/uncross_algo.html>`_ parameter p for tag-jump filtering
 ================================ =========================
 
-**DENOISING PARAMETERS**
-
- | The UNOISE algorithm (`Edgar 2016 <https://www.biorxiv.org/content/10.1101/081257v1>`_ ) focuses on error-correction (or denoising) of amplicon reads. Essentially, UNOISE operates on the principle that if a sequence with low abundance closely resembles another sequence with high abundance, the former is probably an error. This helps differentiate between true biological variation and sequencing errors. It's important to note that UNOISE was initially designed and optimized for Illumina data. Because of indel errors stemming from inaccuracies in homopolymeric regions, UNOISE might not work well with data that hasn't undergone homopolymer correction.
+DENOISING PARAMETERS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 Setting                          Tooltip
@@ -498,20 +468,8 @@ Setting                          Tooltip
 ``unoise_minsize``               | Minimum sequence abundance
 ================================ =========================
 
-**CLUSTERING**
-
- | You can choose from 3 different clustering methods
-
-  - vsearch:
-    This employs greedy clustering using a fixed sequence similarity threshold with VSEARCH (`Rognes et al., 2016, <https://peerj.com/articles/2584/>`_ );
-
-  - swarm:
-    Unlike "vsearch", this uses a dynamic sequence similarity threshold for clustering with SWARM (`Mahé et al., 2021, <https://academic.oup.com/bioinformatics/article/38/1/267/6318385?login=false>`_ );
-
-  - unoise:
-    This focuses solely on denoising to create zero-radius OTUs (zOTUs) based on the UNOISE3 algorithm (`Edgar 2016 <https://www.biorxiv.org/content/10.1101/081257v1>`_ );
-
- | |NextITS_seq_cluster|
+CLUSTERING
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 Setting                          Tooltip
@@ -524,13 +482,8 @@ Setting                          Tooltip
 ``swarm_fastidious``             | Link nearby low-abundance swarms (fastidious option)
 ================================ =========================
 
-**OTU TABLE PREPARATION**
-
- | Do-novo chimera recovery:
-  if a sequence identified as putative chimera was observed in the other samples, where there is no evidence that it is chimeric, it will be recovered.
-
- | Singleton recovery:
-  if a within-sequencing run singleton sequence with relatively low quality (based on MEEP) was observed in the other samples, it will be recovered.
+OTU TABLE PREPARATION
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 Setting                          Tooltip
@@ -539,9 +492,8 @@ Setting                          Tooltip
 ``max_ChimeraScore``             | Maximum allowed de novo chimera score
 ================================ =========================
 
-**POST-CLUSTERING CURATION WITH LULU**
-
- | The purpose of LULU is to reduce the number of erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. By evaluating the co-occurence patterns of OTUs among samples LULU identifies OTUs that consistently satisfy some user selected criteria for being errors of more abundant OTUs and merges these
+POST-CLUSTERING CURATION WITH LULU
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ================================ =========================
 Setting                          Tooltip
@@ -553,3 +505,5 @@ Setting                          Tooltip
 ``lulu_relcooc``                 | Relative co-occurrence
 ``lulu_maxhits``                 | Maximum number of hits (0 = unlimited)
 ================================ =========================
+
+
