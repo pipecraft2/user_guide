@@ -357,16 +357,22 @@ UNOISE3 pipeline for making ASVs (zOTUs) + optionally automatic clustering of th
 Updating this section soon.
 
 
-.. _nextits: 
+.. _nextits_pipeline: 
 
 NextITS
 =======
 
-`NextITS <https://next-its.github.io>`_ is an automated pipeline for metabarcoding fungi and other eukaryotes with full-length ITS sequenced with PacBio. Input data for this pipeline must be demultiplexed, if your data is multiplexed use the demultiplexer from quick tools before running the pipeline.
+`NextITS <https://next-its.github.io>`_ is an automated pipeline for metabarcoding 
+fungi and other eukaryotes with full-length ITS sequenced with PacBio. Input data 
+for this pipeline must be demultiplexed, if your data is multiplexed use the demultiplexer 
+from **QuickTools** before running the pipeline.
 
 .. note::
 
-  This pipeline requires your data and folders to be structured in a specific way, the selected working directory should contain an Input folder in which you should have separate folders for each sequencing run. Check the example below for clarification. |NextITS_file_structure|
+  This pipeline requires your data and folders to be structured in a specific way, 
+  the selected working directory should contain an Input folder in which you should 
+  have separate folders for each sequencing run. Check the example below for clarification. 
+  |NextITS_file_structure|
 
 
 

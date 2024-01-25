@@ -38,10 +38,7 @@ Pre-defined pipelines
 vsearch OTUs
 ============
 
-.. _otupipe:
-
-OTUs workflow panel
--------------------
+.. _vsearchOTUs:
 
 .. |otuoff| image:: _static/OTU_off.png
   :width: 50
@@ -51,15 +48,11 @@ OTUs workflow panel
   :width: 50
   :alt: Alternative text
 
-.. note::
-  This OTU workflow works with paired-end (e.g. Illumina, MGI-Tech) as well as single-end reads (e.g. PacBio, assembled Illumina reads)
-
 
 This automated workflow is mostly based on `vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_) [`manual <_static/vsearch_manual_2.22.1.pdf>`_]
- | Note that ``demultiplexing``, ``reorient`` and ``remove primers`` steps are optional. Nevertheless, it is advisable to :ref:`reorient <reorient>` your reads (to 5'-3') and :ref:`remove primers <remove_primers>` before proceeding.
 
  
-.. _otupipe_defaults:
+.. _vsearchOTUs_defaults:
 
 | **Default options:**
 | *click on analyses step for more info*
@@ -353,20 +346,27 @@ ____________________________________________________
 UNOISE ASVs
 ===========
 
-UNOISE3 pipeline for making ASVs (zOTUs) + optionally automatic clustering of those ASVs.
-Updating this section soon.
+UNOISE3 pipeline for making ASVs (zOTUs). 
+Can optionally do automatic clustering of those ASVs (zOTUs) to OTUs by specifying the similarity threshold < 1.
+Uses UNOISE3 and clustering algorithms in vsearch. 
 
 
-.. _nextits: 
+.. _nextits_pipeline: 
 
 NextITS
 =======
 
-`NextITS <https://next-its.github.io>`_ is an automated pipeline for metabarcoding fungi and other eukaryotes with full-length ITS sequenced with PacBio. Input data for this pipeline must be demultiplexed, if your data is multiplexed use the demultiplexer from quick tools before running the pipeline.
+`NextITS <https://next-its.github.io>`_ is an automated pipeline for metabarcoding 
+fungi and other eukaryotes with full-length ITS sequenced with PacBio. Input data 
+for this pipeline must be demultiplexed, if your data is multiplexed use the demultiplexer 
+from **QuickTools** before running the pipeline.
 
 .. note::
 
-  This pipeline requires your data and folders to be structured in a specific way, the selected working directory should contain an Input folder in which you should have separate folders for each sequencing run. Check the example below for clarification. |NextITS_file_structure|
+  This pipeline requires your data and folders to be structured in a specific way, 
+  the selected working directory should contain an Input folder in which you should 
+  have separate folders for each sequencing run. Check the example below for clarification. 
+  |NextITS_file_structure|
 
 
 
