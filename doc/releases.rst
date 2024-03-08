@@ -29,6 +29,8 @@ ____________________________________________________
 
     for next release - BLAST dabasese resource link to GUI
     xxx
+    changelog: 1.0.1
+    * demultiplexing does not uncompress the data - DONE in main branch!
 
 
 

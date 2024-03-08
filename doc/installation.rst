@@ -84,7 +84,36 @@ PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versio
 .. note::
 
  Resource limits for Docker are managed by Windows; 
- but you can configure limits in a **.wslconfig** file (see **Settings** -> **Resources** on your Docker desktop app)
+ but you can configure limits in a **.wslconfig** file (see **Settings** -> **Resources** on your Docker desktop app).
+ Default = 50% of total memory on Windows or 8GB, whichever is less. 80% of total memory on Windows on builds before 20175 (Win10, from 2020).
+
+.. _increase_RAM:
+
+Quick guide to increase Docker accessible RAM size in Windows 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Instructions from https://learn.microsoft.com/en-us/windows/wsl/wsl-config#wslconfig 
+
+1. This is for Windows Build 19041 and later with WSL 2
+2. Open 'File Explorer' and type **%USERPROFILE%** to the address bar to access the %USERPROFILE% directory (generally e.g. "C:\Users\my_user_name").
+3. Make new text (txt) document into %USERPROFILE% directory.
+4. Paste the following text to that new txt document: 
+
+.. code-block::
+   :caption: make .wslconfig file
+
+    # Settings apply across all Linux distros running on WSL 2
+    [wsl2]
+
+    # Limits VM memory to use no more than X GB, this can be set as whole numbers using GB or MB
+    memory=30GB
+
+    # Sets the VM to use X virtual processors
+    processors=8
+
+5. Edit "memory=30GB" and "processors=8" according to your needs
+6. Save the file and rename this as .wslconfig
+7. Restart Docker.
 
 ____________________________________________________
 

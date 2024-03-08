@@ -48,7 +48,7 @@ There are few specifc requirements for the input data for PipeCraft.
     * :ref:`see formatting requirements here <indexes>` 
 
 - specific directory structure of NextITS pipeline 
-    * :ref:`see NextITS page here <nextits>` 
+    * :ref:`see NextITS page here <nextits_pipeline>` 
 
 ____________________________________________________
 

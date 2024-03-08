@@ -50,10 +50,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">QuickStart</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Pre-defined pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#vsearch-otus">vsearch OTUs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#otus-workflow-panel">OTUs workflow panel</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#vsearch-otus">vsearch OTUs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dada2-asvs">DADA2 ASVs</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#asvs-workflow-panel-with-dada2">ASVs workflow panel (with DADA2)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#quality-filtering-asvs-workflow">QUALITY FILTERING [ASVs workflow]</a></li>
@@ -114,19 +111,8 @@
 <h1>Pre-defined pipelines<a class="headerlink" href="#pre-defined-pipelines" title="Permalink to this heading"></a></h1>
 <section id="vsearch-otus">
 <span id="predefinedpipelines"></span><h2>vsearch OTUs<a class="headerlink" href="#vsearch-otus" title="Permalink to this heading"></a></h2>
-<section id="otus-workflow-panel">
-<span id="otupipe"></span><h3>OTUs workflow panel<a class="headerlink" href="#otus-workflow-panel" title="Permalink to this heading"></a></h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This OTU workflow works with paired-end (e.g. Illumina, MGI-Tech) as well as single-end reads (e.g. PacBio, assembled Illumina reads)</p>
-</div>
-<dl>
-<dt>This automated workflow is mostly based on <a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a> (<a class="reference external" href="https://peerj.com/articles/2584/">Rognes et. al 2016</a>) [<a class="reference external" href="_static/vsearch_manual_2.22.1.pdf">manual</a>]</dt><dd><div class="line-block">
-<div class="line">Note that <code class="docutils literal notranslate"><span class="pre">demultiplexing</span></code>, <code class="docutils literal notranslate"><span class="pre">reorient</span></code> and <code class="docutils literal notranslate"><span class="pre">remove</span> <span class="pre">primers</span></code> steps are optional. Nevertheless, it is advisable to <a class="reference internal" href="quicktools.html#reorient"><span class="std std-ref">reorient</span></a> your reads (to 5’-3’) and <a class="reference internal" href="quicktools.html#remove-primers"><span class="std std-ref">remove primers</span></a> before proceeding.</div>
-</div>
-</dd>
-</dl>
-<div class="line-block" id="otupipe-defaults">
+<span class="target" id="vsearchotus"></span><p>This automated workflow is mostly based on <a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a> (<a class="reference external" href="https://peerj.com/articles/2584/">Rognes et. al 2016</a>) [<a class="reference external" href="_static/vsearch_manual_2.22.1.pdf">manual</a>]</p>
+<div class="line-block" id="vsearchotus-defaults">
 <div class="line"><strong>Default options:</strong></div>
 <div class="line"><em>click on analyses step for more info</em></div>
 </div>
@@ -225,7 +211,6 @@
 </tr>
 </tbody>
 </table>
-</section>
 </section>
 <section id="dada2-asvs">
 <h2>DADA2 ASVs<a class="headerlink" href="#dada2-asvs" title="Permalink to this heading"></a></h2>
@@ -628,8 +613,9 @@ Outputs classified fasta files into <code class="docutils literal notranslate"><
 <hr class="docutils" />
 <section id="unoise-asvs">
 <h2>UNOISE ASVs<a class="headerlink" href="#unoise-asvs" title="Permalink to this heading"></a></h2>
-<p>UNOISE3 pipeline for making ASVs (zOTUs) + optionally automatic clustering of those ASVs.
-Updating this section soon.</p>
+<p>UNOISE3 pipeline for making ASVs (zOTUs).
+Can optionally do automatic clustering of those ASVs (zOTUs) to OTUs by specifying the similarity threshold &lt; 1.
+Uses UNOISE3 and clustering algorithms in vsearch.</p>
 </section>
 <section id="nextits">
 <span id="nextits-pipeline"></span><h2>NextITS<a class="headerlink" href="#nextits" title="Permalink to this heading"></a></h2>

@@ -49,7 +49,10 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#quick-guide-to-increase-docker-accessible-ram-size-in-windows">Quick guide to increase Docker accessible RAM size in Windows</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#macos">MacOS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linux">Linux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#updating-pipecraft2">Updating PipeCraft2</a></li>
@@ -65,7 +68,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Example data analyses</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="licence.html">Licence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact and Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="citation.html">How to cite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="releases.html">Releases</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker_images.html">Docker images</a></li>
@@ -101,7 +104,7 @@
 </dd>
 </dl>
 <section id="installation">
-<h1><a class="toc-backref" href="#id3" role="doc-backlink">Installation</a><a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+<h1><a class="toc-backref" href="#id4" role="doc-backlink">Installation</a><a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
 <div class="line-block">
 <div class="line">Current <a class="reference internal" href="releases.html#releases"><span class="std std-ref">versions</span></a> do not work on High Performance Computing (<strong>HPC</strong>) clusters <strong>yet</strong>.</div>
 <div class="line"><br /></div>
@@ -111,23 +114,27 @@
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#installation" id="id3">Installation</a></p>
+<li><p><a class="reference internal" href="#installation" id="id4">Installation</a></p>
 <ul>
-<li><p><a class="reference internal" href="#prerequisites" id="id4">Prerequisites</a></p></li>
-<li><p><a class="reference internal" href="#windows" id="id5">Windows</a></p></li>
-<li><p><a class="reference internal" href="#macos" id="id6">MacOS</a></p></li>
-<li><p><a class="reference internal" href="#linux" id="id7">Linux</a></p></li>
-<li><p><a class="reference internal" href="#updating-pipecraft2" id="id8">Updating PipeCraft2</a></p></li>
-<li><p><a class="reference internal" href="#uninstalling-pipecraft2" id="id9">Uninstalling PipeCraft2</a></p></li>
-<li><p><a class="reference internal" href="#purging-old-docker-installations" id="id10">Purging ‘old’ Docker installations</a></p></li>
-<li><p><a class="reference internal" href="#removing-docker-images" id="id11">Removing Docker images</a></p></li>
+<li><p><a class="reference internal" href="#prerequisites" id="id5">Prerequisites</a></p></li>
+<li><p><a class="reference internal" href="#windows" id="id6">Windows</a></p>
+<ul>
+<li><p><a class="reference internal" href="#quick-guide-to-increase-docker-accessible-ram-size-in-windows" id="id7">Quick guide to increase Docker accessible RAM size in Windows</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#macos" id="id8">MacOS</a></p></li>
+<li><p><a class="reference internal" href="#linux" id="id9">Linux</a></p></li>
+<li><p><a class="reference internal" href="#updating-pipecraft2" id="id10">Updating PipeCraft2</a></p></li>
+<li><p><a class="reference internal" href="#uninstalling-pipecraft2" id="id11">Uninstalling PipeCraft2</a></p></li>
+<li><p><a class="reference internal" href="#purging-old-docker-installations" id="id12">Purging ‘old’ Docker installations</a></p></li>
+<li><p><a class="reference internal" href="#removing-docker-images" id="id13">Removing Docker images</a></p></li>
 </ul>
 </li>
 </ul>
 </nav>
 <hr class="docutils" />
 <section id="prerequisites">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink">Prerequisites</a><a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Prerequisites</a><a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
 <p>The only prerequisite is <a class="reference external" href="https://www.docker.com/">Docker</a>.</p>
 <p>See OS-specific (Windows, Mac, Linux) docker installation guidelines below.</p>
 <div class="admonition note">
@@ -144,7 +151,7 @@ Relevant Docker container will be automatically downloaded prior the analysis.</
 </section>
 <hr class="docutils" />
 <section id="windows">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">Windows</a><a class="headerlink" href="#windows" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Windows</a><a class="headerlink" href="#windows" title="Permalink to this heading"></a></h2>
 <p>PipeCraft2 was tested on <strong>Windows 10</strong> and <strong>Windows 11</strong>. Older Windows versions do not support PipeCraft GUI workflow through Docker.</p>
 <ol class="arabic simple">
 <li><p>Download PipeCraft2 for <a class="reference external" href="https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.exe">Windows: v1.0.0</a></p></li>
@@ -159,12 +166,41 @@ PipeCraft may not be able to work with files, that are buried “deep inside” 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Resource limits for Docker are managed by Windows;
-but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>Settings</strong> -&gt; <strong>Resources</strong> on your Docker desktop app)</p>
+but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>Settings</strong> -&gt; <strong>Resources</strong> on your Docker desktop app).
+Default = 50% of total memory on Windows or 8GB, whichever is less. 80% of total memory on Windows on builds before 20175 (Win10, from 2020).</p>
 </div>
+<section id="quick-guide-to-increase-docker-accessible-ram-size-in-windows">
+<span id="increase-ram"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink">Quick guide to increase Docker accessible RAM size in Windows</a><a class="headerlink" href="#quick-guide-to-increase-docker-accessible-ram-size-in-windows" title="Permalink to this heading"></a></h3>
+<p>Instructions from <a class="reference external" href="https://learn.microsoft.com/en-us/windows/wsl/wsl-config#wslconfig">https://learn.microsoft.com/en-us/windows/wsl/wsl-config#wslconfig</a></p>
+<ol class="arabic simple">
+<li><p>This is for Windows Build 19041 and later with WSL 2</p></li>
+<li><p>Open ‘File Explorer’ and type <strong>%USERPROFILE%</strong> to the address bar to access the %USERPROFILE% directory (generally e.g. “C:Usersmy_user_name”).</p></li>
+<li><p>Make new text (txt) document into %USERPROFILE% directory.</p></li>
+<li><p>Paste the following text to that new txt document:</p></li>
+</ol>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">make .wslconfig file</span><a class="headerlink" href="#id1" title="Permalink to this code"></a></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="c1"># Settings apply across all Linux distros running on WSL 2</span>
+ <span class="p">[</span><span class="n">wsl2</span><span class="p">]</span>
+
+ <span class="c1"># Limits VM memory to use no more than X GB, this can be set as whole numbers using GB or MB</span>
+ <span class="n">memory</span><span class="o">=</span><span class="mi">30</span><span class="n">GB</span>
+
+ <span class="c1"># Sets the VM to use X virtual processors</span>
+ <span class="n">processors</span><span class="o">=</span><span class="mi">8</span>
+</pre></div>
+</div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Edit “memory=30GB” and “processors=8” according to your needs</p></li>
+<li><p>Save the file and rename this as .wslconfig</p></li>
+<li><p>Restart Docker.</p></li>
+</ol>
+</section>
 </section>
 <hr class="docutils" />
 <section id="macos">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink">MacOS</a><a class="headerlink" href="#macos" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">MacOS</a><a class="headerlink" href="#macos" title="Permalink to this heading"></a></h2>
 <p>PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through Docker.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -194,7 +230,7 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
 </section>
 <hr class="docutils" />
 <section id="linux">
-<h2><a class="toc-backref" href="#id7" role="doc-backlink">Linux</a><a class="headerlink" href="#linux" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Linux</a><a class="headerlink" href="#linux" title="Permalink to this heading"></a></h2>
 <p>PipeCraft2 was tested with <strong>Ubuntu 20.04</strong> and <strong>Mint 20.1</strong>. Older OS versions might not support PipeCraft GUI workflow through Docker.</p>
 <ol class="arabic">
 <li><p>Download PipeCraft2 for <a class="reference external" href="https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0_amd64.deb">Linux: v1.0.0</a></p></li>
@@ -224,7 +260,7 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
 </section>
 <hr class="docutils" />
 <section id="updating-pipecraft2">
-<h2><a class="toc-backref" href="#id8" role="doc-backlink">Updating PipeCraft2</a><a class="headerlink" href="#updating-pipecraft2" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Updating PipeCraft2</a><a class="headerlink" href="#updating-pipecraft2" title="Permalink to this heading"></a></h2>
 <p>Auto-updates will be available (hopefully) soon [at least for Windows]!</p>
 <blockquote>
 <div><div class="line-block">
@@ -242,7 +278,7 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
 <hr class="docutils" />
 </section>
 <section id="uninstalling-pipecraft2">
-<span id="uninstalling"></span><h2><a class="toc-backref" href="#id9" role="doc-backlink">Uninstalling PipeCraft2</a><a class="headerlink" href="#uninstalling-pipecraft2" title="Permalink to this heading"></a></h2>
+<span id="uninstalling"></span><h2><a class="toc-backref" href="#id11" role="doc-backlink">Uninstalling PipeCraft2</a><a class="headerlink" href="#uninstalling-pipecraft2" title="Permalink to this heading"></a></h2>
 <div class="line-block">
 <div class="line"><strong>Windows</strong>: uninstall PipeCraft via control panel</div>
 <div class="line"><strong>MacOS</strong>: Move pipecraft.app to Bin</div>
@@ -251,15 +287,15 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
 </section>
 <hr class="docutils" />
 <section id="purging-old-docker-installations">
-<h2><a class="toc-backref" href="#id10" role="doc-backlink">Purging ‘old’ Docker installations</a><a class="headerlink" href="#purging-old-docker-installations" title="Permalink to this heading"></a></h2>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">To uninstall <strong>docker engine</strong> and all its packages:</span><a class="headerlink" href="#id1" title="Permalink to this code"></a></div>
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Purging ‘old’ Docker installations</a><a class="headerlink" href="#purging-old-docker-installations" title="Permalink to this heading"></a></h2>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">To uninstall <strong>docker engine</strong> and all its packages:</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">purge</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">buildx</span><span class="o">-</span><span class="n">plugin</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">-</span><span class="n">plugin</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">rootless</span><span class="o">-</span><span class="n">extras</span>
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">To uninstall <strong>docker desktop</strong> and clean configurations:</span><a class="headerlink" href="#id2" title="Permalink to this code"></a></div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">To uninstall <strong>docker desktop</strong> and clean configurations:</span><a class="headerlink" href="#id3" title="Permalink to this code"></a></div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    rm -r $HOME/.docker/desktop
     sudo rm /usr/local/bin/com.docker.cli
     sudo apt purge docker-desktop
@@ -269,7 +305,7 @@ but you can configure limits in a <strong>.wslconfig</strong> file (see <strong>
 <hr class="docutils" />
 </section>
 <section id="removing-docker-images">
-<span id="removedockerimages"></span><h2><a class="toc-backref" href="#id11" role="doc-backlink">Removing Docker images</a><a class="headerlink" href="#removing-docker-images" title="Permalink to this heading"></a></h2>
+<span id="removedockerimages"></span><h2><a class="toc-backref" href="#id13" role="doc-backlink">Removing Docker images</a><a class="headerlink" href="#removing-docker-images" title="Permalink to this heading"></a></h2>
 <div class="line-block">
 <div class="line">On <strong>MacOS</strong> and <strong>Windows</strong>: Docker images and container can be easily managed from the Docker dashboard. For more info visit <a class="reference external" href="https://docs.docker.com/desktop/dashboard/">https://docs.docker.com/desktop/dashboard/</a></div>
 <div class="line">See <strong>command-line</strong> based way below.</div>

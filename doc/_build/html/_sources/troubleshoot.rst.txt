@@ -67,9 +67,10 @@ ____________________________________________________
 
  No files in the output folder, but PipeCraft said "Workflow finished".
 
-**Reason**: ?
+**Possible reason**: Computer's memory (RAM) is full, and process was killed. Cannot finish the analyses with those local resources. 
 
-**Fix**: Check if there was a README.txt output and read that. Please :ref:`report <contact>` unexpexted errors. 
+**Possible fix**: In Windows, try to increase the RAM size accessible to Docker (see :ref:`here <increase_RAM>`).
+  Check if there was a README.txt output and read that. Please :ref:`report <contact>` unexpexted errors. 
 
 ____________________________________________________
 
@@ -83,21 +84,27 @@ ____________________________________________________
 
 ____________________________________________________
 
+.. error::
+  
+  "ERROR]: cannot find files with specified extension"
 
-DADA2 ASVs workflow
-===================
+**Reason**: wrongly specified working directory or extension; OR issues with external hard drives in Windows.
+
+**Fix**: Double-check the specified directory and extention; OR restart Windows.
+
+
+____________________________________________________
 
 .. error::
   "Workflow stopped"
 
  |workflow_stopped|
 
-**Possible reason**: Computer's memory is full, cannot finish the analyses.
+**Possible reason**: Computer's memory (RAM) is full, and process was killed. Cannot finish the analyses with those local resources. 
 
-**Fix**: Analyse fewer number of samples or increase RAM size.
+**Possible fix**: In Windows, try to increase the RAM size accessible to Docker (see :ref:`here <increase_RAM>`).
 
 ____________________________________________________
-
 
 .. error::
 
@@ -110,6 +117,7 @@ ____________________________________________________
 **Fix**: Check the input fastq file names and edit the identifiers. 
 Specify identifyer string that is common for all R1 reads (e.g. when all R1 files have '.R1' string, then enter '\\.R1'. 
 Note that backslash is only needed to escape dot regex; e.g. when all R1 files have '_R1' string, then enter '_R1'.). 
+
 ____________________________________________________
 
 .. error::

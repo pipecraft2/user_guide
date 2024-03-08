@@ -2,6 +2,18 @@
   :width: 100
   :alt: Alternative text
 
+.. |PipeCraft2_icon| image:: _static/PipeCraft2_icon_v2.png
+  :width: 200
+  :alt: Alternative text
+
+.. |PipeCraft_sticker1| image:: _static/PipeCraft_sticker1.png
+  :width: 200
+  :alt: Alternative text
+
+.. |PipeCraft2_largelogo| image:: _static/PipeCraft2_logo.png
+  :width: 200
+  :alt: Alternative text
+  
 |PipeCraft2_logo|
   `github <https://github.com/pipecraft2/pipecraft>`_
 
@@ -14,9 +26,9 @@
 
 .. _contact: 
 
-=======
-Contact
-=======
+============================
+Contact and Acknowledgements
+============================
 
 ::
 
@@ -55,3 +67,12 @@ Acknowledgements
   Horizon Europe Guarantee Scheme.
 
   |EU_flag| |mobilitas|
+
+____________________________________________________
+
+PipeCraft2 logos/icons 
+----------------------
+
+design by © **Olesia Dulia**
+
+|PipeCraft2_icon| |PipeCraft_sticker1| |PipeCraft2_largelogo|

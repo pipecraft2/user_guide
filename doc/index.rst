@@ -24,9 +24,10 @@
 Latest version 
 ===============
 
-01.09.2023 - :red:`v1.0.0 is released`, `get it here <https://github.com/pipecraft2/pipecraft/releases/tag/v1.0.0>`_ 
+01.09.2023 - :red:`v1.0.0`, `get it here <https://github.com/pipecraft2/pipecraft/releases/tag/v1.0.0>`_ 
 
-:red:`download links for the new release updated, but updating the rest of the user guide ASAP`
+:red:`download links for the new release updated, but gradually updating the rest of the user guide.`
+Check :ref:`what have changed in the Releases sheet <releases>`
 
 ======================
 Manual for PipeCraft2
