@@ -2,8 +2,12 @@
   :width: 100
   :alt: Alternative text
   
-.. |NextITS_file_structure| image:: _static/nextits_file_structure.png
-  :width: 1000
+.. |NextITS_multidir_structure| image:: _static/NextITS_multidir_structure.png
+  :width: 350
+  :alt: Alternative text
+
+.. |NextITS_singledir_structure| image:: _static/NextITS_singledir_structure.png
+  :width: 290
   :alt: Alternative text
 
 .. |NextITS_seq_cluster| image:: _static/nextits_sequence_clustering.png
@@ -356,24 +360,72 @@ Uses UNOISE3 and clustering algorithms in vsearch.
 NextITS
 =======
 
-`NextITS <https://next-its.github.io>`_ is an automated pipeline for metabarcoding 
-fungi and other eukaryotes with full-length ITS sequenced with PacBio. Input data 
-for this pipeline must be demultiplexed, if your data is multiplexed use the demultiplexer 
+`NextITS <https://next-its.github.io>`_ is an automated pipeline for analysing **full-length ITS** reads 
+obtained via **PacBio** sequencing. 
+
+| This pipeline implements:
+| * primer trimming
+| * quality filtering
+| * full-length ITS region extraction
+| * correction of homopolymer errors
+| * chimera filtering (`get database for reference-based chimera filtering here <https://owncloud.ut.ee/owncloud/s/iaQ3i862pjwYgdy>`_)
+| * recovery of sequences false-positively annotated as chimeric
+| * detection of tag-switching artifacts per sequencing run
+| * multiple options for sequence clustering
+| * post-clustering with LULU
+
+Please see other details here: https://next-its.github.io
+
+.. important:: 
+
+  NextITS requires your data and folders to be structured in a specific way (see below)! 
+  Directory ``my_dir_for_NextITS`` contains ``Input`` [hard-coded requirement here] and one or multiple sequencing runs.
+  In the below example, the sequencing runs [``RunID``] are named as Run1, Run2 and Run3 (but naming can be different).
+  
+  In PipeCraft2, following the examples below, select ``my_dir_for_NextITS`` as a WORKDIR.
+
+
+Single sequencing run
+---------------------
+
+| Select ``my_dir_for_NextITS`` as a WORKDIR in PipeCraft2.
+| Directory structure for analysing a single sequencing run:
+
+|NextITS_singledir_structure|
+
+Input data for this pipeline **must be demultiplexed**, if your data is multiplexed use the demultiplexer 
 from **QuickTools** before running the pipeline.
 
-.. note::
+.. admonition:: Sample naming
 
-  This pipeline requires your data and folders to be structured in a specific way, 
-  the selected working directory should contain an Input folder in which you should 
-  have separate folders for each sequencing run. Check the example below for clarification. 
-  |NextITS_file_structure|
+  Please avoid non-ASCII symbols in ``SampleID``,
+  and do not use the period symbol (.), as it represents the wildcard character in regular expressions.
+  Also, it is preferable not to start the sample name with a number.
+
+Multiple sequencing runs
+------------------------
+
+| Select ``my_dir_for_NextITS`` as a WORKDIR in PipeCraft2.
+| Directory structure for analysing multiple sequencing runs:
+
+|NextITS_multidir_structure|
+
+Input data for this pipeline **must be demultiplexed**, if your data is multiplexed use the demultiplexer 
+from **QuickTools** before running the pipeline.
+
+.. admonition:: Sample naming
+
+  Please avoid non-ASCII symbols in ``RunID`` and ``SampleID``,
+  and do not use the period symbol (.), as it represents the wildcard character in regular expressions.
+  Also, it is preferable not to start the sample name with a number.
+
+NextITS uses the ``SequencingRunID__SampleID`` naming convention (please note the double underscore separating ``RunID`` and ``SampleID`` parts). 
+This naming scheme allows to easily trace back sequences, especially if the same sample was sequenced several times and is present in multiple sequencing runs. 
+In the later steps, extracting the SampleID part and summarizing read counts for such samples is easy.
 
 
 
-
-
-**Default options:**
-
+**Default settings:**
 
 +---------------------------------------------------------------------------------------------------------------+------------------------------------+
 | Analyses step                                                                                                 | Default setting                    |
@@ -409,7 +461,8 @@ from **QuickTools** before running the pipeline.
 +---------------------------------------------------------------------------------------------------------------+------------------------------------+
 
 
-**REMOVAL OF MULTIPRIMER-ARTIFACTS AND REORIENTING OF READS**
+Cut primers
+-----------
 
 ================================ =========================
 Setting                          Tooltip
@@ -419,9 +472,10 @@ Setting                          Tooltip
 ``primer_mismatch``              | Specify allowed number of mismatches for primers
 ================================ =========================
 
-**QUALITY FILTERING**
+Quality filtering
+-----------------
 
- | Filter sequences based on expected errors per sequence and per base, compress and correct homopolymers and discard sequences with too many ambiguous nucleotides.
+Filter sequences based on expected errors per sequence and per base, compress and correct homopolymers.
 
 ================================ =========================
 Setting                          Tooltip
@@ -433,16 +487,16 @@ Setting                          Tooltip
 ``hp``                           | Enable or disable homopolymer correction
 ================================ =========================
 
-**ITS EXTRACTION**
+ITS extraction
+--------------
 
- | When performing ITS metabarcoding, it's essential to trim the flanking 18S and 28S rRNA genes. This is crucial because:
+| When performing ITS metabarcoding, it may be beneficial to trim the flanking 18S and 28S rRNA genes; because:
 
- - These conserved regions don't offer species-level differentiation.
- - Random errors in these areas can disrupt sequence clustering.
- - Chimeric breakpoints, which are common in these regions, are hard to detect in short fragments ranging from 10 to 70 bases.
+ - these conserved regions don't offer species-level differentiation.
+ - random errors in these areas can disrupt sequence clustering.
+ - chimeric breakpoints, which are common in these regions, are hard to detect in short fragments ranging from 10 to 70 bases.
 
  | NextITS deploys the `ITSx software <https://microbiology.se/software/itsx/>`_ (`Bengtsson-Palme et al. 2013 <https://doi.org/10.1111/2041-210X.12073>`_) for extracting the ITS sequence. 
- | |NextITS_extraction|
 
 ================================ =========================
 Setting                          Tooltip
@@ -453,31 +507,28 @@ Setting                          Tooltip
 ``ITSx_partial``                 | Keep partial ITS sequences (specify a minimum length cutoff)
 ================================ =========================
 
-**CHIMERA IDENTIFICATION**
+Chimera filtering
+-----------------
 
- | NextITS employs a two-pronged strategy to detect chimeras:
+| NextITS employs a two-pronged strategy to detect chimeras: de novo and reference-based chimera filtering.
+| A **reference database** for chimera filtering from full-length ITS data is `accessible here <https://owncloud.ut.ee/owncloud/s/iaQ3i862pjwYgdy>`_. This database is based on `EUKARYOME database <https://eukaryome.org>`_
 
- - De novo Detection:
-   This algorithm identifies chimeras without relying on reference data. To mitigate the risk of false-positive detections, sequences flagged as chimeras by the de novo method are not discarded instantly. Instead, they're assigned a chimeric score. Filtering based on this score can be conducted in subsequent analysis stages (refer to Step-2 for more details).
-
- - Reference-based Detection:
-   This method leverages a reference database in the UDB format.
-   An example of such a database is accessible at: https://owncloud.ut.ee/owncloud/s/iaQ3i862pjwYgdy.
-
-Furthermore, NextITS offers an option to "rescue" sequences mistakenly labeled as chimeras.
-The pipeline checks if these sequences appear in other samples where they are not identified as chimeras. If a sequence is consistently observed, it's more likely to be a genuine biological sequence. You can control this functionality using the --chimera_rescue_occurrence parameter.
+Additional step in NextITS is a **"rescue" of sequences** that were initially flagged as chimeric, but are occur at least in 2 samples (which represent independent PCR reactions); 
+thus are likely false-positive chimeric sequences. The chimeric sequence occurrence frequency can be edited using the --chimera_rescue_occurrence parameter.
 
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
-``chimera_database``             | Database for reference based chimera removal (UDB)
-``chimera_rescue_occurence``     | Minimum occurence of chimeric sequences required to rescue them
+``chimera_database`` (optional)  | Database for reference based chimera removal (UDB)
+``chimera_rescue_occurence``     | A minimum occurence of initially flagged chimeric sequence required to rescue them
 ================================ =========================
 
-**TAG-JUMP REMOVAL PARAMETERS**
+Tag-jump correction
+-------------------
 
- | Tag-jumps, sometimes referred to as index-switches or index cross-talk, are significant concerns in high-throughput sequencing (HTS) data (`Tedersoo et al. 2022 <https://onlinelibrary.wiley.com/doi/full/10.1111/mec.16460>`_ ). They can cause technical cross-contamination between samples, potentially distorting estimates of microbial community composition. While carefule (approximately 0.01–0.1%) of these errors might persist in the data.
- | NextITS provides a solution to evaluate index-switches using the UNCROSS2 algorithm (`Edgar 2018 <https://www.biorxiv.org/content/10.1101/400762v1>`_ ), which assigns an ad hoc score to measure the likelihood of tag-jump events.
+ Tag-jumps, sometimes referred to as index-switches or index cross-talk, may represent a significant concern in high-throughput sequencing (HTS) data. 
+ They can cause technical cross-contamination between samples, potentially distorting estimates of community composition. 
+ Here, tag-jump events are evaluated the UNCROSS2 algorithm (`Edgar 2018 <https://www.biorxiv.org/content/10.1101/400762v1>`_ ) are removed.
 
 ================================ =========================
 Setting                          Tooltip
@@ -486,7 +537,8 @@ Setting                          Tooltip
 ``tj_p``                         | `UNCROSS <https://www.drive5.com/usearch/manual/uncross_algo.html>`_ parameter p for tag-jump filtering
 ================================ =========================
 
-**DENOISING PARAMETERS**
+UNOISE denoising
+----------------
 
  | The UNOISE algorithm (`Edgar 2016 <https://www.biorxiv.org/content/10.1101/081257v1>`_ ) focuses on error-correction (or denoising) of amplicon reads. Essentially, UNOISE operates on the principle that if a sequence with low abundance closely resembles another sequence with high abundance, the former is probably an error. This helps differentiate between true biological variation and sequencing errors. It's important to note that UNOISE was initially designed and optimized for Illumina data. Because of indel errors stemming from inaccuracies in homopolymeric regions, UNOISE might not work well with data that hasn't undergone homopolymer correction.
 
@@ -498,20 +550,19 @@ Setting                          Tooltip
 ``unoise_minsize``               | Minimum sequence abundance
 ================================ =========================
 
-**CLUSTERING**
+Clustering
+----------
 
- | You can choose from 3 different clustering methods
+NextITS supports 3 different clustering methods:
 
   - vsearch:
-    This employs greedy clustering using a fixed sequence similarity threshold with VSEARCH (`Rognes et al., 2016, <https://peerj.com/articles/2584/>`_ );
+    this employs greedy clustering using a fixed sequence similarity threshold with VSEARCH (`Rognes et al., 2016, <https://peerj.com/articles/2584/>`_ );
 
   - swarm:
-    Unlike "vsearch", this uses a dynamic sequence similarity threshold for clustering with SWARM (`Mahé et al., 2021, <https://academic.oup.com/bioinformatics/article/38/1/267/6318385?login=false>`_ );
+    dynamic sequence similarity threshold for clustering with SWARM (`Mahé et al., 2021, <https://academic.oup.com/bioinformatics/article/38/1/267/6318385?login=false>`_ );
 
   - unoise:
-    This focuses solely on denoising to create zero-radius OTUs (zOTUs) based on the UNOISE3 algorithm (`Edgar 2016 <https://www.biorxiv.org/content/10.1101/081257v1>`_ );
-
- | |NextITS_seq_cluster|
+    creates zero-radius OTUs (zOTUs) based on the UNOISE3 algorithm (`Edgar 2016 <https://www.biorxiv.org/content/10.1101/081257v1>`_ );
 
 ================================ =========================
 Setting                          Tooltip
@@ -524,24 +575,12 @@ Setting                          Tooltip
 ``swarm_fastidious``             | Link nearby low-abundance swarms (fastidious option)
 ================================ =========================
 
-**OTU TABLE PREPARATION**
+Post-clustering with LULU
+-------------------------
 
- | Do-novo chimera recovery:
-  if a sequence identified as putative chimera was observed in the other samples, where there is no evidence that it is chimeric, it will be recovered.
-
- | Singleton recovery:
-  if a within-sequencing run singleton sequence with relatively low quality (based on MEEP) was observed in the other samples, it will be recovered.
-
-================================ =========================
-Setting                          Tooltip
-================================ =========================
-``max_MEEP``                     | Maximum allowed number of expected errors per 100 bp
-``max_ChimeraScore``             | Maximum allowed de novo chimera score
-================================ =========================
-
-**POST-CLUSTERING CURATION WITH LULU**
-
- | The purpose of LULU is to reduce the number of erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. By evaluating the co-occurence patterns of OTUs among samples LULU identifies OTUs that consistently satisfy some user selected criteria for being errors of more abundant OTUs and merges these
+The purpose of LULU is to reduce the number of erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. 
+By evaluating the co-occurence patterns of OTUs among samples LULU identifies OTUs that 
+consistently satisfy some user selected criteria for being errors of more abundant OTUs and merges these OTUs.
 
 ================================ =========================
 Setting                          Tooltip
