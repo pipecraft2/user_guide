@@ -54,6 +54,7 @@ vsearch OTUs
 
 
 This automated workflow is mostly based on `vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_) [`manual <_static/vsearch_manual_2.22.1.pdf>`_]
+to form **OTUs and an OTU table**. This input is the directory that contains per-sample fastq files (**demultiplexed data**).
 
  
 .. _vsearchOTUs_defaults:
@@ -64,9 +65,7 @@ This automated workflow is mostly based on `vsearch <https://github.com/torognes
 ==================================================================== =========================
 Analyses step                                                        Default setting
 ==================================================================== =========================
-:ref:`DEMULTIPLEX <demux>` (optional)                                 --
-:ref:`REORIENT <reorient>` (optional)                                 --
-:ref:`REMOVE PRIMERS <remove_primers>` (optional)                     --
+:ref:`CUT PRIMERS <remove_primers>` (optional)                         --
 :ref:`MERGE READS <merge_vsearch>`                                   | ``read_R1`` = \\.R1
                                                                      | ``min_overlap`` = 12
                                                                      | ``min_length`` = 32
@@ -122,17 +121,37 @@ DADA2 ASVs
 
 .. _asvpipe:
 
-ASVs workflow panel (with `DADA2 <https://benjjneb.github.io/dada2/index.html>`_)
----------------------------------------------------------------------------------
+This pre-defined workflow is based on the `DADA2 tutorial <https://benjjneb.github.io/dada2/tutorial.html>`_ to form **ASVs and an ASV table**.
+This input is the directory that contains per-sample fastq files (**demultiplexed data**).
+
+| Note that ``primer removal`` step do not represent parts from the DADA2 tutorial. Nevertheless, it is advisable to :ref:`remove primers <remove_primers>` before proceeding with ASV generation with DADA2.
+
+============= =====================
+pipeline mode  when do use
+============= =====================
+**FORWARD**   | for paired-end Illumina data where amplicons 
+              | are expected to be in uniform orientation 
+              | (e.g., all reads are in 5'-3' orientation).
+**MIXED**     | for paired-end Illumina data where amplicons 
+              | are expected to be both, in 5'-3' (forward) 
+              | and 3'-5' (reverse) oriented. 
+              | In that mode, ``CUT PRIMERS`` is mandatory, 
+              | and generates separate directories for forward 
+              | and reverse oriented sequences, which will pass 
+              | DADA2 pipeline individually. After merging the paired ends, 
+              | the reverse oriented sequences are reverse complemented 
+              | and aggregated with the forward reads for chimera filtering 
+              | and ASV table generation. The output ASVs are all 5'-3' oriented. 
+              | **Here, make sure that the R1 and R2 identifiers are** 
+              | **\\.R1 and \\.R2 in the QUALITY FILTERING step**
+**PACBIO**    | for single-end PacBio data. ``CUT PRIMERS`` step for single-end 
+              | data will reoriente all reads to 5'-3' (forward) orientation.
+============= =====================
+
 
 .. note::
   Working directory must contain **at least 2 samples** for DADA2 pipeline.
 
-
-This automated workflow is based on the `DADA2 tutorial <https://benjjneb.github.io/dada2/tutorial.html>`_ 
- | Note that ``demultiplexing``, ``reorienting``, and ``primer removal`` steps are optional and do not represent parts from the DADA2 tutorial. Nevertheless, it is advisable to :ref:`remove primers <remove_primers>` before proceeding with ASV generation with DADA2.
-
-| The official DADA2 manual is available `here <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_
  
 .. _dada2_defaults:
 
@@ -141,9 +160,7 @@ This automated workflow is based on the `DADA2 tutorial <https://benjjneb.github
 =========================================================== =========================
 Analyses step                                               Default setting
 =========================================================== =========================
-:ref:`DEMULTIPLEX <demux>` (optional)                       | --
-:ref:`REORIENT <reorient>` (optional)                       | --
-:ref:`REMOVE PRIMERS <remove_primers>` (optional)           | --
+:ref:`CUT PRIMERS <remove_primers>` (optional)              | --
 :ref:`QUALITY FILTERING <dada2_qual_filt>`                  | ``read_R1`` = \\.R1
                                                             | ``read_R2`` = \\.R2
                                                             | ``maxEE`` = 2
@@ -175,8 +192,8 @@ ____________________________________________________
 
 .. _dada2_qual_filt:
 
-QUALITY FILTERING [ASVs workflow] 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+QUALITY FILTERING
+-----------------
 
 DADA2 `filterAndTrim <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function performs quality filtering on input FASTQ files based on user-selected criteria. Outputs include filtered FASTQ files located in the ``qualFiltered_out`` directory.
 
@@ -228,8 +245,8 @@ ____________________________________________________
 
 .. _dada2_denoise:
 
-DENOISING [ASVs workflow] 
-~~~~~~~~~~~~~~~~~~~~~~~~~
+DENOISING
+---------
 
 DADA2 `dada <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to remove sequencing errors.
 Outputs filtered fasta files into ``denoised_assembled.dada2`` directory.
@@ -254,8 +271,8 @@ ____________________________________________________
 
 .. _dada2_merge_pairs:
 
-MERGE PAIRS [ASVs workflow] 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+MERGE PAIRS
+-----------
 
 DADA2 `mergePairs <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to merge paired-end reads. 
 Outputs merged fasta files into ``denoised_assembled.dada2`` directory.
@@ -279,8 +296,8 @@ see :ref:`default settings <dada2_defaults>`
 
 ____________________________________________________
 
-CHIMERA FILTERING [ASVs workflow] 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CHIMERA FILTERING
+-----------------
 
 DADA2 `removeBimeraDenovo <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to remove chimeras. 
 Outputs filtered fasta files into ``chimeraFiltered_out.dada2`` and final ASVs to ``ASVs_out.dada2`` directory.
@@ -300,8 +317,8 @@ see :ref:`default settings <dada2_defaults>`
 
 ____________________________________________________
 
-filter ASV table [ASVs workflow] 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+filter ASV table
+----------------
 
 DADA2 `collapseNoMismatch <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to collapse identical ASVs; 
 and ASVs filtering based on minimum accepted sequence length (custom R functions). 
@@ -326,8 +343,8 @@ ____________________________________________________
 
 .. _dada2_taxonomy:
 
-ASSIGN TAXONOMY [ASVs workflow] 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ASSIGN TAXONOMY
+---------------
 
 DADA2 `assignTaxonomy <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to classify ASVs. 
 Outputs classified fasta files into ``taxonomy_out.dada2`` directory.
