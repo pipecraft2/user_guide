@@ -395,6 +395,7 @@ obtained via **PacBio** sequencing.
 | * post-clustering with LULU
 
 Please see other details here: https://next-its.github.io
+**Please note that NextITS pipeline accepts only a single primer pair**, i.e., one forward and one reverse primer in STEP_1!
 
 .. important:: 
 
@@ -483,6 +484,8 @@ In the later steps, extracting the SampleID part and summarizing read counts for
 
 Cut primers
 -----------
+
+**Please note that NextITS pipeline accepts only a single primer pair**, i.e., one forward and one reverse primer!
 
 ================================ =========================
 Setting                          Tooltip
