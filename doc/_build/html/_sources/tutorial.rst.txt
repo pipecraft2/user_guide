@@ -48,8 +48,8 @@ ____________________________________________________
 
 |
 
-Paired-end Illumina (or MGI-Tech) data
-======================================
+Paired-end Illumina data
+=========================
 Example analyses of paired-end data. Starting with raw paired-end fastq files, finishing with ASV/OTU table and taxonomy table. 
 
 

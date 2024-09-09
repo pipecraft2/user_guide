@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta content="PipeCraft manual. PipeCraft is a Graphical User Interface software for metabarcoding data analyses" lang="en" name="description" xml:lang="en" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Latest version &mdash; PipeCraft2 1.0.0 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -90,13 +92,13 @@
 </dd>
 </dl>
 <section id="latest-version">
-<h1>Latest version<a class="headerlink" href="#latest-version" title="Permalink to this heading"></a></h1>
+<h1>Latest version<a class="headerlink" href="#latest-version" title="Link to this heading"></a></h1>
 <p>01.09.2023 - <span class="red">v1.0.0</span>, <a class="reference external" href="https://github.com/pipecraft2/pipecraft/releases/tag/v1.0.0">get it here</a></p>
 <p><span class="red">download links for the new release updated, but gradually updating the rest of the user guide.</span>
 Check <a class="reference internal" href="releases.html#releases"><span class="std std-ref">what have changed in the Releases sheet</span></a></p>
 </section>
 <section id="manual-for-pipecraft2">
-<h1>Manual for PipeCraft2<a class="headerlink" href="#manual-for-pipecraft2" title="Permalink to this heading"></a></h1>
+<h1>Manual for PipeCraft2<a class="headerlink" href="#manual-for-pipecraft2" title="Link to this heading"></a></h1>
 <div class="line-block">
 <div class="line"><strong>PipeCraft2</strong> is a Graphical User Interface (GUI) software that implements <a class="reference internal" href="#tools"><span class="std std-ref">various popular tools</span></a> for <strong>metabarcoding</strong> data analyses.</div>
 <div class="line">Implements various ready-to-run (pre-defined) pipelines as well as an option to run a variety of individual steps outside of a full-pipeline.</div>
@@ -112,7 +114,7 @@ but supports also single-step mode (Quick Tools panel) where analyses may be per
 to proceed with next step, e.g. with chimera filtering step)</em>.</div>
 </div>
 <section id="glossary">
-<h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this heading"></a></h2>
+<h2>Glossary<a class="headerlink" href="#glossary" title="Link to this heading"></a></h2>
 <p>List of terms that you may encounter in this user guide.</p>
 <table class="docutils align-default">
 <tbody>
@@ -163,7 +165,7 @@ to proceed with next step, e.g. with chimera filtering step)</em>.</div>
 </section>
 <hr class="docutils" />
 <section id="docker-images">
-<h2>Docker images<a class="headerlink" href="#docker-images" title="Permalink to this heading"></a></h2>
+<h2>Docker images<a class="headerlink" href="#docker-images" title="Link to this heading"></a></h2>
 <p>All the processes are run through <a class="reference external" href="https://www.docker.com/">docker</a>, where the PipeCraft’s GUI simply mediates the
 information exchange. Therefore, whenever a process is initiated for the <strong>first time</strong>,
 a relevant Docker image (contains required software for the analyses step) will be pulled from <a class="reference external" href="https://hub.docker.com/u/pipecraft">Docker Hub</a>.
@@ -174,7 +176,7 @@ Initial PipeCraft2 installation does not contain any software for sequence data 
 </section>
 <hr class="docutils" />
 <section id="save-workflow">
-<h2>Save workflow<a class="headerlink" href="#save-workflow" title="Permalink to this heading"></a></h2>
+<h2>Save workflow<a class="headerlink" href="#save-workflow" title="Link to this heading"></a></h2>
 <p>Once the workflow settings are selected, save the workflow by pressin <code class="docutils literal notranslate"><span class="pre">SAVE</span> <span class="pre">WORKFLOW</span></code> button on the <a class="reference internal" href="#interface"><span class="std std-ref">right-ribbon</span></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -188,7 +190,7 @@ When trying to load the workflow, only .JSON files will be permitted as input. <
 </section>
 <hr class="docutils" />
 <section id="load-workflow">
-<h2>Load workflow<a class="headerlink" href="#load-workflow" title="Permalink to this heading"></a></h2>
+<h2>Load workflow<a class="headerlink" href="#load-workflow" title="Link to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Prior loading the workflow, make sure that the saved workflow configuration has a .json extension. Note also that <strong>workflows saved in older PipeCraft2 version</strong> might not run in newer version, but anyhow the selected options will be visible.</p>
@@ -196,7 +198,7 @@ When trying to load the workflow, only .JSON files will be permitted as input. <
 <p>Press the <code class="docutils literal notranslate"><span class="pre">LOAD</span> <span class="pre">WORKFLOW</span></code> button on the <a class="reference internal" href="#interface"><span class="std std-ref">right-ribbon</span></a> and select appropriate JSON file.
 The configuration will be loaded; <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">WORKDIR</span></code> and run analyses.</p>
 <section id="contents-of-this-user-guide">
-<h3>Contents of this user guide<a class="headerlink" href="#contents-of-this-user-guide" title="Permalink to this heading"></a></h3>
+<h3>Contents of this user guide<a class="headerlink" href="#contents-of-this-user-guide" title="Link to this heading"></a></h3>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
@@ -245,7 +247,7 @@ The configuration will be loaded; <code class="docutils literal notranslate"><sp
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Example data analyses</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#inspect-quality-profiles">Inspect quality profiles</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#paired-end-illumina-or-mgi-tech-data">Paired-end Illumina (or MGI-Tech) data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#paired-end-illumina-data">Paired-end Illumina data</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#single-end-pacbio-or-assembled-paired-end-data">Single-end (PacBio or assembled paired-end) data</a></li>
 </ul>
 </li>
@@ -294,7 +296,7 @@ The configuration will be loaded; <code class="docutils literal notranslate"><sp
 <hr class="docutils" />
 </section>
 <section id="currently-implemented-software">
-<span id="tools"></span><h3>Currently implemented software<a class="headerlink" href="#currently-implemented-software" title="Permalink to this heading"></a></h3>
+<span id="tools"></span><h3>Currently implemented software<a class="headerlink" href="#currently-implemented-software" title="Link to this heading"></a></h3>
 <p><a class="reference internal" href="releases.html#releases"><span class="std std-ref">See software version on the ‘Releases’ page</span></a></p>
 <table class="docutils align-default">
 <thead>
