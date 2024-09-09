@@ -39,7 +39,7 @@ ____________________________________________________
 1.0.0 (01.09.2023)
 ==================
 
-`DOWNLOAD link for v1.0.0 <XXX>`_
+`DOWNLOAD link for v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/tag/v1.0.0>`_
 
 * major updates in the front-end; individual tools on the right, pipelines on left.
 * added debugging mode and improved log info 
