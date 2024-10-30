@@ -122,9 +122,25 @@
 <h1>Pre-defined pipelines<a class="headerlink" href="#pre-defined-pipelines" title="Link to this heading"></a></h1>
 <section id="vsearch-otus">
 <span id="predefinedpipelines"></span><h2>vsearch OTUs<a class="headerlink" href="#vsearch-otus" title="Link to this heading"></a></h2>
+<<<<<<< HEAD
 <span class="target" id="vsearchotus"></span><p>This automated workflow is mostly based on <a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a> (<a class="reference external" href="https://peerj.com/articles/2584/">Rognes et. al 2016</a>) [<a class="reference external" href="_static/vsearch_manual_2.22.1.pdf">manual</a>]
 to form <strong>OTUs and an OTU table</strong>. This input is the directory that contains per-sample fastq files (<strong>demultiplexed data</strong>).</p>
 <div class="line-block" id="vsearchotus-defaults">
+=======
+<section id="otus-workflow-panel">
+<span id="otupipe"></span><h3>OTUs workflow panel<a class="headerlink" href="#otus-workflow-panel" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This OTU workflow works with paired-end (e.g. Illumina, MGI-Tech) as well as single-end reads (e.g. PacBio, assembled Illumina reads)</p>
+</div>
+<dl>
+<dt>This automated workflow is mostly based on <a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a> (<a class="reference external" href="https://peerj.com/articles/2584/">Rognes et. al 2016</a>) [<a class="reference external" href="_static/vsearch_manual_2.22.1.pdf">manual</a>]</dt><dd><div class="line-block">
+<div class="line">Note that <code class="docutils literal notranslate"><span class="pre">demultiplexing</span></code>, <code class="docutils literal notranslate"><span class="pre">reorient</span></code> and <code class="docutils literal notranslate"><span class="pre">remove</span> <span class="pre">primers</span></code> steps are optional. Nevertheless, it is advisable to <a class="reference internal" href="quicktools.html#reorient"><span class="std std-ref">reorient</span></a> your reads (to 5’-3’) and <a class="reference internal" href="quicktools.html#remove-primers"><span class="std std-ref">remove primers</span></a> before proceeding.</div>
+</div>
+</dd>
+</dl>
+<div class="line-block" id="otupipe-defaults">
+>>>>>>> c197e31f5a449b4e3650a9545d50562e2de36a2e
 <div class="line"><strong>Default options:</strong></div>
 <div class="line"><em>click on analyses step for more info</em></div>
 </div>
@@ -220,12 +236,32 @@ to form <strong>OTUs and an OTU table</strong>. This input is the directory that
 </section>
 <section id="dada2-asvs">
 <h2>DADA2 ASVs<a class="headerlink" href="#dada2-asvs" title="Link to this heading"></a></h2>
+<<<<<<< HEAD
 <p id="asvpipe">This pre-defined workflow is based on the <a class="reference external" href="https://benjjneb.github.io/dada2/tutorial.html">DADA2 tutorial</a> to form <strong>ASVs and an ASV table</strong>.
 This input is the directory that contains per-sample fastq files (<strong>demultiplexed data</strong>).</p>
+=======
+<section id="asvs-workflow-panel-with-dada2">
+<span id="asvpipe"></span><h3>ASVs workflow panel (with <a class="reference external" href="https://benjjneb.github.io/dada2/index.html">DADA2</a>)<a class="headerlink" href="#asvs-workflow-panel-with-dada2" title="Link to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Working directory must contain <strong>at least 2 samples</strong> for DADA2 pipeline.</p>
+</div>
+<dl>
+<dt>This automated workflow is based on the <a class="reference external" href="https://benjjneb.github.io/dada2/tutorial.html">DADA2 tutorial</a></dt><dd><div class="line-block">
+<div class="line">Note that <code class="docutils literal notranslate"><span class="pre">demultiplexing</span></code>, <code class="docutils literal notranslate"><span class="pre">reorienting</span></code>, and <code class="docutils literal notranslate"><span class="pre">primer</span> <span class="pre">removal</span></code> steps are optional and do not represent parts from the DADA2 tutorial. Nevertheless, it is advisable to <a class="reference internal" href="quicktools.html#remove-primers"><span class="std std-ref">remove primers</span></a> before proceeding with ASV generation with DADA2.</div>
+</div>
+</dd>
+</dl>
+>>>>>>> c197e31f5a449b4e3650a9545d50562e2de36a2e
 <div class="line-block">
 <div class="line">Note that <code class="docutils literal notranslate"><span class="pre">primer</span> <span class="pre">removal</span></code> step do not represent parts from the DADA2 tutorial. Nevertheless, it is advisable to <a class="reference internal" href="quicktools.html#remove-primers"><span class="std std-ref">remove primers</span></a> before proceeding with ASV generation with DADA2.</div>
 </div>
+<<<<<<< HEAD
 <table class="docutils align-default" id="dada2-modes">
+=======
+<p id="dada2-defaults"><strong>Default options:</strong></p>
+<table class="docutils align-default">
+>>>>>>> c197e31f5a449b4e3650a9545d50562e2de36a2e
 <thead>
 <tr class="row-odd"><th class="head"><p>pipeline mode</p></th>
 <th class="head"><p>when do use</p></th>
@@ -342,8 +378,13 @@ This input is the directory that contains per-sample fastq files (<strong>demult
 </tbody>
 </table>
 <hr class="docutils" />
+<<<<<<< HEAD
 <section id="quality-filtering">
 <span id="dada2-qual-filt"></span><h3>QUALITY FILTERING<a class="headerlink" href="#quality-filtering" title="Link to this heading"></a></h3>
+=======
+<section id="quality-filtering-asvs-workflow">
+<span id="dada2-qual-filt"></span><h4>QUALITY FILTERING [ASVs workflow]<a class="headerlink" href="#quality-filtering-asvs-workflow" title="Link to this heading"></a></h4>
+>>>>>>> c197e31f5a449b4e3650a9545d50562e2de36a2e
 <p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">filterAndTrim</a> function performs quality filtering on input FASTQ files based on user-selected criteria. Outputs include filtered FASTQ files located in the <code class="docutils literal notranslate"><span class="pre">qualFiltered_out</span></code> directory.</p>
 <p>Quality profiles may be examined using the <a class="reference internal" href="index.html#interface"><span class="std std-ref">QualityCheck module</span></a>.</p>
 <table class="docutils align-default">
@@ -448,8 +489,13 @@ This input is the directory that contains per-sample fastq files (<strong>demult
 <p>see <a class="reference internal" href="#dada2-defaults"><span class="std std-ref">default settings</span></a></p>
 <hr class="docutils" />
 </section>
+<<<<<<< HEAD
 <section id="denoising">
 <span id="dada2-denoise"></span><h3>DENOISING<a class="headerlink" href="#denoising" title="Link to this heading"></a></h3>
+=======
+<section id="denoising-asvs-workflow">
+<span id="dada2-denoise"></span><h4>DENOISING [ASVs workflow]<a class="headerlink" href="#denoising-asvs-workflow" title="Link to this heading"></a></h4>
+>>>>>>> c197e31f5a449b4e3650a9545d50562e2de36a2e
 <p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">dada</a> function to remove sequencing errors.
 Outputs filtered fasta files into <code class="docutils literal notranslate"><span class="pre">denoised_assembled.dada2</span></code> directory.</p>
 <table class="docutils align-default">
@@ -488,8 +534,13 @@ Outputs filtered fasta files into <code class="docutils literal notranslate"><sp
 <p>see <a class="reference internal" href="#dada2-defaults"><span class="std std-ref">default settings</span></a></p>
 <hr class="docutils" />
 </section>
+<<<<<<< HEAD
 <section id="merge-pairs">
 <span id="dada2-merge-pairs"></span><h3>MERGE PAIRS<a class="headerlink" href="#merge-pairs" title="Link to this heading"></a></h3>
+=======
+<section id="merge-pairs-asvs-workflow">
+<span id="dada2-merge-pairs"></span><h4>MERGE PAIRS [ASVs workflow]<a class="headerlink" href="#merge-pairs-asvs-workflow" title="Link to this heading"></a></h4>
+>>>>>>> c197e31f5a449b4e3650a9545d50562e2de36a2e
 <p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">mergePairs</a> function to merge paired-end reads.
 Outputs merged fasta files into <code class="docutils literal notranslate"><span class="pre">denoised_assembled.dada2</span></code> directory.</p>
 <table class="docutils align-default">
@@ -532,8 +583,13 @@ Outputs merged fasta files into <code class="docutils literal notranslate"><span
 <p>see <a class="reference internal" href="#dada2-defaults"><span class="std std-ref">default settings</span></a></p>
 </section>
 <hr class="docutils" id="dada2-chimeras" />
+<<<<<<< HEAD
 <section id="chimera-filtering">
 <h3>CHIMERA FILTERING<a class="headerlink" href="#chimera-filtering" title="Link to this heading"></a></h3>
+=======
+<section id="chimera-filtering-asvs-workflow">
+<h4>CHIMERA FILTERING [ASVs workflow]<a class="headerlink" href="#chimera-filtering-asvs-workflow" title="Link to this heading"></a></h4>
+>>>>>>> c197e31f5a449b4e3650a9545d50562e2de36a2e
 <p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">removeBimeraDenovo</a> function to remove chimeras.
 Outputs filtered fasta files into <code class="docutils literal notranslate"><span class="pre">chimeraFiltered_out.dada2</span></code> and final ASVs to <code class="docutils literal notranslate"><span class="pre">ASVs_out.dada2</span></code> directory.</p>
 <table class="docutils align-default">
@@ -557,8 +613,13 @@ Outputs filtered fasta files into <code class="docutils literal notranslate"><sp
 <p>see <a class="reference internal" href="#dada2-defaults"><span class="std std-ref">default settings</span></a></p>
 </section>
 <hr class="docutils" id="dada2-table-filtering" />
+<<<<<<< HEAD
 <section id="filter-asv-table">
 <h3>filter ASV table<a class="headerlink" href="#filter-asv-table" title="Link to this heading"></a></h3>
+=======
+<section id="filter-asv-table-asvs-workflow">
+<h4>filter ASV table [ASVs workflow]<a class="headerlink" href="#filter-asv-table-asvs-workflow" title="Link to this heading"></a></h4>
+>>>>>>> c197e31f5a449b4e3650a9545d50562e2de36a2e
 <p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">collapseNoMismatch</a> function to collapse identical ASVs;
 and ASVs filtering based on minimum accepted sequence length (custom R functions).
 Outputs filtered ASV table and fasta files into <code class="docutils literal notranslate"><span class="pre">ASVs_out.dada2/filtered</span></code> directory.</p>
@@ -602,8 +663,13 @@ Outputs filtered ASV table and fasta files into <code class="docutils literal no
 <p>see <a class="reference internal" href="#dada2-defaults"><span class="std std-ref">default settings</span></a></p>
 <hr class="docutils" />
 </section>
+<<<<<<< HEAD
 <section id="assign-taxonomy">
 <span id="dada2-taxonomy"></span><h3>ASSIGN TAXONOMY<a class="headerlink" href="#assign-taxonomy" title="Link to this heading"></a></h3>
+=======
+<section id="assign-taxonomy-asvs-workflow">
+<span id="dada2-taxonomy"></span><h4>ASSIGN TAXONOMY [ASVs workflow]<a class="headerlink" href="#assign-taxonomy-asvs-workflow" title="Link to this heading"></a></h4>
+>>>>>>> c197e31f5a449b4e3650a9545d50562e2de36a2e
 <p>DADA2 <a class="reference external" href="https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf">assignTaxonomy</a> function to classify ASVs.
 Outputs classified fasta files into <code class="docutils literal notranslate"><span class="pre">taxonomy_out.dada2</span></code> directory.</p>
 <table class="docutils align-default">
@@ -641,6 +707,7 @@ Outputs classified fasta files into <code class="docutils literal notranslate"><
 <hr class="docutils" />
 <section id="unoise-asvs">
 <h2>UNOISE ASVs<a class="headerlink" href="#unoise-asvs" title="Link to this heading"></a></h2>
+<<<<<<< HEAD
 <p>UNOISE3 pipeline for making ASVs (zOTUs).
 Can optionally do automatic clustering of those ASVs (zOTUs) to OTUs by specifying the similarity threshold &lt; 1.
 Uses UNOISE3 and clustering algorithms in vsearch.</p>
@@ -1110,6 +1177,15 @@ consistently satisfy some user selected criteria for being errors of more abunda
 </tbody>
 </table>
 </section>
+=======
+<p>UNOISE3 pipeline for making ASVs (zOTUs) + optionally automatic clustering of those ASVs.
+Updating this section soon.</p>
+</section>
+<section id="nextits">
+<span id="id1"></span><h2>NextITS<a class="headerlink" href="#nextits" title="Link to this heading"></a></h2>
+<p>NextITS pipeline for PacBio ITS sequences.
+Updating this section soon.</p>
+>>>>>>> c197e31f5a449b4e3650a9545d50562e2de36a2e
 </section>
 </section>
 
