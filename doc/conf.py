@@ -5,12 +5,16 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 import os
-
 # Tell Jinja2 templates the build is running on Read the Docs
 if os.environ.get("READTHEDOCS", "") == "True":
     if "html_context" not in globals():
         html_context = {}
     html_context["READTHEDOCS"] = True
+
+from docutils import nodes
+from docutils.parsers.rst import Directive, directives
+
+# -- Project information -----------------------------------------------------
 
 project = 'PipeCraft2'
 copyright = '2023, Sten Anslan'
@@ -56,3 +60,42 @@ sphinx_tabs_disable_tab_closing = True
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+class YouTube(Directive):
+    required_arguments = 1
+    optional_arguments = 0
+    final_argument_whitespace = True
+    option_spec = {}
+    has_content = False
+
+    def run(self):
+        video_id = self.arguments[0]
+        css_code = """
+        <style>
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        </style>
+        """
+        embed_code = f"""
+        {css_code}
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/{video_id}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        """
+        return [nodes.raw('', embed_code, format='html')]
+
+def setup(app):
+    app.add_directive('youtube', YouTube)

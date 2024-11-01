@@ -74,6 +74,12 @@ PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versio
    
 3. Download `Docker for windows <https://www.docker.com/get-started>`_  - ONLY ONCE (no need, when updating PipeCraft)
 
+..  |
+    .. youtube:: G7DTht6WlFY
+    |
+    .. youtube:: MEJsH8PsSnU
+    |
+
 
 .. warning::
 
@@ -149,6 +155,11 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
  Manage Docker resource limits in the Docker dashboard:
  |resources|
  
+..  | 
+    .. youtube:: I7SXBxCv6ik 
+    |
+    .. youtube:: bcYeCXkN1XQ
+    |
 ____________________________________________________
 
 Linux
@@ -180,6 +191,12 @@ PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions
 
  On Linux, Docker can use all available host resources.
 
+
+..  |
+    .. youtube:: KCbHgaWGdvc
+    |
+    .. youtube:: v1smqfAz5nE
+    |
 ____________________________________________________
 
 Updating PipeCraft2
