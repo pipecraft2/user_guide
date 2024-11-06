@@ -1,6 +1,7 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
-  :width: 100
+  :width: 50
   :alt: Alternative text
+  :target: https://github.com/pipecraft2/user_guide
   
 .. |NextITS_multidir_structure| image:: _static/NextITS_multidir_structure.png
   :width: 350
@@ -24,20 +25,17 @@
     :description lang=en:
         PipeCraft2 manual. User guide for PipeCraft2
 
-|PipeCraft2_logo|
-  `github <https://github.com/pipecraft2/pipecraft>`_
-
 .. raw:: html
 
     <style> .red {color:#ff0000; font-weight:bold; font-size:16px} </style>
 
 .. role:: red
 
-=====================
-Pre-defined pipelines
-=====================
-
 .. _predefinedpipelines: 
+
+=======================================
+Pre-defined pipelines |PipeCraft2_logo|
+=======================================
 
 vsearch OTUs
 ============

@@ -1,6 +1,7 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
-  :width: 100
+  :width: 50
   :alt: Alternative text
+  :target: https://github.com/pipecraft2/user_guide
 
 .. raw:: html
 
@@ -19,12 +20,9 @@
     :description lang=en:
         PipeCraft manual. tutorial
 
-|PipeCraft2_logo|
-  `github <https://github.com/pipecraft2/pipecraft>`_
-
-=====================
-Example data analyses 
-=====================
+=======================================
+Example data analyses |PipeCraft2_logo|
+=======================================
 
 Some example analyses pipelines.
 

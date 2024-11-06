@@ -1,6 +1,7 @@
-.. |PipeCraft2_logo| image:: _static/PipeCraft2_logo.png
-  :width: 150
+.. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
+  :width: 50
   :alt: Alternative text
+  :target: https://github.com/pipecraft2/user_guide 
 
 .. |add_step_interface| image:: _static/add_step.png
   :width: 600
@@ -14,19 +15,16 @@
     :description lang=en:
         PipeCraft manual. PipeCraft in a Graphical User Interface software for metabarcoding data analyses
 
-|PipeCraft2_logo|
-  `github <https://github.com/pipecraft2/pipecraft>`_
-
 .. _quicktools:
 
-==============================
-Individual steps (Quick Tools)
-==============================
+================================================
+Individual steps (Quick Tools) |PipeCraft2_logo|
+================================================
 
 .. _demux:
 
-DEMULTIPLEX
-===========
+DEMULTIPLEXING
+==============
 
 If data is **multiplexed, the first step would be demultiplexing** (using `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_ (`Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_)).
 This is done based on the user specified :ref:`indexes file <indexes>`, which includes molecular identifier sequences (so called indexes/tags/barcodes) per sample. 

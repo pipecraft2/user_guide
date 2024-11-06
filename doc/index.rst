@@ -1,6 +1,7 @@
-.. |PipeCraft2_logo| image:: _static/PipeCraft2_logo.png
-  :width: 150
+.. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
+  :width: 50
   :alt: Alternative text
+  :target: https://github.com/pipecraft2/user_guide 
 
 .. |main_interface| image:: _static/main_interface.png
   :width: 2000
@@ -16,26 +17,13 @@
     :description lang=en:
         PipeCraft manual. PipeCraft is a Graphical User Interface software for metabarcoding data analyses
 
-|PipeCraft2_logo|
-  `github <https://github.com/pipecraft2/pipecraft>`_
+============================
+PipeCraft2 |PipeCraft2_logo|
+============================
 
-
-===============
-Latest version 
-===============
-
-01.09.2023 - :red:`v1.0.0`, `get it here <https://github.com/pipecraft2/pipecraft/releases/tag/v1.0.0>`_ 
-
-:red:`download links for the new release updated, but gradually updating the rest of the user guide.`
-Check :ref:`what have changed in the Releases sheet <releases>`
-
-======================
-Manual for PipeCraft2
-======================
-
-
-| **PipeCraft2** is a Graphical User Interface (GUI) software that implements :ref:`various popular tools <tools>` for **metabarcoding** data analyses. 
-| Implements various ready-to-run (pre-defined) pipelines as well as an option to run a variety of individual steps outside of a full-pipeline.
+**PipeCraft2** is a Graphical User Interface (GUI) software that implements :ref:`various popular tools <tools>` for **metabarcoding** data analyses. 
+Implements various :ref:`ready-to-run (pre-defined) pipelines <predefinedpipelines>` as well as an option to run a 
+variety of :ref:`individual steps <quicktools>` outside of a full-pipeline.
 
 .. _interface:
 
@@ -45,8 +33,8 @@ Manual for PipeCraft2
 | Software settings for pipeline processes contain key options for metabarcoding sequence data analyses, but all options of any implemented program may be accessed via :ref:`PipeCraft console (command line) <expert_mode>`. 
 | Default settings in the panels represent commonly used options for amplicon sequence data analyses, which may be tailored according to user experience or needs. 
  Custom-designed pipeline settings can be saved, and thus the exact same pipeline may be easily re-run on other sequencing data (and for reproducibility, may be used as a supplement material in the manuscript). 
- PipeCraft enables executing the full pipeline (user specifies the input, and output will be e.g. OTU/ASV table with taxonomic annotations of the generated features), 
- but supports also single-step mode (Quick Tools panel) where analyses may be performed in a step-by-step manner *(e.g. perform quality filtering, then examine the output and decide whether to adjust the quality filtering options of 
+ PipeCraft enables executing the :ref:`full pipeline <predefinedpipelines>` (user specifies the input, and output will be e.g. OTU/ASV table with taxonomic annotations of the generated features), 
+ but supports also :ref:`single-step mode (Quick Tools panel) <quicktools>` where analyses may be performed in a step-by-step manner *(e.g. perform quality filtering, then examine the output and decide whether to adjust the quality filtering options of 
  to proceed with next step, e.g. with chimera filtering step)*.
 
 
@@ -118,32 +106,6 @@ Load workflow
 Press the ``LOAD WORKFLOW`` button on the :ref:`right-ribbon <interface>` and select appropriate JSON file.
 The configuration will be loaded; ``SELECT WORKDIR`` and run analyses.
 
-
-Contents of this user guide
----------------------------
-
-.. toctree::
-   :maxdepth: 2
-
-   installation
-   quickstart
-   pre-defined_pipelines
-   quicktools
-   postprocessing
-   tutorial
-   troubleshoot
-   licence
-   contact
-   citation
-   releases
-   docker_images
-   for_developers
-
-| 
-| 
-
-*Manual may contain some typos! Fixing those on the way.*
-
 ____________________________________________________
 
 .. _tools:
@@ -180,3 +142,27 @@ HMMER                                                                    `Web si
 =======================================================================  =========================================================================================  =============
 
 Let us know if you would like to have a specific software implemeted to PipeCraft (:ref:`contacts <contact>`) or create an issue in the `main repository <https://github.com/SuvalineVana/pipecraft/issues>`_.
+
+____________________________________________________
+
+
+Contents of this user guide
+---------------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   installation
+   quickstart
+   pre-defined_pipelines
+   quicktools
+   postprocessing
+   tutorial
+   troubleshoot
+   licence
+   contact
+   citation
+   releases
+   docker_images
+   for_developers
+

@@ -1,6 +1,7 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
-  :width: 100
+  :width: 50
   :alt: Alternative text
+  :target: https://github.com/pipecraft2/user_guide
 
 .. |resources| image:: _static/resources1.png
   :width: 600
@@ -25,12 +26,9 @@
         PipeCraft manual. How to install PipeCraft
 
 
-|PipeCraft2_logo|
-  `github <https://github.com/pipecraft2/pipecraft>`_
-
-==============
-Installation
-==============
+==============================
+Installation |PipeCraft2_logo|
+==============================
 
 | Current :ref:`versions <releases>` do not work on High Performance Computing (**HPC**) clusters **yet**.
 | 
@@ -160,6 +158,7 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
     |
     .. youtube:: bcYeCXkN1XQ
     |
+
 ____________________________________________________
 
 Linux
@@ -197,6 +196,7 @@ PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions
     |
     .. youtube:: v1smqfAz5nE
     |
+    
 ____________________________________________________
 
 Updating PipeCraft2

@@ -1,6 +1,7 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
-  :width: 100
+  :width: 50
   :alt: Alternative text
+  :target: https://github.com/pipecraft2/user_guide
 
 .. |PipeCraft2_icon| image:: _static/PipeCraft2_icon_v2.png
   :width: 200
@@ -14,10 +15,6 @@
   :width: 200
   :alt: Alternative text
   
-|PipeCraft2_logo|
-  `github <https://github.com/pipecraft2/pipecraft>`_
-
-
 .. raw:: html
 
     <style> .blue {color:#0000FF; font-weight:bold; font-size:16px} </style>
@@ -26,9 +23,9 @@
 
 .. _contact: 
 
-============================
-Contact and Acknowledgements
-============================
+==============================================
+Contact and Acknowledgements |PipeCraft2_logo|
+==============================================
 
 ::
 
