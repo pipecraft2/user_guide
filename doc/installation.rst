@@ -30,14 +30,11 @@
 Installation |PipeCraft2_logo|
 ==============================
 
+| Installation packages are available for **Windows, Mac and Linux**.
+| 
 | Current :ref:`versions <releases>` do not work on High Performance Computing (**HPC**) clusters **yet**.
 | 
 | Herein **'PipeCraft' == 'PipeCraft2'**. Using those interchangeably. 
-
-____________________________________________________
-
-.. contents:: Contents
-   :depth: 3
 
 ____________________________________________________
 
@@ -196,14 +193,11 @@ PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions
     |
     .. youtube:: v1smqfAz5nE
     |
-    
+
 ____________________________________________________
 
 Updating PipeCraft2
 -------------------
-
-Auto-updates will be available (hopefully) soon [at least for Windows]! 
-
 
  | See :ref:`PipeCraft2 releases here <releases>`.
  | See :ref:`removing docker images <removedockerimages>` section.
