@@ -1,6 +1,7 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
-  :width: 100
+  :width: 50
   :alt: Alternative text
+  :target: https://github.com/pipecraft2/user_guide
 
 .. |resources| image:: _static/resources1.png
   :width: 600
@@ -25,21 +26,15 @@
         PipeCraft manual. How to install PipeCraft
 
 
-|PipeCraft2_logo|
-  `github <https://github.com/pipecraft2/pipecraft>`_
+==============================
+Installation |PipeCraft2_logo|
+==============================
 
-==============
-Installation
-==============
-
+| Installation packages are available for **Windows, Mac and Linux**.
+| 
 | Current :ref:`versions <releases>` do not work on High Performance Computing (**HPC**) clusters **yet**.
 | 
 | Herein **'PipeCraft' == 'PipeCraft2'**. Using those interchangeably. 
-
-____________________________________________________
-
-.. contents:: Contents
-   :depth: 3
 
 ____________________________________________________
 
@@ -155,11 +150,12 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
  Manage Docker resource limits in the Docker dashboard:
  |resources|
  
- | 
- .. youtube:: I7SXBxCv6ik 
- |
- .. youtube:: bcYeCXkN1XQ
- |
+..  | 
+    .. youtube:: I7SXBxCv6ik 
+    |
+    .. youtube:: bcYeCXkN1XQ
+    |
+
 ____________________________________________________
 
 Linux
@@ -192,18 +188,16 @@ PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions
  On Linux, Docker can use all available host resources.
 
 
- |
- .. youtube:: KCbHgaWGdvc
- |
- .. youtube:: v1smqfAz5nE
- |
+..  |
+    .. youtube:: KCbHgaWGdvc
+    |
+    .. youtube:: v1smqfAz5nE
+    |
+
 ____________________________________________________
 
 Updating PipeCraft2
 -------------------
-
-Auto-updates will be available (hopefully) soon [at least for Windows]! 
-
 
  | See :ref:`PipeCraft2 releases here <releases>`.
  | See :ref:`removing docker images <removedockerimages>` section.

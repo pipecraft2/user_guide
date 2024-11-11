@@ -1,11 +1,7 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
-  :width: 100
+  :width: 50
   :alt: Alternative text
-
-
-|PipeCraft2_logo|
-  `github <https://github.com/pipecraft2/pipecraft>`_
- 
+  :target: https://github.com/pipecraft2/user_guide
 
 .. raw:: html
 
@@ -16,9 +12,9 @@
 
 .. _dockerimages:
 
-=============
-Docker images
-=============
+===============================
+Docker images |PipeCraft2_logo|
+===============================
 
 Docker images (with the bioinformatic tools) used in PipeCraft2 are stored on `Dockerhub <https://hub.docker.com/u/pipecraft>`_. 
 These images can be used to launch any tool with the Docker CLI to utilize the compiled tools.

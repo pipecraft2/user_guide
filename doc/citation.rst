@@ -1,14 +1,11 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
-  :width: 100
+  :width: 50
   :alt: Alternative text
+  :target: https://github.com/pipecraft2/user_guide
 
-|PipeCraft2_logo|
-  `github <https://github.com/pipecraft2/pipecraft>`_
-
-
-===========
-How to cite
-===========
+=============================
+How to cite |PipeCraft2_logo|
+=============================
 
 For now, please cite the first release of PipeCraft:
 

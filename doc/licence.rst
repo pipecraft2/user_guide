@@ -1,13 +1,11 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
-  :width: 100
+  :width: 50
   :alt: Alternative text
+  :target: https://github.com/pipecraft2/user_guide
 
-|PipeCraft2_logo|
-  `github <https://github.com/SuvalineVana/pipecraft>`_
-
-=======
-Licence
-=======
+=========================
+Licence |PipeCraft2_logo|
+=========================
 
 | Copyright (C) 2023, Sten Anslan, Martin Metsoja
 | This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.

@@ -1,6 +1,7 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
-  :width: 100
+  :width: 50
   :alt: Alternative text
+  :target: https://github.com/pipecraft2/user_guide
 
 .. |learnErrors| image:: _static/troubleshoot/learnErrors.png
   :width: 250
@@ -26,14 +27,9 @@
   :width: 250
   :alt: Alternative text
 
-  
- 
-|PipeCraft2_logo|
-  `github <https://github.com/pipecraft2/pipecraft>`_
-
-===============
-Troubleshooting
-===============
+=================================
+Troubleshooting |PipeCraft2_logo| 
+=================================
 
 This page is developing based on the user feedback.
 
