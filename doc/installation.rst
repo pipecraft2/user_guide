@@ -63,18 +63,20 @@ Windows
 PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versions do not support PipeCraft GUI workflow through Docker.
 
 
-1. Download PipeCraft2 for `Windows: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.exe>`_
+1. Download PipeCraft2 for Windows: `v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.exe>`_
+2. Install PipeCraft2 via the setup executable.
 
-2. Install PipeCraft2 via the setup executable
+.. youtube:: MEJsH8PsSnU
+
+|
    
-3. Download `Docker for windows <https://www.docker.com/get-started>`_  - ONLY ONCE (no need, when updating PipeCraft)
+3. Download `Docker for windows <https://www.docker.com/get-started>`_  - ONLY ONCE (no need, when updating PipeCraft).
+   
+   .. important:: 
 
-  |
-  .. youtube:: G7DTht6WlFY
-  |
-  .. youtube:: MEJsH8PsSnU
-  |
+    **Administrator privileges are required during installation**. Once installed, Docker on Windows can be run without admin rights.  
 
+.. youtube:: G7DTht6WlFY
 
 .. warning::
 
@@ -131,15 +133,19 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
 
 2. Install PipeCraft2 via **pkg** file
 
-3. Currently macOS will flag pipecraft as an app from an unidentified developer. Grant an exception for a blocked app by clicking the "**Open Anyway**" button in the General panel of **Security & Privacy** preferences. Installing on latest versions of macOS (13.0+) will require you to disable gatekeeper entirely, to do so paste the following command into a terminal.
+.. youtube:: I7SXBxCv6ik 
 
-4. Check your Mac chip (Apple or Intel) and download `Docker for Mac <https://www.docker.com/get-started>`_ - ONLY ONCE (no need, when updating PipeCraft) 
+3. Currently macOS will flag pipecraft as an app from an unidentified developer. Grant an exception for a blocked app by clicking the "**Open Anyway**" button in the General panel of **Security & Privacy** preferences. Installing on latest versions of macOS (13.0+) will require you to disable gatekeeper entirely, to do so paste the following command into a terminal.
 
 .. code-block::
 
  sudo spctl --master-disable  
 
 |openanyway|
+
+4. Check your Mac chip (Apple or Intel) and download `Docker for Mac <https://www.docker.com/get-started>`_ - ONLY ONCE (no need, when updating PipeCraft) 
+
+.. youtube:: bcYeCXkN1XQ
 
 5. Open **Docker dashboard**: Settings -> Resources -> File Sharing; and add the directory where **pipecraft.app** was installed (it is usually /Appications)
 
@@ -149,13 +155,8 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
 
  Manage Docker resource limits in the Docker dashboard:
  |resources|
- 
-..  | 
-    .. youtube:: I7SXBxCv6ik 
-    |
-    .. youtube:: bcYeCXkN1XQ
-    |
 
+ 
 ____________________________________________________
 
 Linux
