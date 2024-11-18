@@ -42,14 +42,6 @@ vsearch OTUs
 
 .. _vsearchOTUs:
 
-.. |otuoff| image:: _static/OTU_off.png
-  :width: 50
-  :alt: Alternative text
-
-.. |otuon| image:: _static/OTU_on.png
-  :width: 50
-  :alt: Alternative text
-
 
 This automated workflow is mostly based on `vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_) [`manual <_static/vsearch_manual_2.22.1.pdf>`_]
 to form **OTUs and an OTU table**. This input is the directory that contains per-sample fastq files (**demultiplexed data**).
@@ -392,16 +384,21 @@ obtained via **PacBio** sequencing.
 | * multiple options for sequence clustering
 | * post-clustering with LULU
 
-Please see other details here: https://next-its.github.io
-**Please note that NextITS pipeline accepts only a single primer pair**, i.e., one forward and one reverse primer in STEP_1!
+.. note:: 
+
+  Please see other details here: https://next-its.github.io
+  **Please note that NextITS pipeline accepts only a single primer pair**, i.e., one forward and one reverse primer in STEP_1!
 
 .. important:: 
 
   NextITS requires your data and folders to be structured in a specific way (see below)! 
   Directory ``my_dir_for_NextITS`` contains ``Input`` [hard-coded requirement here] and one or multiple sequencing runs.
   In the below example, the sequencing runs [``RunID``] are named as Run1, Run2 and Run3 (but naming can be different).
+
+  Although native NextITS requires multiplexed data as an input, the PipeCraft2's implementation **requires demultiplexed data**. So, if you have multiplexed data, then first use the DEMULTIPLEX QuickTool.
   
-  In PipeCraft2, following the examples below, select ``my_dir_for_NextITS`` as a WORKDIR.
+  In PipeCraft2, following the examples below, select ``my_dir_for_NextITS`` as a **WORKDIR**.
+  
 
 
 Single sequencing run

@@ -1,0 +1,13 @@
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* image to center of the page :class: center */
+
+.right {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+}
+/* image to right of the page :class: right */

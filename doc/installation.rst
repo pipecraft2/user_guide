@@ -11,6 +11,10 @@
   :width: 400
   :alt: Alternative text
 
+.. |runanyway| image:: _static/runanyway.png
+  :width: 450
+  :alt: Alternative text
+
 .. |mac_docker_share| image:: _static/Mac_docker_share.png
   :width: 400
   :alt: Alternative text
@@ -44,16 +48,13 @@ The only prerequisite is `Docker <https://www.docker.com/>`_.
 
 See OS-specific (Windows, Mac, Linux) docker installation guidelines below.
 
-.. note:: 
+.. admonition:: Why Docker is needed?
 
  Modules of PipeCraft2 are distributed through Docker containers, which will liberate the users from the
  struggle to install/compile various software for metabarcoding data analyses.
- **Thus, all processes are run in Docker containers**.
+ **Thus, all backend bioinformatics processes are run in Docker containers**.
  Relevant Docker container will be automatically downloaded prior the analysis.
-
-.. warning::
-
- Your OS might warn that PipeCraft2 is dangerous software! Please ignore the warning in this case. 
+ See below how to manage and remove Docker images for the system. 
 
 ____________________________________________________
 
@@ -66,11 +67,17 @@ PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versio
 1. Download PipeCraft2 for Windows: `v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.exe>`_
 2. Install PipeCraft2 via the setup executable.
 
+.. admonition:: False alert
+
+ Your OS might warn that PipeCraft2 is dangerous software! Please ignore the warning until this issue is fixed by the developers. 
+
+ |runanyway| 
+
 .. youtube:: MEJsH8PsSnU
 
 |
    
-3. Download `Docker for windows <https://www.docker.com/get-started>`_  - ONLY ONCE (no need, when updating PipeCraft).
+1. Download `Docker for windows <https://www.docker.com/get-started>`_  - ONLY ONCE (no need, when updating PipeCraft).
    
    .. important:: 
 

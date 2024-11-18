@@ -30,7 +30,7 @@ Contact and Acknowledgements |PipeCraft2_logo|
 ::
 
     Sten Anslan <sten.s.anslan[at]jyu.fi>
-    Martin Metsoja <martin.metsoja[at]gmail.com>
+    Martin Metsoja <martin.metsoja[at]ut.ee>
     Vladimir Mikryukov <vladimir.mikryukov[at]ut.ee>
     Ali Hakimzadeh <ali.hakimzadeh[at]ut.ee>
 

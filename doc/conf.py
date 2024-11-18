@@ -99,3 +99,6 @@ class YouTube(Directive):
 
 def setup(app):
     app.add_directive('youtube', YouTube)
+
+def setup(app):
+    app.add_css_file('custom.css')

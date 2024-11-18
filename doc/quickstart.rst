@@ -99,53 +99,5 @@ ____________________________________________________
 
  :ref:`QuickTools page here <quicktools>`
 
-____________________________________________________
 
 
-.. _qualitycheck:
-
-Quality scores and basic statistics screening of the data
-==========================================================
-
-.. |multiQC_main| image:: _static/multiQC_main.png
-  :width: 1000
-  :alt: Alternative text
-
-.. |multiQC_1-3| image:: _static/multiQC_1-3.png
-  :width: 550
-  :alt: Alternative text
-
-.. |multiQC_view_report| image:: _static/multiQC_view_report.png
-  :width: 550
-  :alt: Alternative text
-
-
-Quality and basic statistics screening of the data can be done via ``QualityCheck`` panel. 
-QualityCheck panel implements `FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_ and `MultiQC <https://multiqc.info/>`_ to screen the input **fastq** files. 
-
-|multiQC_main|
-
-| 
-
-**To start:** 
-
- 1. **Select folder** (a working directory) which contains only **fastq** (fastq/fq) files that you aim to inspect. 
- 2. Press ``CREATE REPORT`` to start MultiQC 
- 3. "LOADING ..." will be displayed while the report is being generated
-
-|multiQC_1-3|
-
-|multiQC_view_report|
-
- 4. Click ``VIEW REPORT``. A html file (multiqc_report.html) will open in your default web browser.
-    
-    *If the summary does not open, check your working floder for the presence of* **multiqc_report.html** *and try to open with some other web browser.*
-    *Something went wrong if the file multiqc_report.html* **does not exist** *(may fail when maximum number of fastq files in the folder is extremely large, >10 000).*
-
- 5. Check out  `"using MultiQC reports" <https://multiqc.info/docs/#using-multiqc-reports>`_ in MultiQC web page.
-   
-.. note::
-
- Note that '_fastqc.zip' and '_fastqc.html' are generated for each fastq file in the **'quality_check'** directory. These are summarized in **multiqc_report.html**, 
- so you may delete all individual '_fastqc.zip' and '_fastqc.html' files if those are of no interest.
- 

@@ -3,6 +3,12 @@
   :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide 
 
+.. |PipeCraft_sticker1sideways| image:: _static/PipeCraft_sticker1sideways.png
+  :width: 350
+  :alt: Alternative text
+  :class: right
+  :target: https://github.com/pipecraft2/user_guide
+
 .. |main_interface| image:: _static/main_interface.png
   :width: 2000
   :alt: Alternative text
@@ -16,6 +22,7 @@
 .. meta::
     :description lang=en:
         PipeCraft manual. PipeCraft is a Graphical User Interface software for metabarcoding data analyses
+
 
 ============================
 PipeCraft2 |PipeCraft2_logo|
@@ -157,7 +164,7 @@ Contents of this user guide
    pre-defined_pipelines
    quicktools
    postprocessing
-   tutorial
+   example_analyses
    troubleshoot
    licence
    contact
@@ -166,3 +173,4 @@ Contents of this user guide
    docker_images
    for_developers
 
+|PipeCraft_sticker1sideways|
