@@ -31,6 +31,37 @@
   :width: 700
   :alt: Alternative text
 
+.. |DADA2_quality_filt_expand| image:: _static/DADA2_quality_filt_expand.png
+  :width: 600
+  :alt: Alternative text
+
+.. |DADA2_denoise_expand| image:: _static/DADA2_denoise_expand.png
+  :width: 600
+  :alt: Alternative text
+
+.. |DADA2_assign_tax_expand| image:: _static/DADA2_assign_tax_expand.png
+  :width: 600
+  :alt: Alternative text
+
+.. |DADA2_filter_table_expand| image:: _static/DADA2_filter_table_expand.png
+  :width: 600
+  :alt: Alternative text
+
+.. |DADA2_2samples_needed| image:: _static/troubleshoot/DADA2_2samples_needed.png
+  :width: 300
+  :alt: Alternative text
+
+.. |output_icon| image:: _static/output_icon.png
+  :width: 50
+  :alt: Alternative text
+
+.. |save| image:: _static/save.png
+  :width: 50
+  :alt: Alternative text
+
+.. |pulling_image| image:: _static/pulling_image.png
+  :width: 280
+  :alt: Alternative text
 
 .. meta::
     :description lang=en:
@@ -43,341 +74,377 @@ DADA2 ASVs pipeline |PipeCraft2_logo|
 
 This example data analyses follows DADA2 ASVs workflow as implemented in PipeCraft2's pre-compiled pipelines panel. 
 
-`Download example data set here <https://mothur.s3.us-east-2.amazonaws.com/wiki/miseqsopdata.zip>`_ (35.1 Mb) and unzip it. 
-
-| **Input data**: 
-| **paired-end** Illumina MiSeq data, **demultiplexed** set (per-sample fastq files) of **16S rRNA gene V4 amplicon sequences** where sample indexes and **primers have already been removed**. 
+| `Download example data set here <https://mothur.s3.us-east-2.amazonaws.com/wiki/miseqsopdata.zip>`_ (35.1 Mb) and unzip it. 
 | This is `mothur MiSeq SOP example data set <https://mothur.org/wiki/miseq_sop/>`_. 
+
+____________________________________________________
 
 Starting point 
 ~~~~~~~~~~~~~~
 
-Since this example 
+This example dataset consists of **16S rRNA gene V4 amplicon sequences**:
 
-|DADA2_PE_FWD| 
+- **paired-end** Illumina MiSeq data;
+- **demultiplexed** set (per-sample fastq files);
+- indexes and primers have already been **removed**;
+- sequences in this set are **5'-3' oriented**.
 
-.. warning::
- 
- Be sure that all sequences have **same orientation** (5'-3' or 3'-5') in your input data set(s)! If sequences are in **mixed orientation** 
- (i.e. some sequences are recorded as 5'-3' and some as 3'-5'; as usually in the raw data), 
- then exactly the same ASV may be reported twice, where one is just the reverse complementary ASV: 1) ASV with sequence orientation of 5'-3'; and 2) ASV with sequence orientation of 3'-5'. **Reorient sequences** based on primer sequene using ``REORIENT`` panel; :ref:`see here <reorient>`.
- 
-.. important::
 
-  When working with your own data, then please check that the paired-end data file names contain "R1" and "R2" strings 
-  (to correctly identify the paired-end reads by PipeCraft). 
+.. admonition:: when working with your own data ...
+
+  ... then please check that the paired-end data file names contain **R1** and **R2** strings *(not just _1 and _2)*, so that 
+  PipeCraft can correctly identify the paired-end reads.
 
   | *Example:*
   | *F3D0_S188_L001_R1_001.fastq*
   | *F3D0_S188_L001_R2_001.fastq*
 
+  
+**At least 2 samples** (2xR1 + 2x R2 files) are required for this workflow! Otherwise ERROR in the denoising step:
 
-* If you need to trim the primers/adapters, :ref:`see here <remove_primers>`.
+|DADA2_2samples_needed| 
 
-:: 
+____________________________________________________
 
- 1. Select working directory by pressing the 'SELECT WORKDIR' button.
-
-| Secify
-| ``sequencing data format`` as **demultiplexed**;
+| **To select DADA2 pipeline**, press
+| ``SELECT PIPELINE`` --> ``DADA" ASVs``.
+| 
+| **To select input data**, press ``SELECT WORKDIR``
+| and specify
 | ``sequence files extension`` as **\*.fastq**;  
 | ``sequencing read types`` as **paired-end**.
 
-:: 
+____________________________________________________
 
- 2. Select 'ASVs workflow' panel (right-ribbon) and check that docker is running (green icon);
+Workflow mode
+~~~~~~~~~~~~~
 
+Because we are working with sequences that are **5'-3' oriented**, we are selecting hte ``PAIRED-END FORWARD`` mode of the pipeline. 
 
-| 
-|
+|DADA2_PE_FWD| 
 
-.. _rest_of_PE_ASV_workflow:
+.. admonition:: if sequences are in mixed orientation
+ 
+ If some sequences in your library are in 5'-3' and some as 3'-5' orientation, 
+ then with the 'PAIRED-END FORWARD' mode exactly the same ASV may be reported twice, where one ASV is just the reverse complementary of another. 
+ To avoid that, select **PAIRED-END MIXED** mode. 
+ *Sequences have mixed orientation in libraries where sequenceing adapters have been ligated, rather than attached to amplicons during PCR.*
 
-:: 
+ **Specifying primers** (for CUT PRIMERS) **is mandatory for the PAIRED-END MIXED** mode. Based on the priemr sequences, the library will be split into two: 
+ 1) fwd oriented sequences, and 2) rev oriented sequences. Both batches are processed independently to produce ASVs, after which the rev oriented batch ASVs are 
+ reverse complemented and merged with the fwd oriented ASVs. Identical ASVs are merged to form a final data set. This is a reccomended workflow for accurate denoising compared with first 
+ reorienting all sequences to 5'-3', and then performing a standard 'PAIRED-END FORWARD' workflow.
 
- 3. 'QUALITY FILTERING'
-   
-.. |DADA2_quality_filt_expand_dadaTut| image:: _static/DADA2_quality_filt_expand_dadaTut.png
-  :width: 550
-  :alt: Alternative text
+____________________________________________________
 
-Before adjusting quality filtering settings, let's have a look on the **quality profile** of our example data set. Below quality profile plot was generated using ``QualityCheck`` panel (:ref:`see here <qualitycheck>`).
+Cut primers
+~~~~~~~~~~~
+
+The example dataset has primers already clipped, so here we are skipping this process.
+
+.. admonition:: when working with your own data ... 
+
+  ... and you need to clip primers, then check the box for **CUT PRIMERS** and specify the PCR primers. 
+  You may specify add up to 13 primer pairs. 
+  Check :ref:`cut primers page <remove_primers>`.
+
+____________________________________________________
+ 
+Quality filtering 
+~~~~~~~~~~~~~~~~~
+
+Before adjusting quality filtering settings, let's have a look on the **quality profile** of our example data set. 
+Below quality profile plot was generated using ``QualityCheck`` panel (:ref:`see here <qualitycheck>`).
 
 |fastqc_per_base_sequence_quality_plot|
 
-In this case, all **R1 files are represented with green lines**, indicating good average quality per file. However, all **R2 files are either yellow or red**, indicating a drop in quality scores. 
-Lower qualities of R2 reads are characteristic for Illumina sequencing data, and is not too alarming. DADA2 algoritm is robust to lower quality sequences, but removing the low quality read parts
-will improve the DADA2 sensitivity to rare sequence variants.
+In this case, all **R1 files are represented with green lines**, indicating good average quality per file (i.e., sample). 
+However, all **R2 files are either yellow or red**, indicating a drop in quality scores. 
+Lower qualities of R2 reads are characteristic for Illumina sequencing data, and is not too alarming. 
+DADA2 algoritm is robust to lower quality sequences, but removing the low quality read parts
+will improve the DADA2 sensitivity to rare sequence variants; so, let's do some quality filtering. 
+
+____________________________________________________
+
+**Click on** ``QUALITY FILTERING`` **to expand the panel**
+
+|DADA2_quality_filt_expand|
+
+.. admonition:: it is important to double-check the value in 'read R1' box.
+
+  This denotes the **common identifier for all read1 sequences** in your input Illumina data set. 
+
+  Our example data fastq files were named as:
+    | *F3D0_S188_L001_R1_001.fastq*
+    | *F3D0_S188_L001_R2_001.fastq* ...
+
+  So, **_R1** is common identifier for all read1 files.
+  By specifying **_R1**, PipeCraft automatically expects that corresponding read2 files have common identifier **_R2**. 
+
+  All characters in the file name before the specified identifier, that is **_R1** in this case, account for **sample name**.
+  So, the **sample name in the final ASV table** for files F3D0_S188_L001_R1_001.fastq and F3D0_S188_L001_R2_001.fastq is F3D0_S188_L001.
+
+  **Note that simply _1 and _2 are not recognized as read1/2 identifiers!**
+
+Based on the quality scores distribution plot above, we will **trim reads to specified length to remove low quality ends**. 
+Set ``truncLen`` to 240 for trimming R1 reads and ``truncLen R2`` to 160 to trim R2 reads. Latter positions represent the approximate positions where sequence quality drps notably.
+
+.. admonition:: when working with your own data ... 
+
+  ... be sure to consider the amplicon length before applying ``truncLen`` options, so that R1 and R2 reads would still overlap for the ``MERGE PAIRS`` process.
+  Non-overlapping paired-end reads will be discarded. 
 
 
-* **Click on** ``QUALITY FILTERING`` **to expand the panel**
-* specify identifier strings for ``read R1`` and ``read R2``. Here, fastq file names = F3D0_S188_L001_R1_001.fastq, F3D0_S188_L001_R2_001.fastq etc...; **_R1** and **_R2** are common identifiers for all files.
-* specify ``samp ID`` (sample identifier). Here **_** (underscore), which denotes that sample name is a string before the first **_** in the fastq file name.
-* trim reads to specified length to remove low quality ends. Set ``truncLen`` to 240 for trimming R1 reads and ``truncLen R2`` to 160 to trim R2 reads. Latter positions represent the approximate positions where sequence quality drps notably
-  (quality profile figure above). Be sure to consider the amplicon length before applying ``truncLen`` options, so that R1 and R2 reads would still overlap for the ``MERGE PAIRS`` process. 
-* other settings as default.
-
-*(click on the image for enlargement)*
-|DADA2_quality_filt_expand_dadaTut|
-
-| *This step performs quality filtering.* 
-| *Quality filtering settings* :ref:`here <dada2_qual_filt>`
-| 
-| **Output** directory = ``qualFiltered_out``:
-| \*_filt.fastq          = quality filtered sequences per sample in FASTQ format
-| seq_count_summary.txt = summary of sequence counts per sample
-| FASTA/\*_filt.fasta    = quality filtered sequences per sample in FASTA format
-
-:: 
-
- 4. Here, we use default 'DENOISE' and 'MERGE PAIRS' settings 
+Here, we can leave other settings as DEFAULT. :ref:`Check the settings here <dada2_qual_filt>`.
 
 
-| *This step performs denoising and merging of paired-end sequences.* 
-| *Denoise settings* : :ref:`here <dada2_denoise>`, *merge pairs settings* :ref:`here <dada2_merge_pairs>`)
-|
-| **Output** directory = ``denoised_assembled.dada2``. 
-| \*.merged_ASVs.fasta   = denoised and assembled ASVs per sample. 'Size' denotes the abundance of the ASV sequence
-| Error_rates_R1.pdf    = plots for estimated R1 error rates
-| Error_rates_R2.pdf    = plots for estimated R2 error rates
-| seq_count_summary.txt = summary of sequence and ASV counts per sample
++-----------------------+-------------------------------------------------------+
+| Output directory |output_icon|          ``qualFiltered_out``                  |
++=======================+=======================================================+
+| \*.fastq              | quality filtered sequences per sample in FASTQ format |
++-----------------------+-------------------------------------------------------+
+| \*.rds                | R objects for the following DADA2 workflow processes  |
++-----------------------+-------------------------------------------------------+
+| seq_count_summary.csv | summary of sequence counts per sample                 |
++-----------------------+-------------------------------------------------------+
 
-:: 
+____________________________________________________
 
- 5. Default settings for 'CHIMERA FILTERING'
+Denoise and merge pairs
+~~~~~~~~~~~~~~~~~~~~~~~
 
-(method = consensus)
+This step performs desiosing (as implemented in DADA2), which first forms ASVs per R1 and R2 files. 
+Then during merging/assembling process the paired ASV mates are assembled to output full amplicon length ASV. 
 
-| *This step performs chimera filtering on denoised and merged reads.*
-| *ASV table is generated during this step* 
-| *Chimera filtering settings* :ref:`here <dada2_chimeras>`
-|
-| **Output** directories -> 
-| ``chimeraFiltered_out.dada2``: 
-| \*.chimFilt_ASVs.fasta = chimera filtered ASVs per sample. 'Size' denotes the abundance of the ASV sequence.  
-| seq_count_summary.txt = summary of sequence and ASV counts per sample
-| \*.chimeras.fasta      = ASVs per sample that were flagged as chimeras (and thus discarded)
+|DADA2_denoise_expand| 
 
-| ``ASVs_out.dada2``: 
-| ASVs_table.txt = ASV distribution table per sample (tab delimited file)
-| ASVs.fasta     = FASTA formatted representative ASV sequences (this file is used for taxonomy assignment)
+Here, we are working with Illumina MiSeq data, so let's make sure that the ``errorEstFun`` setting is **loessErrfun**. For PacBio data use **PacBioErrfun**. 
+We can leave all settings as DEFAULT. Check the :ref:`denoising settings here <dada2_qual_filt>` and :ref:`merge pairs settings here <dada2_merge_pairs>`.
 
-|
++----------------------------------+--------------------------------------------------------+
+| Output directory |output_icon|          ``denoised_assembled.dada2``                      |
++==================================+========================================================+
+| \*.fasta                         | denoised and assembled ASVs per sample in FASTA format |
++----------------------------------+--------------------------------------------------------+
+| \*.rds                           | R objects for the following DADA2 workflow processes   |
++----------------------------------+--------------------------------------------------------+
+| Error_rates_R*.pdf               | plots for estimated R1/R2 error rates                  |
++----------------------------------+--------------------------------------------------------+
+| seq_count_summary.csv            | summary of sequence counts per sample                  |
++----------------------------------+--------------------------------------------------------+
 
-:: 
+___________________________________________________
 
- 6. 'ASSIGN TAXONOMY'
+Chimera filtering
+~~~~~~~~~~~~~~~~~
 
-* Click on 'ASSIGN TAXONOMY' to expand the panel  
-* press ``DOWNLOAD DATABASES`` which direct you to the DADA2-formatted reference databases `web page <https://benjjneb.github.io/dada2/training.html>`_.
-* download SILVA (silva_nr99_v138.1_wSpecies_train_set.fa.gz) database for assigning taxonomy to our 16S ASVs. `Download link here <https://zenodo.org/record/4587955/files/silva_nr99_v138.1_wSpecies_train_set.fa.gz?download=1>`_
-* specify the location of your downloaded DADA2 database by pressing ``SELECT FASTA``
-* since primers were already removed from this data set, we could not :ref:`reorient all sequences to uniform orientation as based on primers <reorient>`. Therefore, **swithc ON** ``tryRC`` 
-  to include reverse-complement search. 
+This step performs chimera filtering according to DADA2 removeBimeraDenovo function. During this step, the **ASV table** is also generated. 
+
+.. important:: 
+
+  make sure that primers have been removed from your amplicons; otherwise many false-positive chimeras may be filtered out from your dataset. 
+
+Here, we filter chimeras using the **consensus** method. Check the :ref:`denoising settings here <dada2_chimeras>`  
+
++----------------------------------------+------------------------------------------------------------------+
+| Output directory |output_icon|           ``chimeraFiltered_out.dada2``                                    |
++========================================+==================================================================+
+| \*.fasta                               | chimera filtered ASVs per sample                                 |
++----------------------------------------+------------------------------------------------------------------+
+| seq_count_summary.csv                  | summary of sequence counts per sample                            |
++----------------------------------------+------------------------------------------------------------------+
+| 'chimeras' dir                         | ASVs per sample identified as chimeras                           |
++----------------------------------------+------------------------------------------------------------------+
+| Output directory |output_icon|           ``ASVs_out.dada2``                                               |
++----------------------------------------+------------------------------------------------------------------+
+| ASVs_table.txt                         | denoised and chimera filtered ASV-by-sample table                |
++----------------------------------------+------------------------------------------------------------------+
+| ASVs.fasta                             | corresponding FASTA formated ASV Sequences                       |
++----------------------------------------+------------------------------------------------------------------+
+| ASVs per sample identified as chimeras | rds formatted denoised and chimera filtered ASV table (for DADA2 |
++----------------------------------------+------------------------------------------------------------------+
+
+____________________________________________________
+
+Filter ASV table
+~~~~~~~~~~~~~~~~
+
+This process collapses the ASVs that are identical up to shifts or length variation, i.e. ASVs that have no internal mismatches; and 
+filters out ASVs that are shorter than specified length (in base pairs).
+
+|DADA2_filter_table_expand|
+
+Here, we are enabling this process by checking the box for ``FILTER ASV TABLE`` in the DADA2 ASV workflow panel. 
+
+The expected amplicon length (without primers) in our example dataset in ~253 bp. Assuming that shorter sequences are non-target sequences, 
+we use 240 in the ``by length`` setting. This will discard ASVs that are >240 bp from out ASV table.
+
+We are also setting hte ``collapseNoMismatch`` to TRUE, to collapse identical ASVs. This is basically equivalent to 100% clustering by ignoring the end gaps.
+
++----------------------------------------------------------+-----------------------------------+
+| Output directory |output_icon| ``ASVs_out.dada2/filtered``                                   |
++==========================================================+===================================+
+|| ASVs_collapsed.fasta                                    || collapsed and size filtered      |
+||                                                         || FASTA formated ASV Sequences     |
++----------------------------------------------------------+-----------------------------------+
+| ASVs_table_collapsed.txt                                 | corresponding ASV-by-sample table |
++----------------------------------------------------------+-----------------------------------+
+
+____________________________________________________
+
+Assign taxonomy
+~~~~~~~~~~~~~~~
+
+This step in the DADA2 ASV workflow implements assignTaxonomy function, which itself implements the RDP Naive Bayesian Classifier algorithm. 
+See :ref:`other assign taxonomy options here <assign_taxonomy>`.
+
+We need to specify the location of the **reference DATABASE** for the taxonomic classification of our ASVs. Click on the header of ``dada2_database`` setting, 
+which directs you to the `DADA2-formatted reference databases web page <https://benjjneb.github.io/dada2/training.html>`_.
+Here, we are using ``silva_nr99_v138.2_toSpecies_trainset.fa.gz``. 
+
+|DADA2_assign_tax_expand|
+
+Specify the location of your downloaded DADA2 database by pressing ``SELECT FASTA``. 
+The default minBoot (minimum bootstrap; ranging from 0-100; ~assignment confidence) is 50, but here we are setting this to **80**. 
+This means that taxonomic ranks with at least bootstrap value of 80 will get classification (unclassified for <80). 
+
+``tryRC`` may be OFF, since we expact that all of our ASVs are in 5'-3' orientation. 
+:ref:`See DADA2 assign taxonomy settings here <dada2_taxonomy>`
+
++-------------------------------------------------------------+
+| Output directory   |output_icon| ``taxonomy_out.dada2``     |
++==================+==========================================+
+| taxonomy.csv     | classifier results with bootstrap values |
++------------------+------------------------------------------+
+
+___________________________________________________
+
+Save workflow
+~~~~~~~~~~~~~
+
+Once we have decided about the settings in our workflow, we can save the configuration file by pressing ``save workflow`` button on the right-ribbon.
+|save|
+
+This ``JSON`` file can be loaded into PipeCraft2 to **automatically configure your next runs exactly the same way**.
+
+___________________________________________________
+
+Start the workflow
+~~~~~~~~~~~~~~~~~~
+
+Press ``START`` on the left ribbon **to start the analyses**.
+
+.. admonition:: when running the module for the first time ...
   
-.. |DADA2_assign_taxRC| image:: _static/DADA2_assign_taxRC.png
-  :width: 550
-  :alt: Alternative text
+  ... a docker image will be first pulled to start the process. 
 
-|DADA2_assign_taxRC|
+  For example: |pulling_image|
 
-| *This step assigns taxonomy to ASVs using DADA2* `assignTaxonomy <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function.
-| *Assign taxonomy settings* :ref:`here <dada2_taxonomy>`
-|
-| **Output** directory = ``taxonomy_out.dada2``:
-| taxonomy.txt = classifier results with bootstrap values
+.. admonition:: when DONE
 
+  'Workflow finished' message window will be displayed.
 
-:: 
+  |workflow_finished|
 
- 6.1. Save the workflow by pressing ``SAVE WORKFLOW`` button on the right-ribbon.
+When you need to STOP the workflow, press ``STOP`` button |stop_workflow|
 
-::
-
- 7.  Press** 'START' **to start the analyses.
-
-.. note ::
-
-  When running the panel for the first time, a docker image will be pulled first to start the process.
-
-:: 
-
- When done, 'workflow finished' window will be displayed.
-
-|workflow_finished|
-
-.. note::
- 
- Press ``STOP WORKFLOW`` to stop. 
-   |stop_workflow|
-
-|
-
-->
+___________________________________________________
 
 Examine the outputs
 ~~~~~~~~~~~~~~~~~~~
 
-Several process-specific output folders are generated:
+Several process-specific output folders are generated |output_icon|
 
-| ``qualFiltered_out`` -> quality filtered paired-end **fastq** files per sample
-| ``denoised_assembled.dada2`` -> denoised and assembled **fasta** files per sample (and error rate plots)
-| ``chimeraFiltered_out.dada2`` --> chimera filtered **fasta** files per sample
-| ``ASVs_out.dada2`` --> **ASVs table** (ASVs_table.txt), and ASV sequences (ASVs.fasta) file
-| ``taxonomy_out.dada2``--> ASVs **taxonomy table** (taxonomy.txt)
++-------------------------------+--------------------------------------------------------+
+| ``qualFiltered_out``          | quality filtered paired-end **fastq** files per sample |
++-------------------------------+--------------------------------------------------------+
+| ``denoised_assembled.dada2``  | denoised and assembled **fasta** files per sample      |
++-------------------------------+--------------------------------------------------------+
+| ``chimeraFiltered_out.dada2`` | chimera filtered **fasta** files per sample            |
++-------------------------------+--------------------------------------------------------+
+| ``ASVs_out.dada2``            | **ASVs table**, and ASV sequences files                |
++-------------------------------+--------------------------------------------------------+
+| ``taxonomy_out.dada2``        | ASVs **taxonomy table** (taxonomy.csv)                 |
++-------------------------------+--------------------------------------------------------+
+
+
 
 .. _seq_count_summary:
 
 Each folder (except ASVs_out.dada2 and taxonomy_out.dada2) contain 
-**summary of the sequence counts** (seq_count_summary.txt). 
+**summary of the sequence counts** (``seq_count_summary.csv``). 
 Examine those to track the read counts throughout the pipeline. 
 
- For example, merging the seq_count_summary.txt file in ``qualFiltered_out`` with the seq_count_summary.txt file from ``chimeraFiltered_out.dada2`` forms a table for examining sequence counts throughout the 
- pipeline and number of ASVs per sample. 
+For example, from the ``seq_count_summary.csv`` file in ``qualFiltered_out`` we see that on average ~91% of the sequences survived the quality filtering step.
 
-======= ===== ============ ====== ================ ==========
-sample  input qualFiltered merged chimeraFiltered  no.of ASVs
-======= ===== ============ ====== ================ ==========
-F3D0    7793  7113         6540   6528             106
-F3D141  5958  5463         4986   4863             74
-F3D142  3183  2914         2595   2521             48
-F3D143  3178  2941         2552   2518             56
-F3D144  4827  4312         3627   3488             47
-F3D145  7377  6741         6079   5820             72
-F3D146  5021  4560         3968   3879             84
-F3D147  17070 15637        14231  13006            103
-F3D148  12405 11413        10529  9935             97
-F3D149  13083 12017        11154  10653            112
-F3D150  5509  5032         4349   4240             78
-F3D1    5869  5299         5028   5017             100
-F3D2    19620 18075        17431  16835            134
-F3D3    6758  6250         5853   5491             68
-F3D5    4448  4052         3716   3716             86
-F3D6    7989  7369         6865   6679             90
-F3D7    5129  4765         4428   4217             61
-F3D8    5294  4871         4576   4547             99
-F3D9    7070  6504         6092   6015             106
-Mock    4779  4314         4269   4269             20
-======= ===== ============ ====== ================ ==========
++------------------+-------+--------------+
+|                  | input | qualFiltered |
++------------------+-------+--------------+
+| F3D0_S188_L001   | 7793  | 7113         |
++------------------+-------+--------------+
+| F3D1_S189_L001   | 5869  | 5299         |
++------------------+-------+--------------+
+| F3D141_S207_L001 | 5958  | 5463         |
++------------------+-------+--------------+
+| F3D142_S208_L001 | 3183  | 2914         |
++------------------+-------+--------------+
+| F3D143_S209_L001 | 3178  | 2941         |
++------------------+-------+--------------+
+| ...              |       |              |
++------------------+-------+--------------+
 
-|
 
-``ASVs_out.dada2`` directory contains **ASVs table** (ASVs_table.txt), where the **1st column** represents ASV identifiers, 
-**2nd column** representative sequences of ASVs,
-and all following columns represent samples (number of sequences per ASV in a sample). This is tab delimited text file.
+``ASVs_out.dada2`` directory contains **ASVs table** (ASVs_table.txt), where the **1st column** represents ASV identifiers (sha1 encoded), 
+**2nd column** is the sequence of and ASV,
+and all the following columns represent number of sequences in the corresponding sample (sample name is taken from the file name). This is tab delimited text file. 
 
-*ASVs_table.txt; first 4 samples*
+*ASVs_table.txt; first 4 samples and 4 ASVs*
 
-===== ==============  ===== ======  ======  ======
-ASV   Sequence        F3D0  F3D141  F3D142  F3D143
-===== ==============  ===== ======  ======  ======
-ASV_1 TACGGAGGATG...  579   444     289     228
-ASV_2 TACGGAGGATG...  345   362     304     176
-ASV_3 TACGGAGGATG...  449   345     158     204
-ASV_4 TACGGAGGATG...  430   502     164     231
-ASV_5 TACGGAGGATC...  154   189     180     130
-ASV_6 TACGGAGGATG...  470   331     181     244
-ASV_7 TACGGAGGATG...  282   243     163     152
-ASV_8 TACGGAGGATT...  184   321     89      83
-ASV_9 TACGGAGGATG...  45    167     89      109
-===== ==============  ===== ======  ======  ======
++--------------+------------+----------------+----------------+------------------+
+| ASV          | Sequence   | F3D0_S188_L001 | F3D1_S189_L001 | F3D141_S207_L001 |
++--------------+------------+----------------+----------------+------------------+
+| 7c6864ace... | TACGGAG... | 579            | 405            | 444              |
++--------------+------------+----------------+----------------+------------------+
+| 1e3c68bda... | TACGGAG... | 345            | 353            | 362              |
++--------------+------------+----------------+----------------+------------------+
+| 4ee096262... | TACGGAG..  | 449            | 231            | 345              |
++--------------+------------+----------------+----------------+------------------+
+| 1cf2c5b8e... | TACGGAG... | 430            | 69             | 164              |
++--------------+------------+----------------+----------------+------------------+
 
-The **ASV sequences** are representad also in the fasta file (ASVs.fasta) in ``ASVs_out.dada2`` directory. 
+The **ASV + Sequences** info are also represented in the fasta file (ASVs.fasta) in the ``ASVs_out.dada2`` directory. 
 
-Result from the taxonomy annotation process - **taxonomy table** (taxonomy.txt) - is located at the ``taxonomy_out.dada2`` directory. 
-"NA" denotes that the ASV was not assigned to corresponding taxonomic unit.  
+.. admonition:: did 'FILTER ASV TABLE' have any effect?
+
+  In this example, we applied also ``collapseNoMismatch`` and ``by length`` filtering. 
+  The results of this is in the ``ASVs_out.dada2/filtered`` folder. 
+  If we examine the ``README.txt`` file in that folder, then we see that **ASVs_collapsed.fasta contains 232 ASVs** and 
+  **none of the ASVs were filtered out based on the length filter** (240 bp). 
+  ASVs.fasta in the ``ASVs_out.dada2`` folder contains also 232 ASVs; thus, in this case, the 'FILTER ASV TABLE' did not do anything. 
+
+
+
+  For this example, it is also fast, but for the large datasets, the ``collapseNoMismatch`` process may take several days. 
+  Nevertheless, ``by length`` filtering is fast and can be beneficial when one is interesed to remove short off-target ASVs. 
+  
+
+Result from the **taxonomy annotation** process - **taxonomy table** (taxonomy.csv) - is located at the ``taxonomy_out.dada2`` directory. 
+"NA" denotes that the sequence may not have enough resolution to be confidently place that ASV within a specific taxonomic rank or the database lack of enough reference sequences for more accurate classification.  
 Last columns with integers (for 'Kingdom' to 'Species') represent bootstrap values for the correspoinding taxonomic unit. 
 
-*taxonomy.txt; first 10 ASVs*
+*Taxonomy results for the first 5 ASVs*
 
-=======  ========== ======== ============ =========== ===============  ===============  ============================== ========== ======= ====== ===== ===== ====== ===== =======
-ASV      Sequence   Kingdom   Phylum      Class       Order            Family           Genus                          Species    Kingdom Phylum Class Order Family Genus Species
-=======  ========== ======== ============ =========== ===============  ===============  ============================== ========== ======= ====== ===== ===== ====== ===== =======
-ASV_1    TACGGAG... Bacteria Bacteroidota Bacteroidia Bacteroidales    Muribaculaceae   NA                             NA         100     100    100   100   100    100   100
-ASV_2    TACGGAG... Bacteria Bacteroidota Bacteroidia Bacteroidales    Muribaculaceae   NA                             NA         100     100    100   100   100    100   100
-ASV_3    TACGGAG... Bacteria Bacteroidota Bacteroidia Bacteroidales    Muribaculaceae   NA                             NA         100     100    100   100   100    100   100
-ASV_4    TACGGAG... Bacteria Bacteroidota Bacteroidia Bacteroidales    Rikenellaceae    Alistipes                      NA         100     100    100   100   100    100   100
-ASV_5    TACGGAG... Bacteria Bacteroidota Bacteroidia Bacteroidales    Muribaculaceae   NA                             NA         100     100    100   100   100    100   100
-ASV_6    TACGGAG... Bacteria Bacteroidota Bacteroidia Bacteroidales    Muribaculaceae   NA                             NA         100     100    100   100   100    95    95
-ASV_7    TACGTAG... Bacteria Firmicutes   Clostridia  Lachnospirales   Lachnospiraceae  Lachnospiraceae NK4A136 group  NA         100     100    100   100   100    100   99
-ASV_8    TACGGAG... Bacteria Bacteroidota Bacteroidia Bacteroidales    Muribaculaceae   NA                             NA         100     100    100   100   100    100   100
-ASV_9    TACGGAG... Bacteria Bacteroidota Bacteroidia Bacteroidales    Bacteroidaceae   Bacteroides                    caecimuris 100     100    100   100   100    100   77
-ASV_10   TACGGAG... Bacteria Bacteroidota Bacteroidia Bacteroidales    Muribaculaceae   NA                             NA         100     100    100   100   100    99    99
-=======  ========== ======== ============ =========== ===============  ===============  ============================== ========== ======= ====== ===== ===== ====== ===== =======
-
-
-____________________________________________________
-
-
-
-
-2.2. Select ``ASVs workflow`` or ``OTUs workflow`` panel
-
-* tick ``DEMULTIPLEX``, ``REORIENT`` and ``CUT PRIMERS``;
-* check that the docker is running (green icon [red = not running])
-
-
-::
-
- 3. Click on 'DEMULTIPLEX' to expand the panel
-
-
-* select your FASTA formatted **index_file.fasta** (:ref:`general index file guide here <indexes>`)
-* adjust ``overlap`` setting to fully match the length (in base pairs) of the indexes in the index_file.fasta. 
-  
-
-| This step distributes sequences to samples according to the information in the index_file.fasta. See :ref:`specifics here <demux_settings>`
-| 
-| **Output** directory = ``demultiplex_out``:
-| * fastq or fasta files per sample (as specified in the :ref:`index file <indexes>`)
-| * unknown.fastq/fasta files contain sequences where specified index combinations were not found. 
-
-|
-
-::
-  
-  1.  'REORIENT'
-
-.. |reorient_expand| image:: _static/reorient_expand.png
-  :width: 550
-  :alt: Alternative text
-
-* specify allowed ``mismatches`` during the primer search; >2 not recommended.
-* specify ``forward primer``: 5'-GTGYCAGCMGCCGCGGTAA-3' (example)
-* specify ``reverse primer``: 3'-GGCCGYCAATTYMTTTRAGTTT-5' (example)
-
-*(click on the image for enlargement)*
-|reorient_expand|
-
-| *This step reorients sequences to 5'-3' as based on specified forward and reverse primers. See* :ref:`specifics here <reorient>`
-| 
-| **Output** directory = ``reorient_out``
-
-|
-
-::
-
- 5. Click on 'CUT PRIMERS' to expand the panel
-
-.. |cut_primers_expand| image:: _static/cut_primers_expand.png
-  :width: 550
-  :alt: Alternative text
-
-* specify ``forward primer``: 5'-GTGYCAGCMGCCGCGGTAA-3' (example)
-* specify ``reverse primer``: 3'-GGCCGYCAATTYMTTTRAGTTT-5' (example)
-* specify allowed ``mismatches`` during the primer search; >2 not recommended
-* for paired-end reads keep ``seqs to keep`` and ``pair filter`` as default (**keep_all** and **both**, respectively)
-
-
-*(click on the image for enlargement)*
-|cut_primers_expand|
-
-| *This step clipps specified primer sequences from the reads (if primers are found). See* :ref:`specifics here <remove_primers>`.
-| *Discards the reads where primer sequences are not detected.*
-|
-| **Output** directory = ``primersCut_out``
-
-| 
-
-**6.** Follow the rest of the :ref:`ASV workflow <rest_of_PE_ASV_workflow>` or :ref:`OTU workflow <rest_of_PE_OTU_workflow>`
++--------------+------------+----------+--------------+-------------+---------------+----------------+-------------+------------+---------+--------+-------+-------+--------+-------+---------+
+|              | Sequence   | Kingdom  | Phylum       | Class       | Order         | Family         | Genus       | Species    | Kingdom | Phylum | Class | Order | Family | Genus | Species |
++--------------+------------+----------+--------------+-------------+---------------+----------------+-------------+------------+---------+--------+-------+-------+--------+-------+---------+
+| 7c6864ace... | TACGGAG... | Bacteria | Bacteroidota | Bacteroidia | Bacteroidales | Muribaculaceae | NA          | NA         | 100     | 100    | 100   | 100   | 100    | 100   | 100     |
++--------------+------------+----------+--------------+-------------+---------------+----------------+-------------+------------+---------+--------+-------+-------+--------+-------+---------+
+| 1e3c68bda... | TACGGAG... | Bacteria | Bacteroidota | Bacteroidia | Bacteroidales | Muribaculaceae | NA          | NA         | 100     | 100    | 100   | 100   | 100    | 100   | 100     |
++--------------+------------+----------+--------------+-------------+---------------+----------------+-------------+------------+---------+--------+-------+-------+--------+-------+---------+
+| 4ee096262... | TACGGAG..  | Bacteria | Bacteroidota | Bacteroidia | Bacteroidales | Muribaculaceae | NA          | NA         | 100     | 100    | 100   | 100   | 100    | 98    | 98      |
++--------------+------------+----------+--------------+-------------+---------------+----------------+-------------+------------+---------+--------+-------+-------+--------+-------+---------+
+| 1cf2c5b8e... | TACGGAG... | Bacteria | Bacteroidota | Bacteroidia | Bacteroidales | Muribaculaceae | NA          | NA         | 100     | 100    | 100   | 100   | 100    | 100   | 82      |
++--------------+------------+----------+--------------+-------------+---------------+----------------+-------------+------------+---------+--------+-------+-------+--------+-------+---------+
+| 57bde09f1... | TACGGAG... | Bacteria | Bacteroidota | Bacteroidia | Bacteroidales | Bacteroidaceae | Bacteroides | caecimuris | 100     | 100    | 100   | 100   | 100    | 100   | 100     |
++--------------+------------+----------+--------------+-------------+---------------+----------------+-------------+------------+---------+--------+-------+-------+--------+-------+---------+
 
