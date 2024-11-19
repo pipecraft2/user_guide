@@ -61,14 +61,16 @@ Generally, the **quality score of 30** indicates a trustfuly recorded base (99.9
 | 60            | 1 in 1000000                       | 99.9999%           |
 +---------------+------------------------------------+--------------------+
 
-.. admonition:: Average Q score of a sequence
+.. admonition:: Average quality score of a sequence
 
   However, an **average quality score of 30** may be misleading in determining the reliability of a sequence.
   For example, the average quality score of a 100 base pairs (bp) sequence which has quality score of 37 for 80 bases and quality score of 6 for 20 bases, is **30.8**; but 
   the **expected number of errors for that sequence is 5** (80 x 0.00020 + 20 x 0.25119 = 5.0398; :ref:`see table for the error probabilities <quality_scores_table>`). 
   I.e., the sequence may host errors accountable for 5% variation in that amplicon and thus is not reliable, and should be discarded during quality filtering.
   
-  Therefore, generally, the quality filtering based on the expected number of errors (sum of the error probabilities) is preferred over the average quality score threshold. 
+  Therefore, generally, the quality filtering based on the expected number of errors (sum of the error probabilities) is preferred over the average quality score threshold.
+
+  `See here for the additional information about expected errors  <https://drive5.com/usearch/manual/exp_errs.html>`_.
 
 ____________________________________________________
 
