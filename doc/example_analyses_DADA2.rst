@@ -22,6 +22,7 @@
 .. |workflow_finished| image:: _static/workflow_finished.png
   :width: 300
   :alt: Alternative text
+  :class: center
 
 .. |stop_workflow| image:: _static/stop_workflow.png
   :width: 200
@@ -322,8 +323,11 @@ ___________________________________________________
 Save workflow
 ~~~~~~~~~~~~~
 
-Once we have decided about the settings in our workflow, we can save the configuration file by pressing ``save workflow`` button on the right-ribbon.
+Once we have decided about the settings in our workflow, we can save the configuration file by pressing ``save workflow`` button on the right-ribbon
 |save|
+
+If you forget the save, then no worries, a ``pipecraft2_last_run_configuration.json`` file will be generated for you upon starting the workflow.
+As the file name says, it is the workflow configuration file for your last PipeCraft run in this **working directory**. 
 
 This ``JSON`` file can be loaded into PipeCraft2 to **automatically configure your next runs exactly the same way**.
 
@@ -340,13 +344,17 @@ Press ``START`` on the left ribbon **to start the analyses**.
 
   For example: |pulling_image|
 
-.. admonition:: when DONE
 
-  'Workflow finished' message window will be displayed.
+When you need to STOP the workflow, press ``STOP`` button |stop_workflow|
+
+
+.. admonition:: When the workflow has completed ...
+
+  ... a message window will be displayed.
 
   |workflow_finished|
 
-When you need to STOP the workflow, press ``STOP`` button |stop_workflow|
+
 
 ___________________________________________________
 
