@@ -437,13 +437,12 @@ The **ASV + Sequences** info are also represented in the fasta file (ASVs.fasta)
   
 
 Result from the **taxonomy annotation** process - **taxonomy table** (taxonomy.csv) - is located at the ``taxonomy_out.dada2`` directory. 
-"NA" denotes that the sequence may not have enough resolution to be confidently place that ASV within a specific taxonomic rank or the database lack of enough reference sequences for more accurate classification.  
-Last columns with integers (for 'Kingdom' to 'Species') represent bootstrap values for the correspoinding taxonomic unit. 
+Since we performed also ``FILTER ASV TABLE`` process, then taxonomy was assigned to **ASVs_collapsed.fasta** file in the ``ASVs_out.dada2/filtered`` folder (otherwise it is ASVs.fasta). 
 
 *Taxonomy results for the first 5 ASVs*
 
 +--------------+------------+----------+--------------+-------------+---------------+----------------+-------------+------------+---------+--------+-------+-------+--------+-------+---------+
-|              | Sequence   | Kingdom  | Phylum       | Class       | Order         | Family         | Genus       | Species    | Kingdom | Phylum | Class | Order | Family | Genus | Species |
+| ASV          | Sequence   | Kingdom  | Phylum       | Class       | Order         | Family         | Genus       | Species    | Kingdom | Phylum | Class | Order | Family | Genus | Species |
 +--------------+------------+----------+--------------+-------------+---------------+----------------+-------------+------------+---------+--------+-------+-------+--------+-------+---------+
 | 7c6864ace... | TACGGAG... | Bacteria | Bacteroidota | Bacteroidia | Bacteroidales | Muribaculaceae | NA          | NA         | 100     | 100    | 100   | 100   | 100    | 100   | 100     |
 +--------------+------------+----------+--------------+-------------+---------------+----------------+-------------+------------+---------+--------+-------+-------+--------+-------+---------+
@@ -456,3 +455,138 @@ Last columns with integers (for 'Kingdom' to 'Species') represent bootstrap valu
 | 57bde09f1... | TACGGAG... | Bacteria | Bacteroidota | Bacteroidia | Bacteroidales | Bacteroidaceae | Bacteroides | caecimuris | 100     | 100    | 100   | 100   | 100    | 100   | 100     |
 +--------------+------------+----------+--------------+-------------+---------------+----------------+-------------+------------+---------+--------+-------+-------+--------+-------+---------+
 
+"**NA**" denotes that the sequence may not have enough resolution to confidently (herein we used minimum bootstrap of 80) place that ASV within a specific taxonomic rank or 
+the database lack of reference sequences for more accurate classification.
+Last columns with integers (for 'Kingdom' to 'Species') represent bootstrap values for the correspoinding taxonomic unit. 
+
+___________________________________________________
+
+Check for the non-target hits
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It is often the case that universal metabarcoding primers **amplify also non-target DNA regions and/or non-target taxa**. 
+Working with this example dataset, we are **interesed only in Bacteria**, thus we should **get rid of the off-target noise** before proceeding with relevant statistical analyses.  
+
+When we **carefully examine the results**, the taxonomy table, then we can see that 3 ASVs are classified as **Chloroplast** ('Order' column) and 1 ASVs as **Mitochondria** ('Family' column).
+
++------------------------------------------+----------+----------+----------------+---------------------+-----------------+------------------+-------+---------+---------+--------+-------+-------+--------+-------+---------+
+| ASV                                      | Sequence | Kingdom  | Phylum         | Class               | Order           | Family           | Genus | Species | Kingdom | Phylum | Class | Order | Family | Genus | Species |
++------------------------------------------+----------+----------+----------------+---------------------+-----------------+------------------+-------+---------+---------+--------+-------+-------+--------+-------+---------+
+| 5c25197ab1565ef226075d05cff73a9cee0e3a2f | GACAG... | Bacteria | Cyanobacteria  | Cyanobacteriia      | **Chloroplast** | NA               | NA    | NA      | 100     | 100    | 100   | 100   | 100    | 100   | 100     |
++------------------------------------------+----------+----------+----------------+---------------------+-----------------+------------------+-------+---------+---------+--------+-------+-------+--------+-------+---------+
+| 1c167d19cce4b4113c12dde61306132efed8dc20 | GACAG... | Bacteria | Cyanobacteria  | Cyanobacteriia      | **Chloroplast** | NA               | NA    | NA      | 100     | 100    | 100   | 100   | 100    | 100   | 100     |
++------------------------------------------+----------+----------+----------------+---------------------+-----------------+------------------+-------+---------+---------+--------+-------+-------+--------+-------+---------+
+| 2f24601af9870b6120292e9f8a8280362d8ff0e0 | GACAG... | Bacteria | Cyanobacteria  | Cyanobacteriia      | **Chloroplast** | NA               | NA    | NA      | 100     | 100    | 100   | 100   | 100    | 100   | 100     |
++------------------------------------------+----------+----------+----------------+---------------------+-----------------+------------------+-------+---------+---------+--------+-------+-------+--------+-------+---------+
+| e488265f509c969b5b2f63e7345c13417ed66035 | GACGG... | Bacteria | Proteobacteria | Alphaproteobacteria | Rickettsiales   | **Mitochondria** | NA    | NA      | 100     | 100    | 100   | 100   | 100    | 100   | 100     |
++------------------------------------------+----------+----------+----------------+---------------------+-----------------+------------------+-------+---------+---------+--------+-------+-------+--------+-------+---------+
+
+The PCR primers used to generate the amplicon library, 515F and 806R, match very well with regions in the chloroplast and mitochondria genomes; and amplyfy 
+also ~250 bp fragments which are nicely sequenced alongside with the bacterial 16S fragments. 
+Chloroplast sequences are similar to ones in Cyanobacteria, and mitochondria sequences to ones in Rickettsiales (because of evolutionary history of these organelles), 
+therewere we see these sequences in Phylum Cyanobacteria and Order Rickettsiales in the SILVA database, respectivelly. 
+However, when flagged as "Chloroplast" or "Mitochondria", then those sequences most likely originate from the corresponding organelle genomes not from the bacterial 16S rRNA. 
+
+It is common obtain these kind of off-target sequences from environmental DNA samples (such as soil, water) since the DNA pool likely contains also plant or algal DNA. 
+Chloroplast|mitochondria are not present in bacteria (or Archaea), therefore ASVs with **assignments to Chloroplast and/or Mitochondria can be considered off-target ASVs** and should be removed. 
+
+
+Below, you can find a **R script to clean** your taxonomy table, ASV table and ASVs fasta file from the off-target taxa and from 'Chloroplast' and 'Mitochondria' sequences. 
+
+.. code-block:: R
+   :caption: Filter out non-target ASVs
+   :linenos:
+
+    #!/usr/bin/env Rscript
+    # This is R script.
+
+    ### Filter taxonomy table, ASV table and ASVs fasta file to exclude non-target ASVs
+
+    # specify input tables and fasta file
+    taxonomy_table = "taxonomy.csv"        # csv file
+    ASV_table = "ASVs_table_collapsed.txt" # tab-delimited file
+    ASV_fasta = "ASVs_collapsed.fasta"     # FASTA file
+    #----------------------------------------------------------#
+
+    library(dplyr)
+    library(readr)
+
+    # load the taxonomy and ASV table
+    taxonomy = read.csv("taxonomy.csv", header = TRUE)
+    ASV_table = read_tsv("ASVs_table_collapsed.txt")
+
+    # make sure that the first column header is "ASV"
+    if (colnames(taxonomy)[1] != "ASV") {
+      colnames(taxonomy)[1] = "ASV"
+    }
+    if (colnames(ASV_table)[1] != "ASV") {
+      colnames(ASV_table)[1] = "ASV"
+    }
+
+    # double-check that all Kingdom level classifications are "Bacteria" or "Archaea"
+    # change tax level and tax_group as needed
+    tax_level = "Kingdom"
+    tax_group = "Bacteria|Archaea"
+    target_taxonomy = taxonomy %>%
+      filter(grepl(tax_group, .[[tax_level]]))
+
+    # summary
+    if (nrow(taxonomy) - nrow(target_taxonomy) == 0) {
+      cat("\n All",tax_level, "level classifications are Bacteria|Archaea \n\n")
+    } else {
+      cat("\n", nrow(taxonomy) - nrow(target_taxonomy), "non", tax_group, "ASVs removed\n\n")
+    }
+
+    ## filter "Chloroplast|Mitochondria"
+    # a function to check for the presence of "Chloroplast" or "Mitochondria"
+    # in any column in taxonomy
+    chloroplast_or_mitochondria = function(row) {
+      any(grepl("Chloroplast|Mitochondria", row))
+    }
+
+    # filter out rows that contain Chloroplast or Mitochondria
+    filtered_taxonomy = target_taxonomy %>%
+      filter(!apply(., 1, chloroplast_or_mitochondria))
+
+    # summary
+    if (nrow(target_taxonomy) - nrow(filtered_taxonomy) == 0) {
+      cat("\n None of the target_taxonomy ASVs were classified as Chloroplast|Mitochondria \n\n")
+    } else {
+      cat("\n Removed", nrow(target_taxonomy) - nrow(filtered_taxonomy), 
+                                "Chloroplast|Mitochondria ASVs.\n\n")
+    }
+
+    # write the filtered taxonomy table to a new file
+    write.csv(filtered_taxonomy, "filtered_taxonomy.csv", row.names = FALSE)
+
+
+    ### filter the ASV table ->
+    # get the list of good ASVs
+    good_ASVs = filtered_taxonomy$ASV
+
+    # Filter the ASV table to keep only "good ASVs"
+    filtered_ASV_table = ASV_table %>%
+      filter(ASV %in% good_ASVs)
+
+    # write the filtered ASV table to a new file
+    write.table(filtered_ASV_table, "taxFiltered_ASV_table.txt",
+                sep = "\t", quote = F, row.names = F)
+
+
+    ## filter the ASVs.fasta
+    library("seqinr")
+    # read the FASTA file
+    ASV_fasta = read.fasta(file = ASV_fasta,
+                          seqtype = "DNA")
+
+    # filter ASV_fasta to include only "good ASVs"
+    filtered_ASV_fasta = ASV_fasta[names(ASV_fasta) %in% good_ASVs]
+
+    # convert sequences to uppercase
+    filtered_ASV_fasta = lapply(filtered_ASV_fasta, toupper)
+
+    # write the filtered ASV fasta to a new file
+    write.fasta(sequences = filtered_ASV_fasta,
+                names = names(filtered_ASV_fasta),
+                nbchar = 999,
+                file.out = "taxFiltered_ASVs.fasta")
