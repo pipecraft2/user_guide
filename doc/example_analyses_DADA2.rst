@@ -375,8 +375,6 @@ Several process-specific output folders are generated |output_icon|
 | ``taxonomy_out.dada2``        | ASVs **taxonomy table** (taxonomy.csv)                 |
 +-------------------------------+--------------------------------------------------------+
 
-
-
 .. _seq_count_summary:
 
 Each folder (except ASVs_out.dada2 and taxonomy_out.dada2) contain 
