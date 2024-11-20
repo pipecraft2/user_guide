@@ -1,4 +1,0 @@
-ITS2 data: 
-
-Forward primer GTGARTCATCGAATCTTTG
-Reverse primer TCCTCCGCTTATTGATATGC
