@@ -947,7 +947,7 @@ ____________________________________________________
 Sequence databases
 ------------------
 
-A *(noncomprehensive)* list of public databases available for taxonomy annotation
+A *(noncomprehensive)* list of **public databases available for taxonomy annotation**:
 
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
 | Database                                                                                                                                      | Description                                                |
