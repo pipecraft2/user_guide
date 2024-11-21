@@ -309,7 +309,7 @@ LULU can be found under **QuickTools** panel on the right ribbon.
 |lulu|
 
 +-------------------------------------------+--------------------------------------------+
-| Output directory output_icon ``lulu_out`` |                                            |
+| Output directory |output_icon|  ``lulu_out``                                           |
 +===========================================+============================================+
 | OTU_table_LULU.txt                        | OTU-by-sample table                        |
 +-------------------------------------------+--------------------------------------------+
