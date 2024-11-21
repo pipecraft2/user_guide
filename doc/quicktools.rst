@@ -949,17 +949,24 @@ Sequence databases
 
 A *(noncomprehensive)* list of public databases available for taxonomy annotation
 
-==================================================================== ======== ===================================================================================================================================================================
-Database                                                             Version  Description (click to download) 
-==================================================================== ======== ===================================================================================================================================================================
-`UNITE <https://unite.ut.ee/>`_                                      | 8.3    | `ITS region, all Eukaryotes <https://plutof.ut.ee/#/doi/10.15156/BIO/1281567>`_
-`SILVA <https://www.arb-silva.de/>`_                                 | 138.1  | `16S/18S (SSU), Bacteria, Archaea and Eukarya <https://www.arb-silva.de/fileadmin/silva_databases/release_138.1/Exports/SILVA_138.1_SSURef_tax_silva.fasta.gz>`_
-`SILVA <https://www.arb-silva.de/projects/ssu-ref-nr/>`_ 99%         | 138.1  | `16S/18S (SSU), Bacteria, Archaea and Eukarya <https://www.arb-silva.de/fileadmin/silva_databases/release_138.1/Exports/SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz>`_
-`MIDORI <http://www.reference-midori.info/>`_                        | 246    | `Eukaryota mitochondrial genes <http://www.reference-midori.info/download.php#>`_
-`CO1 Classifier <https://github.com/terrimporter/CO1Classifier>`_    | 5.1    | `Metazoa COI <https://github.com/terrimporter/CO1Classifier/releases/tag/RDP-COI-v5.1.0>`_
-DADA2-formatted reference databases                                  |        | `DADA2-formatted reference databases  <https://benjjneb.github.io/dada2/training.html>`_
-DIAT.BARCODE database                                                |        | `rbcL/18S, diatoms <https://www6.inrae.fr/carrtel-collection_eng/Barcoding-database/Database-download>`_
-==================================================================== ======== ===================================================================================================================================================================
++-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| Database                                                                                                                                      | Description                                                |
++===============================================================================================================================================+============================================================+
+| `EUKARYOME <https://eukaryome.org/>`_                                                                                                         | 18S rRNA (SSU), ITS, and 28S rRNA (LSU) for all eukaryotes |
++-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| `UNITE <https://unite.ut.ee/>`_                                                                                                               | ITS rRNA, Fungi and all Eukaryotes                         |
++-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| `SILVA <https://www.arb-silva.de/>`_                                                                                                          | 16S/18S (SSU), Bacteria, Archaea and Eukarya               |
++-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| `MIDORI <http://www.reference-midori.info/>`_                                                                                                 | Eukaryota mitochondrial genes (including COI)              |
++-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| `CO1 Classifier <https://github.com/terrimporter/CO1Classifier>`_                                                                             | Metazoa COI                                                |
++-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| `DADA2-formatted reference databases <https://benjjneb.github.io/dada2/training.html>`_                                                       |                                                            |
++-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| `DIAT.BARCODE database <https://carrtel-collection.hub.inrae.fr/barcoding-databases/diat.barcode/pipelines-and-aligned-and-trimed-database>`_ | Diatoms rbcL/18S                                           |
++-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+
 
 ____________________________________________________
 
