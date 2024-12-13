@@ -14,7 +14,7 @@
 .. |PipeCraft2_largelogo| image:: _static/PipeCraft2_logo.png
   :width: 200
   :alt: Alternative text
-  
+
 .. raw:: html
 
     <style> .blue {color:#0000FF; font-weight:bold; font-size:16px} </style>
@@ -47,23 +47,56 @@ Acknowledgements
 ----------------
 
 .. |EU_flag| image:: _static/funding/EU.png
-  :width: 200
+  :width: 150
   :alt: Alternative text
 
 .. |mobilitas| image:: _static/funding/mobilitas.jpg
+  :width: 190
+  :alt: Alternative text
+
+.. |Research_Council_of_Finland| image:: _static/funding/Research_Council_of_Finland.png
+  :width: 350
+  :alt: Alternative text
+
+
+.. |logo_BGE| image:: _static/funding/logo_BGE_alpha.png
   :width: 200
   :alt: Alternative text
 
+
 **PipeCraft2 development has been supported by:** 
 
-- European Regional Development Fund and the programme Mobilitas Pluss, MOBTP198.
-- Horizon Europe under the Biodiversity, Circular Economy and Environment (REA.B.3); 
-  co-funded by the Swiss State Secretariat for Education, 
-  Research and Innovation (SERI) under contract number 22.00173; and by the UK Research and
-  Innovation (UKRI) under the Department for Business, Energy and Industrial Strategy's
-  Horizon Europe Guarantee Scheme.
+.. raw:: html
 
-  |EU_flag| |mobilitas|
+   <div style="display: flex; align-items: center;">
+       <img src="_static/funding/mobilitas.jpg" alt="Image" style="width: 230px;">
+       <p style="margin-lef: 10px;"> European Regional Development Fund and the programme <strong>Mobilitas Pluss</strong>, MOBTP198. </p>
+   </div>
+
+   <div style="display: flex; align-items: center;">
+       <img src="_static/funding/logo_BGE_alpha.png" alt="Image" style="width: 230px;">
+       <p style="margin-lef: 10px;"> <strong>Biodiversity Genomics Europe</strong> (BGE) project. 
+       BGE (Grant no.101059492) is funded by Horizon Europe under the Biodiversity, Circular Economy 
+       and Environment call (REA.B.3); co-funded by the Swiss State Secretariat for Education, 
+       Research and Innovation (SERI) under contract numbers 22.00173 and 24.00054; and by the 
+       UK Research and Innovation (UKRI) under the Department for Business, Energy and Industrial 
+       Strategy’s Horizon Europe Guarantee Scheme.</p>
+   </div>
+
+|EU_flag|
+
+.. raw:: html
+
+   <div style="display: flex; align-items: center;">
+       <img src="_static/funding/Research_Council_of_Finland.png" alt="Image" style="width: 300px;">
+       <p style="margin-lef: 10px;"> <strong>Research Council of Finland</strong> <br> (Decision number 362828)</p>
+   </div>
+
+
+
+
+
+
 
 ____________________________________________________
 
