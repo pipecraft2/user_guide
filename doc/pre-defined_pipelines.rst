@@ -37,6 +37,59 @@
 Pre-defined pipelines |PipeCraft2_logo|
 =======================================
 
+Working with multiple sequencing runs
+======================================
+
+When working with multiple sequencing runs, then **pre-defined pipelines** can automatically process each sequencing run separately, and 
+then **merge the results** into a single output OTU/ASV table. Processing each sequencing run separately is 
+**necessary for appropriate handling of run-specifiec error profiles and tag-jumps filtering**.
+
+Identical sequences from different runs will be recognized as the same ASV, and therefore merged into a single ASV. 
+
+Directory structure
+-------------------
+
+.. important:: 
+
+  When aiming to combine samples from multiple sequencing runs, then follow the below directory structure, 
+  with :red:`**multiRunDir**` **being the mandatory directory name** (names of the nested sequencing run directories can be changed).
+  
+  When specifying a **working directory** in PipeCraft2 for processing multiple sequencing runs, 
+  then select the **parent directory** of the **multiRunDir** (e.g. **my_sequencing_runs** in the example below).
+
+| ├─── my_sequencing_runs     *# SELECT THIS FOLDER AS WORKING DIRECTORY*
+| │   └─── **multiRunDir**
+| │       ├─── **Run1**
+| │       │   ├───*sample1_R1.fastq*
+| │       │   ├───*sample1_R2.fastq*
+| │       │   ├───*sample2_R1.fastq*
+| │       │   ├───*sample2_R2.fastq*
+| │       │   ├───...
+| │       ├─── **Run2**
+| │       │   ├───*sample10_R1.fastq*
+| │       │   ├───*sample10_R2.fastq*
+| │       │   ├───*sample11_R1.fastq*
+| │       │   ├───*sample11_R2.fastq*
+| │       │   ├───...
+| │       ├─── **skip_Run3**   *# this dir will be skipped*
+| │       │   ├───*sample20_R1.fastq*
+| │       │   ├───*sample20_R2.fastq*
+| │       │   ├───*sample21_R1.fastq*
+| │       │   ├───*sample21_R2.fastq*
+| │       │   ├───...
+| │       └─── **merged_runs** *# this is the dir where the merged ASV/OTU table will be saved*
+| │           ├───*ASVs.fasta*
+| │           ├───*ASV_table.txt*
+| │           ├───...
+
+| Note that :red:`you can **skip** processing any sequencing run` by adding a **skip_** prefix to the directory name. In this example here, sequencing run ``skip_Run3`` will be skipped.
+|
+| ``merged_runs`` directory will contain the merged ASV/OTU table; :red:`avoid naming your sequencing run directories as **merged_runs**!`  
+|
+| Fastq files with the **same name** will be considered as the same sample and will be merged in the final ASV/OTU table.
+
+___________________________________________________
+
 vsearch OTUs
 ============
 

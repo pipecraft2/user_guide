@@ -189,7 +189,13 @@ If the data still contains PCR primers that were used to generate amplicons,
 then by specifying these PCR primers, this panel will perform sequence reorientation 
 of all sequences. 
 
-For reorienting, 
+**Generally, this step is not needed** when following **vsearch OTUs** or **UNOISE ASVs** pipeline, 
+because both strands of the sequences can be compared prior forming OTUs (``strand=both``). 
+This is automatically handled also in **NextITS** pipeline.
+In the **DADA2 ASVs** pipeline, if working with mixed orientation data (seqs in 5'-3' and 3'-5' orientations), 
+then select ``PAIRED-END MIXED`` mode to account for mixed orientation data. 
+
+**Process description:** for reorienting, 
 first the forward primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_)  
 and if detected then the read is considered as forward complementary (5'-3'). 
 Then the reverse primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_) 
@@ -213,9 +219,6 @@ Reorienting sequences **will not remove** primer strings from the sequences.
  For single-end data, sequences will be reoriented also during 
  the 'cut primers' process (see below); therefore this step may be skipped
  when working with single-end data (such as data from PacBio machines OR already assembled paired-end data).
-
-If in the clustering step of an "OTU pipeline", both strands of the sequences can be compared prior 
-forming OTUs; thus this step may be skipped in the OTU pipeline. 
 
 Supported file formats for paired-end input data are only **fastq**,
 but also **fasta** for single-end data.
@@ -746,117 +749,6 @@ Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
 =============================================== =========================
 
 ____________________________________________________
-
-.. _postclustering:
-
-POSTCLUSTERING
-==============
-
-Perform OTU post-clustering. Merge co-occurring 'daughter' OTUs.
-
-
-.. _postclustering_lulu:
-
-`LULU <https://github.com/tobiasgf/lulu>`_ 
-------------------------------------------
-
-LULU description from the `LULU repository <https://github.com/tobiasgf/lulu>`_: the purpose of LULU is to reduce the number of 
-erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. 
-By evaluating the co-occurence patterns of OTUs among samples LULU identifies OTUs that consistently satisfy some user selected 
-criteria for being errors of more abundant OTUs and merges these. It has been shown that curation with LULU consistently result 
-in more realistic diversity metrics. 
-
-Additional information:
- - `LULU repository <https://github.com/tobiasgf/lulu>`_
- - `LULU paper <https://doi.org/10.1038/s41467-017-01312-x>`_
-  
-| Input data is tab delimited **OTU table** (``table``) and **OTU sequences** (``rep_seqs``) in fasta format (see input examples below). 
-| `EXAMPLE table here <https://github.com/tobiasgf/lulu/blob/master/Example_data/otutable_test.txt>`_ *(from LULU repository)*
-| `EXAMPLE fasta here <https://github.com/tobiasgf/lulu/blob/master/Example_data/centroids_test.txt>`_ *(from LULU repository)*
-
-.. note::
-
-  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
-
-
-| **Output** files in ``lulu_out`` directory:
-| # lulu_out_table.txt     = curated table in tab delimited txt format
-| # lulu_out_RepSeqs.fasta = fasta file for the molecular units (OTUs or ASVs) in the curated table
-| # match_list.lulu        = match list file that was used by LULU to merge 'daughter' molecular units
-| # discarded_units.lulu   = molecular units (OTUs or ASVs) that were merged with other units based on specified thresholds)
-
-=============================================== =========================
-`Setting <https://github.com/tobiasgf/lulu>`_   Tooltip
-=============================================== =========================
-``table``                                       | select OTU/ASV table. If no file is selected, then PipeCraft will 
-                                                | look OTU_table.txt or ASV_table.txt in the working directory.
-                                                | `EXAMPLE table here <https://github.com/tobiasgf/lulu/blob/master/Example_data/otutable_test.txt>`_
-``rep_seqs``                                    | select fasta formatted sequence file containing your OTU/ASV reads.
-                                                | `EXAMPLE file here <https://github.com/tobiasgf/lulu/blob/master/Example_data/centroids_test.txt>`_
-``min_ratio_type``                              | sets whether a potential error must have lower abundance than the parent 
-                                                | in all samples 'min' (default), or if an error just needs to have lower 
-                                                | abundance on average 'avg'
-``min_ratio``                                   | set the minimim abundance ratio between a potential error and a 
-                                                | potential parent to be identified as an error
-``min_match``                                   | specify minimum threshold of sequence similarity for considering 
-                                                | any OTU as an error of another
-``min_rel_cooccurence``                         | minimum co-occurrence rate. Default = 0.95 (meaning that 1 in 20 samples 
-                                                | are allowed to have no parent presence)
-``match_list_soft``                             | use either 'blastn' or 'vsearch' to generate match list for LULU. 
-                                                | Default is 'vsearch' (much faster)
-``vsearch_similarity_type``                     | applies only when 'vsearch' is used as 'match_list_soft'. 
-                                                | Pairwise sequence identity definition (--iddef)
-``perc_identity``                               | percent identity cutoff for match list. Excluding pairwise comparisons 
-                                                | with lower sequence identity percentage than specified threshold
-``coverage_perc``                               | percent query coverage per hit. Excluding pairwise comparisons with 
-                                                | lower sequence coverage than specified threshold
-``strands``                                     | query strand to search against database. Both = search also reverse complement
-``cores``                                       | number of cores to use for generating match list for LULU
-=============================================== =========================
-
-
-
-.. _postclustering_dada2_table_filtering:
-
-____________________________________________________
-
-DADA2 collapse ASVs
--------------------
-
-DADA2 `collapseNoMismatch <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to collapse identical ASVs; 
-and ASVs filtering based on minimum accepted sequence length (custom R functions). 
-
-To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
-
-| **Output** files in ``filtered_table`` directory:
-| # ASVs_table_collapsed.txt = ASV table after collapsing identical ASVs
-| # ASVs_collapsed.fasta     = ASV sequences after collapsing identical ASVs
-| # ASV_table_collapsed.rds  = ASV table in RDS format after collapsing identical ASVs. 
-| If length filtering was applied (if 'by length' setting > 0) [performed after collapsing identical ASVs]:
-| # ASV_table_lenFilt.txt    = ASV table after filtering out ASVs with shorther than specified sequence length
-| # ASVs_lenFilt.fasta       = ASV sequences after filtering out ASVs with shorther than specified sequence length
-
-
-========================== ============
-Setting                    Tooltip
-========================== ============
-``DADA2 table``            | select the RDS file (ASV table), output from DADA2 workflow; 
-                           | usually in ASVs_out.dada2/ASVs_table.denoised-merged.rds
-``collapseNoMismatch``     | collapses ASVs that are identical up to shifts or 
-                           | length variation, i.e. that have no mismatches or internal indels
-``by_length``              | discard ASVs from the ASV table that are shorter than specified 
-                           | value (in base pairs). Value 0 means OFF, no filtering by length
-``minOverlap``             | collapseNoMismatch setting. Default = 20. The minimum overlap of 
-                           | base pairs between ASV sequences required to collapse them together
-``vec``                    | collapseNoMismatch setting. Default = TRUE. Use the vectorized 
-                           | aligner. Should be turned off if sequences exceed 2kb in length
-========================== ============
-
-.. _assign_taxonomy:
-
-____________________________________________________
-
-|
 
 ASSIGN TAXONOMY
 ===============

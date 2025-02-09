@@ -3,6 +3,10 @@
   :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide
 
+.. |output_icon| image:: _static/output_icon.png
+  :width: 50
+  :alt: Alternative text
+
 .. raw:: html
 
     <style> .red {color:#ff0000; font-weight:bold; font-size:16px} </style>
@@ -36,10 +40,68 @@ Post-processing tools |PipeCraft2_logo|
 
 ____________________________________________________
 
-.. _postprocessing_lulu:
+Filter tag-jumps
+----------------
 
-`LULU <https://github.com/tobiasgf/lulu>`_ 
--------------------------------------------
+Filter out putative tag-jumps with `UNCROSS2 <https://www.drive5.com/usearch/manual/uncross2_algo.html>`_. 
+
+Generated files:
+----------------
+# ${in%%.txt}_TagJumpFilt.txt = 
+# TagJump_plot.pdf             = 
+#             = statistics about 
+                                Total_reads             : number of reads in the input table 
+                                Number_of_TagJump_Events: number of cases where tag-jumps were detected
+                                TagJump_reads           : number of reads detected as tag-jumps
+                                ReadPercent_removed     : percentence of the reads removed 
+
+
+| Input data is tab delimited **OTU table** and corresponding **fasta file** (representative sequences of ASV/OTUs).
+
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
+
++-------------------------------------+-------------------------------------------------------------------------------+
+| Outputs |output_icon|               |                                                                               |
++=====================================+===============================================================================+
+| *_TagJumpFilt.txt                   | output table where tag-jupms have been filtered out                           |
++-------------------------------------+-------------------------------------------------------------------------------+
+| TagJump_plot.pdf                    | illustration about the presence of tag-jumps based on the selected parameters |
++-------------------------------------+-------------------------------------------------------------------------------+
+| TagJump_stats.txt                   | tag-jump statistics                                                           |
++-------------------------------------+-------------------------------------------------------------------------------+
+
++----------------+-------------------------------------------------------------------------------+
+| Setting        | Tooltip                                                                       |
++================+===============================================================================+
+| ``table``      | output table where tag-jupms have been filtered out                           |
++----------------+-------------------------------------------------------------------------------+
+| ``fasta file`` | illustration about the presence of tag-jumps based on the selected parameters |
++----------------+-------------------------------------------------------------------------------+
+| ``f value``    | tag-jump statistics                                                           |
++----------------+-------------------------------------------------------------------------------+
+| ``p value``    |                                                                               |
++----------------+-------------------------------------------------------------------------------+
+
+POOLELI
+
+___________________________________________________
+
+ASV to OTU
+----------
+
+Cluster ASVs to OTUs using vsearch. 
+
+
+.. _postclustering_lulu:
+
+___________________________________________________
+
+LULU post-clustering
+---------------------
+
+Perform OTU post-clustering with `LULU <https://github.com/tobiasgf/lulu>`_ to merge co-occurring 'daughter' OTUs.
 
 LULU description from the `LULU repository <https://github.com/tobiasgf/lulu>`_: the purpose of LULU is to reduce the number of 
 erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. 
@@ -47,9 +109,118 @@ By evaluating the co-occurence patterns of OTUs among samples LULU identifies OT
 criteria for being errors of more abundant OTUs and merges these. It has been shown that curation with LULU consistently result 
 in more realistic diversity metrics. 
 
-| This is implemented also under POSTCLUSTERING panel, :ref:`see here <postclustering_lulu>` 
+Additional information:
+ - `LULU repository <https://github.com/tobiasgf/lulu>`_
+ - `LULU paper <https://doi.org/10.1038/s41467-017-01312-x>`_
+  
+| Input data is tab delimited **OTU table** (``table``) and **OTU sequences** (``rep_seqs``) in fasta format (see input examples below). 
+| `EXAMPLE table here <https://github.com/tobiasgf/lulu/blob/master/Example_data/otutable_test.txt>`_ *(from LULU repository)*
+| `EXAMPLE fasta here <https://github.com/tobiasgf/lulu/blob/master/Example_data/centroids_test.txt>`_ *(from LULU repository)*
+
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
+
+
+| **Output** files in ``lulu_out`` directory:
+| # lulu_out_table.txt     = curated table in tab delimited txt format
+| # lulu_out_RepSeqs.fasta = fasta file for the molecular units (OTUs or ASVs) in the curated table
+| # match_list.lulu        = match list file that was used by LULU to merge 'daughter' molecular units
+| # discarded_units.lulu   = molecular units (OTUs or ASVs) that were merged with other units based on specified thresholds)
+
+=============================================== =========================
+`Setting <https://github.com/tobiasgf/lulu>`_   Tooltip
+=============================================== =========================
+``table``                                       | select OTU/ASV table. If no file is selected, then PipeCraft will 
+                                                | look OTU_table.txt or ASV_table.txt in the working directory.
+                                                | `EXAMPLE table here <https://github.com/tobiasgf/lulu/blob/master/Example_data/otutable_test.txt>`_
+``rep_seqs``                                    | select fasta formatted sequence file containing your OTU/ASV reads.
+                                                | `EXAMPLE file here <https://github.com/tobiasgf/lulu/blob/master/Example_data/centroids_test.txt>`_
+``min_ratio_type``                              | sets whether a potential error must have lower abundance than the parent 
+                                                | in all samples 'min' (default), or if an error just needs to have lower 
+                                                | abundance on average 'avg'
+``min_ratio``                                   | set the minimim abundance ratio between a potential error and a 
+                                                | potential parent to be identified as an error
+``min_match``                                   | specify minimum threshold of sequence similarity for considering 
+                                                | any OTU as an error of another
+``min_rel_cooccurence``                         | minimum co-occurrence rate. Default = 0.95 (meaning that 1 in 20 samples 
+                                                | are allowed to have no parent presence)
+``match_list_soft``                             | use either 'blastn' or 'vsearch' to generate match list for LULU. 
+                                                | Default is 'vsearch' (much faster)
+``vsearch_similarity_type``                     | applies only when 'vsearch' is used as 'match_list_soft'. 
+                                                | Pairwise sequence identity definition (--iddef)
+``perc_identity``                               | percent identity cutoff for match list. Excluding pairwise comparisons 
+                                                | with lower sequence identity percentage than specified threshold
+``coverage_perc``                               | percent query coverage per hit. Excluding pairwise comparisons with 
+                                                | lower sequence coverage than specified threshold
+``strands``                                     | query strand to search against database. Both = search also reverse complement
+``cores``                                       | number of cores to use for generating match list for LULU
+=============================================== =========================
+
+
+.. _postclustering_dada2_table_filtering:
 
 ____________________________________________________
+
+DADA2 collapse ASVs
+-------------------
+
+DADA2 `collapseNoMismatch <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function collapses identical ASVs with no internal mismatches (~greedy 100% clustering with end-gapping ignored).
+Representative sequence of a collapsed ASV will be the most abundant one. 
+and ASVs filtering based on minimum accepted sequence length (custom R functions). 
+
+To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
+
+| **Output** files in ``filtered_table`` directory:
+| # ASVs_table_collapsed.txt = ASV table after collapsing identical ASVs
+| # ASVs_collapsed.fasta     = ASV sequences after collapsing identical ASVs
+| # ASV_table_collapsed.rds  = ASV table in RDS format after collapsing identical ASVs. 
+| If length filtering was applied (if 'by length' setting > 0) [performed after collapsing identical ASVs]:
+| # ASV_table_lenFilt.txt    = ASV table after filtering out ASVs with shorther than specified sequence length
+| # ASVs_lenFilt.fasta       = ASV sequences after filtering out ASVs with shorther than specified sequence length
+
+
+========================== ============
+Setting                    Tooltip
+========================== ============
+``DADA2 table``            | select the RDS file (ASV table), output from DADA2 workflow; 
+                           | usually in ASVs_out.dada2/ASVs_table.denoised-merged.rds
+``collapseNoMismatch``     | collapses ASVs that are identical up to shifts or 
+                           | length variation, i.e. that have no mismatches or internal indels
+``by_length``              | discard ASVs from the ASV table that are shorter than specified 
+                           | value (in base pairs). Value 0 means OFF, no filtering by length
+``minOverlap``             | collapseNoMismatch setting. Default = 20. The minimum overlap of 
+                           | base pairs between ASV sequences required to collapse them together
+``vec``                    | collapseNoMismatch setting. Default = TRUE. Use the vectorized 
+                           | aligner. Should be turned off if sequences exceed 2kb in length
+========================== ============
+
+__________________________________________________
+
+metaMATE
+--------
+
+Determine and filter out putative NUMTs (from mitochondrial coding amplicon genes) and and other erroneous sequences based on relative read abundance thresholds within libraries, phylogenetic clades and/or taxonomic groupings.
+ 
+
+Additional information:
+ - `metaMATE repository <https://github.com/tjcreedy/metamate>`_
+ - `metaMATE paper <https://doi.org/10.1111/1755-0998.13337>`_
+ - 
+___________________________________________________
+
+ORF-Finder
+----------
+
+Filter out putative pseudogenes (NUMTs) from protein coding amplicon dataset (such as COI, rbcL) using NCBI's ORFfinder `(Sayers et al 2022) <https://doi.org/10.1093/nar/gkab1112>`_.
+This process translates sequences to open reading frames (ORFs) and retaines the longest ORF per sequence 
+if the length of the ORF is between the specified range of ``min length`` and ``max length``.
+
+
+.. _assign_taxonomy:
+
+____________________________________________________
+
 
 .. _postprocessing_deicode: 
 
@@ -63,7 +234,6 @@ As a second step, it performs dimensionality reduction of the data using robust 
 where sparse data are handled through matrix completion.
 
 Additional information:
- - `DEICODE tutorial <https://library.qiime2.org/plugins/deicode/19/>`_
  - `DEICODE repository <https://github.com/biocore/DEICODE>`_
  - `DEICODE paper <https://journals.asm.org/doi/10.1128/mSystems.00016-19>`_
 
@@ -75,18 +245,25 @@ Additional information:
 
   To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
 
-| **Output** files in ``DEICODE_out`` directory:
-| #   - otutab.biom          =  full OTU table in BIOM format
-| #   - rclr_subset.tsv      =  rCLR-transformed subset of OTU table *
-| # DEICODE_out/full/
-| #   - distance-matrix.tsv  =  distance matrix between the samples, based on full OTU table
-| #   - ordination.txt       =  ordination scores for samples and OTUs, based on full OTU table
-| #   - rclr.tsv             =  rCLR-transformed OTU table
-| # DEICODE_out/subs/
-| #   - distance-matrix.tsv  =  distance matrix between the samples, based on a subset of OTU table *
-| #   - ordination.txt       =  ordination scores for samples and OTUs, based a subset of OTU table *
-| # \*, files are present only if 'subset_IDs' variable was specified
-
++-------------------------------------------------------------------+------------------------------------------------------------------------+
+| Output directory |output_icon| ``DEICODE_out``                                                                                             |
++===================================================================+========================================================================+
+| otutab.biom                                                       | full OTU table in BIOM format                                          |
++-------------------------------------------------------------------+------------------------------------------------------------------------+
+| rclr_subset.tsv                                                   | rCLR-transformed subset of OTU table \*                                |
++-------------------------------------------------------------------+------------------------------------------------------------------------+
+| ``full``/distance-matrix.tsv                                      | distance matrix between the samples, based on full OTU table           |
++-------------------------------------------------------------------+------------------------------------------------------------------------+
+| ``full``/ordination.txt                                           | ordination scores for samples and OTUs, based on full OTU table        |
++-------------------------------------------------------------------+------------------------------------------------------------------------+
+| ``full``/rclr.tsv                                                 | rCLR-transformed OTU table                                             |
++-------------------------------------------------------------------+------------------------------------------------------------------------+
+| ``subs``/distance-matrix.tsv                                      | distance matrix between the samples, based on a subset of OTU table \* |
++-------------------------------------------------------------------+------------------------------------------------------------------------+
+| ``subs``/ordination.txt                                           | ordination scores for samples and OTUs, based a subset of OTU table \* |
++-------------------------------------------------------------------+------------------------------------------------------------------------+
+| \* files are present only if 'subset_IDs' variable was specified  |                                                                        |
++-------------------------------------------------------------------+------------------------------------------------------------------------+
 
 =============================================== =========================
 Setting                                         Tooltip
@@ -130,7 +307,6 @@ Example of input ``subset_IDs``:
   ...
 
 | 
-
 
 
 **PERMANOVA and PERMDISP example using the robust Aitchison distance**

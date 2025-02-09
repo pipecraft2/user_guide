@@ -1,4 +1,5 @@
 {
     "esbonio.server.enabled": true,
-    "esbonio.sphinx.confDir": "c:\\Users\\Sten Anslan\\Nextcloud\\PipeCraft2\\manual\\PipeCraft\\doc"
+    "esbonio.sphinx.confDir": "c:\\Users\\Sten Anslan\\Nextcloud\\PipeCraft2\\manual\\PipeCraft\\doc",
+    "r.plot.useHttpgd": true
 }

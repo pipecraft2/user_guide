@@ -354,8 +354,6 @@ When you need to STOP the workflow, press ``STOP`` button |stop_workflow|
 
   |workflow_finished|
 
-
-
 ___________________________________________________
 
 Examine the outputs
