@@ -45,53 +45,63 @@ Filter tag-jumps
 
 Filter out putative tag-jumps with `UNCROSS2 <https://www.drive5.com/usearch/manual/uncross2_algo.html>`_. 
 
-Generated files:
-----------------
-# ${in%%.txt}_TagJumpFilt.txt = 
-# TagJump_plot.pdf             = 
-#             = statistics about 
-                                Total_reads             : number of reads in the input table 
-                                Number_of_TagJump_Events: number of cases where tag-jumps were detected
-                                TagJump_reads           : number of reads detected as tag-jumps
-                                ReadPercent_removed     : percentence of the reads removed 
-
-
 | Input data is tab delimited **OTU table** and corresponding **fasta file** (representative sequences of ASV/OTUs).
 
 .. note::
 
   To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
 
-+-------------------------------------+-------------------------------------------------------------------------------+
-| Outputs |output_icon|               |                                                                               |
-+=====================================+===============================================================================+
-| *_TagJumpFilt.txt                   | output table where tag-jupms have been filtered out                           |
-+-------------------------------------+-------------------------------------------------------------------------------+
-| TagJump_plot.pdf                    | illustration about the presence of tag-jumps based on the selected parameters |
-+-------------------------------------+-------------------------------------------------------------------------------+
-| TagJump_stats.txt                   | tag-jump statistics                                                           |
-+-------------------------------------+-------------------------------------------------------------------------------+
++--------------------+-------------------------------------------------------------------------------+
+| Outputs            |                                                                               |
++====================+===============================================================================+
+| *_TagJumpFilt.txt  | output table where tag-jumps have been filtered out                           |
++--------------------+-------------------------------------------------------------------------------+
+| TagJump_plot.pdf   | illustration about the presence of tag-jumps based on the selected parameters |
++--------------------+-------------------------------------------------------------------------------+
+|| TagJump_stats.txt || tag-jump statistics (Total_reads, Number_of_TagJump_Events,                  |
+||                   || TagJump_reads, ReadPercent_removed)                                          |
++--------------------+-------------------------------------------------------------------------------+
 
-+----------------+-------------------------------------------------------------------------------+
-| Setting        | Tooltip                                                                       |
-+================+===============================================================================+
-| ``table``      | output table where tag-jupms have been filtered out                           |
-+----------------+-------------------------------------------------------------------------------+
-| ``fasta file`` | illustration about the presence of tag-jumps based on the selected parameters |
-+----------------+-------------------------------------------------------------------------------+
-| ``f value``    | tag-jump statistics                                                           |
-+----------------+-------------------------------------------------------------------------------+
-| ``p value``    |                                                                               |
-+----------------+-------------------------------------------------------------------------------+
-
-POOLELI
++-----------------+------------------------------------------------------------------------------------------+
+| Setting         | Tooltip                                                                                  |
++=================+==========================================================================================+
+|| ``table``      || select tab-delimited OTU/ASV table, where the 1st column is the OTU/ASV IDs and the     |
+||                || following columns represent samples; 2nd column may be Sequence column, with the        |
+||                || colName 'Sequence' [**file must be in the SELECT WORKDIR directory**]                   |
++-----------------+------------------------------------------------------------------------------------------+
+|| ``fasta file`` || select corresponding fasta file for OTU/ASV table [**fasta file must be in the SELECT** |
+||                || **WORKDIR directory**]                                                                  |
++-----------------+------------------------------------------------------------------------------------------+
+|| ``f value``    || f-parameter of UNCROSS2, which defines the expected tag-jumps rate. Default is 0.03     |
+||                || (equivalent to 3%). A higher value enforces stricter filtering                          |
++-----------------+------------------------------------------------------------------------------------------+
+|| ``p value``    || p-parameter, which controls the severity of tag-jump removal. It adjusts the exponent   |
+||                || in the UNCROSS formula. Default is 1. Opt for 0.5 or 0.3 to steepen the curve           |
++-----------------+------------------------------------------------------------------------------------------+
 
 ___________________________________________________
 
 ASV to OTU
 ----------
 
-Cluster ASVs to OTUs using vsearch. 
+Cluster ASVs (zOTUs) to OTUs using vsearch. 
+
+| **Input data** is tab delimited **ASV table** and **ASV sequences** in fasta format.
+| 2nd column of **ASV table** MUST BE 'Sequences' (1st column is ASV IDs; default pipecraft output table).
+| For clustering, the ASV size annotation is obtained from the ASV table. 
+
+
++---------------------------+--------------------------------------------------------+
+| Outputs ``ASVs2OTUs_out`` |                                                        |
++===========================+========================================================+
+| OTUs.fasta                | FASTA formated representative OTU sequences            |
++---------------------------+--------------------------------------------------------+
+| OTU_table.txt             | OTU distribution table per sample (tab delimited file) |
++---------------------------+--------------------------------------------------------+
+| OTUs.uc                   | uclust-like formatted clustering results for OTUs      |
++---------------------------+--------------------------------------------------------+
+| ASVs.size.fasta           | size annotated input sequences                         |
++---------------------------+--------------------------------------------------------+
 
 
 .. _postclustering_lulu:
@@ -122,11 +132,18 @@ Additional information:
   To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
 
 
-| **Output** files in ``lulu_out`` directory:
-| # lulu_out_table.txt     = curated table in tab delimited txt format
-| # lulu_out_RepSeqs.fasta = fasta file for the molecular units (OTUs or ASVs) in the curated table
-| # match_list.lulu        = match list file that was used by LULU to merge 'daughter' molecular units
-| # discarded_units.lulu   = molecular units (OTUs or ASVs) that were merged with other units based on specified thresholds)
++------------------------+----------------------------------------------------------------------------+
+| Outputs ``lulu_out``   |                                                                            |
++========================+============================================================================+
+| lulu_out_table.txt     | curated table in tab delimited txt format                                  |
++------------------------+----------------------------------------------------------------------------+
+| lulu_out_RepSeqs.fasta | fasta file for the molecular units (OTUs or ASVs) in the curated table     |
++------------------------+----------------------------------------------------------------------------+
+| match_list.lulu        | match list file that was used by LULU to merge 'daughter' molecular units  |
++------------------------+----------------------------------------------------------------------------+
+|| discarded_units.lulu  || molecular units (OTUs or ASVs) that were merged with other units based on |
+||                       || specified thresholds                                                      |
++------------------------+----------------------------------------------------------------------------+
 
 =============================================== =========================
 `Setting <https://github.com/tobiasgf/lulu>`_   Tooltip
@@ -134,7 +151,7 @@ Additional information:
 ``table``                                       | select OTU/ASV table. If no file is selected, then PipeCraft will 
                                                 | look OTU_table.txt or ASV_table.txt in the working directory.
                                                 | `EXAMPLE table here <https://github.com/tobiasgf/lulu/blob/master/Example_data/otutable_test.txt>`_
-``rep_seqs``                                    | select fasta formatted sequence file containing your OTU/ASV reads.
+``fasta_file``                                  | select fasta formatted sequence file containing your OTU/ASV reads.
                                                 | `EXAMPLE file here <https://github.com/tobiasgf/lulu/blob/master/Example_data/centroids_test.txt>`_
 ``min_ratio_type``                              | sets whether a potential error must have lower abundance than the parent 
                                                 | in all samples 'min' (default), or if an error just needs to have lower 
@@ -155,7 +172,7 @@ Additional information:
                                                 | lower sequence coverage than specified threshold
 ``strands``                                     | query strand to search against database. Both = search also reverse complement
 ``cores``                                       | number of cores to use for generating match list for LULU
-=============================================== =========================
+=============================================== ========================= 
 
 
 .. _postclustering_dada2_table_filtering:
@@ -171,14 +188,22 @@ and ASVs filtering based on minimum accepted sequence length (custom R functions
 
 To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
 
-| **Output** files in ``filtered_table`` directory:
-| # ASVs_table_collapsed.txt = ASV table after collapsing identical ASVs
-| # ASVs_collapsed.fasta     = ASV sequences after collapsing identical ASVs
-| # ASV_table_collapsed.rds  = ASV table in RDS format after collapsing identical ASVs. 
-| If length filtering was applied (if 'by length' setting > 0) [performed after collapsing identical ASVs]:
-| # ASV_table_lenFilt.txt    = ASV table after filtering out ASVs with shorther than specified sequence length
-| # ASVs_lenFilt.fasta       = ASV sequences after filtering out ASVs with shorther than specified sequence length
 
++---------------------------------+-------------------------------------------------------------------------------------+
+| Outputs ``filtered_table``      |                                                                                     |
++=================================+=====================================================================================+
+| ASVs_table_collapsed.txt        | ASV table after collapsing identical ASVs                                           |
++---------------------------------+-------------------------------------------------------------------------------------+
+| ASVs_collapsed.fasta            | ASV sequences after collapsing identical ASVs                                       |
++---------------------------------+-------------------------------------------------------------------------------------+
+| ASV_table_collapsed.rds         | ASV table in RDS format after collapsing identical ASVs                             |
++---------------------------------+-------------------------------------------------------------------------------------+
+| If length filtering was applied |                                                                                     |
++---------------------------------+-------------------------------------------------------------------------------------+
+| ASV_table_lenFilt.tx            | ASV table after filtering out ASVs with shorther than specified sequence length     |
++---------------------------------+-------------------------------------------------------------------------------------+
+| ASVs_lenFilt.fasta              | ASV sequences after filtering out ASVs with shorther than specified sequence length |
++---------------------------------+-------------------------------------------------------------------------------------+
 
 ========================== ============
 Setting                    Tooltip
@@ -202,11 +227,11 @@ metaMATE
 
 Determine and filter out putative NUMTs (from mitochondrial coding amplicon genes) and and other erroneous sequences based on relative read abundance thresholds within libraries, phylogenetic clades and/or taxonomic groupings.
  
-
 Additional information:
  - `metaMATE repository <https://github.com/tjcreedy/metamate>`_
  - `metaMATE paper <https://doi.org/10.1111/1755-0998.13337>`_
  - 
+
 ___________________________________________________
 
 ORF-Finder

@@ -40,6 +40,9 @@ Pre-defined pipelines |PipeCraft2_logo|
 Working with multiple sequencing runs
 ======================================
 
+Applicable to: :ref:`DADA2 ASVs <asvpipe>`, :ref:`UNOISE ASVs <unoise_asvs>`, :ref:`vsearch OTUs <vsearchOTUs>` pre-defined pipelines.
+
+
 When working with multiple sequencing runs, then **pre-defined pipelines** can automatically process each sequencing run separately, and 
 then **merge the results** into a single output OTU/ASV table. Processing each sequencing run separately is 
 **necessary for appropriate handling of run-specifiec error profiles and tag-jumps filtering**.
@@ -90,79 +93,10 @@ Directory structure
 
 ___________________________________________________
 
-vsearch OTUs
-============
-
-.. _vsearchOTUs:
-
-
-This automated workflow is mostly based on `vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_) [`manual <_static/vsearch_manual_2.22.1.pdf>`_]
-to form **OTUs and an OTU table**. This input is the directory that contains per-sample fastq files (**demultiplexed data**).
-
- 
-.. _vsearchOTUs_defaults:
-
-| **Default options:**
-| *click on analyses step for more info*
-
-==================================================================== =========================
-Analyses step                                                        Default setting
-==================================================================== =========================
-:ref:`CUT PRIMERS <remove_primers>` (optional)                         --
-:ref:`MERGE READS <merge_vsearch>`                                   | ``read_R1`` = \\.R1
-                                                                     | ``min_overlap`` = 12
-                                                                     | ``min_length`` = 32
-                                                                     | ``allow_merge_stagger`` = TRUE 
-                                                                     | ``include only R1`` = FALSE 
-                                                                     | ``max_diffs`` = 20
-                                                                     | ``max_Ns`` = 0
-                                                                     | ``max_len`` = 600
-                                                                     | ``keep_disjoined`` = FALSE 
-                                                                     | ``fastq_qmax`` = 41
-:ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>`                | ``maxEE`` = 1
-                                                                     | ``maxN`` = 0
-                                                                     | ``minLen`` = 32
-                                                                     | ``max_length`` = undefined
-                                                                     | ``qmax`` = 41
-                                                                     | ``qmin`` = 0
-                                                                     | ``maxee_rate`` = undefined
-:ref:`CHIMERA FILTERING with uchime_denovo <chimFilt_vsearch>`       | ``pre_cluster`` = 0.98
-                                                                     | ``min_unique_size`` = 1
-                                                                     | ``denovo`` = TRUE 
-                                                                     | ``reference_based`` = undefined
-                                                                     | ``abundance_skew`` = 2
-                                                                     | ``min_h`` = 0.28
-:ref:`ITS Extractor <itsextractor>` (optional)                       | ``organisms`` = all 
-                                                                     | ``regions`` = all
-                                                                     | ``partial`` = 50
-                                                                     | ``region_for_clustering`` = ITS2
-                                                                     | ``cluster_full_and_partial`` = TRUE
-                                                                     | ``e_value`` = 1e-2
-                                                                     | ``scores`` = 0
-                                                                     | ``domains`` = 2
-                                                                     | ``complement`` = TRUE 
-                                                                     | ``only_full`` = FALSE
-                                                                     | ``truncate`` = TRUE 
-:ref:`CLUSTERING with vsearch <clustering_vsearch>`                  | ``OTU_type`` = centroid
-                                                                     | ``similarity_threshold`` = 0.97
-                                                                     | ``strands`` = both
-                                                                     | ``remove_singletons`` = false
-                                                                     | ``similarity_type`` = 2
-                                                                     | ``sequence_sorting`` = cluster_size
-                                                                     | ``centroid_type`` = similarity
-                                                                     | ``max_hits`` = 1
-                                                                     | ``mask`` = dust
-                                                                     | ``dbmask`` = dust
-:ref:`ASSIGN TAXONOMY with BLAST <assign_taxonomy_blast>` (optional) | ``database_file`` = select a database
-                                                                     | ``task`` = blastn
-                                                                     | ``strands`` = both
-==================================================================== =========================
+.. _asvpipe:
 
 DADA2 ASVs
 =============
-
-
-.. _asvpipe:
 
 This pre-defined workflow is based on the `DADA2 tutorial <https://benjjneb.github.io/dada2/tutorial.html>`_ to form **ASVs and an ASV table**.
 This input is the directory that contains per-sample fastq files (**demultiplexed data**).
@@ -410,13 +344,97 @@ see :ref:`default settings <dada2_defaults>`
 ____________________________________________________
 
 
+.. _unoise_asvs:
+
 UNOISE ASVs
 ===========
 
-UNOISE3 pipeline for making ASVs (zOTUs). 
-Can optionally do automatic clustering of those ASVs (zOTUs) to OTUs by specifying the similarity threshold < 1.
-Uses UNOISE3 and clustering algorithms in vsearch. 
+UNOISE3 pipeline for making ASVs (zOTUs). Uses UNOISE3 algorithm in vsearch. 
 
+This automated workflow is mostly based on `vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_)
+to form **zOTUs and an zOTU table** (herein also referred as ASVs). 
+
+The input is the directory that contains per-sample fastq files (**demultiplexed data**).
+
+Pipeline final outputs are in the ``clustering_out`` directory; but per process a separate 
+output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` etc.).
+
+*more to come ...*
+
+__________________________________________________
+
+.. _vsearchOTUs:
+
+vsearch OTUs
+============
+
+
+This automated workflow is mostly based on `vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_)
+to form **OTUs and an OTU table**. 
+The input is the directory that contains per-sample fastq files (**demultiplexed data**).
+
+Pipeline final outputs are in the ``clustering_out`` directory; but per process a separate 
+output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` etc.).
+
+.. _vsearchOTUs_defaults:
+
+| **Default options:**
+| *click on analyses step for more info*
+
+==================================================================== =========================
+Analyses step                                                        Default setting
+==================================================================== =========================
+:ref:`CUT PRIMERS <remove_primers>` (optional)                         --
+:ref:`MERGE READS <merge_vsearch>`                                   | ``read_R1`` = \\.R1
+                                                                     | ``min_overlap`` = 12
+                                                                     | ``min_length`` = 32
+                                                                     | ``allow_merge_stagger`` = TRUE 
+                                                                     | ``include only R1`` = FALSE 
+                                                                     | ``max_diffs`` = 20
+                                                                     | ``max_Ns`` = 0
+                                                                     | ``max_len`` = 600
+                                                                     | ``keep_disjoined`` = FALSE 
+                                                                     | ``fastq_qmax`` = 41
+:ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>`                | ``maxEE`` = 1
+                                                                     | ``maxN`` = 0
+                                                                     | ``minLen`` = 32
+                                                                     | ``max_length`` = undefined
+                                                                     | ``qmax`` = 41
+                                                                     | ``qmin`` = 0
+                                                                     | ``maxee_rate`` = undefined
+:ref:`CHIMERA FILTERING with uchime_denovo <chimFilt_vsearch>`       | ``pre_cluster`` = 0.98
+                                                                     | ``min_unique_size`` = 1
+                                                                     | ``denovo`` = TRUE 
+                                                                     | ``reference_based`` = undefined
+                                                                     | ``abundance_skew`` = 2
+                                                                     | ``min_h`` = 0.28
+:ref:`ITS Extractor <itsextractor>` (optional)                       | ``organisms`` = all 
+                                                                     | ``regions`` = all
+                                                                     | ``partial`` = 50
+                                                                     | ``region_for_clustering`` = ITS2
+                                                                     | ``cluster_full_and_partial`` = TRUE
+                                                                     | ``e_value`` = 1e-2
+                                                                     | ``scores`` = 0
+                                                                     | ``domains`` = 2
+                                                                     | ``complement`` = TRUE 
+                                                                     | ``only_full`` = FALSE
+                                                                     | ``truncate`` = TRUE 
+:ref:`CLUSTERING with vsearch <clustering_vsearch>`                  | ``OTU_type`` = centroid
+                                                                     | ``similarity_threshold`` = 0.97
+                                                                     | ``strands`` = both
+                                                                     | ``remove_singletons`` = false
+                                                                     | ``similarity_type`` = 2
+                                                                     | ``sequence_sorting`` = cluster_size
+                                                                     | ``centroid_type`` = similarity
+                                                                     | ``max_hits`` = 1
+                                                                     | ``mask`` = dust
+                                                                     | ``dbmask`` = dust
+:ref:`ASSIGN TAXONOMY with BLAST <assign_taxonomy_blast>` (optional) | ``database_file`` = select a database
+                                                                     | ``task`` = blastn
+                                                                     | ``strands`` = both
+==================================================================== =========================
+
+__________________________________________________
 
 .. _nextits_pipeline: 
 
@@ -663,3 +681,18 @@ Setting                          Tooltip
 ``lulu_relcooc``                 | Relative co-occurrence
 ``lulu_maxhits``                 | Maximum number of hits (0 = unlimited)
 ================================ =========================
+
+
+__________________________________________________
+
+.. _optimotu_pipeline:
+
+OptimOTU
+========
+
+| OptimOTU is a full metabarcoding data analysis pipeline for **paired-end Illumina data** (`arXiv:2502.10350 <https://doi.org/10.48550/arXiv.2502.10350>`_).
+| OptimOTU uses taxonomically identified reference sequences to 
+| determine optimal genetic distance thresholds for clustering ancestor 
+| taxa into groups that best match their descendant taxa (**taxonomically aware OTU clustering**).
+
+
