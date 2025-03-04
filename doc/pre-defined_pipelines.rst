@@ -711,3 +711,81 @@ OptimOTU
 | taxa into groups that best match their descendant taxa (**taxonomically aware OTU clustering**).
 
 
+Target taxa and sequence orientation
+------------------------------------
+
+Control sequences
+-----------------
+
+Cut primers and trim reads
+--------------------------
+
+
+.. _custom_sample_table:
+
+custom sample table
+~~~~~~~~~~~~~~~~~~~
+
+Example of custom primer trimming parameters per sample (**tab-delimited**): 
+
++--------+---------+------------------+------------------+--------+
+| seqrun | samples | fastq_R1         | fastq_R2         | orient |
++--------+---------+------------------+------------------+--------+
+| run1   | sample1 | sample1_R1.fq.gz | sample1_R2.fq.gz | fwd    |
++--------+---------+------------------+------------------+--------+
+| run1   | sample2 | sample2_R1.fq.gz | sample2_R2.fq.gz | fwd    |
++--------+---------+------------------+------------------+--------+
+| run2   | sample3 | sample3_R1.fq.gz | sample3_R2.fq.gz | rev    |
++--------+---------+------------------+------------------+--------+
+| run2   | sample4 | sample4_R1.fq.gz | sample4_R2.fq.gz | rev    |
++--------+---------+------------------+------------------+--------+
+| run3   | sample5 | sample5_R1.fq.gz | sample5_R2.fq.gz | mixed  |
++--------+---------+------------------+------------------+--------+
+
+
+
+
+
+
+
+
+Quality filtering
+-----------------
+
+Denoising and merging paired-end reads 
+--------------------------------------
+
+Chimera filtering
+-----------------
+
+Filter tag-jumps
+----------------
+
+Amplicon model setting
+----------------------
+
+ProTAX classification
+---------------------
+
+Clustering
+----------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
