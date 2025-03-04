@@ -40,7 +40,8 @@ Pre-defined pipelines |PipeCraft2_logo|
 Working with multiple sequencing runs
 ======================================
 
-Applicable to: :ref:`DADA2 ASVs <asvpipe>`, :ref:`UNOISE ASVs <unoise_asvs>`, :ref:`vsearch OTUs <vsearchOTUs>` pre-defined pipelines.
+Applicable to: :ref:`DADA2 ASVs <asvpipe>`, :ref:`UNOISE ASVs <unoise_asvs>`,
+:ref:`vsearch OTUs <vsearchOTUs>` pre-defined pipelines.
 
 
 When working with multiple sequencing runs, then **pre-defined pipelines** can automatically process each sequencing run separately, and 
@@ -90,6 +91,20 @@ Directory structure
 | ``merged_runs`` directory will contain the merged ASV/OTU table; :red:`avoid naming your sequencing run directories as **merged_runs**!`  
 |
 | Fastq files with the **same name** will be considered as the same sample and will be merged in the final ASV/OTU table.
+
+
+Merge sequencing runs
+---------------------
+
+When working with multiple sequencing runs, then you can merge the results into a single ASV/OTU table
+by enabling the **MERGE SEQUENCING RUNS** option in the 
+:ref:`DADA2 ASVs <asvpipe>`, :ref:`UNOISE ASVs <unoise_asvs>`,
+:ref:`vsearch OTUs <vsearchOTUs>` pre-defined pipelines.
+
+Note that NextITS and OptimOTU pipelines also support merging of sequencing runs, but require 
+slightly different directory structure (see here for NextITS: :ref:`nextits_pipeline` and 
+for OptimOTU: :ref:`optimotu_pipeline`).
+
 
 ___________________________________________________
 
