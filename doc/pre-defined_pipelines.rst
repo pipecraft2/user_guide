@@ -745,10 +745,6 @@ Example of custom primer trimming parameters per sample (**tab-delimited**):
 
 
 
-
-
-
-
 Quality filtering
 -----------------
 

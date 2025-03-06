@@ -230,7 +230,7 @@ Determine and filter out putative NUMTs (from mitochondrial coding amplicon gene
 Additional information:
  - `metaMATE repository <https://github.com/tjcreedy/metamate>`_
  - `metaMATE paper <https://doi.org/10.1111/1755-0998.13337>`_
- - 
+  
 
 ___________________________________________________
 

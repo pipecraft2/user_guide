@@ -757,10 +757,10 @@ Implemented tools for taxonomy annotation:
 
 .. _assign_taxonomy_blast:
 
-`BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_ (`Camacho et al. 2009 <https://doi.org/10.1186/1471-2105-10-421>`_)
------------------------------------------------------------------------------------------------------------------------
+`BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_ 
+---------------------------------------------------
 
-| BLAST search sequences againt selected :ref:`database <databases>`. 
+| BLAST search (`Camacho et al. 2009 <https://doi.org/10.1186/1471-2105-10-421>`_) sequences againt selected :ref:`database <databases>`. 
 
 .. important::
 
@@ -776,7 +776,8 @@ Implemented tools for taxonomy annotation:
 
 .. note::
 
-  To **START**, specify working directory under ``SELECT WORKDIR`` and the ``sequence files extension`` (to look for input OTUs/ASVs fasta file), but the read types (single-end or paired-end) and data format (demultiplexed or multiplexed) does not matter here (just click 'Next').
+  To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
 
 .. note::
 
@@ -788,6 +789,7 @@ Setting                          Tooltip
 ================================ =========================
  ``database_file``               | select a database file in fasta format.
                                  | Fasta format will be automatically converted to BLAST database
+``fasta_file``                   | select a fasta file to be used as a query for BLAST search
 ``task``                         | BLAST search settings according to blastn or megablast
 ``strands``                      | query strand to search against database. Both = search also reverse complement
 ``e_value``                      | a parameter that describes the number of hits one can expect to see 
@@ -799,6 +801,41 @@ Setting                          Tooltip
 ``penalty``                      | penalty for a mismatch
 ``gap_open``                     | cost to open a gap
 ``gap_extend``                   | cost to extend a gap
+================================ =========================
+
+____________________________________________________
+
+|
+
+.. _assign_taxonomy_rdp:
+
+RDP classifier
+---------------
+
+| Classify sequences with RDP classifier (`Wang et al. 2007 <https://doi.org/10.1128/aem.00062-07>`_) againt trained RDP database.
+
+.. important::
+
+ **RDP classifier database needs to be an a trained database** 
+ Check section "Trained classifiers that work with MetaWorks and the RDP Classifier" from `MetaWorks <https://terrimporter.github.io/MetaWorksSite/>`_ 
+ for the list of trained databases.
+
+| 
+| **Output** files in ``taxonomy_out.rdp`` directory:
+| # taxonomy.txt = classifier results with bootstrap values.
+
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+ ``database``                    | select a trained RDP classifier database
+``fasta_file``                   | select a fasta file to be used as a query for RDP classifier
+``confidence``                   | confidence threshold for assigning a taxonomic level
+``mem``                          | the amount of memory to allocate for the RDP classifier
 ================================ =========================
 
 ____________________________________________________
@@ -819,12 +856,14 @@ ____________________________________________________
 
 .. note::
 
-  To **START**, specify working directory under ``SELECT WORKDIR`` and the ``sequence files extension`` (to look for input OTUs/ASVs fasta file), but the read types (single-end or paired-end) and data format (demultiplexed or multiplexed) does not matter here (just click 'Next').
+  To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
 
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
  ``dada2_database``              | select a reference database fasta file for taxonomy annotation
+``fasta_file``                   | select a fasta file to be used as a query for DADA2 classifier
 ``minBoot``                      | the minimum bootstrap confidence for assigning a taxonomic level
 ``tryRC``                        | the reverse-complement of each sequences will be used for classification 
                                  | if it is a better match to the reference sequences than the forward sequence
