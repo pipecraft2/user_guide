@@ -3,14 +3,6 @@
   :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide
   
-.. |NextITS_multidir_structure| image:: _static/NextITS_multidir_structure.png
-  :width: 350
-  :alt: Alternative text
-
-.. |NextITS_singledir_structure| image:: _static/NextITS_singledir_structure.png
-  :width: 290
-  :alt: Alternative text
-
 .. |NextITS_seq_cluster| image:: _static/nextits_sequence_clustering.png
   :width: 600
   :height: 200
@@ -208,7 +200,7 @@ Setting                          Tooltip
                                  | Note that backslash is only needed to escape dot regex; e.g. 
                                  | when all R2 files have '_R1' string, then enter '_R2'.).
 ``maxEE``                        | discard sequences with more than the specified number of expected errors
-``maxN``                         | discard sequences with more than the specified number of N’s (ambiguous bases)
+``maxN``                         | discard sequences with more than the specified number of N's (ambiguous bases)
 ``minLen``                       | remove reads with length less than minLen. minLen is enforced 
                                  | after all other trimming and truncation
 ``truncQ``                       | truncate reads at the first instance of a quality score less than or equal to truncQ
@@ -493,7 +485,16 @@ Single sequencing run
 | Select ``my_dir_for_NextITS`` as a WORKDIR in PipeCraft2.
 | Directory structure for analysing a single sequencing run:
 
-|NextITS_singledir_structure|
+.. code-block::
+   :caption: Required directory structure for NextITS
+
+    my_dir_for_NextITS/   # SELECT THIS FOLDER AS WORKING DIRECTORY
+    └── Input/
+        ├── Run1/      # name here can be anything (without spaces)
+        │   ├── sample1_R1.fastq.gz
+        │   ├── sample1_R2.fastq.gz 
+        │   ├── sample2_R1.fastq.gz
+        │   └── sample2_R2.fastq.gz
 
 Input data for this pipeline **must be demultiplexed**, if your data is multiplexed use the demultiplexer 
 from **QuickTools** before running the pipeline.
@@ -510,7 +511,24 @@ Multiple sequencing runs
 | Select ``my_dir_for_NextITS`` as a WORKDIR in PipeCraft2.
 | Directory structure for analysing multiple sequencing runs:
 
-|NextITS_multidir_structure|
+.. code-block::
+   :caption: Required directory structure for NextITS
+
+    my_dir_for_NextITS/   # SELECT THIS FOLDER AS WORKING DIRECTORY
+    └── Input/
+        ├── Run1/      # name here can be anything (without spaces)
+        │   ├── Run1__sample1_R1.fastq.gz
+        │   ├── Run1__sample1_R2.fastq.gz 
+        │   ├── Run1__sample2_R1.fastq.gz
+        │   └── Run1__sample2_R2.fastq.gz
+        ├── Run2/      # name here can be anything (without spaces)
+        │   ├── Run2__sample3_R1.fastq.gz
+        │   ├── Run2__sample3_R2.fastq.gz
+        │   ├── Run2__sample4_R1.fastq.gz
+        │   └── Run2__sample4_R2.fastq.gz
+        └── Run3/      # name here can be anything (without spaces)
+            ├── Run3__sample5_R1.fastq.gz
+            └── Run3__sample5_R2.fastq.gz
 
 Input data for this pipeline **must be demultiplexed**, if your data is multiplexed use the demultiplexer 
 from **QuickTools** before running the pipeline.
@@ -710,15 +728,116 @@ OptimOTU
 | determine optimal genetic distance thresholds for clustering ancestor 
 | taxa into groups that best match their descendant taxa (**taxonomically aware OTU clustering**).
 
+PipeCraft2's implementation of OptimOTU is **currently restricted to Fungi (ITS3-ITS4 and g/fITS7-ITS4 amplicons) and Metazoa COI amplicons**.
+
+.. important::
+
+  OptimOTU requires a specific directory structure for input data. See below.
+  Note than if you are analysing one a singe sequencing run, you still need to follow the directory structure, but just 
+  need to have a single directory in "01_raw" (e.g. "Run1", but you can name it as you want).
+
+.. code-block::
+   :caption: Required directory structure for OptimOTU
+
+    my_dir_for_optimotu/   # SELECT THIS FOLDER AS WORKING DIRECTORY
+    └── sequences/
+        └── 01_raw/
+            ├── Run1/      # name here can be anything (without spaces)
+            │   ├── sample1_R1.fastq.gz
+            │   ├── sample1_R2.fastq.gz
+            │   ├── sample2_R1.fastq.gz
+            │   └── sample2_R2.fastq.gz
+            ├── Run2/      # name here can be anything (without spaces)
+            │   ├── sample3_R1.fastq.gz
+            │   ├── sample3_R2.fastq.gz
+            │   ├── sample4_R1.fastq.gz
+            │   └── sample4_R2.fastq.gz
+            └── Run3/      # name here can be anything (without spaces)
+                ├── sample5_R1.fastq.gz
+                └── sample5_R2.fastq.gz
+
+Output files will be saved in the ``my_dir_for_optimotu/output`` directory.
+Intermediate files will be saved in the ``my_dir_for_optimotu/sequences/02_trim`` etc directories.
 
 Target taxa and sequence orientation
 ------------------------------------
 
+Specify if target taxa is fungi or metazoa, and if provided sequences are are expected to be forward, reverse or mixed orientation.
+
+| "fwd" = all sequences are expected to be in 5'-3' orientation.
+| "rev" = all sequences are expected to be in 3'-5' orientation.
+| "mixed" = the orientation of seqs is expected to be mixed (5'-3' and 3'-5)
+| "custom" = the orientation of different files is given in a custom sample table (see :ref:`custom_sample_table`)
+| if seqs are "mixed", but using "fwd" setting, then some valid seqs (or samples) will be lost.
+| if seqs are "fwd", but using "mixed", then ERROR.
+
++---------------------+---------------------------------------------------------------------------------+
+| Setting             | Tooltip                                                                         |
++=====================+=================================================================================+
+| ``target taxa``     | specify if target taxa is fungi or metazoa                                      |
++---------------------+---------------------------------------------------------------------------------+
+| ``seq orientation`` | specify if provided sequences are forward (fwd), reverse (rev) or mixed (mixed) |
++---------------------+---------------------------------------------------------------------------------+
+
+
+
 Control sequences
 -----------------
 
+Two types of control sequences are supported:
+
+1) spike-in sequences: sequences that are added to the samples before PCR
+   These sequences are expected to be present in every sample, even
+   most types of negative control.
+2) positive control sequences: sequences that are added to only a few specific
+   positive control samples.  These sequences are expected to be present only
+   in the positive control samples, and their presence in other samples is
+   indicative of cross-contamination. (Either in the lab or "tag-switching").
+
+In practice both types are treated the same by the pipeline, they are just
+reported separately.
+
+The sequences should be in a fasta file.
+Specifying either or both type of control sequences is optional.
+
++----------------------+----------------------------------------------------------+
+| Setting              | Tooltip                                                  |
++======================+==========================================================+
+| ``spike in``         | (optional) specigy a file with spike-in sequences        |
++----------------------+----------------------------------------------------------+
+| ``positive control`` | (optional) specify a file with positive control sequence |
++----------------------+----------------------------------------------------------+
+
 Cut primers and trim reads
 --------------------------
+
+Cut primers and trim reads according to the specified parameters (using cutadapt).
+
++--------------------------+-----------------------------------------------------------------------+
+| Setting                  | Tooltip                                                               |
++==========================+=======================================================================+
+| ``forward primer``       | specify forward primer sequence (supports only single primer)         |
++--------------------------+-----------------------------------------------------------------------+
+| ``reverse primer``       | specify reverse primer sequence (supports only single primer)         |
++--------------------------+-----------------------------------------------------------------------+
+| ``max error rate``       | (maximum allowed error rate in the primer search)                     |
++--------------------------+-----------------------------------------------------------------------+
+| ``truncQ_R1``            | truncate ends (3') of R1 at first base with quality score <= N        |
++--------------------------+-----------------------------------------------------------------------+
+| ``truncQ_R2``            | truncate ends (3') of R2 at first base with quality score <= N        |
++--------------------------+-----------------------------------------------------------------------+
+| ``min_length``           | minimum length of the trimmed sequence                                |
++--------------------------+-----------------------------------------------------------------------+
+| ``cut_R1``               | remove N bases from start of R1                                       |
++--------------------------+-----------------------------------------------------------------------+
+| ``cut_R2``               | remove N bases from start of R2                                       |
++--------------------------+-----------------------------------------------------------------------+
+|| ``action``              || trim = trim the primers from the reads;                              |
+||                         || retain = retain the primers after primer has been founds             |
++--------------------------+-----------------------------------------------------------------------+
+|| ``custom_sample_table`` || custom primer trimming parameters per sample can be given as columns |
+||                         || in the sample table. See example below.                              |
++--------------------------+-----------------------------------------------------------------------+
 
 
 .. _custom_sample_table:
@@ -743,45 +862,96 @@ Example of custom primer trimming parameters per sample (**tab-delimited**):
 +--------+---------+------------------+------------------+--------+
 
 
-
-
 Quality filtering
 -----------------
+
+Quality filtering settings; performed using DADA2. Sequences with ambiguous nucleotides (N's) are discarded. 
+
++--------------+--------------------------------------------------------------------------------------+
+| Setting      | Tooltip                                                                              |
++==============+======================================================================================+
+| ``maxEE_R1`` | discard sequences with more than the specified number of expected errors in R1 reads |
++--------------+--------------------------------------------------------------------------------------+
+| ``maxEE_R2`` | discard sequences with more than the specified number of expected errors in R2 reads |
++--------------+--------------------------------------------------------------------------------------+
+
 
 Denoising and merging paired-end reads 
 --------------------------------------
 
+There are no adjustable setting for denoising. 
+The denoising steps are performed using the DADA2 package (Callahan et al. 2016). 
+Error profiles are then learned separately for each
+sequencing run, read, and orientation using the learnErrors() function. Sequences with binned quality
+scores, as produced by newer Illumina sequencers, are automatically detected, and the error model is adjusted
+accordingly. Denoising is then performed using the dada() function, and read pairs are merged using the
+mergePairs() function.
+
+
 Chimera filtering
 -----------------
+
+Chimera filtering is performed using the consensus algorithm implemented in DADA2's isBimeraDenovoTable() function.
+Additional database provided in the PROTAX CLASSIFICATION step (``with_outgroup`` file) is used for reference-based chimera filtering (vsearch --uchime_ref).
+
 
 Filter tag-jumps
 ----------------
 
+Filter potential cases of tag-switching with UNCROSS2 algorithm (Edgar 2018).
+
++--------------+----------------------------------------------------------------------------------------+
+| Setting      | Tooltip                                                                                |
++==============+========================================================================================+
+|| ``f value`` || f-parameter of UNCROSS2, which defines the expected tag-jumps rate. Default is 0.03   |
+||             || (equivalent to 3%). A higher value enforces stricter filtering                        |
++--------------+----------------------------------------------------------------------------------------+
+|| ``p value`` || p-parameter, which controls the severity of tag-jump removal. It adjusts the exponent |
+||             || in the UNCROSS formula. Default is 1. Opt for 0.5 or 0.3 to steepen the curve         |
++--------------+----------------------------------------------------------------------------------------+
+
+
 Amplicon model setting
 ----------------------
+
++---------------------+---------+
+| Setting             | Tooltip |
++=====================+=========+
+| ``model type``      |         |
++---------------------+---------+
+| ``model file``      |         |
++---------------------+---------+
+| ``numt filter``     |         |
++---------------------+---------+
+| ``max model start`` |         |
++---------------------+---------+
+| ``min model end``   |         |
++---------------------+---------+
+| ``min model score`` |         |
++---------------------+---------+
+
 
 ProTAX classification
 ---------------------
 
++--------------------+--------------------------------------------------------------------------+
+| Setting            | Tooltip                                                                  |
++====================+==========================================================================+
+|| ``location``      || directory where protax is located. For fungi, default is protaxFungi    |
+||                   || and for protaxAnimal for metazoa (included in the PipeCraft2 container) |
++--------------------+--------------------------------------------------------------------------+
+|| ``with outgroup`` || additional database which contains also outgroup (non-target)           |
+||                   || sequences from the same locus                                           |
++--------------------+--------------------------------------------------------------------------+
+
 Clustering
 ----------
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
++-------------------------+--------------------------------------------------------------------+
+| Setting                 | Tooltip                                                            |
++=========================+====================================================================+
+|| ``cluster thresholds`` || select file with clustering thresholds. Default is pre-calculated |
+||                        || thresholds for Fungi (UNITE v x.x)                                |
++-------------------------+--------------------------------------------------------------------+
 
 

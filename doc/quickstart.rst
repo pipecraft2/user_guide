@@ -44,9 +44,15 @@ There are few specifc requirements for the input data for PipeCraft.
 
 - **index/barcodes file** for demultiplexing:
     * :ref:`see formatting requirements here <indexes>` 
-
+  
+- **Please avoid spaces and non-ASCII symbols** in sample names.
+  
 - specific directory structure of NextITS pipeline 
     * :ref:`see NextITS page here <nextits_pipeline>` 
+
+- specific directory structure of OptimOTU pipeline 
+    * :ref:`see OptimOTU page here <optimotu_pipeline>` 
+  
 
 ____________________________________________________
 
