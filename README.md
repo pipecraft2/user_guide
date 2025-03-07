@@ -15,6 +15,7 @@ Install sphinx and rtd-theme:
 ```bash
 pip install -U sphinx
 pip install sphinx-rtd-theme
+pip install sphinxcontrib.youtube # for youtube videos
 ```
 
 Build for testing (need to be in doc folder)
