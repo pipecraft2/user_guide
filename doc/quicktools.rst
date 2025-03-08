@@ -838,6 +838,55 @@ Setting                          Tooltip
 ``mem``                          | the amount of memory to allocate for the RDP classifier
 ================================ =========================
 
+__________________________________________________
+
+|
+
+.. _assign_taxonomy_sintax:
+
+SINTAX
+------
+
+| Classify sequences with SINTAX (`Edgar 2016 <https://www.biorxiv.org/content/10.1101/074161v1>`_) againt selected :ref:`database <databases>` in fasta format.
+
+.. important::
+
+  Note that the database sequence headers need to be in the following format: 
+  >CP002711;tax=d:Fungi,p:Ascomycota,c:Saccharomycetes,o:Saccharomycetales,
+  f:Saccharomycetaceae,g:Eremothecium,s:gossypii;
+
+  | In this format:
+  | - d denotes the domain
+  | - p denotes the phylum
+  | - c denotes the class
+  | - o denotes the order
+  | - f denotes the family
+  | - g denotes the genus
+  | - s denotes the species
+
+  This structured header allows SINTAX to accurately interpret the taxonomic hierarchy of each reference sequence.
+
+| **Output** files in ``taxonomy_out.sintax`` directory:
+| # taxonomy.sintax.txt = classifier results with bootstrap values.
+
+
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+ ``database``                    | select database file (following the format above)
+``fasta_file``                   | select a fasta file to be used as a query for SINTAX
+``cutoff``                       | confidence threshold for assigning a taxonomic level
+``strand``                       | check both strands (forward and reverse complementary) or the plus strand (fwd) only   
+``wordlength``                   | length of k-mers for database indexing (default is 8)
+``cores``                        | number of CPU threads to use for parallel processing.  
+================================ =========================
+
+
 ____________________________________________________
 
 |

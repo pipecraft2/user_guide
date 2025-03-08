@@ -87,34 +87,6 @@ Thus working **Internet connection** is initially required. Once the Docker imag
 
 ____________________________________________________
 
-Save workflow
-==============
-
-Once the workflow settings are selected, save the workflow by pressin ``SAVE WORKFLOW`` button on the :ref:`right-ribbon <interface>`.
-
-.. note ::
-
-  starting from version 0.1.4, PipeCraft2 will automatically save the settings into selected WORKDIR prior starting the analyses (file name = "**pipecraft2_config.json**")
-
-.. important::
-
- When **saiving workflow** settings in **Linux**, specify the file extension as **json** (e.g. my_16S_ASVs_pipe.json).
- When trying to load the workflow, only .JSON files will be permitted as input. *Windows and Mac OS automatically extend files as json (so you may just save "my_16S_ASVs_pipe").*
-
-____________________________________________________
-
-Load workflow
-==============
-
-.. note ::
-
- Prior loading the workflow, make sure that the saved workflow configuration has a .json extension. Note also that **workflows saved in older PipeCraft2 version** might not run in newer version, but anyhow the selected options will be visible.
-
-Press the ``LOAD WORKFLOW`` button on the :ref:`right-ribbon <interface>` and select appropriate JSON file.
-The configuration will be loaded; ``SELECT WORKDIR`` and run analyses.
-
-____________________________________________________
-
 .. _tools:
 
 Currently implemented software

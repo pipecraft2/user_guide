@@ -89,6 +89,15 @@ running the analyses** by pressing the ``START`` button.
 
  **When running 'step-by-step analyses with Quick Tools'**: when one workflow is finished, then press ``SELECT WORKDIR`` to specify inputs for the next process to ensure the correct workflow piping.  
 
+
+.. note:: 
+
+  Note that a ``pipecraft2_last_run_configuration.json`` file will be generated into the working directory upon starting a workflow.
+  As the file name says, it is the workflow configuration file for your last PipeCraft run in this **working directory**. 
+
+  This ``JSON`` file can be loaded into PipeCraft2 to **automatically configure your next runs exactly the same way**.
+
+  
 .. warning::
 
  The **outputs will be overwritten** if running the same 
@@ -101,9 +110,40 @@ The **README** file in the output directory states some of the details about the
 
 ____________________________________________________
 
+
  :ref:`Ready-to-run pre-defined pipelines here <predefinedpipelines>`
 
  :ref:`QuickTools page here <quicktools>`
+
+____________________________________________________
+
+
+Save workflow
+==============
+
+Once the workflow settings are selected, save the workflow by pressin ``SAVE WORKFLOW`` button on the :ref:`right-ribbon <interface>`.
+
+.. note ::
+
+  starting from version 0.1.4, PipeCraft2 will automatically save the settings into selected WORKDIR prior starting the analyses (file name = "**pipecraft2_last_run_configuration.json**")
+
+.. important::
+
+ When **saving workflow** settings in **Linux**, specify the file extension as **json** (e.g. my_16S_ASVs_pipe.json).
+ When trying to load the workflow, only .JSON files will be permitted as input. *Windows and Mac OS automatically extend files as json (so you may just save "my_16S_ASVs_pipe").*
+
+____________________________________________________
+
+Load workflow
+==============
+
+| Press the ``LOAD WORKFLOW`` button on the :ref:`right-ribbon <interface>` and select appropriate JSON file.
+| The configuration will be loaded. 
+| **Then you need to** ``SELECT WORKDIR`` and after that may run PipeCraft.
+
+.. note ::
+
+ Prior loading the workflow, make sure that the saved workflow configuration has a .json extension. Note also that **workflows saved in older PipeCraft2 version** might not run in newer version, but anyhow the selected options will be visible.
 
 
 

@@ -730,6 +730,8 @@ OptimOTU
 
 PipeCraft2's implementation of OptimOTU is **currently restricted to Fungi (ITS3-ITS4 and g/fITS7-ITS4 amplicons) and Metazoa COI amplicons**.
 
+Docker env built based on optimotu_targets v5.0.0 (https://github.com/brendanf/optimotu_targets/releases/tag/v5.0.0) with optimotu=0.9.3 and optimotu.pipeline=0.5.2.
+
 .. important::
 
   OptimOTU requires a specific directory structure for input data. See below.
@@ -739,8 +741,8 @@ PipeCraft2's implementation of OptimOTU is **currently restricted to Fungi (ITS3
 .. code-block::
    :caption: Required directory structure for OptimOTU
 
-    my_dir_for_optimotu/   # SELECT THIS FOLDER AS WORKING DIRECTORY
-    └── sequences/
+    my_dir/   
+    └── sequences/         # SELECT THIS FOLDER AS WORKING DIRECTORY (name here can be anything)
         └── 01_raw/
             ├── Run1/      # name here can be anything (without spaces)
             │   ├── sample1_R1.fastq.gz
@@ -756,8 +758,14 @@ PipeCraft2's implementation of OptimOTU is **currently restricted to Fungi (ITS3
                 ├── sample5_R1.fastq.gz
                 └── sample5_R2.fastq.gz
 
+**When startin the OptimOTU pipeline in PipeCraft**, then the ``PROCESSING ...`` message will be displayed on the left upper corner of the screen
+(on the place where ``SELECT WORKDIR`` was). The whole OptimOTU pipeline is executed in the background with a 
+single R-command, there will not be any specific feedback on the GUI which excact process is running and which are completed. 
+
 Output files will be saved in the ``my_dir_for_optimotu/output`` directory.
 Intermediate files will be saved in the ``my_dir_for_optimotu/sequences/02_trim`` etc directories.
+
+
 
 Target taxa and sequence orientation
 ------------------------------------
@@ -769,7 +777,7 @@ Specify if target taxa is fungi or metazoa, and if provided sequences are are ex
 | "mixed" = the orientation of seqs is expected to be mixed (5'-3' and 3'-5)
 | "custom" = the orientation of different files is given in a custom sample table (see :ref:`custom_sample_table`)
 | if seqs are "mixed", but using "fwd" setting, then some valid seqs (or samples) will be lost.
-| if seqs are "fwd", but using "mixed", then ERROR.
+| **if seqs are "fwd", but using "mixed" setting, then ERROR.**
 
 +---------------------+---------------------------------------------------------------------------------+
 | Setting             | Tooltip                                                                         |
