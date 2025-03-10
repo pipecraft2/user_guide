@@ -29,6 +29,19 @@
 Pre-defined pipelines |PipeCraft2_logo|
 =======================================
 
+Pre-defined pipelines in PipeCraft2 provide automated workflows for processing aplicon sequencing data. 
+These pipelines include options for generating ASVs with DADA2, ASVs with UNOISE3, OTUs with vsearch, and specialized pipelines like NextITS and OptimOTU. 
+Each pipeline is carefully configured with sensible defaults while still allowing customization of key parameters to suit different experimental needs.
+
+- **Use at least 2 samples per sequencing run** for the pre-defined pipelines.
+
+.. _multi_run_dir:
+
+___________________________________________________
+
+|
+
+
 Working with multiple sequencing runs
 ======================================
 
@@ -53,30 +66,35 @@ Directory structure
   When specifying a **working directory** in PipeCraft2 for processing multiple sequencing runs, 
   then select the **parent directory** of the **multiRunDir** (e.g. **my_sequencing_runs** in the example below).
 
-| ├─── my_sequencing_runs     *# SELECT THIS FOLDER AS WORKING DIRECTORY*
-| │   └─── **multiRunDir**
-| │       ├─── **Run1**
-| │       │   ├───*sample1_R1.fastq*
-| │       │   ├───*sample1_R2.fastq*
-| │       │   ├───*sample2_R1.fastq*
-| │       │   ├───*sample2_R2.fastq*
-| │       │   ├───...
-| │       ├─── **Run2**
-| │       │   ├───*sample10_R1.fastq*
-| │       │   ├───*sample10_R2.fastq*
-| │       │   ├───*sample11_R1.fastq*
-| │       │   ├───*sample11_R2.fastq*
-| │       │   ├───...
-| │       ├─── **skip_Run3**   *# this dir will be skipped*
-| │       │   ├───*sample20_R1.fastq*
-| │       │   ├───*sample20_R2.fastq*
-| │       │   ├───*sample21_R1.fastq*
-| │       │   ├───*sample21_R2.fastq*
-| │       │   ├───...
-| │       └─── **merged_runs** *# this is the dir where the merged ASV/OTU table will be saved*
-| │           ├───*ASVs.fasta*
-| │           ├───*ASV_table.txt*
-| │           ├───...
+
+.. code-block::
+   :caption: Working with multiple sequencing runs
+
+    my_sequencing_runs/             # SELECT THIS FOLDER AS WORKING DIRECTORY
+    └── multiRunDir/                # name here MUST BE multiRunDir
+        ├── Run1/                   # name here can be anything (without spaces)
+        │   ├── sample1_R1.fastq
+        │   ├── sample1_R2.fastq
+        │   ├── sample2_R1.fastq
+        │   ├── sample2_R2.fastq
+        │   └── ...
+        ├── Run2/                   # name here can be anything (without spaces)
+        │   ├── sample10_R1.fastq
+        │   ├── sample10_R2.fastq
+        │   ├── sample11_R1.fastq
+        │   ├── sample11_R2.fastq
+        │   └── ...
+        ├── skip_Run3/               # this dir will be skipped
+        │   ├── sample20_R1.fastq
+        │   ├── sample20_R2.fastq
+        │   ├── sample21_R1.fastq
+        │   ├── sample21_R2.fastq
+        │   └── ...
+        └── merged_runs/             # this is the dir where the merged ASV/OTU table will be saved
+            ├── ASVs.fasta
+            ├── ASV_table.txt
+            └── ...
+
 
 | Note that :red:`you can **skip** processing any sequencing run` by adding a **skip_** prefix to the directory name. In this example here, sequencing run ``skip_Run3`` will be skipped.
 |
@@ -100,6 +118,8 @@ for OptimOTU: :ref:`optimotu_pipeline`).
 
 ___________________________________________________
 
+|
+
 .. _asvpipe:
 
 DADA2 ASVs
@@ -108,35 +128,51 @@ DADA2 ASVs
 This pre-defined workflow is based on the `DADA2 tutorial <https://benjjneb.github.io/dada2/tutorial.html>`_ to form **ASVs and an ASV table**.
 This input is the directory that contains per-sample fastq files (**demultiplexed data**).
 
-| Note that ``primer removal`` step do not represent parts from the DADA2 tutorial. Nevertheless, it is advisable to :ref:`remove primers <remove_primers>` before proceeding with ASV generation with DADA2.
+| Note that ``CUT PRIMERS`` step do not represent parts from the DADA2 tutorial. Nevertheless, it is advisable to :ref:`remove primers <remove_primers>` before proceeding with ASV generation with DADA2.
 
 
 .. _dada2_modes:
 
-============= =====================
-pipeline mode  when do use
-============= =====================
-**FORWARD**   | for paired-end Illumina data where amplicons 
-              | are expected to be in uniform orientation 
-              | (e.g., all reads are in 5'-3' orientation).
-**MIXED**     | for paired-end Illumina data where amplicons 
-              | are expected to be both, in 5'-3' (forward) 
-              | and 3'-5' (reverse) oriented. 
-              | In that mode, ``CUT PRIMERS`` is mandatory, 
-              | and generates separate directories for forward 
-              | and reverse oriented sequences, which will pass 
-              | DADA2 pipeline individually. After merging the paired ends, 
-              | the reverse oriented sequences are reverse complemented 
-              | and aggregated with the forward reads for chimera filtering 
-              | and ASV table generation. The output ASVs are all 5'-3' oriented. 
-              | **Here, make sure that the R1 and R2 identifiers are** 
-              | **\\.R1 and \\.R2 in the QUALITY FILTERING step**
-**PACBIO**    | for single-end PacBio data. ``CUT PRIMERS`` step for single-end 
-              | data will reoriente all reads to 5'-3' (forward) orientation.
-============= =====================
+**Herein implemented DADA2 pipeline has three modes:**
+
++-------------------------+--------------------------------------------------+
+| DADA2 mode              | when do use                                      |
++=========================+==================================================+
+|| ``PAIRED-END FORWARD`` || for paired-end Illumina data where amplicons    |
+||                        || are expected to be in 5'-3' orientation. If     |
+||                        || using DADA2 ``PAIRED-END FORWARD`` mode, but    |
+||                        || you have sequences in mixed orientation, then   |
+||                        || the reverse complement reads are not detected   |
+||                        || and are discarded.                              |
++-------------------------+--------------------------------------------------+
+|| ``PAIRED-END MIXED``   || for paired-end Illumina data where amplicons    |
+||                        || are expected to be both, in 5'-3' (forward)     |
+||                        || and 3'-5' (reverse) oriented. In that mode,     |
+||                        || ``CUT PRIMERS`` is mandatory, and generates     |
+||                        || separate directories for forward and reverse    |
+||                        || oriented sequences, which will pass DADA2       |
+||                        || pipeline individually. After merging the paired |
+||                        || ends, the reverse oriented sequences are        |
+||                        || reverse complemented and aggregated with the    |
+||                        || forward reads for chimera filtering and ASV     |
+||                        || table generation. The output ASVs are all 5'-3' |
+||                        || oriented. If using DADA2 ``PAIRED-END MIXED``   |
+||                        || mode, then be sure you have data in mixed       |
+||                        || orientation (i.e. both 5'-3' and 3'-5' oriented |
+||                        || sequences in samples); if this is not the case  |
+||                        || then ``PAIRED-END MIXED`` mode will report an   |
+||                        || ERROR after quality filtering step (no output   |
+||                        || files generated after quality filtering).       |
++-------------------------+--------------------------------------------------+
+|| ``SINGLE-END``         || for single-end PacBio data. ``CUT PRIMERS``     |
+||                        || step for single-end data will reoriente all     |
+||                        || reads to 5'-3' (forward) orientation            |
+||                        || (errorEstFun = PacBioErrfun).                   |
++-------------------------+--------------------------------------------------+
 
 
-.. note::
+.. important::
+
   Working directory must contain **at least 2 samples** for DADA2 pipeline.
 
  
@@ -148,9 +184,7 @@ pipeline mode  when do use
 Analyses step                                               Default setting
 =========================================================== =========================
 :ref:`CUT PRIMERS <remove_primers>` (optional)              | --
-:ref:`QUALITY FILTERING <dada2_qual_filt>`                  | ``read_R1`` = \\.R1
-                                                            | ``read_R2`` = \\.R2
-                                                            | ``maxEE`` = 2
+:ref:`QUALITY FILTERING <dada2_qual_filt>`                  | ``maxEE`` = 2
                                                             | ``maxN`` = 0
                                                             | ``minLen`` = 20
                                                             | ``truncQ`` = 2
@@ -175,7 +209,9 @@ Analyses step                                               Default setting
                                                             | ``dada2 database`` = select a database
 =========================================================== =========================
 
-____________________________________________________
+___________________________________________________
+
+|
 
 .. _dada2_qual_filt:
 
@@ -186,49 +222,58 @@ DADA2 `filterAndTrim <https://www.bioconductor.org/packages/devel/bioc/manuals/d
 
 Quality profiles may be examined using the :ref:`QualityCheck module <interface>`.
 
-================================ =========================
-Setting                          Tooltip
-================================ =========================
-``read_R1``                      | applies only for **paired-end** data. 
-                                 | Identifyer string that is common for all R1 reads 
-                                 | (e.g. when all R1 files have '.R1' string, then enter '\\.R1'. 
-                                 | Note that backslash is only needed to escape dot regex; e.g. 
-                                 | when all R1 files have '_R1' string, then enter '_R1'.). 
-``read_R2``                      | applies only for **paired-end** data. 
-                                 | Identifyer string that is common for all R2 reads 
-                                 | (e.g. when all R2 files have '.R2' string, then enter '\\.R2'. 
-                                 | Note that backslash is only needed to escape dot regex; e.g. 
-                                 | when all R2 files have '_R1' string, then enter '_R2'.).
-``maxEE``                        | discard sequences with more than the specified number of expected errors
-``maxN``                         | discard sequences with more than the specified number of N's (ambiguous bases)
-``minLen``                       | remove reads with length less than minLen. minLen is enforced 
-                                 | after all other trimming and truncation
-``truncQ``                       | truncate reads at the first instance of a quality score less than or equal to truncQ
-``truncLen``                     | truncate reads after truncLen bases 
-                                 | (applies to **R1 reads** when working with **paired-end** data). 
-                                 | Reads shorter than this are discarded. 
-                                 | Explore quality profiles (with QualityCheck module) and 
-                                 | see whether poor quality ends needs to be truncated
-``truncLen_R2``                  | applies only for **paired-end** data. 
-                                 | Truncate **R2 reads** after truncLen bases. 
-                                 | Reads shorter than this are discarded. 
-                                 | Explore quality profiles (with QualityCheck module) and 
-                                 | see whether poor quality ends needs to truncated
-``maxLen``                       | remove reads with length greater than maxLen. 
-                                 | maxLen is enforced on the raw reads. 
-                                 | In dada2, the default = Inf, but here set as 9999
-``minQ``                         | after truncation, reads contain a quality score below minQ will be discarded
-``matchIDs``                     | applies only for **paired-end** data. 
-                                 | If TRUE, then double-checking (with seqkit pair) that only paired reads 
-                                 | that share ids are outputted.
-                                 | :red:`Note that 'seqkit' will be used for this process`, because when 
-                                 | using e.g. SRA fastq files where original fastq headers have been 
-                                 | replaced, dada2 does not recognize those fastq id strings
-================================ =========================
++------------------+---------------------------------------------------+
+| Setting          | Tooltip                                           |
++==================+===================================================+
+|| ``maxEE``       || discard sequences with more than the specified   |
+||                 || number of expected errors                        |
++------------------+---------------------------------------------------+
+|| ``maxN``        || discard sequences with more than the specified   |
+||                 || number of N's (ambiguous bases)                  |
++------------------+---------------------------------------------------+
+|| ``minLen``      || remove reads with length less than minLen.       |
+||                 || minLen is enforced after all other trimming      |
+||                 || and truncation                                   |
++------------------+---------------------------------------------------+
+|| ``truncQ``      || truncate reads at the first instance of a        |
+||                 || quality score less than or equal to truncQ       |
++------------------+---------------------------------------------------+
+|| ``truncLen``    || truncate reads after truncLen bases (applies to  |
+||                 || **R1 reads** when working with **paired-end**    |
+||                 || data). Reads shorter than this are discarded.    |
+||                 || Explore quality profiles (with QualityCheck      |
+||                 || module) and see whether poor quality ends needs  |
+||                 || to be truncated                                  |
++------------------+---------------------------------------------------+
+|| ``truncLen_R2`` || applies only for **paired-end** data. Truncate   |
+||                 || **R2 reads** after truncLen bases. Reads shorter |
+||                 || than this are discarded. Explore quality         |
+||                 || profiles (with QualityCheck module) and see      |
+||                 || whether poor quality ends needs to truncated     |
++------------------+---------------------------------------------------+
+|| ``maxLen``      || remove reads with length greater than maxLen.    |
+||                 || maxLen is enforced on the raw reads. In dada2,   |
+||                 || the default = Inf, but here set as 9999          |
++------------------+---------------------------------------------------+
+|| ``minQ``        || after truncation, reads contain a quality score  |
+||                 || below minQ will be discarded                     |
++------------------+---------------------------------------------------+
+|| ``matchIDs``    || applies only for **paired-end** data. If TRUE,   |
+||                 || then double-checking (with seqkit pair) that     |
+||                 || only paired reads that share ids are outputted.  |
+||                 || :red:`Note that 'seqkit' will be used for this   |
+||                 || process`, because when using e.g. SRA fastq      |
+||                 || files where original fastq headers have been     |
+||                 || replaced, dada2 does not recognize those fastq   |
+||                 || id strings                                       |
++------------------+---------------------------------------------------+
+
 
 see :ref:`default settings <dada2_defaults>`
 
-____________________________________________________
+___________________________________________________
+
+|
 
 .. _dada2_denoise:
 
@@ -254,7 +299,9 @@ Setting              Tooltip
 
 see :ref:`default settings <dada2_defaults>`
 
-____________________________________________________
+___________________________________________________
+
+|
 
 .. _dada2_merge_pairs:
 
@@ -281,7 +328,9 @@ see :ref:`default settings <dada2_defaults>`
 
 .. _dada2_chimeras:
 
-____________________________________________________
+___________________________________________________
+
+|
 
 CHIMERA FILTERING
 -----------------
@@ -302,7 +351,9 @@ see :ref:`default settings <dada2_defaults>`
 
 .. _dada2_table_filtering:
 
-____________________________________________________
+___________________________________________________
+
+|
 
 filter ASV table
 ----------------
@@ -326,7 +377,9 @@ Setting                    Tooltip
 
 see :ref:`default settings <dada2_defaults>`
 
-____________________________________________________
+___________________________________________________
+
+|
 
 .. _dada2_taxonomy:
 
@@ -334,21 +387,31 @@ ASSIGN TAXONOMY
 ---------------
 
 DADA2 `assignTaxonomy <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to classify ASVs. 
+
 Outputs classified fasta files into ``taxonomy_out.dada2`` directory.
 
-==================== ============
-Setting               Tooltip
-==================== ============
-``minBoot``          | the minimum bootstrap confidence for assigning a taxonomic level
-``tryRC``            | the reverse-complement of each sequences will be used for classification 
-                     | if it is a better match to the reference sequences than the forward sequence
-``dada2 database``   | select a reference database fasta file for taxonomy annotation
-                     | `Download DADA2-formatted reference databases here <https://benjjneb.github.io/dada2/training.html>`_
-==================== ============
++---------------------+----------------------------------------------------------+
+| Setting             | Tooltip                                                  |
++=====================+==========================================================+
+|| ``minBoot``        || the minimum bootstrap confidence for assigning          |
+||                    || a taxonomic level                                       |
++---------------------+----------------------------------------------------------+
+|| ``tryRC``          || the reverse-complement of each sequences will           |
+||                    || be used for classification if it is a better            |
+||                    || match to the reference sequences than the               |
+||                    || forward sequence                                        |
++---------------------+----------------------------------------------------------+
+|| ``dada2 database`` || select a reference database fasta file for              |
+||                    || taxonomy annotation                                     |
+||                    || `Download DADA2-formatted reference databases           |
+||                    || here <https://benjjneb.github.io/dada2/training.html>`_ |
++---------------------+----------------------------------------------------------+
 
 see :ref:`default settings <dada2_defaults>`
 
-____________________________________________________
+___________________________________________________
+
+|
 
 
 .. _unoise_asvs:
@@ -368,7 +431,9 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 
 *more to come ...*
 
-__________________________________________________
+___________________________________________________
+
+|
 
 .. _vsearchOTUs:
 
@@ -469,6 +534,8 @@ obtained via **PacBio** sequencing.
 
 .. important:: 
 
+  NextITS in pipecraft v1.0.0 requires that your PC has at least 8 cores (and Docker has access to those cores).
+  
   NextITS requires your data and folders to be structured in a specific way (see below)! 
   Directory ``my_dir_for_NextITS`` contains ``Input`` [hard-coded requirement here] and one or multiple sequencing runs.
   In the below example, the sequencing runs [``RunID``] are named as Run1, Run2 and Run3 (but naming can be different).
@@ -730,7 +797,7 @@ OptimOTU
 
 PipeCraft2's implementation of OptimOTU is **currently restricted to Fungi (ITS3-ITS4 and g/fITS7-ITS4 amplicons) and Metazoa COI amplicons**.
 
-Docker env built based on optimotu_targets v5.0.0 (https://github.com/brendanf/optimotu_targets/releases/tag/v5.0.0) with optimotu=0.9.3 and optimotu.pipeline=0.5.2.
+Docker env built based on optimotu_targets v5.1.0 (https://github.com/brendanf/optimotu_targets/releases/tag/v5.1.0) with optimotu=0.9.3 and optimotu.pipeline=0.5.2.
 
 .. important::
 

@@ -70,8 +70,8 @@
 
 |
 
-DADA2 ASVs pipeline |PipeCraft2_logo|
--------------------------------------
+DADA2 ASVs pipeline, 16S |PipeCraft2_logo|
+------------------------------------------
 
 This example data analyses follows DADA2 ASVs workflow as implemented in PipeCraft2's pre-compiled pipelines panel. 
 
@@ -88,7 +88,7 @@ This example dataset consists of **16S rRNA gene V4 amplicon sequences**:
 - **paired-end** Illumina MiSeq data;
 - **demultiplexed** set (per-sample fastq files);
 - indexes and primers have already been **removed**;
-- sequences in this set are **5'-3' oriented**.
+- sequences in this set are **5'-3' (fwd) oriented**.
 
 
 .. admonition:: when working with your own data ...
@@ -101,7 +101,7 @@ This example dataset consists of **16S rRNA gene V4 amplicon sequences**:
   | *F3D0_S188_L001_R2_001.fastq*
 
   
-**At least 2 samples** (2xR1 + 2x R2 files) are required for this workflow! Otherwise ERROR in the denoising step:
+**At least 2 samples** (2x R1 + 2x R2 files) are required for this workflow! Otherwise ERROR in the denoising step:
 
 |DADA2_2samples_needed| 
 

@@ -37,6 +37,10 @@ Post-processing tools |PipeCraft2_logo|
 .. contents:: Contents
    :depth: 2
 
+.. important::
+
+  Note that the input ASV/OTU table must contain "Sequence" column for some postprocessing modules. Read the tooltips too see which ones. 
+
 
 ____________________________________________________
 

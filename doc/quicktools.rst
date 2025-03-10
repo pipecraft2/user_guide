@@ -405,16 +405,6 @@ Quality filter and trim sequences.
 ================================ =========================
 **DADA2** setting                Tooltip
 ================================ =========================
-``read_R1``                      | applies only for **paired-end** data. 
-                                 | Identifyer string that is common for all R1 reads 
-                                 | (e.g. when all R1 files have '.R1' string, then enter '\\.R1'. 
-                                 | Note that backslash is only needed to escape dot regex; e.g. 
-                                 | when all R1 files have '_R1' string, then enter '_R1'.). 
-``read_R2``                      | applies only for **paired-end** data. 
-                                 | Identifyer string that is common for all R2 reads 
-                                 | (e.g. when all R2 files have '.R2' string, then enter '\\.R2'. 
-                                 | Note that backslash is only needed to escape dot regex; e.g. 
-                                 | when all R2 files have '_R1' string, then enter '_R2'.).
 ``maxEE``                        | discard sequences with more than the specified number of expected errors
 ``maxN``                         | discard sequences with more than the specified number of N’s (ambiguous bases)
 ``minLen``                       | remove reads with length less than minLen. minLen is enforced 
@@ -470,10 +460,6 @@ these taxa will be represented in the final output. But when using :ref:`ITSx <i
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
-``read_R1``                      | applies only for paired-end data. Identifyer string that is common 
-                                 | for all R1 reads (e.g. when all R1 files have '.R1' string, then 
-                                 | enter '\\.R1'. Note that backslash is only needed to escape dot 
-                                 | regex; e.g. when all R1 files have '_R1' string, then enter '_R1')'
 ``min_overlap``                  | minimum overlap between the merged reads
 ``min_length``                   | minimum length of the merged sequence
 ``allow_merge_stagger``          | allow to merge staggered read pairs. Staggered pairs are pairs 
@@ -506,14 +492,6 @@ Setting                          Tooltip
 ================================ =========================
 Setting                          Tooltip
 ================================ =========================
-``read_R1``                      | identifyer string that is common for all R1 reads 
-                                 | (e.g. when all R1 files have '.R1' string, then enter '\\.R1'. 
-                                 | Note that backslash is only needed to escape dot regex; e.g. 
-                                 | when all R1 files have '_R1' string, then enter '_R1'.)
-``read_R2``                      | identifyer string that is common for all R2 reads 
-                                 | (e.g. when all R2 files have '.R2' string, then enter '\\.R2'. 
-                                 | Note that backslash is only needed to escape dot regex; e.g. 
-                                 | when all R2 files have '_R1' string, then enter '_R2'.)
 ``minOverlap``                   | the minimum length of the overlap required for merging the forward and 
                                  | reverse reads
 ``maxMismatch``                  | the maximum mismatches allowed in the overlap region

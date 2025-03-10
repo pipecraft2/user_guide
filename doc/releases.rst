@@ -25,12 +25,35 @@ ____________________________________________________
 .. hide 
 
     for next release - BLAST dabasese resource link to GUI
-    xxx
     changelog: 1.0.1
     * demultiplexing does not uncompress the data - DONE in main branch!
 
 
+.. _1.1.0:
 
+1.1.0 (10.03.2025)
+==================
+
+`DOWNLOAD link for v1.1.0 <https://github.com/pipecraft2/pipecraft/releases/tag/v1.1.0>`_
+
+* added Resource Manager to control the resources used by Docker containers
+* added auto-update support to pipecraft2
+* added OptimOTU pipeline for Fungi and Metazoa
+* added metaMATE tool for filtering COI reads
+* added SINTAX classifier
+* added sim_score (pident * (alignment length / qlen) and adj_qcov (if qlen > slen then ((send-sstart+1)/slen)*100, otherwise equal to qcovs) to BLAST results
+* sequences are now also added to the OTU table
+* added support to process and merge multiple sequencing runs (runs must be in multiRunDir directory)
+* tag-jumps filtering module (UNCROSS2) in now in the pre-defined pipelines (curate table box)
+* NextITS in now available in MacOS
+* removed read_R1 string input requirement (PE files must contain R1 and R2, then the PE samples will be automatically detected)
+* removed HMM search from ORFfinder (now only ORFfinder is available); HMM did not work properly.
+* added RAM friendly DADA2 pipeline implementation for denoising ("dada2 Big Data")
+* added fix to CUT PRIMERS module to properly clip primers when PE amplicons are shorter than the sequencing cycle
+* added fix to UNOISE pipeline to remove chimeras also from the table, not oonly form the final fasta file
+* disabled automatic clustering in UNOISE pipeline; zOTUs can be clustered with ASV TO OTU module
+* added min_lenght option back to demultiplexing module
+* updated and fixed multiQC module to merge fastqc reports
 
 
 .. _1.0.0:

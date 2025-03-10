@@ -45,17 +45,18 @@ Turn on '**debugging mode**' (bottom-right button) to keep temporary (log) files
 ____________________________________________________
 
 
-General
-=======
+General errors
+==============
+
 
 .. error::
 
- Conflict. The container name XXX is already in use by container "XXX".
- You have to remove (or rename) that container to be able to reuse that name.
+  "rm: cannot remove ... File is not accessible"
 
-**Reason**: Process stopped unexpectedly and docker container was not closed.
 
-**Fix**: Remove the docker container (not image!) that is causing the conflict
+**Possible reason**: The file is being used by another process OR Docker does not have permissions to delete the file(s).
+
+**Fix**: Close all other applications that might be using the file / Delete the file manually when attempting to rerun the workflow.
 
 ____________________________________________________
 
@@ -125,3 +126,36 @@ ____________________________________________________
 **Possible reason**: Too small data set; samples contain too few reads for DADA2 denoising.
 
 **Fix**: use OTU workflow.
+
+____________________________________________________
+
+.. error::
+
+ Conflict. The container name XXX is already in use by container "XXX".
+ You have to remove (or rename) that container to be able to reuse that name.
+
+**Reason**: Process stopped unexpectedly and docker container was not closed.
+
+**Fix**: Remove the docker container (not image!) that is causing the conflict
+
+____________________________________________________
+
+|
+
+.. _bugs:
+
+Bugs
+====
+
+**UNOISE**: chimeric sequences are removed from the zOTUs but not from the zOTUs table.
+**Fixed in v1.1.0**
+
+__________________________________________________
+
+**QualityCheck** module: multiQC does not merge fastqc reports into a single multiqc_report.html file.
+**Fixed in v1.1.0**
+
+__________________________________________________
+
+
+

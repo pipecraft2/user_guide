@@ -78,8 +78,8 @@
         PipeCraft manual. tutorial
 
 
-vsearch OTUs pipeline |PipeCraft2_logo|
----------------------------------------
+vsearch OTUs pipeline, ITS2 |PipeCraft2_logo|
+---------------------------------------------
 
 This example data analyses follows vsearch OTUs workflow as implemented in PipeCraft2's pre-compiled pipelines panel. 
 

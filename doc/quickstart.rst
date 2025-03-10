@@ -41,18 +41,27 @@ There are few specifc requirements for the input data for PipeCraft.
     * :red:`sample names maynot contain 'R1/R2' strings`
         + **OK file names**: ``my_sample_01_R1_L001.fastq`` and ``my_sample_01_R2_L001.fastq``
         + **NOT-OK** file names: ``my_R1sample_01_R1_L001.fastq`` and ``my_R1sample_01_R2_L001.fastq`` or  ``my_sample_01_1.fastq`` and ``my_sample_01_2.fastq``
+    * :red:`Paired-end reads should have common read identifiers (e.g. _R1/_R2) and file extensions (e.g. fastq/fq) for the reads that are processed together`.
+
 
 - **index/barcodes file** for demultiplexing:
     * :ref:`see formatting requirements here <indexes>` 
   
 - **Please avoid spaces and non-ASCII symbols** in sample names.
+
+- **Use at least 2 samples per sequencing run** for the pre-defined pipelines.
   
-- specific directory structure of NextITS pipeline 
+- specific directory structure for NextITS pipeline 
     * :ref:`see NextITS page here <nextits_pipeline>` 
 
-- specific directory structure of OptimOTU pipeline 
+- specific directory structure for OptimOTU pipeline 
     * :ref:`see OptimOTU page here <optimotu_pipeline>` 
+
+- specific directory structure when aiming to combine multiple sequencing runs with vsearch, unoise, or DADA2 pipelines
+    * :ref:`see here <multi_run_dir>` 
   
+
+
 
 ____________________________________________________
 
