@@ -11,10 +11,6 @@
   :width: 400
   :alt: Alternative text
 
-.. |runanyway| image:: _static/runanyway.png
-  :width: 450
-  :alt: Alternative text
-
 .. |mac_docker_share| image:: _static/Mac_docker_share.png
   :width: 400
   :alt: Alternative text
@@ -93,8 +89,6 @@ PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versio
 .. admonition:: False alert
 
  Your OS might warn that PipeCraft2 is dangerous software! Please ignore the warning until this issue is fixed by the developers. 
-
- |runanyway| 
 
 
 Installation video on Windows

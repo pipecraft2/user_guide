@@ -545,6 +545,8 @@ obtained via **PacBio** sequencing.
   In PipeCraft2, following the examples below, select ``my_dir_for_NextITS`` as a **WORKDIR**.
   
 
+| `Download example data set here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/example_data_NextITS.zip>`_ 
+
 
 Single sequencing run
 ---------------------

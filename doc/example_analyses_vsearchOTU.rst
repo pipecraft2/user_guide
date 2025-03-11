@@ -86,7 +86,7 @@ This example data analyses follows vsearch OTUs workflow as implemented in PipeC
 | `Download example data set here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/example_data_ITS2.zip>`_ (15.1 Mb) and unzip it. 
 | This is **ITS2 Illumina MiSeq** dataset. 
 
-For this example data run, we are using a subset of UNITE database in the taxonomy annotation process, `download it from here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/Database_ITS/UNITE_Fungal_ITS.zip>`_.
+For this example data run, we are using a subset of UNITE database in the taxonomy annotation process, `download it from here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/Databases/UNITE_Fungal_ITS.zip>`_.
 
 
 ____________________________________________________
@@ -330,7 +330,7 @@ Assign taxonomy
 The default taxonomy assignment tool within vsearch OTUs workflow is **BLAST**. 
 See other :ref:`taxonomy assignment options here <assign_taxonomy>`.
 
-For this example data run, we are using a subset of UNITE database, `download it from here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/Database_ITS/UNITE_Fungal_ITS.zip>`_
+For this example data run, we are using a subset of UNITE database, `download it from here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/Databases/UNITE_Fungal_ITS.zip>`_
 and unzip it. 
 
 Here, we have 5'-3' oriented OTUs, so let's change the ``strands`` setting to "plus" to speed up BLAST *(which is the slowest process among the ones here)*. 
