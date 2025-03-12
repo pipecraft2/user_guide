@@ -44,9 +44,10 @@ ____________________________________________________
 
 Prerequisites
 -------------
-The only prerequisite is `Docker <https://www.docker.com/>`_.
 
-**See OS-specific (Windows, Mac, Linux) docker installation guidelines below.**
+1. :red:`ADMIN rights to install software`. Required to install Docker, and since PipeCraft2 app is not "signed" (for Windows and Linux [ok for MacOS]) then executing this requires also admin rights.
+
+2. `Docker <https://www.docker.com/>`_. **See OS-specific (Windows, Mac, Linux) docker installation guidelines below.**
 
 .. admonition:: Why Docker is needed?
 
@@ -57,25 +58,11 @@ The only prerequisite is `Docker <https://www.docker.com/>`_.
  See below how to manage and remove Docker images for the system. 
 
 
-.. _manage_resources:
-
-Manage resources allocated to Docker
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-|resource_manager|
-
-In Docker, resource management allows to control and limit the 
-resources (such as CPU, RAM) that containers can use. 
-You can control these settings also easily through PipeCraft GUI, by clicking on the Docker icon in the top-right corner of the 
-PipeCraft window.
-
-Required amont of allocated resources depends generally on the input data size and the complexity of the analysis.
-If too few RAM is allocated, then the analysis may fail without any informative ERROR message. 
-If too few CPU cores are allocated, then the analysis may be very slow.
-
-When allocation most of your computer's resources, please keep in mind that other processes on your computer will be affected.
-
 ____________________________________________________
+
+| 
+
+__________________________________________________
 
 Windows
 -------
@@ -83,22 +70,24 @@ Windows
 PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versions do not support PipeCraft GUI workflow through Docker.
 
 
-1. Download PipeCraft2 for Windows: `v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.exe>`_
+1. Download PipeCraft2 installer for Windows: `v1.1.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.1.0/PipeCraft2_v1.1.0_installer_Win.exe>`_
 2. Install PipeCraft2 via the setup executable.
+
+.. admonition:: Alternative
+
+  Or download simply the executable file (does not require installation): `pipecraft_v1.1.0.exe <https://github.com/pipecraft2/pipecraft/releases/download/v1.1.0/PipeCraft2_v1.1.0.exe>`_
 
 .. admonition:: False alert
 
  Your OS might warn that PipeCraft2 is dangerous software! Please ignore the warning until this issue is fixed by the developers. 
 
 
-Installation video on Windows
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. hide
 
-.. youtube:: MEJsH8PsSnU
+    .. youtube:: MEJsH8PsSnU
 
-|
    
-1. Download `Docker for windows <https://www.docker.com/get-started>`_  - ONLY ONCE (no need, when updating PipeCraft).
+3. Download `Docker for windows <https://www.docker.com/get-started>`_  - ONLY ONCE (no need, when updating PipeCraft).
    
    .. important:: 
 
@@ -115,13 +104,15 @@ Installation video on Windows
 .. note::
 
  Resource limits for Docker are managed by Windows; 
- but you can configure limits in a **.wslconfig** file (see **Settings** -> **Resources** on your Docker desktop app).
+ but you can configure limits in a **.wslconfig** file, but this can be automatically done via PipeCraft GUI, see :ref:`Manage resources allocated to Docker <manage_resources>`.
  Default = 50% of total memory on Windows or 8GB, whichever is less. 80% of total memory on Windows on builds before 20175 (Win10, from 2020).
+
+| 
+|
 
 .. _increase_RAM:
 
-Quick guide to increase Docker accessible RAM size in Windows 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*Quick guide to increase Docker accessible RAM size in Windows:*
 
 This is a legacy guide; please use the PipeCraft GUI to manage Docker resources, see :ref:`Manage resources allocated to Docker <manage_resources>`.
 
@@ -150,6 +141,10 @@ Instructions from https://learn.microsoft.com/en-us/windows/wsl/wsl-config#wslco
 
 ____________________________________________________
 
+| 
+
+__________________________________________________
+
 MacOS
 -----
 
@@ -159,23 +154,19 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
 
   If your MacOS has M1/M2 chips, please let us know if you encounter something weird while trying to run some analyses (:ref:`contact <contact>` or post an issue on the `github page <https://github.com/pipecraft2/pipecraft>`_).  
 
-Installation video on MacOS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. youtube:: bcYeCXkN1XQ
+.. hide
+
+    .. youtube:: bcYeCXkN1XQ
 
 
-1. Download PipeCraft2 for `Mac: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0.pkg>`_
+1. Check your Mac chip (Apple or Intel) and download either PipeCraft for Apple or Inter chip: 
 
-2. Install PipeCraft2 via **pkg** file
+  a. Apple chip version, `pipecraft v1.1.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.1.0/PipeCraft2_v1.1.0_apple.dmg>`_
+  b. Intel chip version, `pipecraft v1.1.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.1.0/PipeCraft2_v1.1.0_apple.dmg>`_
 
-3. Currently macOS will flag pipecraft as an app from an unidentified developer. Grant an exception for a blocked app by clicking the "**Open Anyway**" button in the General panel of **Security & Privacy** preferences. Installing on latest versions of macOS (13.0+) will require you to disable gatekeeper entirely, to do so paste the following command into a terminal.
+3. Install PipeCraft2 via downloaded **dmg** file by double-clicking on the file and dragging the app to the Applications folder.
 
-.. code-block::
-
- sudo spctl --master-disable  
-
-|openanyway|
 
 4. Check your Mac chip (Apple or Intel) and download `Docker for Mac <https://www.docker.com/get-started>`_ - ONLY ONCE (no need, when updating PipeCraft) 
 
@@ -193,17 +184,20 @@ Installation video on MacOS
  
 ____________________________________________________
 
+| 
+
+__________________________________________________
+
 Linux
 -----
 
 PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions might not support PipeCraft GUI workflow through Docker.
 
-Installation video on Linux
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. hide
 
-.. youtube:: v1smqfAz5nE
+    .. youtube:: v1smqfAz5nE
 
-1. Download PipeCraft2 for `Linux: v1.0.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.0.0/pipecraft_1.0.0_amd64.deb>`_
+1. Download PipeCraft2 for `Linux: v1.1.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.1.0/PipeCraft2_v1.1.0.deb>`_
    
 2. Right click on the pipecraft_*.deb file and "Open With GDebi Package Installer" (Install Package) or ``sudo dpkg -i path_to_deb_file``
 
@@ -230,11 +224,12 @@ Installation video on Linux
  On Linux, Docker can use all available host resources.
 
 
-
-
-
-
 ____________________________________________________
+
+| 
+
+__________________________________________________
+
 
 Updating PipeCraft2
 -------------------
@@ -250,6 +245,10 @@ Updating PipeCraft2
 
 ____________________________________________________
 
+| 
+
+__________________________________________________
+
 .. _uninstalling:
 
 Uninstalling PipeCraft2
@@ -260,6 +259,34 @@ Uninstalling PipeCraft2
 | **Linux**: remove pipecraft via Software Manager/Software Centre or via terminal ``sudo dpkg --remove pipecraft``
 
 ____________________________________________________
+
+| 
+
+__________________________________________________
+
+.. _manage_resources:
+
+Manage resources allocated to Docker
+------------------------------------
+
+|resource_manager|
+
+In Docker, resource management allows to control and limit the 
+resources (such as CPU, RAM) that containers can use. 
+You can control these settings also easily through PipeCraft GUI, by clicking on the Docker icon in the top-right corner of the 
+PipeCraft window. After editing, press the ``APPLY & RESTART DOCKER`` button, so that the changes would take effect.
+
+Required amont of allocated resources depends generally on the input data size and the complexity of the analysis.
+If too few RAM is allocated, then the analysis may fail without any informative ERROR message. 
+If too few CPU cores are allocated, then the analysis may be very slow.
+
+When allocation most of your computer's resources, please keep in mind that other processes on your computer will be affected.
+
+____________________________________________________
+
+| 
+
+__________________________________________________
 
 
 Purging 'old' Docker installations
@@ -280,6 +307,9 @@ Purging 'old' Docker installations
 
 ____________________________________________________
 
+| 
+
+__________________________________________________
 
 .. _removedockerimages:
 

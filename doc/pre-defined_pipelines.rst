@@ -799,6 +799,11 @@ OptimOTU
 
 PipeCraft2's implementation of OptimOTU is **currently restricted to Fungi (ITS3-ITS4 and g/fITS7-ITS4 amplicons) and Metazoa COI amplicons**.
 
+.. note:: 
+
+  **OptimOTU pipeline for METAZOA is not available in MacOS version of PipeCraft2 v1.1.0**.
+
+
 Docker env built based on optimotu_targets v5.1.0 (https://github.com/brendanf/optimotu_targets/releases/tag/v5.1.0) with optimotu=0.9.3 and optimotu.pipeline=0.5.2.
 
 .. important::
