@@ -25,19 +25,16 @@ ____________________________________________________
 .. hide 
 
     for next release - BLAST dabasese resource link to GUI
-    changelog: 1.0.1
-    * demultiplexing does not uncompress the data - DONE in main branch!
 
 
 .. _1.1.0:
 
-1.1.0 (10.03.2025)
+1.1.0 (12.03.2025)
 ==================
 
 `DOWNLOAD link for v1.1.0 <https://github.com/pipecraft2/pipecraft/releases/tag/v1.1.0>`_
 
 * added Resource Manager to control the resources used by Docker containers
-* added auto-update support to pipecraft2
 * added OptimOTU pipeline for Fungi and Metazoa
 * added metaMATE tool for filtering COI reads
 * added SINTAX classifier
@@ -55,6 +52,33 @@ ____________________________________________________
 * added min_lenght option back to demultiplexing module
 * updated and fixed multiQC module to merge fastqc reports
 
+Implemented software:
+*(software in red font denote new additions; 'version' in bold denotes version upgrade)*
+
+=======================================================================  ==========
+Software                                                                 version                                                                                       
+=======================================================================  ==========
+:red:`OptimOTU` `<https://github.com/brendanf/optimotu_targets>`_        **5.1.0**
+:red:`SINTAX` (via vsearch)                                              **2.29.4**
+:red:`metaMATE` `<https://github.com/tjcreedy/metamate>`_                **0.4.3**
+`NextITS pipeline <https://next-its.github.io/>`_                        0.5.0
+`ORFfinder <https://www.ncbi.nlm.nih.gov/orffinder/>`_                   **v0.4.3**
+`RDP classifier`                                                         v2.13
+`DADA2 <https://benjjneb.github.io/dada2/index.html>`_                   **1.34**
+`vsearch <https://github.com/torognes/vsearch>`_                         **2.29.4**
+`trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_          0.39
+`seqkit <https://bioinf.shenwei.me/seqkit/>`_                            2.3.0
+`cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_                 4.4
+`mothur <https://github.com/mothur/mothur>`_                             1.46.1
+`ITS Extractor <https://microbiology.se/software/itsx/>`_                1.1.3
+`fqgrep <https://github.com/indraniel/fqgrep>`_                          0.4.4
+`BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                      2.14.0+
+`FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_   0.11.9
+`MultiQC <https://multiqc.info/>`_                                       1.12
+`LULU <https://github.com/tobiasgf/lulu>`_                               0.1.0
+`fastp <https://github.com/OpenGene/fastp>`_                             0.23.2
+`DEICODE <https://github.com/biocore/DEICODE>`_                          0.2.4
+=======================================================================  ==========
 
 .. _1.0.0:
 

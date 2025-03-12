@@ -804,7 +804,7 @@ Docker env built based on optimotu_targets v5.1.0 (https://github.com/brendanf/o
 .. important::
 
   OptimOTU requires a specific directory structure for input data. See below.
-  Note than if you are analysing one a singe sequencing run, you still need to follow the directory structure, but just 
+  Note than if you are analysing a single sequencing run, you still need to follow the directory structure, but just 
   need to have a single directory in "01_raw" (e.g. "Run1", but you can name it as you want).
 
 .. code-block::
