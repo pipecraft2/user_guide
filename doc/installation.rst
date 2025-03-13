@@ -73,10 +73,6 @@ PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versio
 1. Download PipeCraft2 installer for Windows: `v1.1.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.1.0/PipeCraft2_v1.1.0_installer_Win.exe>`_
 2. Install PipeCraft2 via the setup executable.
 
-.. admonition:: Alternative
-
-  Or download simply the executable file (does not require installation): `pipecraft_v1.1.0.exe <https://github.com/pipecraft2/pipecraft/releases/download/v1.1.0/PipeCraft2_v1.1.0.exe>`_
-
 .. admonition:: False alert
 
  Your OS might warn that PipeCraft2 is dangerous software! Please ignore the warning until this issue is fixed by the developers. 
