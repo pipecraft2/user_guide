@@ -43,6 +43,8 @@ Note that reverse complementary matches will also be searched.
   are also written (although latter index combinations were not used in the lab to index any sample [i.e. represent tag-switches]). 
   Simply remove those files if not needed or use to estimate tag-switching error if relevant. 
 
+| `Download example set here for trying demultiplexing <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/demux_example.zip>`_ and unzip it. 
+
 .. _demux_settings:
 
 ================================ =========================
