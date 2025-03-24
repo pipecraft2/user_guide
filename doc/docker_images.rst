@@ -20,7 +20,7 @@ Docker images (with the bioinformatic tools) used in PipeCraft2 are stored on `D
 These images can be used to launch any tool with the Docker CLI to utilize the compiled tools.
 
 
-Images in use
+Images in used in latest PipeCraft2 release
 -------------
 
 ====================================  ========================================================================== 
@@ -42,7 +42,7 @@ pipecraft/metaworks:1.12.0            metaworks v1.12.0, seqkit v2.3.0, ORFfinde
 pipecraft/optimotu:5                  optimotu v0.9.3, optimotu.pipeline v0.5.2 optimotu_targets v5.0.0 R v4.3 dada2 v1.30 cutadapt v5.0 vsearch v2.30.0
 ====================================  ==========================================================================
 
-Other images
+Older images
 ----------------
 
 ====================================  ================================================================================================== 
@@ -50,6 +50,25 @@ Image                                 Software
 ====================================  ==================================================================================================                                  
 pipecraft/dada2:1.20                  dada2 v1.20, seqkit v2.3.0, lulu v0.1.0, R                                                                           
 pipecraft/vsearch:2.18                vsearch v2.18, seqkit v2.3.0, GNU parallel                  
-pipecraft/vsearch_dada2:1             has issues with MacOS. vsearch v2.22.1, dada2 v1.20, seqkit v2.3.0, lulu v0.1.0, R, GNU parallel
 pipecraft/vsearch_dada2:2             vsearch v2.23, dada2 v1.27, seqkit v2.3.0, lulu v0.1.0
+pipecraft/cutadapt:3.5                cutadapt v3.5, seqkit v2.3.0, python3.10.6 biopython v1.80
+pipecraft/blast:2.12                  BLAST 2.14.0+, biopython v1.80, python3.10.6, gawk v5.1.0
+pipecraft/metaworks:1.11.2            metaworks v1.11.2, seqkit v2.3.0, ORFfinder v0.4.3 R v4.1.2     
 ====================================  ==================================================================================================
+
+
+Images used in older PipeCraft2 releases
+----------------
+
+====================================  ================================================================================================== 
+Image                                 PipeCraft2 version                                                      
+====================================  ==================================================================================================                                  
+pipecraft/dada2:1.20                  PipeCraft2 v0.1.3 & PipeCraft2 v0.1.2                                                                
+pipecraft/vsearch:2.18                PipeCraft2 v0.1.3 & PipeCraft2 v0.1.2                 
+pipecraft/vsearch_dada2:2             PipeCraft2 v0.1.4 & PipeCraft2 v1.0.0
+pipecraft/cutadapt:3.5                PipeCraft2 v0.1.4 & PipeCraft2 v1.0.0
+pipecraft/blast:2.12                  PipeCraft2 v0.1.3 & PipeCraft2 v0.1.2
+pipecraft/metaworks:1.11.2            PipeCraft2 v0.1.3 & PipeCraft2 v0.1.2
+====================================  ==================================================================================================
+
+
