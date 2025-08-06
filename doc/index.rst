@@ -139,10 +139,10 @@ Contents of this user guide
    example_analyses
    troubleshoot
    licence
-   contact
    citation
    releases
    docker_images
+   contact
    for_developers
 
 |PipeCraft_sticker1sideways|

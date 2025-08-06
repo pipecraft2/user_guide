@@ -144,8 +144,8 @@ ____________________________________________________
 
 .. _bugs:
 
-Bugs
-====
+Known bugs
+==========
 
 **UNOISE**: chimeric sequences are removed from the zOTUs but not from the zOTUs table.
 **Fixed in v1.1.0**
@@ -157,5 +157,9 @@ __________________________________________________
 
 __________________________________________________
 
+**Demultiplexing with dual indexes** in v1.1.0 only: samples names are eg indexF_1-indexR_1.fastq.gz.
+**Fixed in v1.2.0**
+
+__________________________________________________
 
 
