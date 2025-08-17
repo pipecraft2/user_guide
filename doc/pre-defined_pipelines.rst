@@ -560,10 +560,10 @@ Single sequencing run
     my_dir_for_NextITS/   # SELECT THIS FOLDER AS WORKING DIRECTORY
     └── Input/
         ├── Run1/      # name here can be anything (without spaces)
-        │   ├── sample1_R1.fastq.gz
-        │   ├── sample1_R2.fastq.gz 
-        │   ├── sample2_R1.fastq.gz
-        │   └── sample2_R2.fastq.gz
+        │   ├── sample1.fastq.gz
+        │   ├── sample2.fastq.gz 
+        │   ├── sample3.fastq.gz
+        │   └── sample4.fastq.gz
 
 Input data for this pipeline **must be demultiplexed**, if your data is multiplexed use the demultiplexer 
 from **QuickTools** before running the pipeline.
@@ -586,18 +586,18 @@ Multiple sequencing runs
     my_dir_for_NextITS/   # SELECT THIS FOLDER AS WORKING DIRECTORY
     └── Input/
         ├── Run1/      # name here can be anything (without spaces)
-        │   ├── Run1__sample1_R1.fastq.gz
-        │   ├── Run1__sample1_R2.fastq.gz 
-        │   ├── Run1__sample2_R1.fastq.gz
-        │   └── Run1__sample2_R2.fastq.gz
+        │   ├── Run1__sample1.fastq.gz
+        │   ├── Run1__sample2.fastq.gz 
+        │   ├── Run1__sample3.fastq.gz
+        │   └── Run1__sample4.fastq.gz
         ├── Run2/      # name here can be anything (without spaces)
-        │   ├── Run2__sample3_R1.fastq.gz
-        │   ├── Run2__sample3_R2.fastq.gz
-        │   ├── Run2__sample4_R1.fastq.gz
-        │   └── Run2__sample4_R2.fastq.gz
+        │   ├── Run2__sample5.fastq.gz
+        │   ├── Run2__sample6.fastq.gz
+        │   ├── Run2__sample7.fastq.gz
+        │   └── Run2__sample8.fastq.gz
         └── Run3/      # name here can be anything (without spaces)
-            ├── Run3__sample5_R1.fastq.gz
-            └── Run3__sample5_R2.fastq.gz
+            ├── Run3__sample9.fastq.gz
+            └── Run3__sample10.fastq.gz
 
 Input data for this pipeline **must be demultiplexed**, if your data is multiplexed use the demultiplexer 
 from **QuickTools** before running the pipeline.
