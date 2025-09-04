@@ -401,4 +401,68 @@ Example of plotting the ordination scores
       ## Example plot
       ggplot(data = ord_sm, aes(x = PC1, y = PC2)) + geom_point()
 
+___________________________________________________
 
+BlasCh
+----------
+
+False positive chimera detection and recovery module. BlasCh processes BLAST XML results to identify, classify, and recover sequences that were incorrectly flagged as chimeric during initial chimera detection.
+
+| Input data is **chimera sequences** in fasta format (`.chimeras.fasta` files) and optionally a **reference database** (FASTA file or existing BLAST database).
+
+
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
+
++--------------------------------------+-------------------------------------------------------------------------+
+| Output directory |output_icon| ``BlasCh_out``                                                                       |
++======================================+=========================================================================+
+| *_non_chimeric.fasta                 | recovered non-chimeric sequences (rescued)                             |
++--------------------------------------+-------------------------------------------------------------------------+
+| *_borderline.fasta                   | borderline sequences (also rescued as non-chimeric)                    |
++--------------------------------------+-------------------------------------------------------------------------+
+| chimera_recovery_report.txt          | summary statistics and classification results                           |
++--------------------------------------+-------------------------------------------------------------------------+
+| ``analysis``/*_chimeric.fasta        | confirmed chimeric sequences                                            |
++--------------------------------------+-------------------------------------------------------------------------+
+| ``analysis``/*_multiple_alignments.fasta | sequences with multiple HSPs and low coverage                     |
++--------------------------------------+-------------------------------------------------------------------------+
+| ``analysis``/*_sequence_details.csv  | detailed classification results for each sequence                      |
++--------------------------------------+-------------------------------------------------------------------------+
+| ``databases``/                       | self-databases created from sample FASTA files                         |
++--------------------------------------+-------------------------------------------------------------------------+
+| ``reference_db``/                    | reference database files (if created from FASTA input)                 |
++--------------------------------------+-------------------------------------------------------------------------+
+| ``xml``/*_blast_results.xml          | BLAST XML output files for each sample                                 |
++--------------------------------------+-------------------------------------------------------------------------+
+
+=============================================== =========================
+Setting                                         Tooltip
+=============================================== =========================
+``reference_db``                                | path to reference database (FASTA file or existing BLAST database). 
+                                                | Optional - if not provided, uses only self-databases
+``threads``                                     | number of CPU threads for BLAST analysis (default: 8)
+``high_identity_threshold``                     | identity threshold for high-quality matches (default: 99.0%)
+``high_coverage_threshold``                     | coverage threshold for high-quality matches (default: 99.0%)
+``borderline_identity_threshold``               | identity threshold for borderline recovery (default: 80.0%)
+``borderline_coverage_threshold``               | coverage threshold for borderline recovery (default: 89.0%)
+=============================================== =========================
+
+**Classification Logic:**
+
+The module uses a multi-tier classification system:
+
+1. **Non-chimeric**: High identity (≥99%) and coverage (≥99%) matches to reference database
+2. **Borderline**: Moderate identity (≥80%) and coverage (≥89%) - recovered as non-chimeric
+3. **Chimeric**: Multiple taxonomies or only self-hits without reference matches
+4. **Multiple alignments**: Sequences with multiple HSPs and coverage ≤85%
+
+**Recovered Sequences:**
+
+Both non-chimeric and borderline sequences are saved as "rescued" sequences in the main output directory, while confirmed chimeric and multiple alignment sequences are stored in the ``analysis`` subdirectory.
+
+.. note::
+
+  BlasCh automatically detects .chimeras.fasta files in the working directory and creates self-databases from available sample FASTA files. 
+  Original sample files are prioritized over .chimeras files for database creation.
