@@ -402,7 +402,7 @@ Example of plotting the ordination scores
       ggplot(data = ord_sm, aes(x = PC1, y = PC2)) + geom_point()
 
 ___________________________________________________
-
+.. hide
 BlasCh
 ----------
 
