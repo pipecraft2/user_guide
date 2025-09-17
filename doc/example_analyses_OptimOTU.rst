@@ -116,7 +116,7 @@ Cut primers and trim reads
 The example dataset **contains primer sequences**. Generally, we need to remove these to proceed the analyses only with the variable metabarcode of interest.
 If there are some additional sequence fragments, from eg. sequencing adapters or poly-G tails, then clipping the primers will remove those fragments as well.
 
-For the example data, the **forward primer is fITS7 GTGARTCATCGAATCTTTG** and **reverse primer is ITS4 TCCTCCGCTTATTGATATGC**.
+For the example data, the **forward primer is ITS3 GCATCGATGAAGAACGCAGC** and **reverse primer is ITS4 TCCTCCGCTTATTGATATGC**.
 
   
 ____________________________________________________
@@ -179,8 +179,7 @@ Protax classification
 For fungi, a built-in database for protax classification can be used.
 
 ``location`` = protaxFungi *[Or specify a directory where protax is located.]*
-``with_outgroup`` = UNITE_SHs *this is an additionalonal database which contains also outgroup (non-target) sequences from the same locus. 
-              For fungi, default is UNITE_SHs, which is sh_matching_data_0_5_v9 sequences (included in the PipeCraft2 container).
+``with_outgroup`` = UNITE_SHs *this is an additionalonal database which contains also outgroup (non-target) sequences from the same locus. For fungi, default is UNITE_SHs, which is sh_matching_data_0_5_v9 sequences (included in the PipeCraft2 container)
               
 
 __________________________________________________  
