@@ -996,21 +996,23 @@ Filter potential cases of tag-switching with UNCROSS2 algorithm (Edgar 2018).
 Amplicon model setting
 ----------------------
 
-+---------------------+---------+
-| Setting             | Tooltip |
-+=====================+=========+
-| ``model type``      |         |
-+---------------------+---------+
-| ``model file``      |         |
-+---------------------+---------+
-| ``numt filter``     |         |
-+---------------------+---------+
-| ``max model start`` |         |
-+---------------------+---------+
-| ``min model end``   |         |
-+---------------------+---------+
-| ``min model score`` |         |
-+---------------------+---------+
++---------------------+---------------------------------------------------------------------------------------------------------------+
+| Setting             | Tooltip                                                                                                       |
++=====================+===============================================================================================================+
+|| ``model type``     || statistical sequence model type for aligning ASVs prior to use of protaxA and/or NuMt detection              |
+||                    || and for filtering ASVs to remove spurious sequences.                                                         |
++---------------------+---------------------------------------------------------------------------------------------------------------+
+|| ``model file``     || inbuilt ITS3_ITS4.cm and gITS7_ITS4.cm files are optimized for ITS3-ITS4 and gITS7-ITS4 amplicons for fungi. |
+||                    || COI.hmm is HMM model for COI amplicons. A custom model may be supplied.                                      |
++---------------------+---------------------------------------------------------------------------------------------------------------+
+| ``numt filter``     | filter out sequences that are likely to be NUMTs (mitochondrial coding amplicon genes)                        |
++---------------------+---------------------------------------------------------------------------------------------------------------+
+| ``max model start`` | maximum start position of the model (the match must start at this point in the model or earlier)              |
++---------------------+---------------------------------------------------------------------------------------------------------------+
+| ``min model end``   | minimum end position of the model (the match must end at this point in the model or later)                    |
++---------------------+---------------------------------------------------------------------------------------------------------------+
+| ``min model score`` | minimum bit score threshold for model matches                                                                 |
++---------------------+---------------------------------------------------------------------------------------------------------------+
 
 
 ProTAX classification
@@ -1033,7 +1035,7 @@ Clustering
 | Setting                 | Tooltip                                                            |
 +=========================+====================================================================+
 || ``cluster thresholds`` || select file with clustering thresholds. Default is pre-calculated |
-||                        || thresholds for Fungi (UNITE v x.x)                                |
+||                        || thresholds for Fungi and Metazoa                                  |
 +-------------------------+--------------------------------------------------------------------+
 
 
