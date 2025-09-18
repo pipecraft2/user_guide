@@ -233,3 +233,30 @@ Examine the outputs
 
 Several process-specific output folders are generated |output_icon|
 
++--------------------------+--------------------------------------------------------------------------+
+| Output file              | Description                                                              |
++==========================+==========================================================================+
+|| ``asv_table``           || ASV table as a sparse matrix (long format) with five columns:           |
+||                         || sample, seqrun, seq_id, seq_idx, and nread                              |
++--------------------------+--------------------------------------------------------------------------+
+|| ``asv2tax_<conf>``      || Taxonomic assignments for each ASV at the 50% (plausible)               |
+||                         || and 90% (reliable) probability thresholds <conf>                        |
++--------------------------+--------------------------------------------------------------------------+
+|| ``otu_taxonomy_<conf>`` || Taxonomy for each OTU at the 50% (plausible) and 90% (reliable)         |
+||                         || probability thresholds <conf>                                           |
++--------------------------+--------------------------------------------------------------------------+
+|| ``otu_table_sparse_*``  || OTU table as a sparse matrix (long format) with five columns:           |
+||                         || sample, seqrun, seq_id, seq_idx, and nread                              |
++--------------------------+--------------------------------------------------------------------------+
+|| ``otu_table_<conf>``    || OTU table as a dense matrix (wide format) with columns as samples       |
+||                         || and rows as OTUs                                                        |
++--------------------------+--------------------------------------------------------------------------+
+|| ``otu_<conf>.fasta``    || Representative OTU sequences for the 50% (plausible) and 90% (reliable) |
+||                         || probability thresholds <conf>                                           |
++--------------------------+--------------------------------------------------------------------------+
+|| ``read_counts_<conf>.   || The number of reads in each sample present after each stage             |
+|| tsv``                   || of the pipeline                                                         |
++--------------------------+--------------------------------------------------------------------------+
+| ``optimotu_targets.log`` | R log file about the OptimOTU pipeline                                   |
++--------------------------+--------------------------------------------------------------------------+
+
