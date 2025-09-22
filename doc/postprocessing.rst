@@ -414,7 +414,7 @@ ___________________________________________________
 
    .. important::
 
-     **Workflow Compatibility Requirements:**
+     **Workflow compatibility requirements:**
      
      - BlasCh **cannot be run as part of a full pipeline** - it is a standalone post-processing tool
      - Must be used **after** chimera filtering has been completed
