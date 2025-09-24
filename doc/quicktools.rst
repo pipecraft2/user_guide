@@ -182,64 +182,6 @@ Copy those two (or three) columns to text editor that support regular expression
 
 ____________________________________________________
 
-.. _reorient:
-
-REORIENT
-========
-
-Sequences are often (if not always) in both, 5'-3' and 3'-5', orientations in the raw sequencing data sets. 
-If the data still contains PCR primers that were used to generate amplicons, 
-then by specifying these PCR primers, this panel will perform sequence reorientation 
-of all sequences. 
-
-**Generally, this step is not needed** when following **vsearch OTUs** or **UNOISE ASVs** pipeline, 
-because both strands of the sequences can be compared prior forming OTUs (``strand=both``). 
-This is automatically handled also in **NextITS** pipeline.
-In the **DADA2 ASVs** pipeline, if working with mixed orientation data (seqs in 5'-3' and 3'-5' orientations), 
-then select ``PAIRED-END MIXED`` mode to account for mixed orientation data. 
-
-**Process description:** for reorienting, 
-first the forward primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_)  
-and if detected then the read is considered as forward complementary (5'-3'). 
-Then the reverse primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_) 
-from the same input data and if detected, then the read is considered to be in 
-reverse complementary orientation (3'-5'). Latter reads will be transformed to 5'-3' 
-orientation and merged with other 5'-3' reads. 
-Note that for paired-end data, R1 files will be reoriented to 5'-3' 
-but R2 reads will be reoriented to 3'-5' in order to merge paired-end reads.
-
-At least one of the PCR primers must be found in the sequence. 
-For example, read will be recorded if forward primer was found even 
-though reverse primer was not found (and vice versa). 
-**Sequence is discarded if none of the PCR primers are found.** 
-
-Sequences that contain **multiple forward or reverse primers (multi-primer artefacts) 
-are discarded** as it is highly likely that these are chimeric sequences. 
-Reorienting sequences **will not remove** primer strings from the sequences. 
-
-.. note::
-
- For single-end data, sequences will be reoriented also during 
- the 'cut primers' process (see below); therefore this step may be skipped
- when working with single-end data (such as data from PacBio machines OR already assembled paired-end data).
-
-Supported file formats for paired-end input data are only **fastq**,
-but also **fasta** for single-end data.
-**Outputs** are fastq/fasta files in ``reoriented_out`` directory. 
-Primers are **not truncated** from the sequences; this can be done using :ref:`CUT PRIMER panel <remove_primers>`
-
-================================ =========================
-Setting                          Tooltip
-================================ =========================
-``mismatches``                   | allowed mismatches in the primer search
-``forward_primers``              | specify forward primer **(5'-3')**; IUPAC codes allowed; 
-                                 | add up to 13 primers
-``reverse_primers``              | specify reverse primer **(3'-5')**; IUPAC codes allowed; 
-                                 | add up to 13 primers
-================================ =========================
-
-____________________________________________________
-
 .. _remove_primers:
 
 CUT PRIMERS
@@ -941,7 +883,222 @@ POSTPROCESSING
 
 Post-processing tools. :ref:`See this page <postprocessingtools>`
 
+____________________________________________________
 
+.. _utilities:
+
+UTILITIES
+=========
+
+Utility tools for sequence processing and manipulation.
+
+.. _utilities_reorient:
+
+reorient
+--------
+
+Sequences are often (if not always) in both, 5'-3' and 3'-5', orientations in the raw sequencing data sets. 
+If the data still contains PCR primers that were used to generate amplicons, 
+then by specifying these PCR primers, this panel will perform sequence reorientation 
+of all sequences. 
+
+**Generally, this step is not needed** when following **vsearch OTUs** or **UNOISE ASVs** pipeline, 
+because both strands of the sequences can be compared prior forming OTUs (``strand=both``). 
+This is automatically handled also in **NextITS** pipeline.
+In the **DADA2 ASVs** pipeline, if working with mixed orientation data (seqs in 5'-3' and 3'-5' orientations), 
+then select ``PAIRED-END MIXED`` mode to account for mixed orientation data. 
+
+**Process description:** for reorienting, 
+first the forward primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_)  
+and if detected then the read is considered as forward complementary (5'-3'). 
+Then the reverse primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_) 
+from the same input data and if detected, then the read is considered to be in 
+reverse complementary orientation (3'-5'). Latter reads will be transformed to 5'-3' 
+orientation and merged with other 5'-3' reads. 
+Note that for paired-end data, R1 files will be reoriented to 5'-3' 
+but R2 reads will be reoriented to 3'-5' in order to merge paired-end reads.
+
+At least one of the PCR primers must be found in the sequence. 
+For example, read will be recorded if forward primer was found even 
+though reverse primer was not found (and vice versa). 
+**Sequence is discarded if none of the PCR primers are found.** 
+
+Sequences that contain **multiple forward or reverse primers (multi-primer artefacts) 
+are discarded** as it is highly likely that these are chimeric sequences. 
+Reorienting sequences **will not remove** primer strings from the sequences. 
+
+.. note::
+
+ For single-end data, sequences will be reoriented also during 
+ the 'cut primers' process (see below); therefore this step may be skipped
+ when working with single-end data (such as data from PacBio machines OR already assembled paired-end data).
+
+Supported file formats for paired-end input data are only **fastq**,
+but also **fasta** for single-end data.
+**Outputs** are fastq/fasta files in ``reoriented_out`` directory. 
+Primers are **not truncated** from the sequences; this can be done using :ref:`CUT PRIMER panel <remove_primers>`
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``mismatches``                   | allowed mismatches in the primer search
+``forward_primers``              | specify forward primer **(5'-3')**; IUPAC codes allowed; 
+                                 | add up to 13 primers
+``reverse_primers``              | specify reverse primer **(3'-5')**; IUPAC codes allowed; 
+                                 | add up to 13 primers
+================================ =========================
+
+____________________________________________________
+
+
+|
+
+.. _utilities_seqkit_stats:
+
+seqkit stats
+--------
+
+to get statistics with `seqkit <https://bioinf.shenwei.me/seqkit/>`_ per file for **fasta(.gz)/fastq(.gz)** files. in output it shows: 
+
++------------------------------------+-------------------------------------+
+|            Statistic               |            Description              |
++====================================+=====================================+
+|          file                      |            Input file name          |
++------------------------------------+-------------------------------------+
+|          format                    |            File format (FASTA/FASTQ)|
++------------------------------------+-------------------------------------+
+|          type                      |            Sequence type (DNA/RNA)  |
++------------------------------------+-------------------------------------+
+|          num_seqs                  |            Number of sequences      |
++------------------------------------+-------------------------------------+
+|          sum_len                   |            Total sequence length    |
++------------------------------------+-------------------------------------+
+|          min_len                   |            Minimum sequence length  |
++------------------------------------+-------------------------------------+
+|          avg_len                   |            Average sequence length  |
++------------------------------------+-------------------------------------+
+|          max_len                   |            Maximum sequence length  |
++------------------------------------+-------------------------------------+
+
+____________________________________________________
+
+.. _utilities_self-comparison:
+
+Self-comparison
+---------------
+
+You can run self-comparison of sequences in a fasta file to find identical or similar sequences within the same file. 
+There are two methods implemented: BLAST and vsearch. This tool is useful for identifying duplicate, near-duplicate, 
+or highly similar sequences within your dataset.
+
+| **Supported file format** for input data is **fasta**.
+| **Outputs** are tab-delimited text files in ``self_comparison_out`` directory.
+
+
++------------------------------------+-------------------------------------+
+|              Setting               |            Description              |
++====================================+=====================================+
+|          method                    |     Choose between 'vsearch' or     |
+|                                    |     'blast' for sequence comparison |
++------------------------------------+-------------------------------------+
+|          fasta_file                |     Select input fasta file for     |
+|                                    |     self-comparison analysis        |
++------------------------------------+-------------------------------------+
+|      identity_threshold            |     Minimum sequence identity       |
+|                                    |     percentage to report matches    |
+|                                    |     (default: 60%)                  |
++------------------------------------+-------------------------------------+
+|      coverage_threshold            |     Minimum sequence coverage       |
+|                                    |     percentage to report matches    |
+|                                    |     (default: 60%)                  |
++------------------------------------+-------------------------------------+
+|           strand                   |              both or plus           |
++------------------------------------+-------------------------------------+
+
+Output formats:
+
+
+**vsearch output columns:**
+
+
++------------------------------------+-------------------------------------+
+|              Column                |            Description              |
++====================================+=====================================+
+|              query                 |      Query sequence identifier      |
++------------------------------------+-------------------------------------+
+|              target                |      Target sequence identifier     |
++------------------------------------+-------------------------------------+
+|               id                   |      Sequence identity percentage   |
++------------------------------------+-------------------------------------+
+|             alnlen                 |         Alignment length            |
++------------------------------------+-------------------------------------+
+|              qcov                  |      Query coverage percentage      |
++------------------------------------+-------------------------------------+
+|              tcov                  |      Target coverage percentage     |
++------------------------------------+-------------------------------------+
+|               ql                   |       Query sequence length         |
++------------------------------------+-------------------------------------+
+|               tl                   |       Target sequence length        |
++------------------------------------+-------------------------------------+
+|              ids                   |    Number of identical positions    |
++------------------------------------+-------------------------------------+
+|             mism                   |        Number of mismatches         |
++------------------------------------+-------------------------------------+
+|             gaps                   |       Number of gap openings        |
++------------------------------------+-------------------------------------+
+|             qilo                   |    Query alignment start position   |
++------------------------------------+-------------------------------------+
+|             qihi                   |     Query alignment end position    |
++------------------------------------+-------------------------------------+
+|            qstrand                 |    Query strand orientation (+/-)   |
++------------------------------------+-------------------------------------+
+|            tstrand                 |    Target strand orientation (+/-)  |
++------------------------------------+-------------------------------------+
+
+
+**BLAST output columns:**
+
+
++------------------------------------+-------------------------------------+
+|              Column                |            Description              |
++====================================+=====================================+
+|             qseqid                 |      Query sequence identifier      |
++------------------------------------+-------------------------------------+
+|             sseqid                 |     Subject sequence identifier     |
++------------------------------------+-------------------------------------+
+|             pident                 |    Percentage of identical matches  |
++------------------------------------+-------------------------------------+
+|             length                 |         Alignment length            |
++------------------------------------+-------------------------------------+
+|            mismatch                |        Number of mismatches         |
++------------------------------------+-------------------------------------+
+|            gapopen                 |       Number of gap openings        |
++------------------------------------+-------------------------------------+
+|             qstart                 |    Query alignment start position   |
++------------------------------------+-------------------------------------+
+|              qend                  |     Query alignment end position    |
++------------------------------------+-------------------------------------+
+|             sstart                 |   Subject alignment start position  |
++------------------------------------+-------------------------------------+
+|              send                  |    Subject alignment end position   |
++------------------------------------+-------------------------------------+
+|             evalue                 |           Expect value              |
++------------------------------------+-------------------------------------+
+|            bitscore                |            Bit score                |
++------------------------------------+-------------------------------------+
+|              qlen                  |       Query sequence length         |
++------------------------------------+-------------------------------------+
+|              slen                  |      Subject sequence length        |
++------------------------------------+-------------------------------------+
+|             qcovs                  |     Query coverage per subject      |
++------------------------------------+-------------------------------------+
+|            qcovhsp                 |   Query coverage per high-scoring   |
+|                                    |   pair                              |
++------------------------------------+-------------------------------------+
+|            sstrand                 |     Subject strand orientation      |
++------------------------------------+-------------------------------------+
+
+____________________________________________________
 .. _expert_mode:
 
 Expert-mode (PipeCraft2 console)

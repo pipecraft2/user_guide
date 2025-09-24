@@ -453,12 +453,12 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 ||                                                                      || ``abskew`` = 16                                      |
 ||                                                                      || ``mask`` = dust                                      |
 +-----------------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`ASSIGN TAXONOMY with BLAST <assign_taxonomy_blast>` (optional) ||                                                      |
-||                                                                      || ``task`` = blastn                                    |
-||                                                                      || ``strands`` = both                                   |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
 || CURATE OTU TABLE                                                     || Curate OTU table: filter tag jumps and OTUs that are |
 ||                                                                      || shorter/longer than specified length.                |
+||                                                                      || ``f_value`` = 0.01                                   |
+||                                                                      || ``p_value`` = 1                                      |
+||                                                                      || ``min_length`` = 32                                  |
+||                                                                      || ``max_length`` = 0                                   |
 +-----------------------------------------------------------------------+-------------------------------------------------------+
 
 
@@ -536,12 +536,12 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 ||                                                                      || ``mask`` = dust                                      |
 ||                                                                      || ``dbmask`` = dust                                    |
 +-----------------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`ASSIGN TAXONOMY with BLAST <assign_taxonomy_blast>` (optional) || ``database_file`` = select a database                |
-||                                                                      || ``task`` = blastn                                    |
-||                                                                      || ``strands`` = both                                   |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
 || CURATE OTU TABLE                                                     || Curate OTU table: filter tag jumps and OTUs that are |
 ||                                                                      || shorter/longer than specified length.                |
+||                                                                      || ``f_value`` = 0.01                                   |
+||                                                                      || ``p_value`` = 1                                      |
+||                                                                      || ``min_length`` = 32                                  |
+||                                                                      || ``max_length`` = 0                                   |
 +-----------------------------------------------------------------------+-------------------------------------------------------+
 
 __________________________________________________
