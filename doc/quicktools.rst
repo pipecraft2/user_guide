@@ -884,15 +884,22 @@ ____________________________________________________
   To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
   but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
 
-================================ =========================
-Setting                          Tooltip
-================================ =========================
- ``dada2_database``              | select a reference database fasta file for taxonomy annotation
-``fasta_file``                   | select a fasta file to be used as a query for DADA2 classifier
-``minBoot``                      | the minimum bootstrap confidence for assigning a taxonomic level
-``tryRC``                        | the reverse-complement of each sequences will be used for classification 
-                                 | if it is a better match to the reference sequences than the forward sequence
-================================ =========================
++---------------------+-------------------------------------------------------------------------------+
+| Setting             | Tooltip                                                                       |
++=====================+===============================================================================+
+|| ``dada2_database`` || select a reference database fasta file for taxonomy annotation               |
+||                    ||                                                                              |
+||                    || `Download DADA2-formatted reference databases                                |
+||                    || here <https://benjjneb.github.io/dada2/training.html>`_                      |
++---------------------+-------------------------------------------------------------------------------+
+| ``fasta_file``      | select a fasta file to be used as a query for DADA2 classifier                |
++---------------------+-------------------------------------------------------------------------------+
+| ``minBoot``         | the minimum bootstrap confidence for assigning a taxonomic level              |
++---------------------+-------------------------------------------------------------------------------+
+|| ``tryRC``          || the reverse-complement of each sequences will be used for classification     |
+||                    || if it is a better match to the reference sequences than the forward sequence |
++---------------------+-------------------------------------------------------------------------------+
+
 
 ____________________________________________________
 
@@ -918,7 +925,7 @@ A *(noncomprehensive)* list of **public databases available for taxonomy annotat
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
 | `CO1 Classifier <https://github.com/terrimporter/CO1Classifier>`_                                                                             | Metazoa COI                                                |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
-| `DADA2-formatted reference databases <https://benjjneb.github.io/dada2/training.html>`_                                                       |                                                            |
+| `DADA2-formatted reference databases <https://benjjneb.github.io/dada2/training.html>`_                                                       | Multiple third-party databases                             |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
 | `DIAT.BARCODE database <https://carrtel-collection.hub.inrae.fr/barcoding-databases/diat.barcode/pipelines-and-aligned-and-trimed-database>`_ | Diatoms rbcL/18S                                           |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
