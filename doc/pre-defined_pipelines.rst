@@ -465,6 +465,7 @@ Analyses step                                                        Default set
                                                                      | ``minsize`` = 8
                                                                      | ``denoise_level`` = global
                                                                      | ``remove_chimeras`` = TRUE
+                                                                     | ``unoise_alpha`` = 2
                                                                      | ``similarity_type`` = 2
                                                                      | ``maxaccepts`` = 1
                                                                      | ``maxrejects`` = 32
