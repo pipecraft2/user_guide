@@ -29,7 +29,7 @@
 Pre-defined pipelines |PipeCraft2_logo|
 =======================================
 
-Pre-defined pipelines in PipeCraft2 provide automated workflows for processing aplicon sequencing data. 
+Pre-defined pipelines in PipeCraft2 provide automated workflows for processing amplicon sequencing data. 
 These pipelines include options for generating ASVs with DADA2, ASVs with UNOISE3, OTUs with vsearch, and specialized pipelines like NextITS and OptimOTU. 
 Each pipeline is carefully configured with sensible defaults while still allowing customization of key parameters to suit different experimental needs.
 
@@ -100,7 +100,7 @@ Directory structure
 |
 | ``merged_runs`` directory will contain the merged ASV/OTU table; :red:`avoid naming your sequencing run directories as **merged_runs**!`  
 |
-| Fastq files with the **same name** will be considered as the same sample and will be merged in the final ASV/OTU table.
+| Fastq files with the :red:`**same name**` will be considered as the same sample and will be merged in the final ASV/OTU table.
 
 
 Merge sequencing runs
