@@ -449,9 +449,6 @@ Analyses step                                                        Default set
                                                                      | ``maxrejects`` = 32
                                                                      | ``abskew`` = 16
                                                                      | ``mask`` = dust
-:ref:`ASSIGN TAXONOMY with BLAST <assign_taxonomy_blast>` (optional) | ``database_file`` = select a database
-                                                                     | ``task`` = blastn
-                                                                     | ``strands`` = both
 ==================================================================== =========================
 
 
@@ -528,10 +525,6 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 ||                                                                      || ``max_hits`` = 1                      |
 ||                                                                      || ``mask`` = dust                       |
 ||                                                                      || ``dbmask`` = dust                     |
-+-----------------------------------------------------------------------+----------------------------------------+
-|| :ref:`ASSIGN TAXONOMY with BLAST <assign_taxonomy_blast>` (optional) || ``database_file`` = select a database |
-||                                                                      || ``task`` = blastn                     |
-||                                                                      || ``strands`` = both                    |
 +-----------------------------------------------------------------------+----------------------------------------+
 
 __________________________________________________
