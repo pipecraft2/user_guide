@@ -55,16 +55,16 @@ Filter out putative tag-jumps with `UNCROSS2 <https://www.drive5.com/usearch/man
 
   To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
 
-+--------------------+-------------------------------------------------------------------------------+
-| Outputs            |                                                                               |
-+====================+===============================================================================+
-| *_TagJumpFilt.txt  | output table where tag-jumps have been filtered out                           |
-+--------------------+-------------------------------------------------------------------------------+
-| TagJump_plot.pdf   | illustration about the presence of tag-jumps based on the selected parameters |
-+--------------------+-------------------------------------------------------------------------------+
-|| TagJump_stats.txt || tag-jump statistics (Total_reads, Number_of_TagJump_Events,                  |
-||                   || TagJump_reads, ReadPercent_removed)                                          |
-+--------------------+-------------------------------------------------------------------------------+
++-----------------------+-------------------------------------------------------------------------------+
+| Outputs               |                                                                               |
++=======================+===============================================================================+
+| ``*_TagJumpFilt.txt`` | output table where tag-jumps have been filtered out                           |
++-----------------------+-------------------------------------------------------------------------------+
+| TagJump_plot.pdf      | illustration about the presence of tag-jumps based on the selected parameters |
++-----------------------+-------------------------------------------------------------------------------+
+|| TagJump_stats.txt    || tag-jump statistics (Total_reads, Number_of_TagJump_Events,                  |
+||                      || TagJump_reads, ReadPercent_removed)                                          |
++-----------------------+-------------------------------------------------------------------------------+
 
 +-----------------+------------------------------------------------------------------------------------------+
 | Setting         | Tooltip                                                                                  |

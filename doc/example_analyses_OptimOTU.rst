@@ -48,6 +48,12 @@ This example data analyses follows OptimOTU workflow as implemented in PipeCraft
 | `Download example data set here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/optimotu_ITS2.zip>`_ (4.1 Mb) and unzip it. 
 | This is **paired end Illumina dataset, ITS2 amplicons**. 
 
+
+.. note:: 
+
+  OptimOTU pipeline is not much customizable; most important parametes to check/specify are the ``primers`` (CUT PRIMERS AND TRIM READS panel) 
+  and ``model file`` (AMPLICON MODEL SETTINGS panel)
+
 ____________________________________________________
 
 Starting point 
@@ -179,7 +185,7 @@ Protax classification
 For fungi, a built-in database for protax classification can be used.
 
 ``location`` = protaxFungi *[Or specify a directory where protax is located.]*
-``with_outgroup`` = UNITE_SHs *this is an additionalonal database which contains also outgroup (non-target) sequences from the same locus. For fungi, default is UNITE_SHs, which is sh_matching_data_0_5_v9 sequences (included in the PipeCraft2 container)
+``with_outgroup`` = UNITE_SHs *this is an additionalonal database which contains also outgroup (non-target) sequences from the same locus. For fungi, default is UNITE_SHs, which is sh_matching_data_0_5_v9 sequences (included in the PipeCraft2 container)*
               
 
 __________________________________________________  
@@ -254,8 +260,8 @@ Several process-specific output folders are generated |output_icon|
 || ``otu_<conf>.fasta``    || Representative OTU sequences for the 50% (plausible) and 90% (reliable) |
 ||                         || probability thresholds <conf>                                           |
 +--------------------------+--------------------------------------------------------------------------+
-|| ``read_counts_<conf>.   || The number of reads in each sample present after each stage             |
-|| tsv``                   || of the pipeline                                                         |
+|| ``read_counts_<conf>.tsv`` || The number of reads in each sample present after each stage          |
+||                         || of the pipeline                                                         |
 +--------------------------+--------------------------------------------------------------------------+
 | ``optimotu_targets.log`` | R log file about the OptimOTU pipeline                                   |
 +--------------------------+--------------------------------------------------------------------------+

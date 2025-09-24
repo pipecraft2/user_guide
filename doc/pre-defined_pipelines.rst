@@ -126,7 +126,7 @@ DADA2 ASVs
 =============
 
 This pre-defined workflow is based on the `DADA2 tutorial <https://benjjneb.github.io/dada2/tutorial.html>`_ to form **ASVs and an ASV table**.
-This input is the directory that contains per-sample fastq files (**demultiplexed data**).
+The input is the directory that contains per-sample fastq files (**demultiplexed data**).
 
 | Note that ``CUT PRIMERS`` step do not represent parts from the DADA2 tutorial. Nevertheless, it is advisable to :ref:`remove primers <remove_primers>` before proceeding with ASV generation with DADA2.
 
@@ -135,40 +135,40 @@ This input is the directory that contains per-sample fastq files (**demultiplexe
 
 **Herein implemented DADA2 pipeline has three modes:**
 
-+-------------------------+--------------------------------------------------+
-| DADA2 mode              | when do use                                      |
-+=========================+==================================================+
-|| ``PAIRED-END FORWARD`` || for paired-end Illumina data where amplicons    |
-||                        || are expected to be in 5'-3' orientation. If     |
-||                        || using DADA2 ``PAIRED-END FORWARD`` mode, but    |
-||                        || you have sequences in mixed orientation, then   |
-||                        || the reverse complement reads are not detected   |
-||                        || and are discarded.                              |
-+-------------------------+--------------------------------------------------+
-|| ``PAIRED-END MIXED``   || for paired-end Illumina data where amplicons    |
-||                        || are expected to be both, in 5'-3' (forward)     |
-||                        || and 3'-5' (reverse) oriented. In that mode,     |
-||                        || ``CUT PRIMERS`` is mandatory, and generates     |
-||                        || separate directories for forward and reverse    |
-||                        || oriented sequences, which will pass DADA2       |
-||                        || pipeline individually. After merging the paired |
-||                        || ends, the reverse oriented sequences are        |
-||                        || reverse complemented and aggregated with the    |
-||                        || forward reads for chimera filtering and ASV     |
-||                        || table generation. The output ASVs are all 5'-3' |
-||                        || oriented. If using DADA2 ``PAIRED-END MIXED``   |
-||                        || mode, then be sure you have data in mixed       |
-||                        || orientation (i.e. both 5'-3' and 3'-5' oriented |
-||                        || sequences in samples); if this is not the case  |
-||                        || then ``PAIRED-END MIXED`` mode will report an   |
-||                        || ERROR after quality filtering step (no output   |
-||                        || files generated after quality filtering).       |
-+-------------------------+--------------------------------------------------+
-|| ``SINGLE-END``         || for single-end PacBio data. ``CUT PRIMERS``     |
-||                        || step for single-end data will reoriente all     |
-||                        || reads to 5'-3' (forward) orientation            |
-||                        || (errorEstFun = PacBioErrfun).                   |
-+-------------------------+--------------------------------------------------+
++-------------------------+--------------------------------------------------------+
+| DADA2 mode              | when do use                                            |
++=========================+========================================================+
+|| ``PAIRED-END FORWARD`` || for paired-end Illumina data where amplicons          |
+||                        || are expected to be in 5'-3' orientation. If           |
+||                        || using DADA2 ``PAIRED-END FORWARD`` mode, but          |
+||                        || you have sequences in mixed orientation, then         |
+||                        || the reverse complement reads are not detected         |
+||                        || and are discarded.                                    |
++-------------------------+--------------------------------------------------------+
+|| ``PAIRED-END MIXED``   || for paired-end Illumina data where amplicons          |
+||                        || are expected to be both, in 5'-3' (forward)           |
+||                        || and 3'-5' (reverse) oriented. In that mode,           |
+||                        || ``CUT PRIMERS`` is mandatory, and generates           |
+||                        || separate directories for forward and reverse          |
+||                        || oriented sequences, which will pass DADA2             |
+||                        || pipeline individually. After merging the paired       |
+||                        || ends, the reverse oriented sequences are              |
+||                        || reverse complemented and aggregated with the          |
+||                        || forward reads for chimera filtering and ASV           |
+||                        || table generation. The output ASVs are all 5'-3'       |
+||                        || oriented. If using DADA2 ``PAIRED-END MIXED``         |
+||                        || mode, then be sure you have data in mixed             |
+||                        || orientation (i.e. both 5'-3' and 3'-5' oriented       |
+||                        || sequences in samples); if this is not the case        |
+||                        || then ``PAIRED-END MIXED`` mode will report an         |
+||                        || ERROR after quality filtering step (no output         |
+||                        || files generated after quality filtering).             |
++-------------------------+--------------------------------------------------------+
+|| ``SINGLE-END``         || for single-end PacBio data. ``CUT PRIMERS``           |
+||                        || step for single-end data will reoriente all           |
+||                        || reads to 5'-3' (forward) orientation. DADA2 denoising |
+||                        || with PacBioErrfun (errorEstFun = PacBioErrfun).       |
++-------------------------+--------------------------------------------------------+
 
 
 .. important::
@@ -180,34 +180,40 @@ This input is the directory that contains per-sample fastq files (**demultiplexe
 
 **Default options:**
 
-=========================================================== =========================
-Analyses step                                               Default setting
-=========================================================== =========================
-:ref:`CUT PRIMERS <remove_primers>` (optional)              | --
-:ref:`QUALITY FILTERING <dada2_qual_filt>`                  | ``maxEE`` = 2
-                                                            | ``maxN`` = 0
-                                                            | ``minLen`` = 20
-                                                            | ``truncQ`` = 2
-                                                            | ``truncLen`` = 0
-                                                            | ``maxLen`` = 9999
-                                                            | ``minQ`` = 2
-                                                            | ``matchIDs`` = TRUE
-:ref:`DENOISE <dada2_denoise>`                              | ``pool`` = FALSE
-                                                            | ``selfConsist`` = FASLE
-                                                            | ``qualityType`` = Auto
-:ref:`MERGE PAIRED-END READS <dada2_merge_pairs>`           | ``minOverlap`` = 12
-                                                            | ``maxMismatch`` = 0
-                                                            | ``trimOverhang`` = FALSE
-                                                            | ``justConcatenate`` = FALSE
-:ref:`CHIMERA FILTERING <dada2_chimeras>`                   | ``method`` = consensus
-:ref:`Filter ASV table <dada2_table_filtering>` (optional)  | ``collapseNoMismatch`` = TRUE
-                                                            | ``by_length`` = 250
-                                                            | ``minOverlap`` = 20
-                                                            | ``vec`` = TRUE
-:ref:`ASSIGN TAXONOMY <dada2_taxonomy>` (optional)          | ``minBoot`` = 50
-                                                            | ``tryRC`` = FALSE
-                                                            | ``dada2 database`` = select a database
-=========================================================== =========================
++-------------------------------------------------------------+---------------------------------------------------+
+| Analyses step                                               | Default setting                                   |
++=============================================================+===================================================+
+|| :ref:`CUT PRIMERS <remove_primers>`                        || Mandatory for ``paired-end mixed`` mode          |
+||                                                            || (for getting the fwd and rev oriented sequences) |
++-------------------------------------------------------------+---------------------------------------------------+
+|| :ref:`QUALITY FILTERING <dada2_qual_filt>`                 || ``maxEE`` = 2                                    |
+||                                                            || ``maxN`` = 0                                     |
+||                                                            || ``minLen`` = 20                                  |
+||                                                            || ``truncQ`` = 2                                   |
+||                                                            || ``truncLen`` = 0                                 |
+||                                                            || ``truncLen_R2`` = 0 (for paired-end data)        |
+||                                                            || ``maxLen`` = 9999                                |
+||                                                            || ``minQ`` = 2                                     |
+||                                                            || ``matchIDs`` = TRUE                              |
++-------------------------------------------------------------+---------------------------------------------------+
+|| :ref:`DENOISE <dada2_denoise>`                             || ``pool`` = FALSE                                 |
+||                                                            || ``selfConsist`` = FASLE                          |
+||                                                            || ``qualityType`` = Auto                           |
++-------------------------------------------------------------+---------------------------------------------------+
+|| :ref:`MERGE PAIRS <dada2_merge_pairs>`                     || ``minOverlap`` = 12 (for paired-end data)        |
+||                                                            || ``maxMismatch`` = 0                              |
+||                                                            || ``trimOverhang`` = FALSE                         |
+||                                                            || ``justConcatenate`` = FALSE                      |
++-------------------------------------------------------------+---------------------------------------------------+
+| :ref:`CHIMERA FILTERING <dada2_chimeras>`                   | ``method`` = consensus                            |
++-------------------------------------------------------------+---------------------------------------------------+
+|| :ref:`CURATE ASV TABLE <dada2_table_filtering>` (optional) || ``collapseNoMismatch`` = TRUE                    |
+||                                                            || ``by_length`` = 250                              |
+||                                                            || ``minOverlap`` = 20                              |
+||                                                            || ``vec`` = TRUE                                   |
++-------------------------------------------------------------+---------------------------------------------------+
+
+*see tooltips below, under different analyses step panles, for more info*
 
 ___________________________________________________
 
@@ -222,51 +228,50 @@ DADA2 `filterAndTrim <https://www.bioconductor.org/packages/devel/bioc/manuals/d
 
 Quality profiles may be examined using the :ref:`QualityCheck module <interface>`.
 
-+------------------+---------------------------------------------------+
-| Setting          | Tooltip                                           |
-+==================+===================================================+
-|| ``maxEE``       || discard sequences with more than the specified   |
-||                 || number of expected errors                        |
-+------------------+---------------------------------------------------+
-|| ``maxN``        || discard sequences with more than the specified   |
-||                 || number of N's (ambiguous bases)                  |
-+------------------+---------------------------------------------------+
-|| ``minLen``      || remove reads with length less than minLen.       |
-||                 || minLen is enforced after all other trimming      |
-||                 || and truncation                                   |
-+------------------+---------------------------------------------------+
-|| ``truncQ``      || truncate reads at the first instance of a        |
-||                 || quality score less than or equal to truncQ       |
-+------------------+---------------------------------------------------+
-|| ``truncLen``    || truncate reads after truncLen bases (applies to  |
-||                 || **R1 reads** when working with **paired-end**    |
-||                 || data). Reads shorter than this are discarded.    |
-||                 || Explore quality profiles (with QualityCheck      |
-||                 || module) and see whether poor quality ends needs  |
-||                 || to be truncated                                  |
-+------------------+---------------------------------------------------+
-|| ``truncLen_R2`` || applies only for **paired-end** data. Truncate   |
-||                 || **R2 reads** after truncLen bases. Reads shorter |
-||                 || than this are discarded. Explore quality         |
-||                 || profiles (with QualityCheck module) and see      |
-||                 || whether poor quality ends needs to truncated     |
-+------------------+---------------------------------------------------+
-|| ``maxLen``      || remove reads with length greater than maxLen.    |
-||                 || maxLen is enforced on the raw reads. In dada2,   |
-||                 || the default = Inf, but here set as 9999          |
-+------------------+---------------------------------------------------+
-|| ``minQ``        || after truncation, reads contain a quality score  |
-||                 || below minQ will be discarded                     |
-+------------------+---------------------------------------------------+
-|| ``matchIDs``    || applies only for **paired-end** data. If TRUE,   |
-||                 || then double-checking (with seqkit pair) that     |
-||                 || only paired reads that share ids are outputted.  |
-||                 || :red:`Note that 'seqkit' will be used for this   |
-||                 || process`, because when using e.g. SRA fastq      |
-||                 || files where original fastq headers have been     |
-||                 || replaced, dada2 does not recognize those fastq   |
-||                 || id strings                                       |
-+------------------+---------------------------------------------------+
++------------------+---------------------------------------------------------+
+| Setting          | Tooltip                                                 |
++==================+=========================================================+
+|| ``maxEE``       || discard sequences with more than the specified         |
+||                 || number of expected errors (sum of error probabilities) |
++------------------+---------------------------------------------------------+
+|| ``maxN``        || discard sequences with more than the specified         |
+||                 || number of N's (ambiguous bases)                        |
++------------------+---------------------------------------------------------+
+|| ``minLen``      || remove reads with length less than minLen.             |
+||                 || minLen is enforced after all other trimming            |
+||                 || and truncation                                         |
++------------------+---------------------------------------------------------+
+|| ``truncQ``      || truncate reads at the first instance of a              |
+||                 || quality score less than or equal to truncQ             |
++------------------+---------------------------------------------------------+
+|| ``truncLen``    || truncate reads after truncLen bases (applies to        |
+||                 || **R1 reads** when working with **paired-end**          |
+||                 || data). Reads shorter than this are discarded.          |
+||                 || Explore quality profiles (with QualityCheck            |
+||                 || module) and see whether poor quality ends needs        |
+||                 || to be truncated                                        |
++------------------+---------------------------------------------------------+
+|| ``truncLen_R2`` || applies only for **paired-end** data. Truncate         |
+||                 || **R2 reads** after truncLen bases. Reads shorter       |
+||                 || than this are discarded. Explore quality               |
+||                 || profiles (with QualityCheck module) and see            |
+||                 || whether poor quality ends needs to truncated           |
++------------------+---------------------------------------------------------+
+|| ``maxLen``      || remove reads with length greater than maxLen.          |
+||                 || maxLen is enforced on the raw reads. In dada2,         |
+||                 || the default = Inf, but here set as 9999                |
++------------------+---------------------------------------------------------+
+|| ``minQ``        || after truncation, reads contain a quality score        |
+||                 || below minQ will be discarded                           |
++------------------+---------------------------------------------------------+
+|| ``matchIDs``    || applies only for **paired-end** data. If TRUE,         |
+||                 || then double-checking (with seqkit pair) that           |
+||                 || only paired reads that share ids are outputted.        |
+||                 || :red:`Note that 'seqkit' will be used for this process,|
+||                 || because when using e.g. SRA fastq files where original |
+||                 || fastq headers have been replaced, dada2 does not       |
+||                 || recognize those fastq id strings`                      |
++------------------+---------------------------------------------------------+
 
 
 see :ref:`default settings <dada2_defaults>`
@@ -280,7 +285,8 @@ ___________________________________________________
 DENOISING
 ---------
 
-DADA2 `dada <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to remove sequencing errors.
+DADA2 `dada <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to 
+remove sequencing errors. This step is performed separately for forward and reverse reads in ``PAIRED-END MIXED`` mode.
 Outputs filtered fasta files into ``denoised_assembled.dada2`` directory.
 
 ==================== ============
@@ -308,7 +314,8 @@ ___________________________________________________
 MERGE PAIRS
 -----------
 
-DADA2 `mergePairs <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to merge paired-end reads. 
+DADA2 `mergePairs <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to 
+merge paired-end reads. This step is performed separately for forward and reverse reads in ``PAIRED-END MIXED`` mode.
 Outputs merged fasta files into ``denoised_assembled.dada2`` directory.
 
 ==================== ============
@@ -335,7 +342,8 @@ ___________________________________________________
 CHIMERA FILTERING
 -----------------
 
-DADA2 `removeBimeraDenovo <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to remove chimeras. 
+DADA2 `removeBimeraDenovo <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function 
+to remove chimeras. 
 Outputs filtered fasta files into ``chimeraFiltered_out.dada2`` and final ASVs to ``ASVs_out.dada2`` directory.
 
 ==================== ============
@@ -355,11 +363,13 @@ ___________________________________________________
 
 |
 
-filter ASV table
+CURATE ASV TABLE
 ----------------
 
-DADA2 `collapseNoMismatch <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to collapse identical ASVs; 
-and ASVs filtering based on minimum accepted sequence length (custom R functions). 
+Curate ASV table by collapsing identical ASVs and filtering out ASVs that are shorter than specified length.
+
+For collapsing identical ASVs, DADA2 `collapseNoMismatch <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ 
+function is used; 
 Outputs filtered ASV table and fasta files into ``ASVs_out.dada2/filtered`` directory.
 
 ========================== ============
@@ -374,38 +384,6 @@ Setting                    Tooltip
 ``vec``                    | collapseNoMismatch setting. Default = TRUE. Use the vectorized 
                            | aligner. Should be turned off if sequences exceed 2kb in length
 ========================== ============
-
-see :ref:`default settings <dada2_defaults>`
-
-___________________________________________________
-
-|
-
-.. _dada2_taxonomy:
-
-ASSIGN TAXONOMY
----------------
-
-DADA2 `assignTaxonomy <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to classify ASVs. 
-
-Outputs classified fasta files into ``taxonomy_out.dada2`` directory.
-
-+---------------------+----------------------------------------------------------+
-| Setting             | Tooltip                                                  |
-+=====================+==========================================================+
-|| ``minBoot``        || the minimum bootstrap confidence for assigning          |
-||                    || a taxonomic level                                       |
-+---------------------+----------------------------------------------------------+
-|| ``tryRC``          || the reverse-complement of each sequences will           |
-||                    || be used for classification if it is a better            |
-||                    || match to the reference sequences than the               |
-||                    || forward sequence                                        |
-+---------------------+----------------------------------------------------------+
-|| ``dada2 database`` || select a reference database fasta file for              |
-||                    || taxonomy annotation                                     |
-||                    || `Download DADA2-formatted reference databases           |
-||                    || here <https://benjjneb.github.io/dada2/training.html>`_ |
-+---------------------+----------------------------------------------------------+
 
 see :ref:`default settings <dada2_defaults>`
 
@@ -440,7 +418,6 @@ ___________________________________________________
 vsearch OTUs
 ============
 
-
 This automated workflow is mostly based on `vsearch <https://github.com/torognes/vsearch>`_ (`Rognes et. al 2016 <https://peerj.com/articles/2584/>`_)
 to form **OTUs and an OTU table**. 
 The input is the directory that contains per-sample fastq files (**demultiplexed data**).
@@ -453,58 +430,63 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 | **Default options:**
 | *click on analyses step for more info*
 
-==================================================================== =========================
-Analyses step                                                        Default setting
-==================================================================== =========================
-:ref:`CUT PRIMERS <remove_primers>` (optional)                         --
-:ref:`MERGE READS <merge_vsearch>`                                   | ``read_R1`` = \\.R1
-                                                                     | ``min_overlap`` = 12
-                                                                     | ``min_length`` = 32
-                                                                     | ``allow_merge_stagger`` = TRUE 
-                                                                     | ``include only R1`` = FALSE 
-                                                                     | ``max_diffs`` = 20
-                                                                     | ``max_Ns`` = 0
-                                                                     | ``max_len`` = 600
-                                                                     | ``keep_disjoined`` = FALSE 
-                                                                     | ``fastq_qmax`` = 41
-:ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>`                | ``maxEE`` = 1
-                                                                     | ``maxN`` = 0
-                                                                     | ``minLen`` = 32
-                                                                     | ``max_length`` = undefined
-                                                                     | ``qmax`` = 41
-                                                                     | ``qmin`` = 0
-                                                                     | ``maxee_rate`` = undefined
-:ref:`CHIMERA FILTERING with uchime_denovo <chimFilt_vsearch>`       | ``pre_cluster`` = 0.98
-                                                                     | ``min_unique_size`` = 1
-                                                                     | ``denovo`` = TRUE 
-                                                                     | ``reference_based`` = undefined
-                                                                     | ``abundance_skew`` = 2
-                                                                     | ``min_h`` = 0.28
-:ref:`ITS Extractor <itsextractor>` (optional)                       | ``organisms`` = all 
-                                                                     | ``regions`` = all
-                                                                     | ``partial`` = 50
-                                                                     | ``region_for_clustering`` = ITS2
-                                                                     | ``cluster_full_and_partial`` = TRUE
-                                                                     | ``e_value`` = 1e-2
-                                                                     | ``scores`` = 0
-                                                                     | ``domains`` = 2
-                                                                     | ``complement`` = TRUE 
-                                                                     | ``only_full`` = FALSE
-                                                                     | ``truncate`` = TRUE 
-:ref:`CLUSTERING with vsearch <clustering_vsearch>`                  | ``OTU_type`` = centroid
-                                                                     | ``similarity_threshold`` = 0.97
-                                                                     | ``strands`` = both
-                                                                     | ``remove_singletons`` = false
-                                                                     | ``similarity_type`` = 2
-                                                                     | ``sequence_sorting`` = cluster_size
-                                                                     | ``centroid_type`` = similarity
-                                                                     | ``max_hits`` = 1
-                                                                     | ``mask`` = dust
-                                                                     | ``dbmask`` = dust
-:ref:`ASSIGN TAXONOMY with BLAST <assign_taxonomy_blast>` (optional) | ``database_file`` = select a database
-                                                                     | ``task`` = blastn
-                                                                     | ``strands`` = both
-==================================================================== =========================
++-----------------------------------------------------------------------+----------------------------------------+
+| Analyses step                                                         | Default setting                        |
++=======================================================================+========================================+
+| :ref:`CUT PRIMERS <remove_primers>` (optional)                        | --                                     |
++-----------------------------------------------------------------------+----------------------------------------+
+|| :ref:`MERGE READS <merge_vsearch>`                                   || ``min_overlap`` = 12                  |
+||                                                                      || ``min_length`` = 32                   |
+||                                                                      || ``allow_merge_stagger`` = TRUE        |
+||                                                                      || ``include only R1`` = FALSE           |
+||                                                                      || ``max_diffs`` = 20                    |
+||                                                                      || ``max_Ns`` = 0                        |
+||                                                                      || ``max_len`` = 600                     |
+||                                                                      || ``keep_disjoined`` = FALSE            |
+||                                                                      || ``fastq_qmax`` = 41                   |
++-----------------------------------------------------------------------+----------------------------------------+
+|| :ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>`                || ``maxEE`` = 1                         |
+||                                                                      || ``maxN`` = 0                          |
+||                                                                      || ``minLen`` = 32                       |
+||                                                                      || ``max_length`` = undefined            |
+||                                                                      || ``qmax`` = 41                         |
+||                                                                      || ``qmin`` = 0                          |
+||                                                                      || ``maxee_rate`` = undefined            |
++-----------------------------------------------------------------------+----------------------------------------+
+|| :ref:`CHIMERA FILTERING with uchime_denovo <chimFilt_vsearch>`       || ``pre_cluster`` = 0.98                |
+||                                                                      || ``min_unique_size`` = 1               |
+||                                                                      || ``denovo`` = TRUE                     |
+||                                                                      || ``reference_based`` = undefined       |
+||                                                                      || ``abundance_skew`` = 2                |
+||                                                                      || ``min_h`` = 0.28                      |
++-----------------------------------------------------------------------+----------------------------------------+
+|| :ref:`ITS Extractor <itsextractor>` (optional)                       || ``organisms`` = all                   |
+||                                                                      || ``regions`` = all                     |
+||                                                                      || ``partial`` = 50                      |
+||                                                                      || ``region_for_clustering`` = ITS2      |
+||                                                                      || ``cluster_full_and_partial`` = TRUE   |
+||                                                                      || ``e_value`` = 1e-2                    |
+||                                                                      || ``scores`` = 0                        |
+||                                                                      || ``domains`` = 2                       |
+||                                                                      || ``complement`` = TRUE                 |
+||                                                                      || ``only_full`` = FALSE                 |
+||                                                                      || ``truncate`` = TRUE                   |
++-----------------------------------------------------------------------+----------------------------------------+
+|| :ref:`CLUSTERING with vsearch <clustering_vsearch>`                  || ``OTU_type`` = centroid               |
+||                                                                      || ``similarity_threshold`` = 0.97       |
+||                                                                      || ``strands`` = both                    |
+||                                                                      || ``remove_singletons`` = false         |
+||                                                                      || ``similarity_type`` = 2               |
+||                                                                      || ``sequence_sorting`` = cluster_size   |
+||                                                                      || ``centroid_type`` = similarity        |
+||                                                                      || ``max_hits`` = 1                      |
+||                                                                      || ``mask`` = dust                       |
+||                                                                      || ``dbmask`` = dust                     |
++-----------------------------------------------------------------------+----------------------------------------+
+|| :ref:`ASSIGN TAXONOMY with BLAST <assign_taxonomy_blast>` (optional) || ``database_file`` = select a database |
+||                                                                      || ``task`` = blastn                     |
+||                                                                      || ``strands`` = both                    |
++-----------------------------------------------------------------------+----------------------------------------+
 
 __________________________________________________
 
@@ -792,19 +774,23 @@ __________________________________________________
 OptimOTU
 ========
 
+
 | OptimOTU is a full metabarcoding data analysis pipeline for **paired-end Illumina data** (`arXiv:2502.10350 <https://doi.org/10.48550/arXiv.2502.10350>`_).
 | OptimOTU uses taxonomically identified reference sequences to 
 | determine optimal genetic distance thresholds for clustering ancestor 
 | taxa into groups that best match their descendant taxa (**taxonomically aware OTU clustering**).
 
-PipeCraft2's implementation of OptimOTU is **currently restricted to Fungi (ITS3-ITS4 and g/fITS7-ITS4 amplicons) and Metazoa COI amplicons**.
+.. note:: 
 
+    Note that compared with other herein (in PipeCraft) pre-defined pipelines, OptimOTU requires a lot of resources (CPU, RAM), 
+    so please allocate sufficient resources when running this pipeline. Due to many optimized steps in the pipeline, 
+    the local run of OptimOTU takes comparably more time.
 
 .. note:: 
 
-  Most important parametes to check/specify are the ``primers`` (CUT PRIMERS AND TRIM READS panel) and ``model file`` (AMPLICON MODEL SETTINGS panel)
+    PipeCraft2's implementation in v 1.1.0 of OptimOTU is **currently restricted to Fungi (ITS3-ITS4 and g/fITS7-ITS4 amplicons)**; 
+    the Metazoa COI amplicons mode is **beta version** and not available in MacOS version.
 
-  **OptimOTU pipeline for METAZOA is not available in MacOS version of PipeCraft2 v1.1.0**.
 
 
 Docker env built based on optimotu_targets v5.1.0 (https://github.com/brendanf/optimotu_targets/releases/tag/v5.1.0) with optimotu=0.9.3 and optimotu.pipeline=0.5.2.
