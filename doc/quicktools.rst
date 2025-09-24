@@ -690,8 +690,6 @@ Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
 ``max_hits``                                    | maximum number of hits to accept before stopping the search 
                                                 | (should be > 1 for abundance-based selection of centroids [centroid type])
 ``mask``                                        | mask regions in sequences using the "dust" method, or do not mask ("none")
-``dbmask``                                      | prior the OTU table creation, mask regions in sequences using the 
-                                                | "dust" method, or do not mask ("none")
 =============================================== =========================
 
 .. _clustering_unoise3:
@@ -701,9 +699,7 @@ Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
 
 =============================================== =========================
 `Setting <_static/vsearch_manual_2.22.1.pdf>`_  Tooltip
-=============================================== =========================
-``zOTUs_thresh``                                | sequence similarity threshold for zOTU table creation; 
-                                                | 1 = 100% similarity threshold for zOTUs 
+=============================================== ========================= 
 ``similarity_threshold``                        | optionally cluster zOTUs to OTUs based on the sequence similarity threshold; 
                                                 | if id = 1, no OTU clustering will be performed
 ``similarity_type``                             | pairwise sequence identity definition for OTU clustering 
@@ -725,7 +721,6 @@ Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
 ``abskew``                                      | the abundance skew of chimeric sequences in comparsion with 
                                                 | parental sequences (by default, parents should be at least 
                                                 | 16 times more abundant than their chimera)
-``cores``                                       | number of cores to use for clustering
 
 =============================================== =========================
 
