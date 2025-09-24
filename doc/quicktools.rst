@@ -182,64 +182,6 @@ Copy those two (or three) columns to text editor that support regular expression
 
 ____________________________________________________
 
-.. _reorient:
-
-REORIENT
-========
-
-Sequences are often (if not always) in both, 5'-3' and 3'-5', orientations in the raw sequencing data sets. 
-If the data still contains PCR primers that were used to generate amplicons, 
-then by specifying these PCR primers, this panel will perform sequence reorientation 
-of all sequences. 
-
-**Generally, this step is not needed** when following **vsearch OTUs** or **UNOISE ASVs** pipeline, 
-because both strands of the sequences can be compared prior forming OTUs (``strand=both``). 
-This is automatically handled also in **NextITS** pipeline.
-In the **DADA2 ASVs** pipeline, if working with mixed orientation data (seqs in 5'-3' and 3'-5' orientations), 
-then select ``PAIRED-END MIXED`` mode to account for mixed orientation data. 
-
-**Process description:** for reorienting, 
-first the forward primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_)  
-and if detected then the read is considered as forward complementary (5'-3'). 
-Then the reverse primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_) 
-from the same input data and if detected, then the read is considered to be in 
-reverse complementary orientation (3'-5'). Latter reads will be transformed to 5'-3' 
-orientation and merged with other 5'-3' reads. 
-Note that for paired-end data, R1 files will be reoriented to 5'-3' 
-but R2 reads will be reoriented to 3'-5' in order to merge paired-end reads.
-
-At least one of the PCR primers must be found in the sequence. 
-For example, read will be recorded if forward primer was found even 
-though reverse primer was not found (and vice versa). 
-**Sequence is discarded if none of the PCR primers are found.** 
-
-Sequences that contain **multiple forward or reverse primers (multi-primer artefacts) 
-are discarded** as it is highly likely that these are chimeric sequences. 
-Reorienting sequences **will not remove** primer strings from the sequences. 
-
-.. note::
-
- For single-end data, sequences will be reoriented also during 
- the 'cut primers' process (see below); therefore this step may be skipped
- when working with single-end data (such as data from PacBio machines OR already assembled paired-end data).
-
-Supported file formats for paired-end input data are only **fastq**,
-but also **fasta** for single-end data.
-**Outputs** are fastq/fasta files in ``reoriented_out`` directory. 
-Primers are **not truncated** from the sequences; this can be done using :ref:`CUT PRIMER panel <remove_primers>`
-
-================================ =========================
-Setting                          Tooltip
-================================ =========================
-``mismatches``                   | allowed mismatches in the primer search
-``forward_primers``              | specify forward primer **(5'-3')**; IUPAC codes allowed; 
-                                 | add up to 13 primers
-``reverse_primers``              | specify reverse primer **(3'-5')**; IUPAC codes allowed; 
-                                 | add up to 13 primers
-================================ =========================
-
-____________________________________________________
-
 .. _remove_primers:
 
 CUT PRIMERS
@@ -939,6 +881,67 @@ POSTPROCESSING
 ==============
 
 Post-processing tools. :ref:`See this page <postprocessingtools>`
+
+.. _utilities:
+
+.. _utilities_reorient:
+
+REORIENT
+========
+
+Sequences are often (if not always) in both, 5'-3' and 3'-5', orientations in the raw sequencing data sets. 
+If the data still contains PCR primers that were used to generate amplicons, 
+then by specifying these PCR primers, this panel will perform sequence reorientation 
+of all sequences. 
+
+**Generally, this step is not needed** when following **vsearch OTUs** or **UNOISE ASVs** pipeline, 
+because both strands of the sequences can be compared prior forming OTUs (``strand=both``). 
+This is automatically handled also in **NextITS** pipeline.
+In the **DADA2 ASVs** pipeline, if working with mixed orientation data (seqs in 5'-3' and 3'-5' orientations), 
+then select ``PAIRED-END MIXED`` mode to account for mixed orientation data. 
+
+**Process description:** for reorienting, 
+first the forward primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_)  
+and if detected then the read is considered as forward complementary (5'-3'). 
+Then the reverse primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_) 
+from the same input data and if detected, then the read is considered to be in 
+reverse complementary orientation (3'-5'). Latter reads will be transformed to 5'-3' 
+orientation and merged with other 5'-3' reads. 
+Note that for paired-end data, R1 files will be reoriented to 5'-3' 
+but R2 reads will be reoriented to 3'-5' in order to merge paired-end reads.
+
+At least one of the PCR primers must be found in the sequence. 
+For example, read will be recorded if forward primer was found even 
+though reverse primer was not found (and vice versa). 
+**Sequence is discarded if none of the PCR primers are found.** 
+
+Sequences that contain **multiple forward or reverse primers (multi-primer artefacts) 
+are discarded** as it is highly likely that these are chimeric sequences. 
+Reorienting sequences **will not remove** primer strings from the sequences. 
+
+.. note::
+
+ For single-end data, sequences will be reoriented also during 
+ the 'cut primers' process (see below); therefore this step may be skipped
+ when working with single-end data (such as data from PacBio machines OR already assembled paired-end data).
+
+Supported file formats for paired-end input data are only **fastq**,
+but also **fasta** for single-end data.
+**Outputs** are fastq/fasta files in ``reoriented_out`` directory. 
+Primers are **not truncated** from the sequences; this can be done using :ref:`CUT PRIMER panel <remove_primers>`
+
+================================ =========================
+Setting                          Tooltip
+================================ =========================
+``mismatches``                   | allowed mismatches in the primer search
+``forward_primers``              | specify forward primer **(5'-3')**; IUPAC codes allowed; 
+                                 | add up to 13 primers
+``reverse_primers``              | specify reverse primer **(3'-5')**; IUPAC codes allowed; 
+                                 | add up to 13 primers
+================================ =========================
+
+____________________________________________________
+
 
 
 .. _expert_mode:
