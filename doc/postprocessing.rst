@@ -412,6 +412,16 @@ ___________________________________________________
 
    **False positive chimera detection and recovery module** for metabarcoding and environmental DNA (eDNA) datasets. BlasCh (BLAST-based Chimera detection) uses BLAST alignment analysis to identify, classify, and recover sequences that were incorrectly flagged as chimeric during initial chimera detection steps.
 
+   .. important::
+
+     **Workflow compatibility requirements:**
+     
+     - BlasCh **cannot be run as part of a full pipeline** - it is a standalone post-processing tool
+     - Must be used **after** chimera filtering has been completed
+     - Requires **manual workflow**: run chimera filtering → run BlasCh → run clustering
+     - **Rescued sequences** must be later merged with non-chimeric sequences from original samples
+     - Not compatible with automated pipeline workflows that include clustering steps
+
    **How BlasCh Works:**
 
    BlasCh employs a sophisticated BLAST-based approach to re-evaluate chimeric sequences through multiple analysis steps:
@@ -483,7 +493,6 @@ ___________________________________________________
    =============================================== =========================
    ``reference_db``                                | path to reference database (FASTA file or existing BLAST database). 
                                                    | **Required** - must be provided and stored in separate folder from input files
-   ``threads``                                     | number of CPU threads for BLAST analysis (default: 8)
    ``high_identity_threshold``                     | identity threshold for high-quality matches (default: 99.0%)
    ``high_coverage_threshold``                     | coverage threshold for high-quality matches (default: 99.0%)
    ``borderline_identity_threshold``               | identity threshold for borderline recovery (default: 80.0%)
@@ -508,12 +517,19 @@ ___________________________________________________
    - Enables testing different classification thresholds without re-running BLAST
    - Handles mixed scenarios (some samples have XML, others don't)
 
-   **Expected results:**
+   **Expected Results:**
 
    - **Rescued sequences** (non-chimeric and borderline) can be included in downstream analyses
    - **Detailed analysis results** provide transparency about why certain sequences were confirmed as chimeric
    - **CSV reports** contain per-sequence classification details and summary statistics
    - **Documentation** ensures reproducibility and parameter tracking
+
+   **Post-BlasCh Workflow:**
+
+   1. **Merge rescued sequences** with original non-chimeric sequences from each sample
+   2. **Run clustering manually** on the combined sequence sets
+   3. **Proceed with downstream analyses** using the updated sequence data
+   4. **Document** which sequences were rescued for transparency in results
 
    .. note::
 
