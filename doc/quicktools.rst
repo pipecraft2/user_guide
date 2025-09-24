@@ -992,8 +992,6 @@ or highly similar sequences within your dataset.
 | **Supported file format** for input data is **fasta**.
 | **Outputs** are tab-delimited text files in ``self_comparison_out`` directory.
 
-Settings
-~~~~~~~~
 
 +------------------------------------+-------------------------------------+
 |              Setting               |            Description              |
@@ -1015,8 +1013,8 @@ Settings
 |           strand                   |              both or plus           |
 +------------------------------------+-------------------------------------+
 
-Output formats
-~~~~~~~~~~~~~~
+Output formats:
+
 
 **vsearch output columns:**
 
