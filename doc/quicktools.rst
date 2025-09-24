@@ -881,13 +881,19 @@ POSTPROCESSING
 ==============
 
 Post-processing tools. :ref:`See this page <postprocessingtools>`
+____________________________________________________
 
 .. _utilities:
 
+UTILITIES
+=========
+
+Utility tools for sequence processing and manipulation.
+
 .. _utilities_reorient:
 
-REORIENT
-========
+reorient
+--------
 
 Sequences are often (if not always) in both, 5'-3' and 3'-5', orientations in the raw sequencing data sets. 
 If the data still contains PCR primers that were used to generate amplicons, 
@@ -943,7 +949,151 @@ Setting                          Tooltip
 ____________________________________________________
 
 
+|
 
+.. _utilities_seqkit_stats:
+
+seqkit stats
+--------
+
+to get statistics with `seqkit <https://bioinf.shenwei.me/seqkit/>`_ per file for **fasta(.gz)/fastq(.gz)** files. in output it shows: 
+
++------------------------------------+-------------------------------------+
+|            Statistic               |            Description              |
++====================================+=====================================+
+|          file                      |            Input file name          |
++------------------------------------+-------------------------------------+
+|          format                    |            File format (FASTA/FASTQ)|
++------------------------------------+-------------------------------------+
+|          type                      |            Sequence type (DNA/RNA)  |
++------------------------------------+-------------------------------------+
+|          num_seqs                  |            Number of sequences      |
++------------------------------------+-------------------------------------+
+|          sum_len                   |            Total sequence length    |
++------------------------------------+-------------------------------------+
+|          min_len                   |            Minimum sequence length  |
++------------------------------------+-------------------------------------+
+|          avg_len                   |            Average sequence length  |
++------------------------------------+-------------------------------------+
+|          max_len                   |            Maximum sequence length  |
++------------------------------------+-------------------------------------+
+
+____________________________________________________
+
+.. _utilities_self-comparison:
+
+Self-comparison
+---------------
+
+You can run self-comparison of sequences in a fasta file to find identical or similar sequences within the same file. 
+There are two methods implemented: BLAST and vsearch. This tool is useful for identifying duplicate, near-duplicate, 
+or highly similar sequences within your dataset.
+
+| **Supported file format** for input data is **fasta**.
+| **Outputs** are tab-delimited text files in ``self_comparison_out`` directory.
+
+Settings
+~~~~~~~~
+
++------------------------------------+-------------------------------------+
+|              Setting               |            Description              |
++====================================+=====================================+
+|          method                    |     Choose between 'vsearch' or     |
+|                                    |     'blast' for sequence comparison |
++------------------------------------+-------------------------------------+
+|      identity_threshold            |     Minimum sequence identity       |
+|                                    |     percentage to report matches    |
+|                                    |     (default: 60%)                  |
++------------------------------------+-------------------------------------+
+|      coverage_threshold            |     Minimum sequence coverage       |
+|                                    |     percentage to report matches    |
+|                                    |     (default: 60%)                  |
++------------------------------------+-------------------------------------+
+|          fasta_file                |     Select input fasta file for     |
+|                                    |     self-comparison analysis        |
++------------------------------------+-------------------------------------+
+
+Output formats
+~~~~~~~~~~~~~~
+
+**vsearch output columns:**
+
++------------------------------------+-------------------------------------+
+|              Column                |            Description              |
++====================================+=====================================+
+|              query                 |      Query sequence identifier      |
++------------------------------------+-------------------------------------+
+|              target                |      Target sequence identifier     |
++------------------------------------+-------------------------------------+
+|               id                   |      Sequence identity percentage   |
++------------------------------------+-------------------------------------+
+|             alnlen                 |         Alignment length            |
++------------------------------------+-------------------------------------+
+|              qcov                  |      Query coverage percentage      |
++------------------------------------+-------------------------------------+
+|              tcov                  |      Target coverage percentage     |
++------------------------------------+-------------------------------------+
+|               ql                   |       Query sequence length        |
++------------------------------------+-------------------------------------+
+|               tl                   |       Target sequence length       |
++------------------------------------+-------------------------------------+
+|              ids                   |    Number of identical positions    |
++------------------------------------+-------------------------------------+
+|             mism                   |        Number of mismatches         |
++------------------------------------+-------------------------------------+
+|             gaps                   |       Number of gap openings       |
++------------------------------------+-------------------------------------+
+|             qilo                   |    Query alignment start position  |
++------------------------------------+-------------------------------------+
+|             qihi                   |     Query alignment end position   |
++------------------------------------+-------------------------------------+
+|            qstrand                 |    Query strand orientation (+/-)  |
++------------------------------------+-------------------------------------+
+|            tstrand                 |    Target strand orientation (+/-) |
++------------------------------------+-------------------------------------+
+
+**BLAST output columns:**
+
++------------------------------------+-------------------------------------+
+|              Column                |            Description              |
++====================================+=====================================+
+|             qseqid                 |      Query sequence identifier      |
++------------------------------------+-------------------------------------+
+|             sseqid                 |     Subject sequence identifier     |
++------------------------------------+-------------------------------------+
+|             pident                 |    Percentage of identical matches  |
++------------------------------------+-------------------------------------+
+|             length                 |         Alignment length            |
++------------------------------------+-------------------------------------+
+|            mismatch                |        Number of mismatches         |
++------------------------------------+-------------------------------------+
+|            gapopen                 |       Number of gap openings       |
++------------------------------------+-------------------------------------+
+|             qstart                 |    Query alignment start position  |
++------------------------------------+-------------------------------------+
+|              qend                  |     Query alignment end position   |
++------------------------------------+-------------------------------------+
+|             sstart                 |   Subject alignment start position |
++------------------------------------+-------------------------------------+
+|              send                  |    Subject alignment end position  |
++------------------------------------+-------------------------------------+
+|             evalue                 |           Expect value              |
++------------------------------------+-------------------------------------+
+|            bitscore                |            Bit score                |
++------------------------------------+-------------------------------------+
+|              qlen                  |       Query sequence length        |
++------------------------------------+-------------------------------------+
+|              slen                  |      Subject sequence length       |
++------------------------------------+-------------------------------------+
+|             qcovs                  |     Query coverage per subject     |
++------------------------------------+-------------------------------------+
+|            qcovhsp                 |   Query coverage per high-scoring  |
+|                                    |              pair                   |
++------------------------------------+-------------------------------------+
+|            sstrand                 |     Subject strand orientation     |
++------------------------------------+-------------------------------------+
+
+____________________________________________________
 .. _expert_mode:
 
 Expert-mode (PipeCraft2 console)
