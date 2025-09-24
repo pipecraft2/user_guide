@@ -15,6 +15,10 @@
   :width: 1000
   :alt: Alternative text
 
+.. |resource_manager| image:: _static/resource_manager.png
+  :width: 500
+  :alt: Alternative text
+
 .. meta::
     :description lang=en:
         PipeCraft2 manual. User guide for PipeCraft2
@@ -62,6 +66,23 @@ There are few specifc requirements for the input data for PipeCraft.
   
 
 
+
+____________________________________________________
+
+Modify resources usage
+======================
+
+Control and limit the resources (such as CPU, RAM) via **resource manager**.
+Software that can utlilize **multiple CPUs** will use the number of CPUs specified through **resource manager**.
+After editing, press the ``APPLY & RESTART DOCKER`` button, so that the changes would take effect.
+
+|resource_manager|
+
+*Required amont of allocated resources depends generally on the input data size and the complexity of the analysis.
+If too few RAM is allocated, then the analysis may fail without any informative ERROR message. 
+If too few CPU cores are allocated, then the analysis may be very slow.*
+
+When allocation most of your computer's resources, please keep in mind that other processes on your computer will be affected.
 
 ____________________________________________________
 

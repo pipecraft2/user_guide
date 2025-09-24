@@ -799,7 +799,10 @@ OptimOTU
 
 PipeCraft2's implementation of OptimOTU is **currently restricted to Fungi (ITS3-ITS4 and g/fITS7-ITS4 amplicons) and Metazoa COI amplicons**.
 
+
 .. note:: 
+
+  Most important parametes to check/specify are the ``primers`` (CUT PRIMERS AND TRIM READS panel) and ``model file`` (AMPLICON MODEL SETTINGS panel)
 
   **OptimOTU pipeline for METAZOA is not available in MacOS version of PipeCraft2 v1.1.0**.
 
@@ -853,13 +856,14 @@ Specify if target taxa is fungi or metazoa, and if provided sequences are are ex
 | if seqs are "mixed", but using "fwd" setting, then some valid seqs (or samples) will be lost.
 | **if seqs are "fwd", but using "mixed" setting, then ERROR.**
 
-+---------------------+---------------------------------------------------------------------------------+
-| Setting             | Tooltip                                                                         |
-+=====================+=================================================================================+
-| ``target taxa``     | specify if target taxa is fungi or metazoa                                      |
-+---------------------+---------------------------------------------------------------------------------+
-| ``seq orientation`` | specify if provided sequences are forward (fwd), reverse (rev) or mixed (mixed) |
-+---------------------+---------------------------------------------------------------------------------+
++----------------------+---------------------------------------------------+
+| Setting              | Tooltip                                           |
++======================+===================================================+
+| ``target taxa``      | specify if target taxa is fungi or metazoa        |
++----------------------+---------------------------------------------------+
+|| ``seq orientation`` || specify if provided sequences are forward (fwd), |
+||                     || reverse (rev) or mixed (mixed)                   |
++----------------------+---------------------------------------------------+
 
 
 
@@ -996,23 +1000,25 @@ Filter potential cases of tag-switching with UNCROSS2 algorithm (Edgar 2018).
 Amplicon model setting
 ----------------------
 
-+---------------------+---------------------------------------------------------------------------------------------------------------+
-| Setting             | Tooltip                                                                                                       |
-+=====================+===============================================================================================================+
-|| ``model type``     || statistical sequence model type for aligning ASVs prior to use of protaxA and/or NuMt detection              |
-||                    || and for filtering ASVs to remove spurious sequences.                                                         |
-+---------------------+---------------------------------------------------------------------------------------------------------------+
-|| ``model file``     || inbuilt ITS3_ITS4.cm and gITS7_ITS4.cm files are optimized for ITS3-ITS4 and gITS7-ITS4 amplicons for fungi. |
-||                    || COI.hmm is HMM model for COI amplicons. A custom model may be supplied.                                      |
-+---------------------+---------------------------------------------------------------------------------------------------------------+
-| ``numt filter``     | filter out sequences that are likely to be NUMTs (mitochondrial coding amplicon genes)                        |
-+---------------------+---------------------------------------------------------------------------------------------------------------+
-| ``max model start`` | maximum start position of the model (the match must start at this point in the model or earlier)              |
-+---------------------+---------------------------------------------------------------------------------------------------------------+
-| ``min model end``   | minimum end position of the model (the match must end at this point in the model or later)                    |
-+---------------------+---------------------------------------------------------------------------------------------------------------+
-| ``min model score`` | minimum bit score threshold for model matches                                                                 |
-+---------------------+---------------------------------------------------------------------------------------------------------------+
++----------------------+--------------------------------------------------------------------------------------------+
+| Setting              | Tooltip                                                                                    |
++======================+============================================================================================+
+|| ``model type``      || statistical sequence model type for aligning ASVs prior to use of protaxA                 |
+||                     || and/or NuMt detection and for filtering ASVs to remove spurious sequences.                |
++----------------------+--------------------------------------------------------------------------------------------+
+|| ``model file``      || inbuilt ITS3_ITS4.cm and gITS7_ITS4.cm files are optimized for ITS3-ITS4 and              |
+||                     || gITS7-ITS4 amplicons for fungi. COI.hmm is HMM model for COI amplicons.                   |
+||                     || A custom model may be supplied.                                                           |
++----------------------+--------------------------------------------------------------------------------------------+
+| ``numt filter``      | filter out sequences that are likely to be NUMTs (mitochondrial coding amplicon genes)     |
++----------------------+--------------------------------------------------------------------------------------------+
+|| ``max model start`` || maximum start position of the model                                                       |
+||                     || (the match must start at this point in the model or earlier)                              |
++----------------------+--------------------------------------------------------------------------------------------+
+| ``min model end``    | minimum end position of the model (the match must end at this point in the model or later) |
++----------------------+--------------------------------------------------------------------------------------------+
+| ``min model score``  | minimum bit score threshold for model matches                                              |
++----------------------+--------------------------------------------------------------------------------------------+
 
 
 ProTAX classification
