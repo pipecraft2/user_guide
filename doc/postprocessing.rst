@@ -493,7 +493,6 @@ ___________________________________________________
    =============================================== =========================
    ``reference_db``                                | path to reference database (FASTA file or existing BLAST database). 
                                                    | **Required** - must be provided and stored in separate folder from input files
-   ``threads``                                     | number of CPU threads for BLAST analysis (default: 8)
    ``high_identity_threshold``                     | identity threshold for high-quality matches (default: 99.0%)
    ``high_coverage_threshold``                     | coverage threshold for high-quality matches (default: 99.0%)
    ``borderline_identity_threshold``               | identity threshold for borderline recovery (default: 80.0%)
