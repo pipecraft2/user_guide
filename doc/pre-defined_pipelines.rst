@@ -407,7 +407,6 @@ The input is the directory that contains per-sample fastq files (**demultiplexed
 Pipeline final outputs are in the ``clustering_out`` directory; but per process a separate 
 output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` etc.).
 
-<<<<<<< HEAD
 +-----------------------------------------------------------------------+-------------------------------------------------------+
 | Analyses step                                                         | Default setting                                       |
 +=======================================================================+=======================================================+
@@ -461,51 +460,6 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 || CURATE OTU TABLE                                                     || Curate OTU table: filter tag jumps and OTUs that are |
 ||                                                                      || shorter/longer than specified length.                |
 +-----------------------------------------------------------------------+-------------------------------------------------------+
-=======
-==================================================================== =========================
-Analyses step                                                        Default setting
-==================================================================== =========================
-:ref:`CUT PRIMERS <remove_primers>` (optional)                         --
-:ref:`MERGE READS <merge_vsearch>`                                   | ``read_R1`` = \\.R1
-                                                                     | ``min_overlap`` = 12
-                                                                     | ``min_length`` = 32
-                                                                     | ``allow_merge_stagger`` = TRUE 
-                                                                     | ``include only R1`` = FALSE 
-                                                                     | ``max_diffs`` = 20
-                                                                     | ``max_Ns`` = 0
-                                                                     | ``max_len`` = 600
-                                                                     | ``keep_disjoined`` = FALSE 
-                                                                     | ``fastq_qmax`` = 41
-:ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>`                | ``maxEE`` = 1
-                                                                     | ``maxN`` = 0
-                                                                     | ``minLen`` = 32
-                                                                     | ``max_length`` = undefined
-                                                                     | ``qmax`` = 41
-                                                                     | ``qmin`` = 0
-                                                                     | ``maxee_rate`` = undefined
-:ref:`ITS Extractor <itsextractor>` (optional)                       | ``organisms`` = all 
-                                                                     | ``regions`` = all
-                                                                     | ``partial`` = 50
-                                                                     | ``region_for_clustering`` = ITS2
-                                                                     | ``cluster_full_and_partial`` = TRUE
-                                                                     | ``e_value`` = 1e-2
-                                                                     | ``scores`` = 0
-                                                                     | ``domains`` = 2
-                                                                     | ``complement`` = TRUE 
-                                                                     | ``only_full`` = FALSE
-                                                                     | ``truncate`` = TRUE 
-:ref:`CLUSTERING with UNOISE3 <clustering_unoise3>`                  | ``strnads`` = both
-                                                                     | ``minsize`` = 8
-                                                                     | ``denoise_level`` = global
-                                                                     | ``remove_chimeras`` = TRUE
-                                                                     | ``unoise_alpha`` = 2
-                                                                     | ``similarity_type`` = 2
-                                                                     | ``maxaccepts`` = 1
-                                                                     | ``maxrejects`` = 32
-                                                                     | ``abskew`` = 16
-                                                                     | ``mask`` = dust
-==================================================================== =========================
->>>>>>> 2870e09242ea1b898365cb6a6801e205cd653d3f
 
 
 ___________________________________________________
@@ -1127,11 +1081,11 @@ ProTAX classification
 Clustering
 ----------
 
-+-------------------------+--------------------------------------------------------------------+
-| Setting                 | Tooltip                                                            |
-+=========================+====================================================================+
-|| ``cluster thresholds`` || select file with clustering thresholds. Default is pre-calculated |
-||                        || thresholds for Fungi                                              |
-+-------------------------+--------------------------------------------------------------------+
++-------------------------+----------------------------------------------------------------------------------+
+| Setting                 | Tooltip                                                                          |
++=========================+==================================================================================+
+|| ``cluster thresholds`` || select file with clustering thresholds. Default is pre-calculated               |
+||                        || thresholds for Fungi from Global Spore Sampling Project (Ovaskainen et al 2024) |
++-------------------------+----------------------------------------------------------------------------------+
 
 

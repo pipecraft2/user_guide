@@ -162,4 +162,7 @@ __________________________________________________
 
 __________________________________________________
 
+**Icon are missing**, noted in v1.1.0. Try closing the GUI and opening it again to re-load the icons.
+**Fixed in v1.2.0**
+
 

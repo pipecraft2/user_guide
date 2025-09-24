@@ -247,31 +247,32 @@ This step performs chimera filtering according to DADA2 removeBimeraDenovo funct
 
 Here, we filter chimeras using the **consensus** method. Check the :ref:`denoising settings here <dada2_chimeras>`  
 
-+----------------------------------------+------------------------------------------------------------------+
-| Output directory |output_icon|           ``chimeraFiltered_out.dada2``                                    |
-+========================================+==================================================================+
-| \*.fasta                               | chimera filtered ASVs per sample                                 |
-+----------------------------------------+------------------------------------------------------------------+
-| seq_count_summary.csv                  | summary of sequence counts per sample                            |
-+----------------------------------------+------------------------------------------------------------------+
-| 'chimeras' dir                         | ASVs per sample identified as chimeras                           |
-+----------------------------------------+------------------------------------------------------------------+
-| Output directory |output_icon|           ``ASVs_out.dada2``                                               |
-+----------------------------------------+------------------------------------------------------------------+
-| ASVs_table.txt                         | denoised and chimera filtered ASV-by-sample table                |
-+----------------------------------------+------------------------------------------------------------------+
-| ASVs.fasta                             | corresponding FASTA formated ASV Sequences                       |
-+----------------------------------------+------------------------------------------------------------------+
-| ASVs per sample identified as chimeras | rds formatted denoised and chimera filtered ASV table (for DADA2 |
-+----------------------------------------+------------------------------------------------------------------+
++----------------------------------------+-------------------------------------------------------------------+
+| Output directory                       | ``chimeraFiltered_out.dada2``                                     |
++========================================+===================================================================+
+| \*.fasta                               | chimera filtered ASVs per sample                                  |
++----------------------------------------+-------------------------------------------------------------------+
+| seq_count_summary.csv                  | summary of sequence counts per sample                             |
++----------------------------------------+-------------------------------------------------------------------+
+| 'chimeras' dir                         | ASVs per sample identified as chimeras                            |
++----------------------------------------+-------------------------------------------------------------------+
+| Output directory                       | ``ASVs_out.dada2``                                                |
++----------------------------------------+-------------------------------------------------------------------+
+| ASVs_table.txt                         | denoised and chimera filtered ASV-by-sample table                 |
++----------------------------------------+-------------------------------------------------------------------+
+| ASVs.fasta                             | corresponding FASTA formated ASV Sequences                        |
++----------------------------------------+-------------------------------------------------------------------+
+| ASVs per sample identified as chimeras | rds formatted denoised and chimera filtered ASV table (for DADA2) |
++----------------------------------------+-------------------------------------------------------------------+
 
 ____________________________________________________
 
-Filter ASV table
+Curate ASV table
 ~~~~~~~~~~~~~~~~
 
-This process collapses the ASVs that are identical up to shifts or length variation, i.e. ASVs that have no internal mismatches; and 
-filters out ASVs that are shorter than specified length (in base pairs).
+This process removed putative **tag jumps** and **collapses the ASVs that are identical** up to shifts or length variation, 
+i.e. ASVs that have no internal mismatches; and 
+filters out ASVs that are shorter/longer than specified length (in base pairs).
 
 |DADA2_filter_table_expand|
 
@@ -296,7 +297,9 @@ ____________________________________________________
 Assign taxonomy
 ~~~~~~~~~~~~~~~
 
-This step in the DADA2 ASV workflow implements assignTaxonomy function, which itself implements the RDP Naive Bayesian Classifier algorithm. 
+Assign taxonomy is not the part of the full per-defined pipeline, but can be run as a separate step in QuickTools.
+Here, we are using the :ref:`DADA2 classifier <assign_taxonomy_dada2>`, the assignTaxonomy function, 
+which itself implements the RDP Naive Bayesian Classifier algorithm. 
 See :ref:`other assign taxonomy options here <assign_taxonomy>`.
 
 We need to specify the location of the **reference DATABASE** for the taxonomic classification of our ASVs. Click on the header of ``dada2_database`` setting, 
@@ -310,7 +313,7 @@ The default minBoot (minimum bootstrap; ranging from 0-100; ~assignment confiden
 This means that taxonomic ranks with at least bootstrap value of 80 will get classification (unclassified for <80). 
 
 ``tryRC`` may be OFF, since we expact that all of our ASVs are in 5'-3' orientation. 
-:ref:`See DADA2 assign taxonomy settings here <dada2_taxonomy>`
+:ref:`See DADA2 assign taxonomy settings here <assign_taxonomy_dada2>`
 
 +-------------------------------------------------------------+
 | Output directory   |output_icon| ``taxonomy_out.dada2``     |

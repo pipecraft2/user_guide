@@ -724,6 +724,8 @@ Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
 
 =============================================== =========================
 
+.. _assign_taxonomy:
+
 ____________________________________________________
 
 ASSIGN TAXONOMY
@@ -887,9 +889,8 @@ ____________________________________________________
 +---------------------+-------------------------------------------------------------------------------+
 | Setting             | Tooltip                                                                       |
 +=====================+===============================================================================+
-|| ``dada2_database`` || select a reference database fasta file for taxonomy annotation               |
-||                    ||                                                                              |
-||                    || `Download DADA2-formatted reference databases                                |
+|| ``dada2_database`` || select a reference database fasta file for taxonomy annotation.              |
+||                    || `Download DADA2-formatted reference databases`                               |
 ||                    || here <https://benjjneb.github.io/dada2/training.html>`_                      |
 +---------------------+-------------------------------------------------------------------------------+
 | ``fasta_file``      | select a fasta file to be used as a query for DADA2 classifier                |
