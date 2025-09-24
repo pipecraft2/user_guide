@@ -529,7 +529,6 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 | **Default options:**
 | *click on analyses step for more info*
 
-<<<<<<< HEAD
 +-----------------------------------------------------------------------+-------------------------------------------------------+
 | Analyses step                                                         | Default setting                                       |
 +=======================================================================+=======================================================+
@@ -590,61 +589,6 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 || CURATE OTU TABLE                                                     || Curate OTU table: filter tag jumps and OTUs that are |
 ||                                                                      || shorter/longer than specified length.                |
 +-----------------------------------------------------------------------+-------------------------------------------------------+
-=======
-+-----------------------------------------------------------------------+----------------------------------------+
-| Analyses step                                                         | Default setting                        |
-+=======================================================================+========================================+
-| :ref:`CUT PRIMERS <remove_primers>` (optional)                        | --                                     |
-+-----------------------------------------------------------------------+----------------------------------------+
-|| :ref:`MERGE READS <merge_vsearch>`                                   || ``min_overlap`` = 12                  |
-||                                                                      || ``min_length`` = 32                   |
-||                                                                      || ``allow_merge_stagger`` = TRUE        |
-||                                                                      || ``include only R1`` = FALSE           |
-||                                                                      || ``max_diffs`` = 20                    |
-||                                                                      || ``max_Ns`` = 0                        |
-||                                                                      || ``max_len`` = 600                     |
-||                                                                      || ``keep_disjoined`` = FALSE            |
-||                                                                      || ``fastq_qmax`` = 41                   |
-+-----------------------------------------------------------------------+----------------------------------------+
-|| :ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>`                || ``maxEE`` = 1                         |
-||                                                                      || ``maxN`` = 0                          |
-||                                                                      || ``minLen`` = 32                       |
-||                                                                      || ``max_length`` = undefined            |
-||                                                                      || ``qmax`` = 41                         |
-||                                                                      || ``qmin`` = 0                          |
-||                                                                      || ``maxee_rate`` = undefined            |
-+-----------------------------------------------------------------------+----------------------------------------+
-|| :ref:`CHIMERA FILTERING with uchime_denovo <chimFilt_vsearch>`       || ``pre_cluster`` = 0.98                |
-||                                                                      || ``min_unique_size`` = 1               |
-||                                                                      || ``denovo`` = TRUE                     |
-||                                                                      || ``reference_based`` = undefined       |
-||                                                                      || ``abundance_skew`` = 2                |
-||                                                                      || ``min_h`` = 0.28                      |
-+-----------------------------------------------------------------------+----------------------------------------+
-|| :ref:`ITS Extractor <itsextractor>` (optional)                       || ``organisms`` = all                   |
-||                                                                      || ``regions`` = all                     |
-||                                                                      || ``partial`` = 50                      |
-||                                                                      || ``region_for_clustering`` = ITS2      |
-||                                                                      || ``cluster_full_and_partial`` = TRUE   |
-||                                                                      || ``e_value`` = 1e-2                    |
-||                                                                      || ``scores`` = 0                        |
-||                                                                      || ``domains`` = 2                       |
-||                                                                      || ``complement`` = TRUE                 |
-||                                                                      || ``only_full`` = FALSE                 |
-||                                                                      || ``truncate`` = TRUE                   |
-+-----------------------------------------------------------------------+----------------------------------------+
-|| :ref:`CLUSTERING with vsearch <clustering_vsearch>`                  || ``OTU_type`` = centroid               |
-||                                                                      || ``similarity_threshold`` = 0.97       |
-||                                                                      || ``strands`` = both                    |
-||                                                                      || ``remove_singletons`` = false         |
-||                                                                      || ``similarity_type`` = 2               |
-||                                                                      || ``sequence_sorting`` = cluster_size   |
-||                                                                      || ``centroid_type`` = similarity        |
-||                                                                      || ``max_hits`` = 1                      |
-||                                                                      || ``mask`` = dust                       |
-||                                                                      || ``dbmask`` = dust                     |
-+-----------------------------------------------------------------------+----------------------------------------+
->>>>>>> 2870e09242ea1b898365cb6a6801e205cd653d3f
 
 __________________________________________________
 
