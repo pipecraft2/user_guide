@@ -1001,6 +1001,9 @@ Settings
 |          method                    |     Choose between 'vsearch' or     |
 |                                    |     'blast' for sequence comparison |
 +------------------------------------+-------------------------------------+
+|          fasta_file                |     Select input fasta file for     |
+|                                    |     self-comparison analysis        |
++------------------------------------+-------------------------------------+
 |      identity_threshold            |     Minimum sequence identity       |
 |                                    |     percentage to report matches    |
 |                                    |     (default: 60%)                  |
@@ -1009,8 +1012,7 @@ Settings
 |                                    |     percentage to report matches    |
 |                                    |     (default: 60%)                  |
 +------------------------------------+-------------------------------------+
-|          fasta_file                |     Select input fasta file for     |
-|                                    |     self-comparison analysis        |
+|           strand                   |              both or plus           |
 +------------------------------------+-------------------------------------+
 
 Output formats
