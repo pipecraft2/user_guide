@@ -29,7 +29,7 @@
 Pre-defined pipelines |PipeCraft2_logo|
 =======================================
 
-Pre-defined pipelines in PipeCraft2 provide automated workflows for processing aplicon sequencing data. 
+Pre-defined pipelines in PipeCraft2 provide automated workflows for processing amplicon sequencing data. 
 These pipelines include options for generating ASVs with DADA2, ASVs with UNOISE3, OTUs with vsearch, and specialized pipelines like NextITS and OptimOTU. 
 Each pipeline is carefully configured with sensible defaults while still allowing customization of key parameters to suit different experimental needs.
 
@@ -100,7 +100,7 @@ Directory structure
 |
 | ``merged_runs`` directory will contain the merged ASV/OTU table; :red:`avoid naming your sequencing run directories as **merged_runs**!`  
 |
-| Fastq files with the **same name** will be considered as the same sample and will be merged in the final ASV/OTU table.
+| Fastq files with the :red:`**same name**` will be considered as the same sample and will be merged in the final ASV/OTU table.
 
 
 Merge sequencing runs
@@ -407,7 +407,53 @@ The input is the directory that contains per-sample fastq files (**demultiplexed
 Pipeline final outputs are in the ``clustering_out`` directory; but per process a separate 
 output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` etc.).
 
-*more to come ...*
+==================================================================== =========================
+Analyses step                                                        Default setting
+==================================================================== =========================
+:ref:`CUT PRIMERS <remove_primers>` (optional)                         --
+:ref:`MERGE READS <merge_vsearch>`                                   | ``read_R1`` = \\.R1
+                                                                     | ``min_overlap`` = 12
+                                                                     | ``min_length`` = 32
+                                                                     | ``allow_merge_stagger`` = TRUE 
+                                                                     | ``include only R1`` = FALSE 
+                                                                     | ``max_diffs`` = 20
+                                                                     | ``max_Ns`` = 0
+                                                                     | ``max_len`` = 600
+                                                                     | ``keep_disjoined`` = FALSE 
+                                                                     | ``fastq_qmax`` = 41
+:ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>`                | ``maxEE`` = 1
+                                                                     | ``maxN`` = 0
+                                                                     | ``minLen`` = 32
+                                                                     | ``max_length`` = undefined
+                                                                     | ``qmax`` = 41
+                                                                     | ``qmin`` = 0
+                                                                     | ``maxee_rate`` = undefined
+:ref:`ITS Extractor <itsextractor>` (optional)                       | ``organisms`` = all 
+                                                                     | ``regions`` = all
+                                                                     | ``partial`` = 50
+                                                                     | ``region_for_clustering`` = ITS2
+                                                                     | ``cluster_full_and_partial`` = TRUE
+                                                                     | ``e_value`` = 1e-2
+                                                                     | ``scores`` = 0
+                                                                     | ``domains`` = 2
+                                                                     | ``complement`` = TRUE 
+                                                                     | ``only_full`` = FALSE
+                                                                     | ``truncate`` = TRUE 
+:ref:`CLUSTERING with UNOISE3 <clustering_unoise3>`                  | ``strnads`` = both
+                                                                     | ``minsize`` = 8
+                                                                     | ``denoise_level`` = global
+                                                                     | ``remove_chimeras`` = TRUE
+                                                                     | ``unoise_alpha`` = 2
+                                                                     | ``similarity_type`` = 2
+                                                                     | ``maxaccepts`` = 1
+                                                                     | ``maxrejects`` = 32
+                                                                     | ``abskew`` = 16
+                                                                     | ``mask`` = dust
+:ref:`ASSIGN TAXONOMY with BLAST <assign_taxonomy_blast>` (optional) | ``database_file`` = select a database
+                                                                     | ``task`` = blastn
+                                                                     | ``strands`` = both
+==================================================================== =========================
+
 
 ___________________________________________________
 

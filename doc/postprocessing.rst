@@ -416,9 +416,9 @@ ___________________________________________________
 
      **Workflow compatibility requirements:**
      
-     - BlasCh **cannot be run as part of a full pipeline** - it is a standalone post-processing tool
+     - BlasCh **cannot be run as part of a full pipeline (for now)** - it is a standalone post-processing tool
      - Must be used **after** chimera filtering has been completed
-     - Requires **manual workflow**: run chimera filtering → run BlasCh → run clustering
+     - Requires **manual workflow**: run chimera filtering → run BlasCh → run clustering 
      - **Rescued sequences** must be later merged with non-chimeric sequences from original samples
      - Not compatible with automated pipeline workflows that include clustering steps
 
