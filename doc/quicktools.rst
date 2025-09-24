@@ -1019,6 +1019,7 @@ Output formats:
 
 **vsearch output columns:**
 
+
 +------------------------------------+-------------------------------------+
 |              Column                |            Description              |
 +====================================+=====================================+
@@ -1034,26 +1035,28 @@ Output formats:
 +------------------------------------+-------------------------------------+
 |              tcov                  |      Target coverage percentage     |
 +------------------------------------+-------------------------------------+
-|               ql                   |       Query sequence length        |
+|               ql                   |       Query sequence length         |
 +------------------------------------+-------------------------------------+
-|               tl                   |       Target sequence length       |
+|               tl                   |       Target sequence length        |
 +------------------------------------+-------------------------------------+
 |              ids                   |    Number of identical positions    |
 +------------------------------------+-------------------------------------+
 |             mism                   |        Number of mismatches         |
 +------------------------------------+-------------------------------------+
-|             gaps                   |       Number of gap openings       |
+|             gaps                   |       Number of gap openings        |
 +------------------------------------+-------------------------------------+
-|             qilo                   |    Query alignment start position  |
+|             qilo                   |    Query alignment start position   |
 +------------------------------------+-------------------------------------+
-|             qihi                   |     Query alignment end position   |
+|             qihi                   |     Query alignment end position    |
 +------------------------------------+-------------------------------------+
-|            qstrand                 |    Query strand orientation (+/-)  |
+|            qstrand                 |    Query strand orientation (+/-)   |
 +------------------------------------+-------------------------------------+
-|            tstrand                 |    Target strand orientation (+/-) |
+|            tstrand                 |    Target strand orientation (+/-)  |
 +------------------------------------+-------------------------------------+
 
+
 **BLAST output columns:**
+
 
 +------------------------------------+-------------------------------------+
 |              Column                |            Description              |
@@ -1068,30 +1071,30 @@ Output formats:
 +------------------------------------+-------------------------------------+
 |            mismatch                |        Number of mismatches         |
 +------------------------------------+-------------------------------------+
-|            gapopen                 |       Number of gap openings       |
+|            gapopen                 |       Number of gap openings        |
 +------------------------------------+-------------------------------------+
-|             qstart                 |    Query alignment start position  |
+|             qstart                 |    Query alignment start position   |
 +------------------------------------+-------------------------------------+
-|              qend                  |     Query alignment end position   |
+|              qend                  |     Query alignment end position    |
 +------------------------------------+-------------------------------------+
-|             sstart                 |   Subject alignment start position |
+|             sstart                 |   Subject alignment start position  |
 +------------------------------------+-------------------------------------+
-|              send                  |    Subject alignment end position  |
+|              send                  |    Subject alignment end position   |
 +------------------------------------+-------------------------------------+
 |             evalue                 |           Expect value              |
 +------------------------------------+-------------------------------------+
 |            bitscore                |            Bit score                |
 +------------------------------------+-------------------------------------+
-|              qlen                  |       Query sequence length        |
+|              qlen                  |       Query sequence length         |
 +------------------------------------+-------------------------------------+
-|              slen                  |      Subject sequence length       |
+|              slen                  |      Subject sequence length        |
 +------------------------------------+-------------------------------------+
-|             qcovs                  |     Query coverage per subject     |
+|             qcovs                  |     Query coverage per subject      |
 +------------------------------------+-------------------------------------+
-|            qcovhsp                 |   Query coverage per high-scoring  |
+|            qcovhsp                 |   Query coverage per high-scoring   |
 |                                    |              pair                   |
 +------------------------------------+-------------------------------------+
-|            sstrand                 |     Subject strand orientation     |
+|            sstrand                 |     Subject strand orientation      |
 +------------------------------------+-------------------------------------+
 
 ____________________________________________________
