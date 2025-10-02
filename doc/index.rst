@@ -35,6 +35,7 @@ variety of :ref:`individual steps <quicktools>` outside of a full-pipeline.
 .. _interface:
 
 *(click on the image for enlargement)*
+
 |main_interface|
 
 | Software settings for pipeline processes contain key options for metabarcoding sequence data analyses, but all options of any implemented program may be accessed via :ref:`PipeCraft console (command line) <expert_mode>`. 

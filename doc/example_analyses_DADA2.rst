@@ -171,22 +171,6 @@ ____________________________________________________
 
 |DADA2_quality_filt_expand|
 
-.. admonition:: it is important to double-check the value in 'read R1' box.
-
-  This denotes the **common identifier for all read1 sequences** in your input Illumina data set. 
-
-  Our example data fastq files were named as:
-    | *F3D0_S188_L001_R1_001.fastq*
-    | *F3D0_S188_L001_R2_001.fastq* ...
-
-  So, **_R1** is common identifier for all read1 files.
-  By specifying **_R1**, PipeCraft automatically expects that corresponding read2 files have common identifier **_R2**. 
-
-  All characters in the file name before the specified identifier, that is **_R1** in this case, account for **sample name**.
-  So, the **sample name in the final ASV table** for files F3D0_S188_L001_R1_001.fastq and F3D0_S188_L001_R2_001.fastq is F3D0_S188_L001.
-
-  **Note that simply _1 and _2 are not recognized as read1/2 identifiers!**
-
 Based on the quality scores distribution plot above, we will **trim reads to specified length to remove low quality ends**. 
 Set ``truncLen`` to 240 for trimming R1 reads and ``truncLen R2`` to 160 to trim R2 reads. Latter positions represent the approximate positions where sequence quality drps notably.
 
@@ -247,57 +231,77 @@ This step performs chimera filtering according to DADA2 removeBimeraDenovo funct
 
 Here, we filter chimeras using the **consensus** method. Check the :ref:`denoising settings here <dada2_chimeras>`  
 
-+----------------------------------------+-------------------------------------------------------------------+
-| Output directory                       | ``chimeraFiltered_out.dada2``                                     |
-+========================================+===================================================================+
-| \*.fasta                               | chimera filtered ASVs per sample                                  |
-+----------------------------------------+-------------------------------------------------------------------+
-| seq_count_summary.csv                  | summary of sequence counts per sample                             |
-+----------------------------------------+-------------------------------------------------------------------+
-| 'chimeras' dir                         | ASVs per sample identified as chimeras                            |
-+----------------------------------------+-------------------------------------------------------------------+
-| Output directory                       | ``ASVs_out.dada2``                                                |
-+----------------------------------------+-------------------------------------------------------------------+
-| ASVs_table.txt                         | denoised and chimera filtered ASV-by-sample table                 |
-+----------------------------------------+-------------------------------------------------------------------+
-| ASVs.fasta                             | corresponding FASTA formated ASV Sequences                        |
-+----------------------------------------+-------------------------------------------------------------------+
-| ASVs per sample identified as chimeras | rds formatted denoised and chimera filtered ASV table (for DADA2) |
-+----------------------------------------+-------------------------------------------------------------------+
++----------------------------------------+-------------------------------------------------------+
+| Output directory |output_icon|           ``chimeraFiltered_out.dada2``                         |
++========================================+=======================================================+
+| \*.fasta                               | chimera filtered ASVs per sample                      |
++----------------------------------------+-------------------------------------------------------+
+| seq_count_summary.csv                  | summary of sequence counts per sample                 |
++----------------------------------------+-------------------------------------------------------+
+| 'chimeras' dir                         | ASVs per sample identified as chimeras                |
++----------------------------------------+-------------------------------------------------------+
+| Output directory                       | ``ASVs_out.dada2``                                    |
++----------------------------------------+-------------------------------------------------------+
+| ASVs_table.txt                         | denoised and chimera filtered ASV-by-sample table     |
++----------------------------------------+-------------------------------------------------------+
+| ASVs.fasta                             | corresponding FASTA formated ASV Sequences            |
++----------------------------------------+-------------------------------------------------------+
+| ASVs per sample identified as chimeras | rds formatted denoised and chimera filtered ASV table |
++----------------------------------------+-------------------------------------------------------+
 
 ____________________________________________________
 
 Curate ASV table
 ~~~~~~~~~~~~~~~~
 
-This process removed putative **tag jumps** and **collapses the ASVs that are identical** up to shifts or length variation, 
-i.e. ASVs that have no internal mismatches; and 
+This process first removes putative **tag jumps** and then **collapses the ASVs that are identical** up to shifts or length variation, 
+i.e. ASVs that have no internal mismatches; and finally 
 filters out ASVs that are shorter/longer than specified length (in base pairs).
 
 |DADA2_filter_table_expand|
 
-Here, we are enabling this process by checking the box for ``FILTER ASV TABLE`` in the DADA2 ASV workflow panel. 
+Here, we are **enabling this process** by checking the box for ``CURATE ASV TABLE`` in the DADA2 ASV workflow panel. 
 
-The expected amplicon length (without primers) in our example dataset in ~253 bp. Assuming that shorter sequences are non-target sequences, 
-we use 240 in the ``by length`` setting. This will discard ASVs that are >240 bp from out ASV table.
+The ``f_value`` and ``p_value`` settings are used to filter out putative tag jumps (using UNCROSS2 algorithm). 
+Generally, we recommend to use p_value of 1 (default), and **f_value of 0.03** when using combinational indexing strategy; 
+f_value of 0.05 when using single-indexes, and f_value of 0.01 when using unique dual-indexes.
 
-We are also setting hte ``collapseNoMismatch`` to TRUE, to collapse identical ASVs. This is basically equivalent to 100% clustering by ignoring the end gaps.
+The expected amplicon length (without primers) in our example dataset in ~253 bp. 
+Assuming that shorter sequences are non-target sequences, 
+we use 240 in the ``min length`` setting. This will discard ASVs that are less than 240 bp.
+Here, ``max length`` can be set to 0 (default), meaning no filtering by maximum sequence length.
 
-+----------------------------------------------------------+-----------------------------------+
-| Output directory |output_icon| ``ASVs_out.dada2/filtered``                                   |
-+==========================================================+===================================+
-|| ASVs_collapsed.fasta                                    || collapsed and size filtered      |
-||                                                         || FASTA formated ASV Sequences     |
-+----------------------------------------------------------+-----------------------------------+
-| ASVs_table_collapsed.txt                                 | corresponding ASV-by-sample table |
-+----------------------------------------------------------+-----------------------------------+
+We are also setting hte ``collapseNoMismatch`` to TRUE, to collapse identical ASVs. 
+This is basically equivalent to 100% clustering by ignoring the end gaps.
+
++----------------------------+-------------------------------------------------------------------+
+| Output directory |output_icon|            ``ASVs_out.dada2/curated``                           |
++============================+===================================================================+
+|| ASVs_collapsed.fasta      || tag-jump filtered and collapsed and size filtered                |
+||                           || ASV Sequences                                                    |
++----------------------------+-------------------------------------------------------------------+
+| ASVs_table_collapsed.txt   | corresponding ASV-by-sample table (curated)                       |
++----------------------------+-------------------------------------------------------------------+
+| ASVs_table_TagJumpFilt.txt | only tag-jump filtered ASV-by-sample table                        |
++----------------------------+-------------------------------------------------------------------+
+| ASVs.fasta                 | corresponding ASV Sequences with ASVs_table_TagJumpFilt.txt table |
++----------------------------+-------------------------------------------------------------------+
+
+.. admonition:: If there is nothing to collapse of filter out based on the length
+  
+  then there are no corresponding files in the ``ASVs_out.dada2/curated`` directory, and only 
+  ASVs_table_TagJumpFilt.txt and ASVs.fasta files will be generated 
+  (even when there is nothing to tag-jump filter - in which case ASVs_table_TagJumpFilt.txt is the same 
+  ASVs_table.txt in the ``ASVs_out.dada2`` directory).
+
+
 
 ____________________________________________________
 
 Assign taxonomy
 ~~~~~~~~~~~~~~~
 
-Assign taxonomy is not the part of the full per-defined pipeline, but can be run as a separate step in QuickTools.
+Assign taxonomy **is not the part of the full per-defined pipeline**, but can be run as a **separate step in QuickTools**.
 Here, we are using the :ref:`DADA2 classifier <assign_taxonomy_dada2>`, the assignTaxonomy function, 
 which itself implements the RDP Naive Bayesian Classifier algorithm. 
 See :ref:`other assign taxonomy options here <assign_taxonomy>`.

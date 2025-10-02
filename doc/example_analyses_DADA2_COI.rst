@@ -213,10 +213,6 @@ Denoise and merge pairs
 This step performs desiosing (as implemented in DADA2), which first forms ASVs per R1 and R2 files. 
 Then during merging/assembling process the paired ASV mates are assembled to output full amplicon length ASV. 
 
-.. |DADA2_denoise_expand| image:: _static/DADA2_denoise_expand.png
-  :width: 600
-  :alt: Alternative text
-
 |DADA2_denoise_expand| 
 
 Here, we are working with Illumina data, so let's make sure that the ``errorEstFun`` setting is **loessErrfun**. 

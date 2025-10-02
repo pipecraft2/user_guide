@@ -407,59 +407,63 @@ The input is the directory that contains per-sample fastq files (**demultiplexed
 Pipeline final outputs are in the ``clustering_out`` directory; but per process a separate 
 output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` etc.).
 
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-| Analyses step                                                         | Default setting                                       |
-+=======================================================================+=======================================================+
-| :ref:`CUT PRIMERS <remove_primers>` (optional)                        | --                                                    |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`MERGE READS <merge_vsearch>`                                   || ``min_overlap`` = 12                                 |
-||                                                                      || ``min_length`` = 32                                  |
-||                                                                      || ``allow_merge_stagger`` = TRUE                       |
-||                                                                      || ``include only R1`` = FALSE                          |
-||                                                                      || ``max_diffs`` = 20                                   |
-||                                                                      || ``max_Ns`` = 0                                       |
-||                                                                      || ``max_len`` = 600                                    |
-||                                                                      || ``keep_disjoined`` = FALSE                           |
-||                                                                      || ``fastq_qmax`` = 41                                  |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>`                || ``maxEE`` = 1                                        |
-||                                                                      || ``maxN`` = 0                                         |
-||                                                                      || ``minLen`` = 32                                      |
-||                                                                      || ``max_length`` = undefined                           |
-||                                                                      || ``qmax`` = 41                                        |
-||                                                                      || ``qmin`` = 0                                         |
-||                                                                      || ``maxee_rate`` = undefined                           |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`ITS Extractor <itsextractor>` (optional)                       || ``organisms`` = all                                  |
-||                                                                      || ``regions`` = all                                    |
-||                                                                      || ``partial`` = 50                                     |
-||                                                                      || ``region_for_clustering`` = ITS2                     |
-||                                                                      || ``e_value`` = 1e-2                                   |
-||                                                                      || ``scores`` = 0                                       |
-||                                                                      || ``domains`` = 2                                      |
-||                                                                      || ``complement`` = TRUE                                |
-||                                                                      || ``only_full`` = FALSE                                |
-||                                                                      || ``truncate`` = TRUE                                  |
-||                                                                      ||                                                      |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`CLUSTERING with UNOISE3 <clustering_unoise3>`                  || ``strnads`` = both                                   |
-||                                                                      || ``minsize`` = 8                                      |
-||                                                                      || ``denoise_level`` = global                           |
-||                                                                      || ``remove_chimeras`` = TRUE                           |
-||                                                                      || ``unoise_alpha`` = 2                                 |
-||                                                                      || ``similarity_type`` = 2                              |
-||                                                                      || ``maxaccepts`` = 1                                   |
-||                                                                      || ``maxrejects`` = 32                                  |
-||                                                                      || ``abskew`` = 16                                      |
-||                                                                      || ``mask`` = dust                                      |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-|| CURATE OTU TABLE                                                     || Curate OTU table: filter tag jumps and OTUs that are |
-||                                                                      || shorter/longer than specified length.                |
-||                                                                      || ``f_value`` = 0.01                                   |
-||                                                                      || ``p_value`` = 1                                      |
-||                                                                      || ``min_length`` = 32                                  |
-||                                                                      || ``max_length`` = 0                                   |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
++--------------------------------------------------------+-------------------------------------------------------+
+| Analyses step                                          | Default setting                                       |
++========================================================+=======================================================+
+| :ref:`CUT PRIMERS <remove_primers>` (optional)         | --                                                    |
++--------------------------------------------------------+-------------------------------------------------------+
+|| :ref:`MERGE READS <merge_vsearch>`                    || ``min_overlap`` = 12                                 |
+||                                                       || ``min_length`` = 32                                  |
+||                                                       || ``allow_merge_stagger`` = TRUE                       |
+||                                                       || ``include only R1`` = FALSE                          |
+||                                                       || ``max_diffs`` = 20                                   |
+||                                                       || ``max_Ns`` = 0                                       |
+||                                                       || ``max_len`` = 600                                    |
+||                                                       || ``keep_disjoined`` = FALSE                           |
+||                                                       || ``fastq_qmax`` = 41                                  |
++--------------------------------------------------------+-------------------------------------------------------+
+|| :ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>` || ``maxEE`` = 1                                        |
+||                                                       || ``maxN`` = 0                                         |
+||                                                       || ``minLen`` = 32                                      |
+||                                                       || ``max_length`` = undefined                           |
+||                                                       || ``qmax`` = 41                                        |
+||                                                       || ``qmin`` = 0                                         |
+||                                                       || ``maxee_rate`` = undefined                           |
++--------------------------------------------------------+-------------------------------------------------------+
+|| :ref:`ITS Extractor <itsextractor>` (optional)        || ``organisms`` = all                                  |
+||                                                       || ``regions`` = all                                    |
+||                                                       || ``partial`` = 50                                     |
+||                                                       || ``region_for_clustering`` = ITS2                     |
+||                                                       || ``e_value`` = 1e-2                                   |
+||                                                       || ``scores`` = 0                                       |
+||                                                       || ``domains`` = 2                                      |
+||                                                       || ``complement`` = TRUE                                |
+||                                                       || ``only_full`` = FALSE                                |
+||                                                       || ``truncate`` = TRUE                                  |
+||                                                       ||                                                      |
++--------------------------------------------------------+-------------------------------------------------------+
+|| :ref:`CLUSTERING with UNOISE3 <clustering_unoise3>`   || ``strnads`` = both                                   |
+||                                                       || ``minsize`` = 8                                      |
+||                                                       || ``denoise_level`` = global                           |
+||                                                       || ``remove_chimeras`` = TRUE                           |
+||                                                       || ``unoise_alpha`` = 2                                 |
+||                                                       || ``similarity_type`` = 2                              |
+||                                                       || ``maxaccepts`` = 1                                   |
+||                                                       || ``maxrejects`` = 32                                  |
+||                                                       || ``abskew`` = 16                                      |
+||                                                       || ``mask`` = dust                                      |
++--------------------------------------------------------+-------------------------------------------------------+
+|| CURATE OTU TABLE                                      || Curate OTU table: filter tag jumps and OTUs that are |
+||                                                       || shorter/longer than specified length.                |
+||                                                       || ``f_value`` = 0.01                                   |
+||                                                       || *[defines the expected tag-jumps rate]*              |
+||                                                       || ``p_value`` = 1                                      |
+||                                                       || *[severity of tag-jump removal]*                     |
+||                                                       || ``min_length`` = 32                                  |
+||                                                       || *[minimum length of OTU sequence]*                   |
+||                                                       || ``max_length`` = 0                                   |
+||                                                       || *[max length of OTU sequence; 0 means no filtering]* |
++--------------------------------------------------------+-------------------------------------------------------+
 
 
 ___________________________________________________
@@ -483,66 +487,70 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 | **Default options:**
 | *click on analyses step for more info*
 
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-| Analyses step                                                         | Default setting                                       |
-+=======================================================================+=======================================================+
-| :ref:`CUT PRIMERS <remove_primers>` (optional)                        | --                                                    |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`MERGE READS <merge_vsearch>`                                   || ``min_overlap`` = 12                                 |
-||                                                                      || ``min_length`` = 32                                  |
-||                                                                      || ``allow_merge_stagger`` = TRUE                       |
-||                                                                      || ``include only R1`` = FALSE                          |
-||                                                                      || ``max_diffs`` = 20                                   |
-||                                                                      || ``max_Ns`` = 0                                       |
-||                                                                      || ``max_len`` = 600                                    |
-||                                                                      || ``keep_disjoined`` = FALSE                           |
-||                                                                      || ``fastq_qmax`` = 41                                  |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>`                || ``maxEE`` = 1                                        |
-||                                                                      || ``maxN`` = 0                                         |
-||                                                                      || ``minLen`` = 32                                      |
-||                                                                      || ``max_length`` = undefined                           |
-||                                                                      || ``qmax`` = 41                                        |
-||                                                                      || ``qmin`` = 0                                         |
-||                                                                      || ``maxee_rate`` = undefined                           |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`CHIMERA FILTERING with uchime_denovo <chimFilt_vsearch>`       || ``pre_cluster`` = 0.98                               |
-||                                                                      || ``min_unique_size`` = 1                              |
-||                                                                      || ``denovo`` = TRUE                                    |
-||                                                                      || ``reference_based`` = undefined                      |
-||                                                                      || ``abundance_skew`` = 2                               |
-||                                                                      || ``min_h`` = 0.28                                     |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`ITS Extractor <itsextractor>` (optional)                       || ``organisms`` = all                                  |
-||                                                                      || ``regions`` = all                                    |
-||                                                                      || ``partial`` = 50                                     |
-||                                                                      || ``region_for_clustering`` = ITS2                     |
-||                                                                      || ``cluster_full_and_partial`` = TRUE                  |
-||                                                                      || ``e_value`` = 1e-2                                   |
-||                                                                      || ``scores`` = 0                                       |
-||                                                                      || ``domains`` = 2                                      |
-||                                                                      || ``complement`` = TRUE                                |
-||                                                                      || ``only_full`` = FALSE                                |
-||                                                                      || ``truncate`` = TRUE                                  |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`CLUSTERING with vsearch <clustering_vsearch>`                  || ``OTU_type`` = centroid                              |
-||                                                                      || ``similarity_threshold`` = 0.97                      |
-||                                                                      || ``strands`` = both                                   |
-||                                                                      || ``remove_singletons`` = false                        |
-||                                                                      || ``similarity_type`` = 2                              |
-||                                                                      || ``sequence_sorting`` = cluster_size                  |
-||                                                                      || ``centroid_type`` = similarity                       |
-||                                                                      || ``max_hits`` = 1                                     |
-||                                                                      || ``mask`` = dust                                      |
-||                                                                      || ``dbmask`` = dust                                    |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
-|| CURATE OTU TABLE                                                     || Curate OTU table: filter tag jumps and OTUs that are |
-||                                                                      || shorter/longer than specified length.                |
-||                                                                      || ``f_value`` = 0.01                                   |
-||                                                                      || ``p_value`` = 1                                      |
-||                                                                      || ``min_length`` = 32                                  |
-||                                                                      || ``max_length`` = 0                                   |
-+-----------------------------------------------------------------------+-------------------------------------------------------+
++-----------------------------------------------------------------+-------------------------------------------------------+
+| Analyses step                                                   | Default setting                                       |
++=================================================================+=======================================================+
+| :ref:`CUT PRIMERS <remove_primers>` (optional)                  | --                                                    |
++-----------------------------------------------------------------+-------------------------------------------------------+
+|| :ref:`MERGE READS <merge_vsearch>`                             || ``min_overlap`` = 12                                 |
+||                                                                || ``min_length`` = 32                                  |
+||                                                                || ``allow_merge_stagger`` = TRUE                       |
+||                                                                || ``include only R1`` = FALSE                          |
+||                                                                || ``max_diffs`` = 20                                   |
+||                                                                || ``max_Ns`` = 0                                       |
+||                                                                || ``max_len`` = 600                                    |
+||                                                                || ``keep_disjoined`` = FALSE                           |
+||                                                                || ``fastq_qmax`` = 41                                  |
++-----------------------------------------------------------------+-------------------------------------------------------+
+|| :ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>`          || ``maxEE`` = 1                                        |
+||                                                                || ``maxN`` = 0                                         |
+||                                                                || ``minLen`` = 32                                      |
+||                                                                || ``max_length`` = undefined                           |
+||                                                                || ``qmax`` = 41                                        |
+||                                                                || ``qmin`` = 0                                         |
+||                                                                || ``maxee_rate`` = undefined                           |
++-----------------------------------------------------------------+-------------------------------------------------------+
+|| :ref:`CHIMERA FILTERING with uchime_denovo <chimFilt_vsearch>` || ``pre_cluster`` = 0.98                               |
+||                                                                || ``min_unique_size`` = 1                              |
+||                                                                || ``denovo`` = TRUE                                    |
+||                                                                || ``reference_based`` = undefined                      |
+||                                                                || ``abundance_skew`` = 2                               |
+||                                                                || ``min_h`` = 0.28                                     |
++-----------------------------------------------------------------+-------------------------------------------------------+
+|| :ref:`ITS Extractor <itsextractor>` (optional)                 || ``organisms`` = all                                  |
+||                                                                || ``regions`` = all                                    |
+||                                                                || ``partial`` = 50                                     |
+||                                                                || ``region_for_clustering`` = ITS2                     |
+||                                                                || ``cluster_full_and_partial`` = TRUE                  |
+||                                                                || ``e_value`` = 1e-2                                   |
+||                                                                || ``scores`` = 0                                       |
+||                                                                || ``domains`` = 2                                      |
+||                                                                || ``complement`` = TRUE                                |
+||                                                                || ``only_full`` = FALSE                                |
+||                                                                || ``truncate`` = TRUE                                  |
++-----------------------------------------------------------------+-------------------------------------------------------+
+|| :ref:`CLUSTERING with vsearch <clustering_vsearch>`            || ``OTU_type`` = centroid                              |
+||                                                                || ``similarity_threshold`` = 0.97                      |
+||                                                                || ``strands`` = both                                   |
+||                                                                || ``remove_singletons`` = false                        |
+||                                                                || ``similarity_type`` = 2                              |
+||                                                                || ``sequence_sorting`` = cluster_size                  |
+||                                                                || ``centroid_type`` = similarity                       |
+||                                                                || ``max_hits`` = 1                                     |
+||                                                                || ``mask`` = dust                                      |
+||                                                                || ``dbmask`` = dust                                    |
++-----------------------------------------------------------------+-------------------------------------------------------+
+|| CURATE OTU TABLE                                               || Curate OTU table: filter tag jumps and OTUs that are |
+||                                                                || shorter/longer than specified length.                |
+||                                                                || ``f_value`` = 0.01                                   |
+||                                                                || *[defines the expected tag-jumps rate]*              |
+||                                                                || ``p_value`` = 1                                      |
+||                                                                || *[severity of tag-jump removal]*                     |
+||                                                                || ``min_length`` = 32                                  |
+||                                                                || *[minimum length of OTU sequence]*                   |
+||                                                                || ``max_length`` = 0                                   |
+||                                                                || *[max length of OTU sequence; 0 means no filtering]* |
++-----------------------------------------------------------------+-------------------------------------------------------+
 
 __________________________________________________
 
