@@ -267,16 +267,18 @@ Manage resources allocated to Docker
 
 |resource_manager|
 
-In Docker, resource management allows to control and limit the 
-resources (such as CPU, RAM) that containers can use. 
-You can control these settings also easily through PipeCraft GUI, by clicking on the Docker icon in the top-right corner of the 
+Resource management in PipeCraft2 allows to control and limit the 
+resources (such as number of CPUs, RAM) that Dockercontainers can use. 
+You can control these settings also easily through PipeCraft GUI, by **clicking on the Docker icon** in the top-right corner of the 
 PipeCraft window. After editing, press the ``APPLY & RESTART DOCKER`` button, so that the changes would take effect.
 
-Required amont of allocated resources depends generally on the input data size and the complexity of the analysis.
+**Docker engine must be running** (the icon must be green) in order to apply the changes.
+
+**Required amont of allocated resources depends** generally on the input data size and the complexity of the analysis.
 If too few RAM is allocated, then the analysis may fail without any informative ERROR message. 
 If too few CPU cores are allocated, then the analysis may be very slow.
-
-When allocation most of your computer's resources, please keep in mind that other processes on your computer will be affected.
+The more the merrier, but when allocating most of your computer's resources, please keep in mind that 
+there will be fewer resources available for other processes on your computer.
 
 ____________________________________________________
 
@@ -316,7 +318,7 @@ Removing Docker images
 | See **command-line** based way below.
 
 .. |purge_docker_Win| image:: _static/purge_docker_Win.png
-  :width: 500
+  :width: 600
   :alt: Alternative text
 
 |purge_docker_Win|
