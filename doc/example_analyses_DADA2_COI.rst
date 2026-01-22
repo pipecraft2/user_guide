@@ -81,8 +81,8 @@
 :red:`THIS IS UNCOMPLETE PAGE`
 
 
-COI example pipeline with DADA2 |PipeCraft2_logo|
--------------------------------------------------
+DADA2 ASVs pipeline, COI |PipeCraft2_logo|
+------------------------------------------
 
 This example dataset consists of **COI mtDNA gene amplicon sequences with the target length of 313 bp**:
 
