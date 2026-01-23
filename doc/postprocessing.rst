@@ -136,18 +136,19 @@ Additional information:
   To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
 
 
-+------------------------+----------------------------------------------------------------------------+
-| Outputs ``lulu_out``   |                                                                            |
-+========================+============================================================================+
-| lulu_out_table.txt     | curated table in tab delimited txt format                                  |
-+------------------------+----------------------------------------------------------------------------+
-| lulu_out_RepSeqs.fasta | fasta file for the molecular units (OTUs or ASVs) in the curated table     |
-+------------------------+----------------------------------------------------------------------------+
-| match_list.lulu        | match list file that was used by LULU to merge 'daughter' molecular units  |
-+------------------------+----------------------------------------------------------------------------+
-|| discarded_units.lulu  || molecular units (OTUs or ASVs) that were merged with other units based on |
-||                       || specified thresholds                                                      |
-+------------------------+----------------------------------------------------------------------------+
++-----------------------+----------------------------------------------------------------------------+
+| Outputs ``lulu_out``  |                                                                            |
++=======================+============================================================================+
+| OTU_table.lulu.txt    | curated table in tab delimited txt format                                  |
++-----------------------+----------------------------------------------------------------------------+
+| OTUs.lulu.fasta       | fasta file for the molecular units (OTUs or ASVs) in the curated table     |
++-----------------------+----------------------------------------------------------------------------+
+| match_list.lulu       | match list file that was used by LULU to merge 'daughter' molecular units  |
++-----------------------+----------------------------------------------------------------------------+
+|| discarded_units.lulu || molecular units (OTUs or ASVs) that were merged with other units based on |
+||                      || specified thresholds                                                      |
++-----------------------+----------------------------------------------------------------------------+
+
 
 =============================================== =========================
 `Setting <https://github.com/tobiasgf/lulu>`_   Tooltip

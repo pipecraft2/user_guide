@@ -11,6 +11,10 @@
   :width: 2000
   :alt: Alternative text
 
+.. |cut_primers_expand_example| image:: _static/cut_primers_expand_example.png
+  :width: 600
+  :alt: Alternative text 
+
 .. meta::
     :description lang=en:
         PipeCraft manual. PipeCraft in a Graphical User Interface software for metabarcoding data analyses
@@ -211,8 +215,20 @@ but **single-end reads will be reoriented** to 5'-3' (thus no extra reorient ste
  'keep_only_linked' option outputs only sequences where both the forward and reverse primers are found (i.e. 5'-forward…reverse-3'). 
  'keep_only_linked' may be used for single-end data to keep only **full-length amplicons**.
 
+
+|cut_primers_expand_example|
+
+Example above: Forward primer has 19 bp and reverse 20 bp - to keep a bit of flexibility in the primer search, we are requesting the ``min overlap`` of **18 bp** and are allowing maximum of 2 ``mismatches`` . 
+Note that too low ``min overlap`` may lead to random matches.
+
 | **Fastq**/**fasta** formatted paired-end and single-end data are supported.
 | **Outputs** are fastq/fasta files in ``primersCut_out`` directory. Primers are **truncated** from the sequences. 
+
+
+.. admonition:: when working with your own ITS data ... 
+
+  ... and applying the **ITSx** step, then note that cutting primers process may be skipped, since those regions are removed in the ITS subregion extraction process. 
+  
 
 +----------------------+-----------------------------------------------------------------------+
 | Setting              | Tooltip                                                               |

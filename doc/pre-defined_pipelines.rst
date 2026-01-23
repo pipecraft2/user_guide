@@ -35,12 +35,15 @@ Each pipeline is carefully configured with sensible defaults while still allowin
 
 - **Use at least 2 samples per sequencing run** for the pre-defined pipelines.
 
+.. admonition:: example data analyses
+ 
+  See the example data analyses with the pre-compiled pipelines here: :doc:`example_analyses` 
+
 .. _multi_run_dir:
 
 ___________________________________________________
 
 |
-
 
 Working with multiple sequencing runs
 ======================================
@@ -180,212 +183,47 @@ The input is the directory that contains per-sample fastq files (**demultiplexed
 
 **Default options:**
 
-+-------------------------------------------------------------+---------------------------------------------------+
-| Analyses step                                               | Default setting                                   |
-+=============================================================+===================================================+
-|| :ref:`CUT PRIMERS <remove_primers>`                        || Mandatory for ``paired-end mixed`` mode          |
-||                                                            || (for getting the fwd and rev oriented sequences) |
-+-------------------------------------------------------------+---------------------------------------------------+
-|| :ref:`QUALITY FILTERING <dada2_qual_filt>`                 || ``maxEE`` = 2                                    |
-||                                                            || ``maxN`` = 0                                     |
-||                                                            || ``minLen`` = 20                                  |
-||                                                            || ``truncQ`` = 2                                   |
-||                                                            || ``truncLen`` = 0                                 |
-||                                                            || ``truncLen_R2`` = 0 (for paired-end data)        |
-||                                                            || ``maxLen`` = 9999                                |
-||                                                            || ``minQ`` = 2                                     |
-||                                                            || ``matchIDs`` = TRUE                              |
-+-------------------------------------------------------------+---------------------------------------------------+
-|| :ref:`DENOISE <dada2_denoise>`                             || ``pool`` = FALSE                                 |
-||                                                            || ``selfConsist`` = FASLE                          |
-||                                                            || ``qualityType`` = Auto                           |
-+-------------------------------------------------------------+---------------------------------------------------+
-|| :ref:`MERGE PAIRS <dada2_merge_pairs>`                     || ``minOverlap`` = 12 (for paired-end data)        |
-||                                                            || ``maxMismatch`` = 0                              |
-||                                                            || ``trimOverhang`` = FALSE                         |
-||                                                            || ``justConcatenate`` = FALSE                      |
-+-------------------------------------------------------------+---------------------------------------------------+
-| :ref:`CHIMERA FILTERING <dada2_chimeras>`                   | ``method`` = consensus                            |
-+-------------------------------------------------------------+---------------------------------------------------+
-|| :ref:`CURATE ASV TABLE <dada2_table_filtering>` (optional) || ``collapseNoMismatch`` = TRUE                    |
-||                                                            || ``by_length`` = 250                              |
-||                                                            || ``minOverlap`` = 20                              |
-||                                                            || ``vec`` = TRUE                                   |
-+-------------------------------------------------------------+---------------------------------------------------+
-
-*see tooltips below, under different analyses step panles, for more info*
-
-___________________________________________________
-
-|
-
-.. _dada2_qual_filt:
-
-QUALITY FILTERING
------------------
-
-DADA2 `filterAndTrim <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function performs quality filtering on input FASTQ files based on user-selected criteria. Outputs include filtered FASTQ files located in the ``qualFiltered_out`` directory.
-
-Quality profiles may be examined using the :ref:`QualityCheck module <interface>`.
-
-+------------------+---------------------------------------------------------+
-| Setting          | Tooltip                                                 |
-+==================+=========================================================+
-|| ``maxEE``       || discard sequences with more than the specified         |
-||                 || number of expected errors (sum of error probabilities) |
-+------------------+---------------------------------------------------------+
-|| ``maxN``        || discard sequences with more than the specified         |
-||                 || number of N's (ambiguous bases)                        |
-+------------------+---------------------------------------------------------+
-|| ``minLen``      || remove reads with length less than minLen.             |
-||                 || minLen is enforced after all other trimming            |
-||                 || and truncation                                         |
-+------------------+---------------------------------------------------------+
-|| ``truncQ``      || truncate reads at the first instance of a              |
-||                 || quality score less than or equal to truncQ             |
-+------------------+---------------------------------------------------------+
-|| ``truncLen``    || truncate reads after truncLen bases (applies to        |
-||                 || **R1 reads** when working with **paired-end**          |
-||                 || data). Reads shorter than this are discarded.          |
-||                 || Explore quality profiles (with QualityCheck            |
-||                 || module) and see whether poor quality ends needs        |
-||                 || to be truncated                                        |
-+------------------+---------------------------------------------------------+
-|| ``truncLen_R2`` || applies only for **paired-end** data. Truncate         |
-||                 || **R2 reads** after truncLen bases. Reads shorter       |
-||                 || than this are discarded. Explore quality               |
-||                 || profiles (with QualityCheck module) and see            |
-||                 || whether poor quality ends needs to truncated           |
-+------------------+---------------------------------------------------------+
-|| ``maxLen``      || remove reads with length greater than maxLen.          |
-||                 || maxLen is enforced on the raw reads. In dada2,         |
-||                 || the default = Inf, but here set as 9999                |
-+------------------+---------------------------------------------------------+
-|| ``minQ``        || after truncation, reads contain a quality score        |
-||                 || below minQ will be discarded                           |
-+------------------+---------------------------------------------------------+
-|| ``matchIDs``    || applies only for **paired-end** data. If TRUE,         |
-||                 || then double-checking (with seqkit pair) that           |
-||                 || only paired reads that share ids are outputted.        |
-||                 || :red:`Note that 'seqkit' will be used for this process,|
-||                 || because when using e.g. SRA fastq files where original |
-||                 || fastq headers have been replaced, dada2 does not       |
-||                 || recognize those fastq id strings`                      |
-+------------------+---------------------------------------------------------+
-
-
-see :ref:`default settings <dada2_defaults>`
-
-___________________________________________________
-
-|
-
-.. _dada2_denoise:
-
-DENOISING
----------
-
-DADA2 `dada <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to 
-remove sequencing errors. This step is performed separately for forward and reverse reads in ``PAIRED-END MIXED`` mode.
-Outputs filtered fasta files into ``denoised_assembled.dada2`` directory.
-
-==================== ============
-Setting              Tooltip
-==================== ============
-``pool``             | if TRUE, the algorithm will pool together all samples prior to sample inference. 
-                     | Pooling improves the detection of rare variants, but is computationally more expensive. 
-                     | If pool = 'pseudo', the algorithm will perform pseudo-pooling between individually 
-                     | processed samples.
-``selfConsist``      | if TRUE, the algorithm will alternate between sample inference and error rate estimation 
-                     | until convergence
-``qualityType``      | 'Auto' means to attempt to auto-detect the fastq quality encoding. 
-                     | This may fail for PacBio files with uniformly high quality scores, 
-                     | in which case use 'FastqQuality'
-==================== ============
-
-see :ref:`default settings <dada2_defaults>`
-
-___________________________________________________
-
-|
-
-.. _dada2_merge_pairs:
-
-MERGE PAIRS
------------
-
-DADA2 `mergePairs <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function to 
-merge paired-end reads. This step is performed separately for forward and reverse reads in ``PAIRED-END MIXED`` mode.
-Outputs merged fasta files into ``denoised_assembled.dada2`` directory.
-
-==================== ============
-Setting               Tooltip
-==================== ============
-``minOverlap``       | the minimum length of the overlap required for merging the forward and reverse reads
-``maxMismatch``      | the maximum mismatches allowed in the overlap region
-``trimOverhang``     | if TRUE, overhangs in the alignment between the forwards and reverse read are  
-                     | trimmed off. Overhangs are when the reverse read extends past the start of 
-                     | the forward read, and vice-versa, as can happen when reads are longer than the 
-                     | amplicon and read into the other-direction primer region
-``justConcatenate``  | if TRUE, the forward and reverse-complemented reverse read are concatenated  
-                     | rather than merged, with a NNNNNNNNNN (10 Ns) spacer inserted between them
-==================== ============
-
-see :ref:`default settings <dada2_defaults>`
-
-.. _dada2_chimeras:
-
-___________________________________________________
-
-|
-
-CHIMERA FILTERING
------------------
-
-DADA2 `removeBimeraDenovo <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ function 
-to remove chimeras. 
-Outputs filtered fasta files into ``chimeraFiltered_out.dada2`` and final ASVs to ``ASVs_out.dada2`` directory.
-
-==================== ============
-Setting               Tooltip
-==================== ============
-``method``           | 'consensus' - the samples are independently checked for chimeras, and a consensus 
-                     | decision on each sequence variant is made. 
-                     | If 'pooled', the samples are all pooled together for chimera identification. 
-                     | If 'per-sample', the samples are independently checked for chimeras
-==================== ============
-
-see :ref:`default settings <dada2_defaults>`
-
-.. _dada2_table_filtering:
-
-___________________________________________________
-
-|
-
-CURATE ASV TABLE
-----------------
-
-Curate ASV table by collapsing identical ASVs and filtering out ASVs that are shorter than specified length.
-
-For collapsing identical ASVs, DADA2 `collapseNoMismatch <https://www.bioconductor.org/packages/devel/bioc/manuals/dada2/man/dada2.pdf>`_ 
-function is used; 
-Outputs filtered ASV table and fasta files into ``ASVs_out.dada2/filtered`` directory.
-
-========================== ============
-Setting                    Tooltip
-========================== ============
-``collapseNoMismatch``     | collapses ASVs that are identical up to shifts or 
-                           | length variation, i.e. that have no mismatches or internal indels
-``by_length``              | discard ASVs from the ASV table that are shorter than specified 
-                           | value (in base pairs). Value 0 means OFF, no filtering by length
-``minOverlap``             | collapseNoMismatch setting. Default = 20. The minimum overlap of 
-                           | base pairs between ASV sequences required to collapse them together
-``vec``                    | collapseNoMismatch setting. Default = TRUE. Use the vectorized 
-                           | aligner. Should be turned off if sequences exceed 2kb in length
-========================== ============
-
-see :ref:`default settings <dada2_defaults>`
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+| Analyses step                                          | Default setting                            | output directory              |
++========================================================+============================================+===============================+
+|| :ref:`CUT PRIMERS <remove_primers>`                   || Mandatory for ``paired-end mixed`` mode   || ``primersCut_out``           |
+||                                                       || for getting the fwd and rev oriented      ||                              |
+||                                                       || sequences                                 ||                              |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+|| QUALITY FILTERING                                     || ``maxEE`` = 2                             || ``qualFiltered_out``         |
+||                                                       || ``maxN`` = 0                              ||                              |
+||                                                       || ``minLen`` = 20                           ||                              |
+||                                                       || ``truncQ`` = 2                            ||                              |
+||                                                       || ``truncLen`` = 0                          ||                              |
+||                                                       || ``truncLen_R2`` = 0 (for paired-end data) ||                              |
+||                                                       || ``maxLen`` = 9999                         ||                              |
+||                                                       || ``minQ`` = 2                              ||                              |
+||                                                       || ``matchIDs`` = TRUE                       ||                              |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+|| DENOISE                                               || ``pool`` = FALSE                          || ``denoised_assembled.dada2`` |
+||                                                       || ``selfConsist`` = FASLE                   ||                              |
+||                                                       || ``qualityType`` = Auto                    ||                              |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+|| MERGE PAIRS                                           || ``minOverlap`` = 12 (for paired-end data) || ``denoised_assembled.dada2`` |
+||                                                       || ``maxMismatch`` = 0                       ||                              |
+||                                                       || ``trimOverhang`` = FALSE                  ||                              |
+||                                                       || ``justConcatenate`` = FALSE               ||                              |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+|| CHIMERA FILTERING                                     || ``method`` = consensus                    || ``chimeraFiltered_out``      |
+||                                                       ||                                           || ASVs in ``ASVs_out.dada2``   |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+|| :ref:`CURATE ASV TABLE <curate_asv_table>` (optional) || filter tag-jumps and ASVs that are        || ``ASVs_out.dada2/curated``   |
+||                                                       || shorter/longer than expected length.      ||                              |
+||                                                       || ``f_value`` = 0.01                        ||                              |
+||                                                       || *[defines the expected tag-jumps rate]*   ||                              |
+||                                                       || ``p_value`` = 1                           ||                              |
+||                                                       || *[severity of tag-jump removal]*          ||                              |
+||                                                       || ``min_length`` = 32                       ||                              |
+||                                                       || *[minimum length of OTU sequence]*        ||                              |
+||                                                       || ``max_length`` = 0                        ||                              |
+||                                                       || *[max length of OTU sequence; *           ||                              |
+||                                                       || *0 means no filtering]*                   ||                              |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
 
 ___________________________________________________
 
@@ -404,66 +242,65 @@ to form **zOTUs and an zOTU table** (herein also referred as ASVs).
 
 The input is the directory that contains per-sample fastq files (**demultiplexed data**).
 
-Pipeline final outputs are in the ``clustering_out`` directory; but per process a separate 
-output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` etc.).
 
-+--------------------------------------------------------+-------------------------------------------------------+
-| Analyses step                                          | Default setting                                       |
-+========================================================+=======================================================+
-| :ref:`CUT PRIMERS <remove_primers>` (optional)         | --                                                    |
-+--------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`MERGE READS <merge_vsearch>`                    || ``min_overlap`` = 12                                 |
-||                                                       || ``min_length`` = 32                                  |
-||                                                       || ``allow_merge_stagger`` = TRUE                       |
-||                                                       || ``include only R1`` = FALSE                          |
-||                                                       || ``max_diffs`` = 20                                   |
-||                                                       || ``max_Ns`` = 0                                       |
-||                                                       || ``max_len`` = 600                                    |
-||                                                       || ``keep_disjoined`` = FALSE                           |
-||                                                       || ``fastq_qmax`` = 41                                  |
-+--------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>` || ``maxEE`` = 1                                        |
-||                                                       || ``maxN`` = 0                                         |
-||                                                       || ``minLen`` = 32                                      |
-||                                                       || ``max_length`` = undefined                           |
-||                                                       || ``qmax`` = 41                                        |
-||                                                       || ``qmin`` = 0                                         |
-||                                                       || ``maxee_rate`` = undefined                           |
-+--------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`ITS Extractor <itsextractor>` (optional)        || ``organisms`` = all                                  |
-||                                                       || ``regions`` = all                                    |
-||                                                       || ``partial`` = 50                                     |
-||                                                       || ``region_for_clustering`` = ITS2                     |
-||                                                       || ``e_value`` = 1e-2                                   |
-||                                                       || ``scores`` = 0                                       |
-||                                                       || ``domains`` = 2                                      |
-||                                                       || ``complement`` = TRUE                                |
-||                                                       || ``only_full`` = FALSE                                |
-||                                                       || ``truncate`` = TRUE                                  |
-||                                                       ||                                                      |
-+--------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`CLUSTERING with UNOISE3 <clustering_unoise3>`   || ``strnads`` = both                                   |
-||                                                       || ``minsize`` = 8                                      |
-||                                                       || ``denoise_level`` = global                           |
-||                                                       || ``remove_chimeras`` = TRUE                           |
-||                                                       || ``unoise_alpha`` = 2                                 |
-||                                                       || ``similarity_type`` = 2                              |
-||                                                       || ``maxaccepts`` = 1                                   |
-||                                                       || ``maxrejects`` = 32                                  |
-||                                                       || ``abskew`` = 16                                      |
-||                                                       || ``mask`` = dust                                      |
-+--------------------------------------------------------+-------------------------------------------------------+
-|| CURATE OTU TABLE                                      || Curate OTU table: filter tag jumps and OTUs that are |
-||                                                       || shorter/longer than specified length.                |
-||                                                       || ``f_value`` = 0.01                                   |
-||                                                       || *[defines the expected tag-jumps rate]*              |
-||                                                       || ``p_value`` = 1                                      |
-||                                                       || *[severity of tag-jump removal]*                     |
-||                                                       || ``min_length`` = 32                                  |
-||                                                       || *[minimum length of OTU sequence]*                   |
-||                                                       || ``max_length`` = 0                                   |
-||                                                       || *[max length of OTU sequence; 0 means no filtering]* |
-+--------------------------------------------------------+-------------------------------------------------------+
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+| Analyses step                                          | Default setting                          | output directory            |
++========================================================+==========================================+=============================+
+| :ref:`CUT PRIMERS <remove_primers>` (optional)         | --                                       | ``primersCut_out``          |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`MERGE READS <merge_vsearch>`                    || ``min_overlap`` = 12                    || ``assembled_out``          |
+||                                                       || ``min_length`` = 32                     ||                            |
+||                                                       || ``allow_merge_stagger`` = TRUE          ||                            |
+||                                                       || ``include only R1`` = FALSE             ||                            |
+||                                                       || ``max_diffs`` = 20                      ||                            |
+||                                                       || ``max_Ns`` = 0                          ||                            |
+||                                                       || ``max_len`` = 600                       ||                            |
+||                                                       || ``keep_disjoined`` = FALSE              ||                            |
+||                                                       || ``fastq_qmax`` = 41                     ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>` || ``maxEE`` = 1                           || ``qualFiltered_out``       |
+||                                                       || ``maxN`` = 0                            ||                            |
+||                                                       || ``minLen`` = 32                         ||                            |
+||                                                       || ``max_length`` = undefined              ||                            |
+||                                                       || ``qmax`` = 41                           ||                            |
+||                                                       || ``qmin`` = 0                            ||                            |
+||                                                       || ``maxee_rate`` = undefined              ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`ITS Extractor <itsextractor>` (optional)        || ``organisms`` = all                     || ``ITSx_out``               |
+||                                                       || ``regions`` = all                       ||                            |
+||                                                       || ``partial`` = 50                        ||                            |
+||                                                       || ``region_for_clustering`` = ITS2        ||                            |
+||                                                       || ``e_value`` = 1e-2                      ||                            |
+||                                                       || ``scores`` = 0                          ||                            |
+||                                                       || ``domains`` = 2                         ||                            |
+||                                                       || ``complement`` = TRUE                   ||                            |
+||                                                       || ``only_full`` = FALSE                   ||                            |
+||                                                       || ``truncate`` = TRUE                     ||                            |
+||                                                       ||                                         ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`CLUSTERING with UNOISE3 <clustering_unoise3>`   || ``strnads`` = both                      || ``clustering_out``         |
+||                                                       || ``minsize`` = 8                         ||                            |
+||                                                       || ``denoise_level`` = global              ||                            |
+||                                                       || ``remove_chimeras`` = TRUE              ||                            |
+||                                                       || ``unoise_alpha`` = 2                    ||                            |
+||                                                       || ``similarity_type`` = 2                 ||                            |
+||                                                       || ``maxaccepts`` = 1                      ||                            |
+||                                                       || ``maxrejects`` = 32                     ||                            |
+||                                                       || ``abskew`` = 16                         ||                            |
+||                                                       || ``mask`` = dust                         ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`CURATE ASV TABLE <curate_asv_table>` (optional) || filter tag-jumps and ASVs that are      || ``clustering_out/curated`` |
+||                                                       || shorter/longer than expected length.    ||                            |
+||                                                       || ``f_value`` = 0.01                      ||                            |
+||                                                       || *[defines the expected tag-jumps rate]* ||                            |
+||                                                       || ``p_value`` = 1                         ||                            |
+||                                                       || *[severity of tag-jump removal]*        ||                            |
+||                                                       || ``min_length`` = 32                     ||                            |
+||                                                       || *[minimum length of OTU sequence]*      ||                            |
+||                                                       || ``max_length`` = 0                      ||                            |
+||                                                       || *[max length of OTU sequence; *         ||                            |
+||                                                       || *0 means no filtering]*                 ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
 
 
 ___________________________________________________
@@ -487,70 +324,71 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 | **Default options:**
 | *click on analyses step for more info*
 
-+-----------------------------------------------------------------+-------------------------------------------------------+
-| Analyses step                                                   | Default setting                                       |
-+=================================================================+=======================================================+
-| :ref:`CUT PRIMERS <remove_primers>` (optional)                  | --                                                    |
-+-----------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`MERGE READS <merge_vsearch>`                             || ``min_overlap`` = 12                                 |
-||                                                                || ``min_length`` = 32                                  |
-||                                                                || ``allow_merge_stagger`` = TRUE                       |
-||                                                                || ``include only R1`` = FALSE                          |
-||                                                                || ``max_diffs`` = 20                                   |
-||                                                                || ``max_Ns`` = 0                                       |
-||                                                                || ``max_len`` = 600                                    |
-||                                                                || ``keep_disjoined`` = FALSE                           |
-||                                                                || ``fastq_qmax`` = 41                                  |
-+-----------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>`          || ``maxEE`` = 1                                        |
-||                                                                || ``maxN`` = 0                                         |
-||                                                                || ``minLen`` = 32                                      |
-||                                                                || ``max_length`` = undefined                           |
-||                                                                || ``qmax`` = 41                                        |
-||                                                                || ``qmin`` = 0                                         |
-||                                                                || ``maxee_rate`` = undefined                           |
-+-----------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`CHIMERA FILTERING with uchime_denovo <chimFilt_vsearch>` || ``pre_cluster`` = 0.98                               |
-||                                                                || ``min_unique_size`` = 1                              |
-||                                                                || ``denovo`` = TRUE                                    |
-||                                                                || ``reference_based`` = undefined                      |
-||                                                                || ``abundance_skew`` = 2                               |
-||                                                                || ``min_h`` = 0.28                                     |
-+-----------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`ITS Extractor <itsextractor>` (optional)                 || ``organisms`` = all                                  |
-||                                                                || ``regions`` = all                                    |
-||                                                                || ``partial`` = 50                                     |
-||                                                                || ``region_for_clustering`` = ITS2                     |
-||                                                                || ``cluster_full_and_partial`` = TRUE                  |
-||                                                                || ``e_value`` = 1e-2                                   |
-||                                                                || ``scores`` = 0                                       |
-||                                                                || ``domains`` = 2                                      |
-||                                                                || ``complement`` = TRUE                                |
-||                                                                || ``only_full`` = FALSE                                |
-||                                                                || ``truncate`` = TRUE                                  |
-+-----------------------------------------------------------------+-------------------------------------------------------+
-|| :ref:`CLUSTERING with vsearch <clustering_vsearch>`            || ``OTU_type`` = centroid                              |
-||                                                                || ``similarity_threshold`` = 0.97                      |
-||                                                                || ``strands`` = both                                   |
-||                                                                || ``remove_singletons`` = false                        |
-||                                                                || ``similarity_type`` = 2                              |
-||                                                                || ``sequence_sorting`` = cluster_size                  |
-||                                                                || ``centroid_type`` = similarity                       |
-||                                                                || ``max_hits`` = 1                                     |
-||                                                                || ``mask`` = dust                                      |
-||                                                                || ``dbmask`` = dust                                    |
-+-----------------------------------------------------------------+-------------------------------------------------------+
-|| CURATE OTU TABLE                                               || Curate OTU table: filter tag jumps and OTUs that are |
-||                                                                || shorter/longer than specified length.                |
-||                                                                || ``f_value`` = 0.01                                   |
-||                                                                || *[defines the expected tag-jumps rate]*              |
-||                                                                || ``p_value`` = 1                                      |
-||                                                                || *[severity of tag-jump removal]*                     |
-||                                                                || ``min_length`` = 32                                  |
-||                                                                || *[minimum length of OTU sequence]*                   |
-||                                                                || ``max_length`` = 0                                   |
-||                                                                || *[max length of OTU sequence; 0 means no filtering]* |
-+-----------------------------------------------------------------+-------------------------------------------------------+
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+| Analyses step                                          | Default setting                          | output directory            |
++========================================================+==========================================+=============================+
+| :ref:`CUT PRIMERS <remove_primers>` (optional)         | --                                       | ``primersCut_out``          |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`MERGE READS <merge_vsearch>`                    || ``min_overlap`` = 12                    || ``assembled_out``          |
+||                                                       || ``min_length`` = 32                     ||                            |
+||                                                       || ``allow_merge_stagger`` = TRUE          ||                            |
+||                                                       || ``include only R1`` = FALSE             ||                            |
+||                                                       || ``max_diffs`` = 20                      ||                            |
+||                                                       || ``max_Ns`` = 0                          ||                            |
+||                                                       || ``max_len`` = 600                       ||                            |
+||                                                       || ``keep_disjoined`` = FALSE              ||                            |
+||                                                       || ``fastq_qmax`` = 41                     ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`QUALITY FILTERING <qfilt_vsearch>`              || ``maxEE`` = 1                           || ``qualFiltered_out``       |
+|| with vsearch                                          || ``maxN`` = 0                            ||                            |
+||                                                       || ``minLen`` = 32                         ||                            |
+||                                                       || ``max_length`` = undefined              ||                            |
+||                                                       || ``qmax`` = 41                           ||                            |
+||                                                       || ``qmin`` = 0                            ||                            |
+||                                                       || ``maxee_rate`` = undefined              ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`CHIMERA FILTERING <chimFilt_vsearch>`           || ``pre_cluster`` = 0.98                  || ``chimeraFiltered_out``    |
+|| with uchime_denovo                                    || ``min_unique_size`` = 1                 ||                            |
+||                                                       || ``denovo`` = TRUE                       ||                            |
+||                                                       || ``reference_based`` = undefined         ||                            |
+||                                                       || ``abundance_skew`` = 2                  ||                            |
+||                                                       || ``min_h`` = 0.28                        ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`ITS Extractor <itsextractor>` (optional)        || ``organisms`` = all                     || ``ITSx_out``               |
+||                                                       || ``regions`` = all                       ||                            |
+||                                                       || ``partial`` = 50                        ||                            |
+||                                                       || ``region_for_clustering`` = ITS2        ||                            |
+||                                                       || ``cluster_full_and_partial`` = TRUE     ||                            |
+||                                                       || ``e_value`` = 1e-2                      ||                            |
+||                                                       || ``scores`` = 0                          ||                            |
+||                                                       || ``domains`` = 2                         ||                            |
+||                                                       || ``complement`` = TRUE                   ||                            |
+||                                                       || ``only_full`` = FALSE                   ||                            |
+||                                                       || ``truncate`` = TRUE                     ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`CLUSTERING <clustering_vsearch>`                || ``OTU_type`` = centroid                 || ``clustering_out``         |
+||                                                       || ``similarity_threshold`` = 0.97         ||                            |
+||                                                       || ``strands`` = both                      ||                            |
+||                                                       || ``remove_singletons`` = false           ||                            |
+||                                                       || ``similarity_type`` = 2                 ||                            |
+||                                                       || ``sequence_sorting`` = cluster_size     ||                            |
+||                                                       || ``centroid_type`` = similarity          ||                            |
+||                                                       || ``max_hits`` = 1                        ||                            |
+||                                                       || ``mask`` = dust                         ||                            |
+||                                                       || ``dbmask`` = dust                       ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`CURATE ASV TABLE <curate_asv_table>` (optional) || filter tag-jumps and ASVs that are      || ``clustering_out/curated`` |
+||                                                       || shorter/longer than expected length.    ||                            |
+||                                                       || ``f_value`` = 0.01                      ||                            |
+||                                                       || *[defines the expected tag-jumps rate]* ||                            |
+||                                                       || ``p_value`` = 1                         ||                            |
+||                                                       || *[severity of tag-jump removal]*        ||                            |
+||                                                       || ``min_length`` = 32                     ||                            |
+||                                                       || *[minimum length of OTU sequence]*      ||                            |
+||                                                       || ``max_length`` = 0                      ||                            |
+||                                                       || *[max length of OTU sequence; *         ||                            |
+||                                                       || *0 means no filtering]*                 ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
 
 __________________________________________________
 

@@ -17,7 +17,7 @@ from docutils.parsers.rst import Directive, directives
 # -- Project information -----------------------------------------------------
 
 project = 'PipeCraft2'
-copyright = '2023, Sten Anslan'
+copyright = '2025, Sten Anslan'
 author = 'Sten Anslan'
 
 # The full version, including alpha/beta/rc tags
