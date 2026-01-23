@@ -70,25 +70,29 @@
 
 |
 
-DADA2 ASVs pipeline, 16S |PipeCraft2_logo|
+DADA2 ASVs pipeline, ITS |PipeCraft2_logo|
 ------------------------------------------
 
 This example data analyses follows DADA2 ASVs workflow as implemented in PipeCraft2's pre-compiled pipelines panel. 
 
-| `Download example data set here <https://mothur.s3.us-east-2.amazonaws.com/wiki/miseqsopdata.zip>`_ (35.1 Mb) and unzip it. 
-| This is `mothur MiSeq SOP example data set <https://mothur.org/wiki/miseq_sop/>`_. 
+| `Download example data set here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/example_data_ITS2.zip>`_ (15.1 Mb) and unzip it. 
+| This is **ITS2 Illumina MiSeq** dataset. 
+
+For this example data run, we are using a **subset** of UNITE database in the taxonomy annotation process, `download it from here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/Databases/UNITE_Fungal_ITS.zip>`_.
+
+
 
 ____________________________________________________
 
 Starting point 
 ~~~~~~~~~~~~~~
 
-This example dataset consists of **16S rRNA gene V4 amplicon sequences**:
+This example dataset consists of **ITS2 rRNA gene amplicon sequences**; targeting fungi:
 
 - **paired-end** Illumina MiSeq data;
 - **demultiplexed** set (per-sample fastq files);
-- indexes and primers have already been **removed**;
-- sequences in this set are **5'-3' (fwd) oriented**.
+- primers **are not removed**;
+- sequences in this set are **5'-3' oriented**.
 
 
 .. admonition:: when working with your own data ...
@@ -97,10 +101,10 @@ This example dataset consists of **16S rRNA gene V4 amplicon sequences**:
   PipeCraft can correctly identify the paired-end reads.
 
   | *Example:*
-  | *F3D0_S188_L001_R1_001.fastq*
-  | *F3D0_S188_L001_R2_001.fastq*
+  | *sample1_R1.fastq.gz*
+  | *sample1_R2.fastq.gz*
 
-  
+
 **At least 2 samples** (2x R1 + 2x R2 files) are required for this workflow! Otherwise ERROR in the denoising step:
 
 |DADA2_2samples_needed| 
@@ -141,7 +145,8 @@ ____________________________________________________
 Cut primers
 ~~~~~~~~~~~
 
-The example dataset has primers already clipped, so here we are skipping this process.
+Although the sequences in the example dataset are containing primer sequences, 
+we are not clipping those here because we will later use the **ITSx step to remove the flanking primer binding regions** from ITS reads.
 
 .. admonition:: when working with your own data ... 
 
@@ -150,7 +155,7 @@ The example dataset has primers already clipped, so here we are skipping this pr
   Check :ref:`cut primers page <remove_primers>`.
 
 ____________________________________________________
- 
+
 Quality filtering 
 ~~~~~~~~~~~~~~~~~
 
@@ -251,8 +256,6 @@ Here, we filter chimeras using the **consensus** method. Check the :ref:`denoisi
 
 ____________________________________________________
 
-.. _curate_asv_table:
-
 Curate ASV table
 ~~~~~~~~~~~~~~~~
 
@@ -273,7 +276,7 @@ Assuming that shorter sequences are non-target sequences,
 we use 240 in the ``min length`` setting. This will discard ASVs that are less than 240 bp.
 Here, ``max length`` can be set to 0 (default), meaning no filtering by maximum sequence length.
 
-We are also setting the ``collapseNoMismatch`` to TRUE, to collapse identical ASVs. 
+We are also setting hte ``collapseNoMismatch`` to TRUE, to collapse identical ASVs. 
 This is basically equivalent to 100% clustering by ignoring the end gaps.
 
 +----------------------------+-------------------------------------------------------------------+
