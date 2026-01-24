@@ -1,19 +1,10 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide 
 
-.. |add_step_interface| image:: _static/add_step.png
-  :width: 600
-  :alt: Alternative text
-
-.. |main_interface| image:: _static/main_interface.png
-  :width: 2000
-  :alt: Alternative text
 
 .. |cut_primers_expand_example| image:: _static/cut_primers_expand_example.png
   :width: 600
-  :alt: Alternative text 
 
 .. meta::
     :description lang=en:
@@ -290,9 +281,9 @@ Quality filter and trim sequences.
 +---------------------+-----------------------------------------------------------------------+
 | **vsearch** setting | Tooltip                                                               |
 +=====================+=======================================================================+
-|| ``maxEE``          || maximum number of expected errors per sequence (`see here            |
-||                    || <https://drive5.com/usearch/manual/exp_errs.html>`_). Sequences with |
-||                    || higher error rates will be discarded                                 |
+|| ``maxEE``          || maximum number of expected errors per sequence                       |
+||                    || (`see here <https://drive5.com/usearch/manual/exp_errs.html>`_).     |
+||                    || Sequences with higher error rates will be discarded                  |
 +---------------------+-----------------------------------------------------------------------+
 | ``maxN``            | discard sequences with more than the specified number of Ns           |
 +---------------------+-----------------------------------------------------------------------+
@@ -303,7 +294,7 @@ Quality filter and trim sequences.
 ||                    || [empty field = no action taken] Note that if 'trunc length' setting  |
 ||                    || is specified, then 'min length' SHOULD BE lower than 'trunc length'  |
 ||                    || (otherwise all reads are discared)                                   |
-||                    |                                                                       |
+||                    ||                                                                      |
 +---------------------+-----------------------------------------------------------------------+
 || ``qmax``           || specify the maximum quality score accepted when reading FASTQ files. |
 ||                    || The default is 41, which is usual for recent Sanger/Illumina 1.8+    |
@@ -566,38 +557,38 @@ uchime_denovo
 
 | Perform chimera filtering with **uchime_denovo** and **uchime_ref** algorithms in `vsearch <https://github.com/torognes/vsearch>`_ 
 
-+----------------------+-----------------------------------------------------------------------+
-| Setting              | Tooltip                                                               |
-+======================+=======================================================================+
-|| ``pre_cluster``     || identity percentage when performing 'pre-clustering' with            |
-||                     || --cluster_size for denovo chimera filtering with --uchime_denovo     |
-+----------------------+-----------------------------------------------------------------------+
-|| ``min_unique_size`` || minimum amount of a unique sequences in a fasta file. If value = 1,  |
-||                     || then no sequences are discarded after dereplication; if value = 2,   |
-||                     || then sequences, which are represented only once in a given file are  |
-||                     || discarded; and so on                                                 |
-+----------------------+-----------------------------------------------------------------------+
-| ``denovo``           | if TRUE, then perform denovo chimera filtering with --uchime_denovo   |
-+----------------------+-----------------------------------------------------------------------+
-|| ``reference_based`` || perform reference database based chimera filtering with              |
-||                     || --uchime_ref. Select fasta formatted reference database (e.g. `UNITE |
-||                     || for ITS reads                                                        |
-||                     || >`_). If denovo = TRUE, then reference based chimera filtering will  |
-||                     || be performed after denovo.                                           |
-||                     |                                                                       |
-+----------------------+-----------------------------------------------------------------------+
-|| ``abundance_skew``  || the abundance skew is used to distinguish in a threeway alignment    |
-||                     || which sequence is the chimera and which are the parents. The         |
-||                     || assumption is that chimeras appear later in the PCR amplification    |
-||                     || process and are therefore less abundant than their parents. The      |
-||                     || default value is 2.0, which means that the parents should be at      |
-||                     || least 2 times more abundant than their chimera. Any positive value   |
-||                     || equal or greater than 1.0 can be used                                |
-+----------------------+-----------------------------------------------------------------------+
-|| ``min_h``           || minimum score (h). Increasing this value tends to reduce the number  |
-||                     || of false positives and to decrease sensitivity. Values ranging from  |
-||                     || 0.0 to 1.0 included are accepted                                     |
-+----------------------+-----------------------------------------------------------------------+
++----------------------+----------------------------------------------------------------------+
+| Setting              | Tooltip                                                              |
++======================+======================================================================+
+|| ``pre_cluster``     || identity percentage when performing 'pre-clustering' with           |
+||                     || --cluster_size for denovo chimera filtering with --uchime_denovo    |
++----------------------+----------------------------------------------------------------------+
+|| ``min_unique_size`` || minimum amount of a unique sequences in a fasta file. If value = 1, |
+||                     || then no sequences are discarded after dereplication; if value = 2,  |
+||                     || then sequences, which are represented only once in a given file are |
+||                     || discarded; and so on                                                |
++----------------------+----------------------------------------------------------------------+
+| ``denovo``           | if TRUE, then perform denovo chimera filtering with --uchime_denovo  |
++----------------------+----------------------------------------------------------------------+
+|| ``reference_based`` || perform reference database based chimera filtering with             |
+||                     || --uchime_ref. Select fasta formatted reference database (e.g. UNITE |
+||                     || for ITS reads).                                                     |
+||                     || If denovo = TRUE, then reference based chimera filtering will       |
+||                     || be performed after denovo.                                          |
+||                     ||                                                                     |
++----------------------+----------------------------------------------------------------------+
+|| ``abundance_skew``  || the abundance skew is used to distinguish in a threeway alignment   |
+||                     || which sequence is the chimera and which are the parents. The        |
+||                     || assumption is that chimeras appear later in the PCR amplification   |
+||                     || process and are therefore less abundant than their parents. The     |
+||                     || default value is 2.0, which means that the parents should be at     |
+||                     || least 2 times more abundant than their chimera. Any positive value  |
+||                     || equal or greater than 1.0 can be used                               |
++----------------------+----------------------------------------------------------------------+
+|| ``min_h``           || minimum score (h). Increasing this value tends to reduce the number |
+||                     || of false positives and to decrease sensitivity. Values ranging from |
+||                     || 0.0 to 1.0 included are accepted                                    |
++----------------------+----------------------------------------------------------------------+
 
 
 .. _chimFilt_vsearch_uchime3:
@@ -609,38 +600,38 @@ uchime3_denovo
 | Designed for denoised amplicons. 
 | uchime3_denovo can be applied also in :ref:`UNOISE3 clustering <clustering_unoise3>`
 
-+----------------------+-----------------------------------------------------------------------+
-| Setting              | Tooltip                                                               |
-+======================+=======================================================================+
-|| ``pre_cluster``     || identity percentage when performing 'pre-clustering' with            |
-||                     || --cluster_size for denovo chimera filtering with --uchime_denovo     |
-+----------------------+-----------------------------------------------------------------------+
-|| ``min_unique_size`` || minimum amount of a unique sequences in a fasta file. If value = 1,  |
-||                     || then no sequences are discarded after dereplication; if value = 2,   |
-||                     || then sequences, which are represented only once in a given file are  |
-||                     || discarded; and so on                                                 |
-+----------------------+-----------------------------------------------------------------------+
-| ``denovo``           | if TRUE, then perform denovo chimera filtering with --uchime_denovo   |
-+----------------------+-----------------------------------------------------------------------+
-|| ``reference_based`` || perform reference database based chimera filtering with              |
-||                     || --uchime_ref. Select fasta formatted reference database (e.g. `UNITE |
-||                     || for ITS reads                                                        |
-||                     || >`_). If denovo = TRUE, then reference based chimera filtering will  |
-||                     || be performed after denovo.                                           |
-||                     |                                                                       |
-+----------------------+-----------------------------------------------------------------------+
-|| ``abundance_skew``  || the abundance skew is used to distinguish in a threeway alignment    |
-||                     || which sequence is the chimera and which are the parents. The         |
-||                     || assumption is that chimeras appear later in the PCR amplification    |
-||                     || process and are therefore less abundant than their parents. The      |
-||                     || default value is 2.0, which means that the parents should be at      |
-||                     || least 2 times more abundant than their chimera. Any positive value   |
-||                     || equal or greater than 1.0 can be used                                |
-+----------------------+-----------------------------------------------------------------------+
-|| ``min_h``           || minimum score (h). Increasing this value tends to reduce the number  |
-||                     || of false positives and to decrease sensitivity. Values ranging from  |
-||                     || 0.0 to 1.0 included are accepted                                     |
-+----------------------+-----------------------------------------------------------------------+
++----------------------+----------------------------------------------------------------------+
+| Setting              | Tooltip                                                              |
++======================+======================================================================+
+|| ``pre_cluster``     || identity percentage when performing 'pre-clustering' with           |
+||                     || --cluster_size for denovo chimera filtering with --uchime_denovo    |
++----------------------+----------------------------------------------------------------------+
+|| ``min_unique_size`` || minimum amount of a unique sequences in a fasta file. If value = 1, |
+||                     || then no sequences are discarded after dereplication; if value = 2,  |
+||                     || then sequences, which are represented only once in a given file are |
+||                     || discarded; and so on                                                |
++----------------------+----------------------------------------------------------------------+
+| ``denovo``           | if TRUE, then perform denovo chimera filtering with --uchime_denovo  |
++----------------------+----------------------------------------------------------------------+
+|| ``reference_based`` || perform reference database based chimera filtering with             |
+||                     || --uchime_ref. Select fasta formatted reference database (e.g. UNITE |
+||                     || for ITS reads.                                                      |
+||                     || If denovo = TRUE, then reference based chimera filtering will       |
+||                     || be performed after denovo.                                          |
+||                     ||                                                                     |
++----------------------+----------------------------------------------------------------------+
+|| ``abundance_skew``  || the abundance skew is used to distinguish in a threeway alignment   |
+||                     || which sequence is the chimera and which are the parents. The        |
+||                     || assumption is that chimeras appear later in the PCR amplification   |
+||                     || process and are therefore less abundant than their parents. The     |
+||                     || default value is 2.0, which means that the parents should be at     |
+||                     || least 2 times more abundant than their chimera. Any positive value  |
+||                     || equal or greater than 1.0 can be used                               |
++----------------------+----------------------------------------------------------------------+
+|| ``min_h``           || minimum score (h). Increasing this value tends to reduce the number |
+||                     || of false positives and to decrease sensitivity. Values ranging from |
+||                     || 0.0 to 1.0 included are accepted                                    |
++----------------------+----------------------------------------------------------------------+
 
 .. _itsextractor:
 
@@ -738,8 +729,8 @@ Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
 || ``remove_singletons``    || if TRUE, then singleton OTUs will be discarded (OTUs with only one  |
 ||                          || sequence)                                                           |
 +---------------------------+----------------------------------------------------------------------+
-|| ``similarity_type``      || pairwise sequence identity definition `--iddef                      |
-||                          || <_static/vsearch_manual_2.22.1.pdf>`_                               |
+|| ``similarity_type``      || pairwise sequence identity definition                               |
+||                          || `--iddef <_static/vsearch_manual_2.22.1.pdf>`_                      |
 +---------------------------+----------------------------------------------------------------------+
 || ``sequence_sorting``     || size = sort the sequences by decreasing abundance; "length" = sort  |
 ||                          || the sequences by decreasing length (--cluster_fast); "no" = do not  |
@@ -769,8 +760,8 @@ Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
 || ``similarity_threshold`` || optionally cluster zOTUs to OTUs based on the sequence similarity    |
 ||                          || threshold; if id = 1, no OTU clustering will be performed            |
 +---------------------------+-----------------------------------------------------------------------+
-|| ``similarity_type``      || pairwise sequence identity definition for OTU clustering `--iddef    |
-||                          || <_static/vsearch_manual_2.22.1.pdf>`_                                |
+|| ``similarity_type``      || pairwise sequence identity definition for OTU clustering             |
+||                          || `--iddef <_static/vsearch_manual_2.22.1.pdf>`_                       |
 +---------------------------+-----------------------------------------------------------------------+
 | ``maxaccepts``            | maximum number of hits to accept before stopping the search           |
 +---------------------------+-----------------------------------------------------------------------+
@@ -979,20 +970,19 @@ ____________________________________________________
   To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
   but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
 
-+---------------------+-------------------------------------------------------------------------------+
-| Setting             | Tooltip                                                                       |
-+=====================+===============================================================================+
-|| ``dada2_database`` || select a reference database fasta file for taxonomy annotation.              |
-||                    || `Download DADA2-formatted reference databases`                               |
-||                    || here <https://benjjneb.github.io/dada2/training.html>`_                      |
-+---------------------+-------------------------------------------------------------------------------+
-| ``fasta_file``      | select a fasta file to be used as a query for DADA2 classifier                |
-+---------------------+-------------------------------------------------------------------------------+
-| ``minBoot``         | the minimum bootstrap confidence for assigning a taxonomic level              |
-+---------------------+-------------------------------------------------------------------------------+
-|| ``tryRC``          || the reverse-complement of each sequences will be used for classification     |
-||                    || if it is a better match to the reference sequences than the forward sequence |
-+---------------------+-------------------------------------------------------------------------------+
++---------------------+--------------------------------------------------------------------------------------------------------+
+| Setting             | Tooltip                                                                                                |
++=====================+========================================================================================================+
+|| ``dada2_database`` || select a reference database fasta file for taxonomy annotation.                                       |
+||                    || Download DADA2-formatted reference databases `here <https://benjjneb.github.io/dada2/training.html>`_ |
++---------------------+--------------------------------------------------------------------------------------------------------+
+| ``fasta_file``      | select a fasta file to be used as a query for DADA2 classifier                                         |
++---------------------+--------------------------------------------------------------------------------------------------------+
+| ``minBoot``         | the minimum bootstrap confidence for assigning a taxonomic level                                       |
++---------------------+--------------------------------------------------------------------------------------------------------+
+|| ``tryRC``          || the reverse-complement of each sequences will be used for classification                              |
+||                    || if it is a better match to the reference sequences than the forward sequence                          |
++---------------------+--------------------------------------------------------------------------------------------------------+
 
 
 ____________________________________________________
@@ -1017,7 +1007,9 @@ A *(noncomprehensive)* list of **public databases available for taxonomy annotat
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
 | `MIDORI <http://www.reference-midori.info/>`_                                                                                                 | Eukaryota mitochondrial genes (including COI)              |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
-| `CO1 Classifier <https://github.com/terrimporter/CO1Classifier>`_                                                                             | Metazoa COI                                                |
+| `CO1 Classifier <https://github.com/terrimporter/CO1Classifier>`_                                                                             | Metazoa COI (includes outgroups)                           |
++-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
+| `BOLD (distilled) database <https://boldsystems.org/data/boldistilled/>`_                                                                     | Metazoa COI (includes outgroups)                           |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
 | `DADA2-formatted reference databases <https://benjjneb.github.io/dada2/training.html>`_                                                       | Multiple third-party databases                             |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+

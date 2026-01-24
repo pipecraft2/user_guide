@@ -1,18 +1,15 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide
   
 .. |NextITS_seq_cluster| image:: _static/nextits_sequence_clustering.png
   :width: 600
   :height: 200
-  :alt: Alternative text
 
 .. |NextITS_extraction| image:: _static/nextits_extraction.png
   :width: 300
   :height: 200
-  :alt: Alternative text
-
+  
 .. meta::
     :description lang=en:
         PipeCraft2 manual. User guide for PipeCraft2
@@ -221,7 +218,7 @@ The input is the directory that contains per-sample fastq files (**demultiplexed
 ||                                                       || ``min_length`` = 32                       ||                              |
 ||                                                       || *[minimum length of OTU sequence]*        ||                              |
 ||                                                       || ``max_length`` = 0                        ||                              |
-||                                                       || *[max length of OTU sequence; *           ||                              |
+||                                                       || *[max length of OTU sequence;*            ||                              |
 ||                                                       || *0 means no filtering]*                   ||                              |
 +--------------------------------------------------------+--------------------------------------------+-------------------------------+
 
@@ -298,7 +295,7 @@ The input is the directory that contains per-sample fastq files (**demultiplexed
 ||                                                       || ``min_length`` = 32                     ||                            |
 ||                                                       || *[minimum length of OTU sequence]*      ||                            |
 ||                                                       || ``max_length`` = 0                      ||                            |
-||                                                       || *[max length of OTU sequence; *         ||                            |
+||                                                       || *[max length of OTU sequence;*          ||                            |
 ||                                                       || *0 means no filtering]*                 ||                            |
 +--------------------------------------------------------+------------------------------------------+-----------------------------+
 
@@ -386,7 +383,7 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 ||                                                       || ``min_length`` = 32                     ||                            |
 ||                                                       || *[minimum length of OTU sequence]*      ||                            |
 ||                                                       || ``max_length`` = 0                      ||                            |
-||                                                       || *[max length of OTU sequence; *         ||                            |
+||                                                       || *[max length of OTU sequence;*          ||                            |
 ||                                                       || *0 means no filtering]*                 ||                            |
 +--------------------------------------------------------+------------------------------------------+-----------------------------+
 

@@ -1,6 +1,5 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide
 
 .. raw:: html
@@ -29,7 +28,7 @@ Example data analyses |PipeCraft2_logo|
    :maxdepth: 1
 
    example_analyses_QC
-   example_analyses_DADA2
+   example_analyses_DADA2_16S
    example_analyses_DADA2_ITS
    example_analyses_DADA2_COI
    example_analyses_vsearchOTU

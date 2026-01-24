@@ -1,20 +1,16 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide
 
 .. |PipeCraft2_icon| image:: _static/PipeCraft2_icon_v2.png
   :width: 200
-  :alt: Alternative text
 
 .. |PipeCraft_sticker1| image:: _static/PipeCraft_sticker1.png
   :width: 200
-  :alt: Alternative text
 
 .. |PipeCraft2_largelogo| image:: _static/PipeCraft2_logo.png
   :width: 200
-  :alt: Alternative text
-
+  
 .. raw:: html
 
     <style> .blue {color:#0000FF; font-weight:bold; font-size:16px} </style>
@@ -48,21 +44,13 @@ Acknowledgements
 
 .. |EU_flag| image:: _static/funding/EU.png
   :width: 150
-  :alt: Alternative text
-
 .. |mobilitas| image:: _static/funding/mobilitas.jpg
   :width: 190
-  :alt: Alternative text
-
 .. |Research_Council_of_Finland| image:: _static/funding/Research_Council_of_Finland.png
   :width: 350
-  :alt: Alternative text
-
 
 .. |logo_BGE| image:: _static/funding/logo_BGE_alpha.png
   :width: 200
-  :alt: Alternative text
-
 
 **PipeCraft2 development has been supported by:** 
 

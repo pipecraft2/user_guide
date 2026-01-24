@@ -1,18 +1,14 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide 
 
 .. |PipeCraft_sticker1sideways| image:: _static/PipeCraft_sticker1sideways.png
   :width: 350
-  :alt: Alternative text
   :class: right
   :target: https://github.com/pipecraft2/user_guide
 
 .. |main_interface| image:: _static/main_interface.png
   :width: 2000
-  :alt: Alternative text
-
 .. raw:: html
 
     <style> .red {color:#ff0000; font-weight:bold; font-size:16px} </style>
@@ -73,7 +69,6 @@ Docker images
 
 .. |pulling_image| image:: _static/pulling_image.png
   :width: 280
-  :alt: Alternative text
 
 All the processes are run through `docker <https://www.docker.com/>`_, where the PipeCraft's GUI simply mediates the 
 information exchange. Therefore, whenever a process is initiated for the **first time**, 

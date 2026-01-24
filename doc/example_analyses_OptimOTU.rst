@@ -1,6 +1,5 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide
 
 .. raw:: html
@@ -17,24 +16,19 @@
 
 .. |workflow_finished| image:: _static/workflow_finished.png
   :width: 300
-  :alt: Alternative text
 
 .. |stop_workflow| image:: _static/stop_workflow.png
   :width: 200
-  :alt: Alternative text
 
 .. |output_icon| image:: _static/output_icon.png
   :width: 50
-  :alt: Alternative text
 
 .. |save| image:: _static/save.png
   :width: 50
-  :alt: Alternative text
 
 .. |pulling_image| image:: _static/pulling_image.png
   :width: 280
-  :alt: Alternative text
-
+  
 .. meta::
     :description lang=en:
         PipeCraft manual. tutorial

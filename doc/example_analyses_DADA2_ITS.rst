@@ -1,6 +1,5 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide
 
 .. raw:: html
@@ -17,52 +16,40 @@
   
 .. |fastqc_per_base_sequence_quality_plot| image:: _static/fastqc_per_base_sequence_quality_plot.png
   :width: 850
-  :alt: Alternative text
 
 .. |workflow_finished| image:: _static/workflow_finished.png
   :width: 300
-  :alt: Alternative text
   :class: center
 
 .. |stop_workflow| image:: _static/stop_workflow.png
   :width: 200
-  :alt: Alternative text
 
 .. |DADA2_PE_FWD| image:: _static/DADA2_PE_FWD.png
   :width: 700
-  :alt: Alternative text
 
 .. |DADA2_quality_filt_expand| image:: _static/DADA2_quality_filt_expand.png
   :width: 600
-  :alt: Alternative text
 
 .. |DADA2_denoise_expand| image:: _static/DADA2_denoise_expand.png
   :width: 600
-  :alt: Alternative text
 
 .. |DADA2_assign_tax_expand| image:: _static/DADA2_assign_tax_expand.png
   :width: 600
-  :alt: Alternative text
 
 .. |DADA2_filter_table_expand| image:: _static/DADA2_filter_table_expand.png
   :width: 600
-  :alt: Alternative text
 
 .. |DADA2_2samples_needed| image:: _static/troubleshoot/DADA2_2samples_needed.png
   :width: 300
-  :alt: Alternative text
 
 .. |output_icon| image:: _static/output_icon.png
   :width: 50
-  :alt: Alternative text
 
 .. |save| image:: _static/save.png
   :width: 50
-  :alt: Alternative text
 
 .. |pulling_image| image:: _static/pulling_image.png
   :width: 280
-  :alt: Alternative text
 
 .. meta::
     :description lang=en:
@@ -185,7 +172,7 @@ Set ``truncLen`` to 240 for trimming R1 reads and ``truncLen R2`` to 160 to trim
   Non-overlapping paired-end reads will be discarded. 
 
 
-Here, we can leave other settings as DEFAULT. :ref:`Check the settings here <dada2_qual_filt>`.
+Here, we can leave other settings as DEFAULT.
 
 
 +-----------------------+-------------------------------------------------------+
@@ -209,7 +196,7 @@ Then during merging/assembling process the paired ASV mates are assembled to out
 |DADA2_denoise_expand| 
 
 Here, we are working with Illumina MiSeq data, so let's make sure that the ``errorEstFun`` setting is **loessErrfun**. For PacBio data use **PacBioErrfun**. 
-We can leave all settings as DEFAULT. Check the :ref:`denoising settings here <dada2_qual_filt>` and :ref:`merge pairs settings here <dada2_merge_pairs>`.
+We can leave all settings as DEFAULT. 
 
 +----------------------------------+--------------------------------------------------------+
 | Output directory |output_icon|          ``denoised_assembled.dada2``                      |
@@ -234,10 +221,10 @@ This step performs chimera filtering according to DADA2 removeBimeraDenovo funct
 
   make sure that primers have been removed from your amplicons; otherwise many false-positive chimeras may be filtered out from your dataset. 
 
-Here, we filter chimeras using the **consensus** method. Check the :ref:`denoising settings here <dada2_chimeras>`  
+Here, we filter chimeras using the **consensus** method. 
 
 +----------------------------------------+-------------------------------------------------------+
-| Output directory |output_icon|           ``chimeraFiltered_out.dada2``                         |
+| Output directory                       | ``chimeraFiltered_out.dada2``                         |
 +========================================+=======================================================+
 | \*.fasta                               | chimera filtered ASVs per sample                      |
 +----------------------------------------+-------------------------------------------------------+
@@ -245,8 +232,10 @@ Here, we filter chimeras using the **consensus** method. Check the :ref:`denoisi
 +----------------------------------------+-------------------------------------------------------+
 | 'chimeras' dir                         | ASVs per sample identified as chimeras                |
 +----------------------------------------+-------------------------------------------------------+
-| Output directory                       | ``ASVs_out.dada2``                                    |
+
 +----------------------------------------+-------------------------------------------------------+
+| Output directory                       | ``ASVs_out.dada2``                                    |
++========================================+=======================================================+
 | ASVs_table.txt                         | denoised and chimera filtered ASV-by-sample table     |
 +----------------------------------------+-------------------------------------------------------+
 | ASVs.fasta                             | corresponding FASTA formated ASV Sequences            |

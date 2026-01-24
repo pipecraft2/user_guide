@@ -1,24 +1,19 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide
 
 .. |main_interface| image:: _static/main_interface.png
   :width: 2000
-  :alt: Alternative text
 
 .. |select_pipeline_or_quicktools| image:: _static/select_pipeline_or_quicktools.png
   :width: 1000
-  :alt: Alternative text
 
 .. |select_wd| image:: _static/select_wd.png
   :width: 1000
-  :alt: Alternative text
 
 .. |resource_manager| image:: _static/resource_manager.png
   :width: 500
-  :alt: Alternative text
-
+  
 .. meta::
     :description lang=en:
         PipeCraft2 manual. User guide for PipeCraft2

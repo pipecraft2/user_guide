@@ -1,6 +1,5 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide
 
 .. raw:: html
@@ -15,63 +14,58 @@
 
 .. role:: green
 
+
+.. |select_LULU| image:: _static/select_LULU.png
+  :width: 600
+
 .. |workflow_finished| image:: _static/workflow_finished.png
   :width: 300
-  :alt: Alternative text
 
 .. |stop_workflow| image:: _static/stop_workflow.png
   :width: 200
-  :alt: Alternative text
 
 .. |vsearch_qfilt| image:: _static/vsearch_qfilt.png
   :width: 600
-  :alt: Alternative text
 
 .. |vsearch_blast| image:: _static/vsearch_blast.png
   :width: 600
-  :alt: Alternative text   
 
 .. |assign_taxonomy_blast| image:: _static/assign_taxonomy_blast.png
   :width: 600
-  :alt: Alternative text   
 
 .. |vsearch_chimeraFilt| image:: _static/vsearch_chimeraFilt.png
   :width: 600
-  :alt: Alternative text
 
 .. |lulu| image:: _static/lulu.png
   :width: 600
-  :alt: Alternative text  
 
 .. |cut_primers_expand_example| image:: _static/cut_primers_expand_example.png
   :width: 600
-  :alt: Alternative text 
 
 .. |vsearch_merge_reads| image:: _static/vsearch_merge_reads.png
   :width: 600
-  :alt: Alternative text
 
 .. |ITSx| image:: _static/ITSx.png
   :width: 600
-  :alt: Alternative text  
 
 .. |output_icon| image:: _static/output_icon.png
   :width: 50
-  :alt: Alternative text
 
 .. |save| image:: _static/save.png
   :width: 50
-  :alt: Alternative text
 
 .. |pulling_image| image:: _static/pulling_image.png
   :width: 280
-  :alt: Alternative text
 
 .. |vsearch_clustering| image:: _static/vsearch_clustering.png
   :width: 600
-  :alt: Alternative text  
+
+.. |select_vsearch_OTUs_workflow| image:: _static/select_vsearch_OTUs_workflow.png
+  :width: 700
 
 
+.. |vsearch_curate_table_expand| image:: _static/vsearch_curate_table_expand.png
+  :width: 600
 
 .. meta::
     :description lang=en:
@@ -80,6 +74,8 @@
 
 vsearch OTUs pipeline, ITS2 |PipeCraft2_logo|
 ---------------------------------------------
+
+|select_vsearch_OTUs_workflow|
 
 This example data analyses follows vsearch OTUs workflow as implemented in PipeCraft2's pre-compiled pipelines panel. 
 
@@ -292,6 +288,106 @@ Here, however, the ``strands`` could be set as "plut", since our sequences are 5
 
 ___________________________________________________
 
+
+Curate ASV table
+~~~~~~~~~~~~~~~~
+
+This process first removes putative **tag jumps** and then **collapses the ASVs that are identical** up to shifts or length variation, 
+i.e. ASVs that have no internal mismatches; and finally 
+filters out ASVs that are shorter/longer than specified length (in base pairs).
+
+|vsearch_curate_table_expand|
+
+Here, we are **enabling this process** by checking the box for ``CURATE ASV TABLE`` in the DADA2 ASV workflow panel. 
+
+The ``f_value`` and ``p_value`` settings are used to filter out putative tag jumps (using UNCROSS2 algorithm). 
+Generally, we recommend to use p_value of 1 (default), and **f_value of 0.03** when using combinational indexing strategy; 
+f_value of 0.05 when using single-indexes, and f_value of 0.01 when using unique dual-indexes.
+
+The expected amplicon length (without primers) in our example dataset in ~253 bp. 
+Assuming that shorter sequences are non-target sequences, 
+we use 240 in the ``min length`` setting. This will discard ASVs that are less than 240 bp.
+Here, ``max length`` can be set to 0 (default), meaning no filtering by maximum sequence length.
+
+We are also setting the ``collapseNoMismatch`` to TRUE, to collapse identical ASVs. 
+This is basically equivalent to 100% clustering by ignoring the end gaps.
+
++----------------------------+-------------------------------------------------------------------+
+| Output directory |output_icon|         ``ASVs_out.dada2/curated``                              |
++============================+===================================================================+
+| ASVs_table_TagJumpFilt.txt | only tag-jump filtered ASV-by-sample table                        |
++----------------------------+-------------------------------------------------------------------+
+| ASVs.fasta                 | corresponding ASV Sequences with ASVs_table_TagJumpFilt.txt table |
++----------------------------+-------------------------------------------------------------------+
+|| ASVs_collapsed.fasta      || tag-jump filtered and collapsed and size filtered                |
+||                           || ASV Sequences. Present only if some ASVs were collapsed.         |
++----------------------------+-------------------------------------------------------------------+
+|| ASVs_table_collapsed.txt  || corresponding ASV-by-sample table.                               |
+||                           || Present only if some ASVs were collapsed.                        |
++----------------------------+-------------------------------------------------------------------+
+| TagJump_stats.txt          | summary of tag-jump filtering results                             |
++----------------------------+-------------------------------------------------------------------+
+
+.. admonition:: If there is nothing to collapse or filter out based on the length
+  
+  then there are no corresponding files in the ``ASVs_out.dada2/curated`` directory, and only 
+  ASVs_table_TagJumpFilt.txt and ASVs.fasta files will be generated 
+  (even when there is nothing to tag-jump filter - in which case ASVs_table_TagJumpFilt.txt is the same 
+  ASVs_table.txt in the ``ASVs_out.dada2`` directory).
+
+
+
+____________________________________________________
+
+
+Save workflow
+~~~~~~~~~~~~~
+
+Once we have decided about the settings in our workflow, we can save the configuration 
+file by pressing ``save workflow`` button on the right-ribbon
+
+|save|
+
+If you forget the save, then no worries, a ``pipecraft2_last_run_configuration.json`` file will be generated for you upon starting the workflow.
+As the file name says, it is the workflow configuration file for your last PipeCraft run in this **working directory**. 
+
+This ``JSON`` file can be loaded into PipeCraft2 to **automatically configure your next runs exactly the same way**.
+
+.. note:: 
+
+  **'Assign taxonomy' is not the part of the full per-defined pipeline**. This step 
+  can be selected and run via **QuickTools** panel. See below. 
+
+___________________________________________________
+
+Start the workflow
+~~~~~~~~~~~~~~~~~~
+
+Press ``START`` on the left ribbon **to start the analyses**.
+
+.. admonition:: when running the module for the first time ...
+  
+  ... a docker image will be first pulled to start the process. 
+
+  For example: |pulling_image|
+
+
+When you need to STOP the workflow, press ``STOP`` button |stop_workflow|
+
+
+.. admonition:: When the workflow has completed ...
+
+  ... a message window will be displayed.
+
+  |workflow_finished|
+
+___________________________________________________
+
+
+
+
+# Addtional step 
+
 Postclustering 
 ~~~~~~~~~~~~~~
 
@@ -299,6 +395,8 @@ Postclustering polishes the clusters (OTUs) by merging consistently co-occurring
 PipeCraft2 implements LULU algorithm for postclustering; :ref:`see here <postclustering_lulu>`. 
 
 LULU can be found under **QuickTools** panel on the right ribbon.
+
+|select_LULU|
 
 .. admonition:: when doing LULU postclustering ...
 
@@ -433,7 +531,7 @@ were discarded from the last sample. *(note that this is an example dataset and 
 
 
 ``clustering_out`` directory contains **OTU table** (OTU_table.txt), where the **1st column** represents OTU identifiers (sha1 encoded), 
-and all the following columns represent number of sequences in the corresponding sample (sample name is taken from the file name). This is tab delimited text file. 
+and all the following columns represent number of sequences in the corresponding sample (**sample name is taken from the file name**). This is tab delimited text file. 
 
 *OTU_table.txt; first 4 samples and 4 ASVs*
 

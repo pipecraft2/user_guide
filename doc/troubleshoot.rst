@@ -1,31 +1,24 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide
 
 .. |learnErrors| image:: _static/troubleshoot/learnErrors.png
   :width: 250
-  :alt: Alternative text
 
 .. |dimnames| image:: _static/troubleshoot/dimnames.png
   :width: 250
-  :alt: Alternative text
 
 .. |learnErrors_fewReads| image:: _static/troubleshoot/learnErrors_fewReads.png
   :width: 250
-  :alt: Alternative text
 
 .. |workflow_stopped| image:: _static/troubleshoot/workflow_stopped.png
   :width: 250
-  :alt: Alternative text
-
+  
 .. |debug| image:: _static/debug.png
   :width: 100
-  :alt: Alternative text
 
 .. |DADA2_read_identifiers| image:: _static/troubleshoot/DADA2_read_identifiers.png
   :width: 250
-  :alt: Alternative text
 
 =================================
 Troubleshooting |PipeCraft2_logo| 

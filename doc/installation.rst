@@ -1,23 +1,18 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide
 
 .. |resources| image:: _static/resources1.png
   :width: 600
-  :alt: Alternative text
 
 .. |openanyway| image:: _static/openanyway.png
   :width: 400
-  :alt: Alternative text
 
 .. |mac_docker_share| image:: _static/Mac_docker_share.png
   :width: 400
-  :alt: Alternative text
 
 .. |resource_manager| image:: _static/resource_manager.png
   :width: 600
-  :alt: Alternative text
   
 .. raw:: html
 
@@ -319,7 +314,6 @@ Removing Docker images
 
 .. |purge_docker_Win| image:: _static/purge_docker_Win.png
   :width: 600
-  :alt: Alternative text
 
 |purge_docker_Win|
 

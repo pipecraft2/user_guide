@@ -1,6 +1,5 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :alt: Alternative text
   :target: https://github.com/pipecraft2/user_guide
 
 .. raw:: html
@@ -17,24 +16,18 @@
 
 .. |multiQC_main| image:: _static/multiQC_main.png
   :width: 1000
-  :alt: Alternative text
 
 .. |multiQC_1-3| image:: _static/multiQC_1-3.png
   :width: 550
-  :alt: Alternative text
 
 .. |multiQC_view_report| image:: _static/multiQC_view_report.png
   :width: 550
-  :alt: Alternative text
 
 .. |multiQC_stats| image:: _static/multiQC_stats.png
   :width: 650
-  :alt: Alternative text
-
+  
 .. |multiQC_plot| image:: _static/multiQC_plot.png
   :width: 650
-  :alt: Alternative text
-
 
 .. _qualitycheck:
 
