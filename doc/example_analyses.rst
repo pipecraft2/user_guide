@@ -30,6 +30,7 @@ Example data analyses |PipeCraft2_logo|
    example_analyses_QC
    example_analyses_DADA2_16S
    example_analyses_DADA2_COI
+   example_analyses_DADA2_ITS
    example_analyses_vsearchOTU
    example_analyses_OptimOTU
    
