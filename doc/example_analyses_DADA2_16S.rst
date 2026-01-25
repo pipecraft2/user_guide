@@ -46,7 +46,7 @@
   :width: 300
 
 .. |DADA2_select_pipeline| image:: _static/select_pipeline.png
-  :width: 600
+  :width: 700
 
 .. |output_icon| image:: _static/output_icon.png
   :width: 50
@@ -308,8 +308,11 @@ Save workflow
 Once we have decided about the settings in our workflow, we can save the configuration file by pressing ``save workflow`` button on the right-ribbon
 |save|
 
-If you forget the save, then no worries, a ``pipecraft2_last_run_configuration.json`` file will be generated for you upon starting the workflow.
-As the file name says, it is the workflow configuration file for your last PipeCraft run in this **working directory**. 
+If you forget the save, then no worries, a ``pipecraft2_last_run_configuration.json`` file will be generated 
+for you upon starting the workflow.
+As the file name says, it is the workflow configuration file for your last PipeCraft run in this **working directory**.
+If the file name (pipecraft2_last_run_configuration.json) is not changed, then the file is overwritten with the new configuration
+if running a new job in the same working directory.
 
 This ``JSON`` file can be loaded into PipeCraft2 to **automatically configure your next runs exactly the same way**.
 
@@ -360,6 +363,7 @@ See :ref:`other assign taxonomy options here <assign_taxonomy>`.
 We need to specify the location of the **reference DATABASE** for the taxonomic classification of our ASVs. Click on the header of ``dada2_database`` setting, 
 which directs you to the `DADA2-formatted reference databases web page <https://benjjneb.github.io/dada2/training.html>`_.
 Here, we are using ``silva_nr99_v138.2_toSpecies_trainset.fa.gz``. 
+See other databases available for taxonomy annotation :ref:`here <databases>`.
 
 |DADA2_assign_tax_expand|
 
@@ -428,13 +432,13 @@ For example, from the ``seq_count_summary.csv`` file in ``qualFiltered_out`` we 
 ____________________________________________________
 
 Here, we applied also **"CURATE ASV TABLE"** process.
-Therefore, our final outputs of the pipeline is in the ``ASVs_out.dada2/curated`` directory.
+Therefore, our final outputs of the pipeline are in the ``ASVs_out.dada2/curated`` directory.
 
 ``ASVs_out.dada2/curated`` directory contains **ASVs_table_TagJumpFilt.txt** file. 
 This represents the ASV table after the tag-jump filtering, 
 where the **1st column** represents ASV identifiers (sha1 encoded), 
-**2nd column** is the sequence of and ASV,
-and all the following columns represent number of sequences in the corresponding sample 
+**2nd column** is the sequence of an ASV,
+and all the following columns represent number of sequences in the corresponding samples 
 (sample name is taken from the file name). This is tab delimited text file. 
 
 *ASVs_table_TagJumpFilt.txt; first 4 samples and 4 ASVs:*
@@ -467,7 +471,7 @@ The **ASV + Sequences** info are also represented in the fasta file (ASVs.fasta)
   However, we applied also **tag-jump filtering** process (via ``f_value`` and ``p_value`` settings). 
   When checking the ``TagJump_stats.txt`` file in the ``ASVs_out.dada2/curated`` directory, 
   we see that based on our settings, **9 tag-jump events** were detected which involved 78 reads.
-  That is, the were **9 potential cases where an ASV may have been "leaked" from one sample to another**.
+  That is, there were **9 potential cases where an ASV may have been "leaked" from one sample to another**.
   The number of ASVs are the same in ``ASVs_out.dada2/curated/ASVs_table_TagJumpFilt.txt`` and ``ASVs_out.dada2/ASVs_table.txt`` files, 
   but ``ASVs_table_TagJumpFilt.txt`` file has 78 less reads than "ASVs_table.txt" file as those were **removed as putative tag-jumps**.
 

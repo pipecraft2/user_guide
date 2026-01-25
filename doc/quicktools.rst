@@ -824,6 +824,11 @@ Implemented tools for taxonomy annotation:
   To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
   but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
 
+.. important::
+
+  Make sure you do not have any other BLAST database files is the same directory as the database you are using.
+  That is, use dedicated directory for the BLAST database.
+
 .. note::
 
  BLAST values filed separator is '+'. When pasting the taxonomy results to e.g. Excel, then first denote '+' as 
@@ -1001,11 +1006,11 @@ A *(noncomprehensive)* list of **public databases available for taxonomy annotat
 +===============================================================================================================================================+============================================================+
 | `EUKARYOME <https://eukaryome.org/>`_                                                                                                         | 18S rRNA (SSU), ITS, and 28S rRNA (LSU) for all eukaryotes |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
-| `UNITE <https://unite.ut.ee/>`_                                                                                                               | ITS rRNA, Fungi and all Eukaryotes                         |
+| `UNITE <https://unite.ut.ee/repository.php>`_                                                                                                 | ITS rRNA, Fungi and all Eukaryotes                         |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
 | `SILVA <https://www.arb-silva.de/>`_                                                                                                          | 16S/18S (SSU), Bacteria, Archaea and Eukarya               |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
-| `MIDORI <http://www.reference-midori.info/>`_                                                                                                 | Eukaryota mitochondrial genes (including COI)              |
+| `MIDORI2 <www.reference-midori.info/index.html>`_                                                                                             | Eukaryota mitochondrial genes (including COI)              |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
 | `CO1 Classifier <https://github.com/terrimporter/CO1Classifier>`_                                                                             | Metazoa COI (includes outgroups)                           |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+

@@ -74,7 +74,10 @@
 
 .. |COI_example_quality_plot| image:: _static/COI_example_quality_plot.png
   :width: 500
-  
+
+.. |DADA2_select_pipeline| image:: _static/select_pipeline.png
+  :width: 700
+
 .. meta::
     :description lang=en:
         PipeCraft manual. tutorial
@@ -88,8 +91,10 @@ This example dataset consists of **COI mtDNA gene amplicon sequences with the ta
 
 | `Download example data set here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/example_data_COI_313bp.zip>`_ and **unzip** it. 
 
-For this example data run, we are using a subset of `CO1Classifier <https://github.com/terrimporter/CO1Classifier>`_ database in the taxonomy annotation process, `download it from here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/Databases/SINTAX_COIv5.1.0.subset.zip>`_.
-
+For this example data run, we are using a subset of `CO1Classifier <https://github.com/terrimporter/CO1Classifier>`_ 
+database in the taxonomy annotation process,
+`download it from here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/Databases/SINTAX_COIv5.1.0.subset.zip>`_.
+See other databases available for taxonomy annotation :ref:`here <databases>`.
 
 ____________________________________________________
 
@@ -121,7 +126,9 @@ ____________________________________________________
 
 | **To select DADA2 pipeline**, press
 | ``SELECT PIPELINE`` --> ``DADA" ASVs``.
-| 
+
+|DADA2_select_pipeline|
+
 | **To select input data**, press ``SELECT WORKDIR``
 | and specify
 | ``sequence files extension`` as **\*.fastq**;  
@@ -324,8 +331,11 @@ Save workflow
 Once we have decided about the settings in our workflow, we can save the configuration file by pressing ``save workflow`` button on the right-ribbon
 |save|
 
-If you forget the save, then no worries, a ``pipecraft2_last_run_configuration.json`` file will be generated for you upon starting the workflow.
-As the file name says, it is the workflow configuration file for your last PipeCraft run in this **working directory**. 
+If you forget the save, then no worries, a ``pipecraft2_last_run_configuration.json`` file will be generated 
+for you upon starting the workflow.
+As the file name says, it is the workflow configuration file for your last PipeCraft run in this **working directory**.
+If the file name (pipecraft2_last_run_configuration.json) is not changed, then the file is overwritten with the new configuration
+if running a new job in the same working directory.
 
 This ``JSON`` file can be loaded into PipeCraft2 to **automatically configure your next runs exactly the same way**.
 
@@ -452,7 +462,7 @@ ____________________________________________________
     :class: important
 
     Here, we applied also **"CURATE ASV TABLE"** process.
-    Therefore, our final outputs of the pipeline is in the ``ASVs_out.dada2/curated`` directory, which contans: 
+    Therefore, our final outputs of the pipeline are in the ``ASVs_out.dada2/curated`` directory, which contans: 
 
 +--------------------------------+-------------------------------------------------------------------+
 | **ASVs_table_TagJumpFilt.txt** | only tag-jump filtered ASV-by-sample table                        |
@@ -487,8 +497,8 @@ therefore, the final outputs of the pipeline are ``ASVs_table_collapsed.txt`` an
 
 ``ASVs_table_collapsed.txt`` represents the ASV table after the tag-jump and lenght/collapse filtering, 
 where the **1st column** represents ASV identifiers (sha1 encoded), 
-**2nd column** is the sequence of and ASV,
-and all the following columns represent number of sequences in the corresponding sample 
+**2nd column** is the sequence of an ASV,
+and all the following columns represent number of sequences in the corresponding samples 
 (sample name is taken from the file name). This is tab delimited text file. 
 
 *ASVs_table_collapsed.txt:*
