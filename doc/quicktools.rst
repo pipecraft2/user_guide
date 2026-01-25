@@ -834,6 +834,9 @@ Implemented tools for taxonomy annotation:
  BLAST values filed separator is '+'. When pasting the taxonomy results to e.g. Excel, then first denote '+' as 
  as filed separator to align the columns.
 
+
+ **Check** :ref:`this section <parse_BLAST_results>` for additional parsing of the BLAST results.
+
 +--------------------+----------------------------------------------------------------------+
 | Setting            | Tooltip                                                              |
 +====================+======================================================================+

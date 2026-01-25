@@ -808,6 +808,11 @@ This R-script **works only for PipeCraft2 BLAST outputs with EUKARYOME database.
 
 __________________________________________________
 
+.. note::
+  
+  Alternatively, apply `this script (Right-click → Save As) <https://raw.githubusercontent.com/pipecraft2/user_guide/master/doc/_static/supporting_scripts/Consensus_BLAST_10_hits.R>`_ 
+  to generate the consensus taxonomy from the 10 best hits [method explanation is in the script].
+
 Here, with this example dataset, we did not have any non-Fungal OTUs to be filtered out, 
 but in case some OTUs were discarded from the BLAST results, then use the following R-script 
 to **filter the OTU table and fasta file accordingly**.
