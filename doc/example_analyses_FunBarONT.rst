@@ -47,21 +47,21 @@ FunBarONT pipeline, ITS |PipeCraft2_logo|
 This example data analyses follows **FunBarONT** workflow as implemented in PipeCraft2's pre-compiled pipelines panel. 
 
 FunBarONT is a specialized pipeline for processing **Oxford Nanopore Technologies (ONT) fungal barcoding data**, 
-specifically targeting the **ITS2 rRNA gene region**. This pipeline is optimized for long-read sequencing data and incorporates 
+specifically targeting the **ITS rRNA gene region**. This pipeline is optimized for long-read sequencing data and incorporates 
 quality filtering, demultiplexing, sequence polishing, and taxonomic assignment to generate high-confidence fungal identifications.
 
-| Example data set details: **Oxford Nanopore long-read ITS2 amplicon sequences** (see nano_test_data folder).
-| This is a sample dataset for **fungal identification and barcoding** using ITS2 amplicons.
+| Example data set details: **Oxford Nanopore long-read ITS rRNA gene amplicon sequences** (see nano_test_data folder).
+| This is a sample dataset for **fungal identification and barcoding** using ITS amplicons.
 
 ____________________________________________________
 
 Starting point 
 ~~~~~~~~~~~~~~
 
-This example dataset consists of **ITS2 rRNA gene amplicon sequences**; targeting fungi:
+This example dataset consists of **ITS rRNA gene amplicon sequences**; targeting fungi:
 
 - **single-end** Oxford Nanopore sequencing data;
-- **demultiplexed** set (per-sample fastq files, typically demultiplexed using Guppy, MinKNOW, or similar);
+- **demultiplexed** set (per-sample fastq files, typically demultiplexed using cutadapt, MinKNOW, or similar);
 - barcodes and adapters have already been **removed**;
 - sequences are generated using **long-read sequencing technology** (read lengths typically 1-10+ kb).
 
@@ -91,22 +91,19 @@ ____________________________________________________
 Workflow overview
 ~~~~~~~~~~~~~~~~~
 
-The FunBarONT pipeline consists of several key processing steps designed to handle the characteristics of Oxford Nanopore long-read sequencing data:
+The FunBarONT pipeline consists of the following processing steps designed to handle the characteristics of Oxford Nanopore long-read sequencing data:
 
-1. **Input validation and quality assessment** - Evaluates read quality and length distribution
-2. **Length filtering** - Removes reads that do not meet minimum length requirements for reliable ITS2 amplicon detection
-3. **Adapter/primer removal** - Optional trimming of known sequences from the terminal ends of reads
-4. **Quality filtering** - Applies quality thresholds to remove low-quality reads
-5. **Sequence polishing** - Corrects sequencing errors common in long-read data
-6. **Clustering/OTU generation** - Groups similar sequences into operational taxonomic units (OTUs) or ASVs
-7. **Chimera filtering** - Identifies and removes potential chimeric sequences
-8. **ITS2 extraction** - Extracts and isolates the ITS2 subregion for improved taxonomic accuracy
-9. **Taxonomy assignment** - Assigns taxonomic classification based on reference databases
+1. **Quality Control (NanoPlot)** - Generates quality reports and statistics for each sample
+2. **Quality Filtering (chopper)** - Filters reads based on quality scores and length thresholds
+3. **Clustering (VSEARCH)** - Groups similar sequences into clusters/OTUs
+4. **Sequence Polishing (racon + medaka)** - Corrects sequencing errors to generate high-accuracy consensus sequences
+5. **ITS Extraction (ITSx)** - Extracts the ITS region from fungal sequences (optional)
+6. **Taxonomy Assignment (BLAST)** - Assigns taxonomic classification using BLAST against a reference database
 
 .. note::
 
-  The exact processing steps and their order may be customized in the PipeCraft2 interface. 
-  The sequence described here represents a typical recommended workflow for fungal ITS2 barcoding with ONT data.
+  The FunBarONT pipeline is specifically designed for Oxford Nanopore fungal barcoding data. 
+  All steps run automatically in sequence once the workflow is started.
 
 ____________________________________________________
 
@@ -143,306 +140,212 @@ All fastq files should follow a consistent naming pattern with the sample identi
 - **Read quality**: Oxford Nanopore reads can contain sequencing errors, particularly towards the ends of reads. 
   The pipeline includes quality filtering steps to handle this.
 
-- **Read length**: Ensure that the expected amplicon length (including ITS2 and flanking regions) matches your read lengths. 
-  The default minimum length filtering is typically set to accommodate full-length ITS2 amplicons (~500-700 bp for fungi).
+- **Read length**: Ensure that the expected amplicon length (including ITS and flanking regions) matches your read lengths. 
+  The default minimum length filtering is typically set to accommodate full-length ITS amplicons (~500-700 bp for fungi).
 
 - **Mixed samples**: If your data contains mixed fungal species or environmental samples, the clustering steps will group similar sequences together.
 
 ____________________________________________________
 
-Quality control
-~~~~~~~~~~~~~~~
+Quality Control (NanoPlot)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Before processing, it is advisable to assess the quality of your sequencing data. 
-You can use the ``QualityCheck`` panel in PipeCraft2 to visualize read quality distribution, length distribution, and other metrics.
+The FunBarONT pipeline uses **NanoPlot** to assess the quality of your Oxford Nanopore sequencing data. 
+This step generates comprehensive quality reports and statistics for each sample.
+
+NanoPlot produces:
+
+- **Quality distribution plots** - Visualize the distribution of read quality scores
+- **Read length distribution** - Shows the length distribution of your sequencing reads
+- **NanoStats.txt** - Summary statistics including read counts, mean quality, and length metrics
+- **NanoPlot-report.html** - Interactive HTML report with all quality metrics
 
 Key quality metrics to consider:
 
 - **Mean quality score**: Typically > Q10 is acceptable for ONT basecalling data
 - **Read length distribution**: Should center around your expected amplicon length
-- **Quality score trends**: Quality often decreases towards the end of reads in ONT data
+- **Total reads**: Verify adequate sequencing depth per sample
+
++-----------------------------------------------+---------------------------------------------------+
+| Output directory |output_icon|                | ``01_quality_reports``                            |
++===============================================+===================================================+
+| ``<sample>_NanoPlot_results``/                | NanoPlot results folder per sample                |
++-----------------------------------------------+---------------------------------------------------+
+| NanoPlot-report.html                          | interactive HTML quality report                   |
++-----------------------------------------------+---------------------------------------------------+
+| NanoStats.txt                                 | summary statistics (read counts, quality, length) |
++-----------------------------------------------+---------------------------------------------------+
 
 ____________________________________________________
 
-Length filtering
-~~~~~~~~~~~~~~~~
+Quality Filtering (chopper)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The FunBarONT pipeline can filter reads based on minimum and/or maximum length thresholds. 
+Quality filtering uses **chopper** to remove low-quality reads that do not meet specified thresholds. 
+This step is critical for Oxford Nanopore data, which can have variable error rates.
 
-This step is particularly important for ONT data because:
+**Configurable parameters:**
 
-- Very short reads may represent sequencing artifacts or incomplete amplicons
-- Very long reads may indicate concatenated or chimeric sequences
-- Length filtering helps focus on full-length, high-quality amplicons
+- **chopper_quality** (default: 10) - Minimum read quality score. Reads below this threshold are discarded.
+- **chopper_min_read_length** (default: 150 bp) - Minimum read length. Shorter reads are removed.
+- **chopper_max_read_length** (default: 1000 bp) - Maximum read length. Longer reads are removed.
 
-**Recommended settings for ITS2 fungal barcoding:**
+**For ITS fungal barcoding:**
 
-- **Minimum length**: 400-500 bp (adjust based on your specific primers and target amplicon size)
-- **Maximum length**: 1500-2000 bp (adjust based on expected maximum read length)
+Adjust the length thresholds based on your expected amplicon size. The ITS region in fungi typically ranges from 400-800 bp, 
+so default settings should work well for most applications.
 
-____________________________________________________
-
-Cut primers
-~~~~~~~~~~~
-
-If your input sequences still contain primers or adapter sequences, this step removes them.
-
-This is important because:
-
-- Primer sequences can bias downstream analyses and clustering
-- Removing primers focuses analysis on the variable metabarcode region
-- Some taxonomy assignment databases expect primer-free sequences
-
-**For ITS2 fungal amplicons:**
-
-Specify the forward and reverse primer sequences used in your PCR amplification. 
-For example, common ITS2 primers targeting fungi include:
-
-- **Forward**: GCATCGATGAAGAACGCAGC (fITS7)
-- **Reverse**: TCCTCCGCTTATTGATATGC (ITS4)
-
-Adjust the ``min overlap`` and ``mismatches`` parameters based on:
-- Primer length
-- Expected sequence quality
-- Tolerance for primer sequence variations
-
-.. admonition:: when working with your own ITS2 data ...
-
-  ... if you are using **ITSx** for ITS2 subregion extraction, you may optionally skip the primer cutting step, 
-  as ITSx will extract the ITS2 region and remove flanking sequences (18S and 5.8S rRNA genes) automatically.
++--------------------------------------------+-------------------------------------------------------+
+| Output directory |output_icon|             | ``02_filtered_sequences``                             |
++============================================+=======================================================+
+| \*.chopper.fasta.gz                        | quality filtered sequences per sample in FASTA format |
++--------------------------------------------+-------------------------------------------------------+
 
 ____________________________________________________
 
-Quality filtering
-~~~~~~~~~~~~~~~~~
+Clustering (VSEARCH)
+~~~~~~~~~~~~~~~~~~~~
 
-Quality filtering removes low-quality reads that do not meet specified error thresholds. 
-This step is critical for Oxford Nanopore data, which typically has higher error rates than short-read sequencing.
+The clustering step uses **VSEARCH** to group similar sequences into clusters. 
+This reduces the impact of sequencing errors and produces representative sequences for downstream analysis.
 
-Two main approaches are commonly used:
+**Configurable parameters:**
 
-1. **Percentage-based filtering**: Keep only reads with a certain percentage of bases above a quality threshold
-2. **Expected error filtering**: Remove reads exceeding a maximum number of expected errors
-
-For ONT data processing:
-
-- Use more lenient quality thresholds compared to Illumina data (due to the inherent characteristics of long-read sequencing)
-- Consider the read length when setting quality thresholds; longer reads with uniform quality are acceptable
-- The default settings in FunBarONT are pre-optimized for typical long-read ITS2 data
-
-+-----------------------+-------------------------------------------------------+
-| Output directory |output_icon|          ``qualFiltered_out``                  |
-+=======================+=======================================================+
-| \*.fastq              | quality filtered sequences per sample in FASTQ format |
-+-----------------------+-------------------------------------------------------+
-| seq_count_summary.txt | summary of sequence counts per sample                 |
-+-----------------------+-------------------------------------------------------+
-
-____________________________________________________
-
-Sequence polishing
-~~~~~~~~~~~~~~~~~~
-
-Oxford Nanopore long reads often contain random errors that can be corrected using sequence polishing algorithms. 
-The FunBarONT pipeline may include optional polishing steps to improve sequence quality.
-
-Common polishing approaches include:
-
-- **Consensus-based polishing**: Multiple reads are aligned and a consensus sequence is generated
-- **Machine learning-based polishing**: Uses trained models to correct systematic errors
-- **Reference-based polishing**: Aligns reads against a reference database and corrects errors
-
-.. note::
-
-  Polishing is optional and may increase processing time. It is particularly beneficial when:
-  
-  - Working with low-quality sequencing runs
-  - Processing mixed environmental samples with variable coverage per species
-  - Requiring high-confidence sequences for downstream analyses
-
-____________________________________________________
-
-Length filtering (post-processing)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-After quality filtering and polishing, an additional length filtering step may remove sequences that have become 
-too short during the quality trimming process.
-
-This ensures that downstream analyses (clustering, taxonomy assignment) only use sequences of appropriate length.
-
-____________________________________________________
-
-Clustering
-~~~~~~~~~~
-
-The clustering step groups similar sequences into operational taxonomic units (OTUs). 
-The FunBarONT pipeline can use several clustering methods:
-
-- **vsearch clustering**: Fast, deterministic clustering at a specified similarity threshold
-- **SWARM clustering**: Abundance-based clustering that does not require pre-defined similarity thresholds
-- **ASV-based approaches**: Each unique sequence is treated as an amplicon sequence variant (ASV)
-
-**Recommended settings for ITS2 fungal barcoding:**
-
-- **Similarity threshold**: 97% is commonly used for ITS2 fungal OTU clustering (adjust based on your taxonomic resolution needs)
-- **Strand specification**: Set to "both" to cluster sequences regardless of orientation
-- **Abundance weighting**: Consider enabling if using SWARM clustering to account for sequence abundance in the sample
+- **vsearch_cluster_id** (default: 0.95) - Clustering identity threshold (0-1). Sequences with similarity above this threshold will be clustered together.
+- **vsearch_cluster_strand** (default: "both") - Check both strands or plus strand only during clustering.
 
 **Why clustering for ONT data:**
 
 - Reduces impacts of sequencing errors by grouping similar sequences
-- Produces more stable OTU tables compared to treating every sequence as unique (ASV approach)
-- Improves computational efficiency for downstream analyses
+- Produces representative centroid sequences for each cluster
+- Improves computational efficiency for downstream polishing and taxonomy assignment
 
-+-------------------------------------+-------------------------------------------+
-| Output directory |output_icon|  ``clustering_out``                              |
-+=====================================+===========================================+
-| OTU_table.txt                       | OTU-by-sample abundance table             |
-+-------------------------------------+-------------------------------------------+
-| OTUs.fasta                          | representative sequences per OTU in FASTA |
-+-------------------------------------+-------------------------------------------+
-| OTUs.uc                             | clustering results mapping file           |
-+-------------------------------------+-------------------------------------------+
++---------------------------------------+-----------------------------------------------+
+| Output directory |output_icon|        | ``03_clusters``                               |
++=======================================+===============================================+
+| \*.centroids.fasta.gz                 | representative centroid sequences per sample  |
++---------------------------------------+-----------------------------------------------+
 
 ____________________________________________________
 
-Chimera filtering
-~~~~~~~~~~~~~~~~~
+Sequence Polishing (racon + medaka)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Chimera detection and filtering is a crucial quality control step for amplicon sequencing data. 
-Chimeras are hybrid sequences formed from two or more biological sequences, typically arising during PCR amplification.
+Oxford Nanopore long reads often contain random errors that are corrected using a two-step polishing process:
 
-The FunBarONT pipeline offers multiple chimera detection methods:
+1. **Racon** - First-pass polishing using multiple sequence alignment
+2. **Medaka** - Neural network-based polishing for high-accuracy consensus sequences
 
-- **De novo chimera detection** (uchime_denovo): Identifies chimeras based on sequence patterns without requiring a reference database
-- **Reference-based chimera detection** (uchime_ref): Compares against a reference database to identify chimeric sequences
-- **Combined approach**: De novo filtering followed by reference-based filtering for maximum sensitivity
+**Configurable parameters:**
 
-**For fungal ITS2 data:**
+- **medaka_model** (default: r1041_e82_400bps_hac_variant_v4.3.0) - Select the medaka model based on your flowcell, kit, and basecaller.
+- **racon_quality_threshold** (default: 20) - Minimum average base quality for windows used by Racon.
+- **racon_window_length** (default: 100) - Window length used by Racon for polishing.
 
-We recommend using the **de novo approach** as the primary method, with optional reference-based filtering using a fungal ITS database such as:
+.. note::
 
-- UNITE database (https://unite.ut.ee/)
-- RDP Fungal ITS database
+  Select the appropriate **medaka model** based on your sequencing setup:
+  
+  - **r1041_e82** models are for R10.4.1 flowcells with E8.2 chemistry
+  - **r941** models are for R9.4.1 flowcells
+  - Choose **hac** (high accuracy) or **sup** (super accuracy) based on your basecalling model
+  - The model affects consensus accuracy, so matching your setup is important
 
-.. important:: 
-
-  Ensure that primers have been removed from your amplicons before chimera filtering; 
-  otherwise, legitimate sequences may be incorrectly flagged as chimeras. 
-
-.. admonition:: when working with ITS2 fungal data ...
-
-  ... download the appropriate reference database for your target organisms. 
-  The UNITE database is widely used for fungal ITS analysis and is available in multiple formats 
-  including UCHIME/USEARCH format suitable for reference-based chimera filtering.
-
-+---------------------------+---------------------------------------------+
-| Output directory  |output_icon|  ``chimera_Filtered_out``               |
-+===========================+=============================================+
-| OTU_table.txt or \*.fasta | chimera-filtered OTU table and/or sequences |
-+---------------------------+---------------------------------------------+
-| seq_count_summary.txt     | summary of sequence counts per sample       |
-+---------------------------+---------------------------------------------+
-| ``chimeras``/\*.fasta     | discarded sequences identified as chimeras  |
-+---------------------------+---------------------------------------------+
++---------------------------------------+-----------------------------------------------+
+| Output directory |output_icon|        | ``04_polished_sequences``                     |
++=======================================+===============================================+
+| \*.racon.fasta                        | Racon-polished sequences per sample           |
++---------------------------------------+-----------------------------------------------+
+| \*.medaka.consensus.fasta             | Medaka-polished consensus sequences per sample|
++---------------------------------------+-----------------------------------------------+
 
 ____________________________________________________
 
-Extract ITS2 subregion
-~~~~~~~~~~~~~~~~~~~~~~
+ITS Extraction (ITSx)
+~~~~~~~~~~~~~~~~~~~~~
 
-The ITS2 subregion extraction step uses ITSx software to identify and extract the ITS2 rRNA gene region from your sequences. 
+The ITS extraction step uses **ITSx** software to identify and extract the ITS rRNA gene region from your sequences. 
 This is particularly valuable for fungal identification because:
 
-- **Improves taxonomic accuracy**: The ITS2 region is more conserved at certain taxonomic levels, improving classification
-- **Removes non-functional regions**: Eliminates 18S and 5.8S rRNA genes that may bias clustering and taxonomy assignment
-- **Standardizes sequence length**: Produces more uniform sequence lengths for improved clustering
+- **Improves taxonomic accuracy**: The ITS region is the standard barcode for fungi
+- **Removes flanking regions**: Eliminates 18S and 5.8S rRNA genes that may bias taxonomy assignment
+- **Standardizes sequences**: Produces comparable sequences for database matching
 
-**Setting for FunBarONT ITS2 extraction:**
+**Pipeline option:**
 
-- **Region for clustering**: Set to ``ITS2`` (the specific region of interest)
-- **Organisms**: Select ``fungi`` to limit the search to fungal ITS regions
-- **Complement**: Enable to also search the reverse complement strand (important if sequences have mixed orientation)
+- **use_itsx** (default: true) - Set to false if you want to skip ITS extraction (useful for non-ITS sequences)
 
 **Important considerations:**
 
 - ITSx works best on full or near-full length amplicons
-- Very short or partial sequences may not be reliably detected
-- The tool may produce both "full" and "partial" ITS2 sequences; review the output to decide which to use
+- Sequences without detectable ITS regions will produce empty output files
+- The tool extracts both ITS1 and ITS2 regions when present
 
-.. note::
-
-  If you have already performed primer cutting in earlier steps and your sequences are in consistent orientation,
-  you may disable the ``complement`` search to reduce processing time.
-
-+-----------------------------------------+-------------------------------------------------------------+
-| Output directory |output_icon| ``ITSx_out``                                                           |
-+=========================================+=============================================================+
-| ``ITS2``/\*.fasta                       | ITS2 sequences (without flanking regions) per sample        |
-+-----------------------------------------+-------------------------------------------------------------+
-| ``ITS2``/``full_and_partial``/\*.fasta  | full and partial ITS2 sequences per sample                  |
-+-----------------------------------------+-------------------------------------------------------------+
-| seq_count_summary.txt                   | summary of sequence counts per sample                       |
-+-----------------------------------------+-------------------------------------------------------------+
++---------------------------------------+---------------------------------------------------+
+| Output directory |output_icon|        | ``05_its_extracted``                              |
++=======================================+===================================================+
+| \*.its.fasta                          | extracted ITS sequences per sample                |
++---------------------------------------+---------------------------------------------------+
 
 ____________________________________________________
 
-Taxonomy assignment
-~~~~~~~~~~~~~~~~~~~
+Taxonomy Assignment (BLAST)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Taxonomy assignment annotates your OTUs with taxonomic classifications based on comparison against reference databases. 
-The FunBarONT pipeline supports multiple taxonomy assignment methods:
+Taxonomy assignment uses **BLAST** to compare your sequences against a reference database and assign taxonomic classifications.
 
-1. **BLAST** - Basic Local Alignment Search Tool (uses top BLAST hits)
-2. **SINTAX** - Fast, simple classifier (requires formatted database)
-3. **UTAX** - Naive Bayes classifier (vsearch UTAX)
-4. **Custom methods** - Can be integrated based on your specific needs
+**Configurable parameters:**
 
-**For fungal ITS2 barcoding, recommended approaches:**
+- **database_file** (required) - Reference database file in FASTA format. The pipeline will automatically create a BLAST database from this file.
+- **run_id** (default: "funbaront_run") - Unique identifier for this analysis run. Used for naming output directories and files.
+- **strands** (default: "both") - Query strand to search against database. "both" includes reverse complement.
+- **e_value** (default: 10) - E-value threshold. Lower values indicate more significant matches.
+- **word_size** (default: 11) - Initial word size for BLAST alignment.
 
-- **BLAST with UNITE database** - Most widely used combination, allows easy interpretation of hits
-- **SINTAX with UNITE database** - Faster than BLAST with reasonable accuracy
+**Additional pipeline options:**
 
-**Setting up taxonomy assignment for ITS2 fungi:**
+- **output_all_polished_seqs** (default: false) - Output all polished sequences even those without database hits (useful for non-ITS sequences).
+- **rel_abu_threshold** (default: 10) - Output only clusters with barcode-wise relative abundance above this percentage (0-100).
 
-1. Download a suitable reference database (e.g., UNITE fungal ITS database)
-2. Specify the database location in the ``taxonomy assignment`` panel
-3. Adjust ``minimum identity`` threshold (typically 85-97% for ITS2)
-4. If using BLAST, select whether you want ``1st best hit`` or ``top 10 hits``
+**For fungal ITS barcoding:**
+
+Use a fungal ITS reference database such as:
+
+- **UNITE database** (https://unite.ut.ee/) - The standard reference database for fungal ITS sequences
 
 **Interpreting taxonomy output:**
 
-The taxonomy assignment process produces classifications at multiple taxonomic ranks:
+The BLAST results include taxonomic assignments at multiple ranks when available in the reference database.
+Not all sequences may have reliable classifications; sequences without database hits will have empty results.
 
-- Kingdom
-- Phylum
-- Class
-- Order
-- Family
-- Genus
-- Species
++---------------------------------------+-------------------------------------------+
+| Output directory |output_icon|        | ``06_blast_results``                      |
++=======================================+===========================================+
+| \*.blast.tsv                          | BLAST results in tabular format per sample|
++---------------------------------------+-------------------------------------------+
 
-Not all ranks may have reliable classifications for every OTU; "Unclassified" entries indicate where confidence is insufficient.
+____________________________________________________
 
-.. admonition:: when working with your fungal barcoding data ...
+Final Results and JSON Output
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  ... note that ITS2 provides excellent discrimination at family and genus levels for fungi, 
-  but species-level identification may require additional information (such as morphology) 
-  for accurate determination. Some OTUs may represent:
-  
-  - **Species complexes** - Closely related species that are difficult to distinguish by ITS2 alone
-  - **Rare or undescribed species** - Not represented in the reference database
-  - **Heterogeneous OTUs** - Multiple species grouped due to sequence similarity
+The FunBarONT pipeline produces comprehensive final results in multiple formats:
 
-+-------------------------------------+--------------------------------+
-| Output directory     |output_icon|    ``taxonomy_out``               |
-+=====================================+================================+
-| BLAST_1st_best_hit.txt              | BLAST 1st hit per OTU/ASV      |
-+-------------------------------------+--------------------------------+
-| BLAST_10_best_hits.txt              | First 10 BLAST hits per OTU    |
-+-------------------------------------+--------------------------------+
-| taxonomy.txt or SINTAX_taxonomy.txt | Taxonomic classification table |
-+-------------------------------------+--------------------------------+
++---------------------------------------+-----------------------------------------------------------+
+| Output directory |output_icon|        | ``07_json_results``                                       |
++=======================================+===========================================================+
+| \*.results.json                       | JSON formatted results per sample with all analysis data  |
++---------------------------------------+-----------------------------------------------------------+
+
+**Main results file:**
+
++---------------------------------------+-----------------------------------------------------------+
+| Output file |output_icon|             | Root output directory                                     |
++=======================================+===========================================================+
+| funbaront_run.results.xlsx            | Excel spreadsheet with all results (taxonomy, quality)    |
++---------------------------------------+-----------------------------------------------------------+
+| README.md                             | Summary of the pipeline run with parameters and citations |
++---------------------------------------+-----------------------------------------------------------+
 
 ____________________________________________________
 
@@ -453,10 +356,28 @@ Once the FunBarONT workflow is complete, you have several files for further anal
 
 **Primary output files:**
 
-- **OTU_table.txt** - Abundance table (OTUs × samples)
-- **OTUs.fasta** - Representative sequences for each OTU
-- **ITS2.fasta** - ITS2-extracted sequences (if ITSx step was performed)
-- **taxonomy.txt** - Taxonomic classification for each OTU
+- **funbaront_run.results.xlsx** - Excel spreadsheet with comprehensive results including sequence info, taxonomy, and quality metrics
+- **\*.blast.tsv** - BLAST results per sample in tabular format
+- **\*.its.fasta** - Extracted ITS sequences per sample
+- **\*.medaka.consensus.fasta** - Polished consensus sequences per sample
+- **\*.results.json** - JSON formatted results for programmatic access
+
+**Output directory structure:**
+
+.. code-block::
+   :caption: FunBarONT output directory structure
+
+    <run_id>_results/
+    ├── 01_quality_reports/          # NanoPlot quality reports per sample
+    │   └── <sample>_NanoPlot_results/
+    ├── 02_filtered_sequences/       # Chopper-filtered sequences
+    ├── 03_clusters/                 # VSEARCH clustering centroids
+    ├── 04_polished_sequences/       # Racon and Medaka polished sequences
+    ├── 05_its_extracted/            # ITSx extracted ITS sequences
+    ├── 06_blast_results/            # BLAST taxonomy results
+    ├── 07_json_results/             # JSON formatted results
+    ├── funbaront_run.results.xlsx   # Main results spreadsheet
+    └── README.md                    # Run summary and citations
 
 **Recommended post-processing steps:**
 
@@ -576,47 +497,3 @@ The taxonomy output typically includes a comma-separated or tab-delimited table 
 - Full sequence
 - Kingdom, Phylum, Class, Order, Family, Genus, Species
 - Confidence scores or assignment method details
-
-**Next steps for your analysis:**
-
-1. Load the OTU table into R or Python for statistical analysis
-2. Perform rarefaction analysis to assess sampling completeness
-3. Conduct community composition analysis (e.g., bar plots, PCA)
-4. Calculate alpha and beta diversity metrics
-5. Perform differential abundance testing if comparing groups
-6. Generate phylogenetic trees for evolutionary insights
-
-____________________________________________________
-
-References and further reading
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- **ITSx**: `Bengtsson-Palme et al. 2013 <https://microbiology.se/software/itsx/>`_ - 
-  Identifies and extracts ITS regions from rRNA gene sequences
-
-- **UNITE database**: `Koljalg et al. 2013 <https://unite.ut.ee/>`_ - 
-  Fungal ITS sequence reference database for taxonomic classification
-
-- **Oxford Nanopore Technologies**: Comprehensive sequencing platform documentation and basecalling guidelines
-
-- **vsearch**: `Rognes et al. 2016 <https://github.com/torognes/vsearch>`_ - 
-  Fast and versatile open-source tool for metagenomics
-
-- **BLAST+**: `Camacho et al. 2009 <https://blast.ncbi.nlm.nih.gov/>`_ - 
-  Suite of programs for sequence similarity searches
-
-____________________________________________________
-
-Citation
-~~~~~~~~
-
-If you use the FunBarONT pipeline in your research, please cite:
-
-- PipeCraft2: `Anslan et al. 2020+ <https://github.com/pipecraft2/>`_
-- Oxford Nanopore long-read sequencing technology
-- ITSx software used for ITS2 extraction
-- Reference databases (UNITE) used for taxonomy assignment
-
-____________________________________________________
-
-|
