@@ -24,6 +24,25 @@ ____________________________________________________
 
     for next release - BLAST dabasese resource link to GUI
 
+.. _1.2.0:
+
+1.2.0 (12.03.2025)
+==================
+
+`DOWNLOAD link for v1.2.0 <https://github.com/pipecraft2/pipecraft/releases/tag/v1.2.0>`_
+
+* added FunBarONT pipeline for Oxford Nanopore ITS sequences
+* speed up the seq_count_summary making
+* bug fix to seq_count_summary making after ITSx for full_ITS/full_and_partial dir
+* added workflow for dealing with dataset with thousands of samples for 'merge sequencing runs' in vsearch/unoise pipeline: 
+* SINTAX classifier did not work with UDB files, fixed. 
+* fix to MetaMATE to work with the default specification0.txt that in in the Docker container.
+* "ASV to OTU" module outputs OTU table with "Sequences" as 2nd column. 
+* PipeCraft2 automatically detects the file extensions in the working directory. 
+*  
+
+
+__________________________________________________
 
 .. _1.1.0:
 
@@ -77,6 +96,8 @@ Software                                                                 version
 `fastp <https://github.com/OpenGene/fastp>`_                             0.23.2
 `DEICODE <https://github.com/biocore/DEICODE>`_                          0.2.4
 =======================================================================  ==========
+
+__________________________________________________
 
 .. _1.0.0:
 
