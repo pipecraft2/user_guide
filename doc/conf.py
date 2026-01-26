@@ -17,11 +17,11 @@ from docutils.parsers.rst import Directive, directives
 # -- Project information -----------------------------------------------------
 
 project = 'PipeCraft2'
-copyright = '2025, Sten Anslan'
-author = 'Sten Anslan'
+copyright = '2026, Sten Anslan'
+author = 'Sten Anslan, Ali Hakimzadeh'
 
 # The full version, including alpha/beta/rc tags
-version = 'v1.1.0'
+version = 'v1.2.0'
 release = version
 
 # -- General configuration ---------------------------------------------------

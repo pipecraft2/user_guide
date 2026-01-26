@@ -263,7 +263,7 @@ Common polishing approaches include:
 ____________________________________________________
 
 Length filtering (post-processing)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 After quality filtering and polishing, an additional length filtering step may remove sequences that have become 
 too short during the quality trimming process.
@@ -294,15 +294,15 @@ The FunBarONT pipeline can use several clustering methods:
 - Produces more stable OTU tables compared to treating every sequence as unique (ASV approach)
 - Improves computational efficiency for downstream analyses
 
-+-------------------------------------------------+--------------------------------------------+
-| Output directory |output_icon| ``clustering_out``                                            |
-+=================================================+============================================+
-| OTU_table.txt                                   | OTU-by-sample abundance table               |
-+-------------------------------------------------+--------------------------------------------+
-| OTUs.fasta                                      | representative sequences per OTU in FASTA   |
-+-------------------------------------------------+--------------------------------------------+
-| OTUs.uc                                         | clustering results mapping file             |
-+-------------------------------------------------+--------------------------------------------+
++-------------------------------------+-------------------------------------------+
+| Output directory |output_icon|  ``clustering_out``                              |
++=====================================+===========================================+
+| OTU_table.txt                       | OTU-by-sample abundance table             |
++-------------------------------------+-------------------------------------------+
+| OTUs.fasta                          | representative sequences per OTU in FASTA |
++-------------------------------------+-------------------------------------------+
+| OTUs.uc                             | clustering results mapping file           |
++-------------------------------------+-------------------------------------------+
 
 ____________________________________________________
 
@@ -336,15 +336,15 @@ We recommend using the **de novo approach** as the primary method, with optional
   The UNITE database is widely used for fungal ITS analysis and is available in multiple formats 
   including UCHIME/USEARCH format suitable for reference-based chimera filtering.
 
-+---------------------------------------------------------+----------------------------------------------------+
-| Output directory |output_icon| ``chimera_Filtered_out``                                                 |
-+=========================================================+====================================================+
-| OTU_table.txt or \*.fasta                               | chimera-filtered OTU table and/or sequences       |
-+---------------------------------------------------------+----------------------------------------------------+
-| seq_count_summary.txt                                   | summary of sequence counts per sample               |
-+---------------------------------------------------------+----------------------------------------------------+
-| ``chimeras``/\*.fasta                                   | discarded sequences identified as chimeras        |
-+---------------------------------------------------------+----------------------------------------------------+
++---------------------------+---------------------------------------------+
+| Output directory  |output_icon|  ``chimera_Filtered_out``               |
++===========================+=============================================+
+| OTU_table.txt or \*.fasta | chimera-filtered OTU table and/or sequences |
++---------------------------+---------------------------------------------+
+| seq_count_summary.txt     | summary of sequence counts per sample       |
++---------------------------+---------------------------------------------+
+| ``chimeras``/\*.fasta     | discarded sequences identified as chimeras  |
++---------------------------+---------------------------------------------+
 
 ____________________________________________________
 
@@ -376,7 +376,7 @@ This is particularly valuable for fungal identification because:
   you may disable the ``complement`` search to reduce processing time.
 
 +-----------------------------------------+-------------------------------------------------------------+
-| Output directory |output_icon| ``ITSx_out``                                                             |
+| Output directory |output_icon| ``ITSx_out``                                                           |
 +=========================================+=============================================================+
 | ``ITS2``/\*.fasta                       | ITS2 sequences (without flanking regions) per sample        |
 +-----------------------------------------+-------------------------------------------------------------+
@@ -434,15 +434,15 @@ Not all ranks may have reliable classifications for every OTU; "Unclassified" en
   - **Rare or undescribed species** - Not represented in the reference database
   - **Heterogeneous OTUs** - Multiple species grouped due to sequence similarity
 
-+-----------------------------------------------+-------------------------------+
-| Output directory |output_icon| ``taxonomy_out``                               |
-+===============================================+===============================+
-| BLAST_1st_best_hit.txt                        | BLAST 1st hit per OTU/ASV     |
-+-----------------------------------------------+-------------------------------+
-| BLAST_10_best_hits.txt                        | First 10 BLAST hits per OTU   |
-+-----------------------------------------------+-------------------------------+
-| taxonomy.txt or SINTAX_taxonomy.txt           | Taxonomic classification table |
-+-----------------------------------------------+-------------------------------+
++-------------------------------------+--------------------------------+
+| Output directory     |output_icon|    ``taxonomy_out``               |
++=====================================+================================+
+| BLAST_1st_best_hit.txt              | BLAST 1st hit per OTU/ASV      |
++-------------------------------------+--------------------------------+
+| BLAST_10_best_hits.txt              | First 10 BLAST hits per OTU    |
++-------------------------------------+--------------------------------+
+| taxonomy.txt or SINTAX_taxonomy.txt | Taxonomic classification table |
++-------------------------------------+--------------------------------+
 
 ____________________________________________________
 
