@@ -6,16 +6,15 @@
 How to cite |PipeCraft2_logo|
 =============================
 
-For now, please cite the first release of PipeCraft:
+Please cite the as: 
 
 Anslan, S, Bahram, M, Hiiesalu, I, Tedersoo, L. 
 **PipeCraft: Flexible open-source toolkit for bioinformatics analysis of custom high-throughput amplicon sequencing data.**
-Mol Ecol Resour. 2017; 17: e234– e240.
-https://doi.org/10.1111/1755-0998.12692
+Mol Ecol Resour. 2017; 17: e234-e240. https://doi.org/10.1111/1755-0998.12692
 
-But please also include PipeCraft version 2 manual link: pipecraft2-manual.rtfd.io/
+But please also include PipeCraft2 user guide link: pipecraft2-manual.rtfd.io
 
-e.g. "... using PipeCraft 2 (Anslan et al 2017; pipecraft2-manual.rtfd.io/)"
+e.g. "... using PipeCraft2 (Anslan et al 2017; pipecraft2-manual.rtfd.io)"
 
 ____________________________________________________
 
