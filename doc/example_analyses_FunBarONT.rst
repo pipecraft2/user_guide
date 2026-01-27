@@ -406,7 +406,7 @@ Once the FunBarONT workflow is complete, you have several files for further anal
     ├── 06_blast_results/            # BLAST taxonomy results
     ├── 07_json_results/             # JSON formatted results
     ├── funbaront_run.results.xlsx   # Main results spreadsheet
-    └── README.md                    # Run summary and citations
+    └── README.txt                    # Run summary and citations
 
 **Recommended post-processing steps:**
 

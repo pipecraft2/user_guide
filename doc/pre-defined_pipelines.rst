@@ -1097,7 +1097,7 @@ The pipeline produces the following output structure:
 +===============================+===========================================================+
 | ``<run_id>.results.xlsx``     | Excel spreadsheet with all results (taxonomy, quality)    |
 +-------------------------------+-----------------------------------------------------------+
-| ``README.md``                 | summary of the pipeline run with parameters and citations |
+| ``README.txt``                 | summary of the pipeline run with parameters and citations |
 +-------------------------------+-----------------------------------------------------------+
 | ``01_quality_reports/``       | NanoPlot quality reports per sample                       |
 +-------------------------------+-----------------------------------------------------------+
