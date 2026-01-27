@@ -932,3 +932,184 @@ Clustering
 +-------------------------+----------------------------------------------------------------------------------+
 
 
+__________________________________________________
+
+.. _funbaront_pipeline:
+
+FunBarONT
+=========
+
+`FunBarONT <https://github.com/mdziurzynski/ont_fungal_barcoding_pipeline>`_ is an automated pipeline for processing 
+**Oxford Nanopore Technologies (ONT) fungal barcoding data**, specifically targeting the **ITS rRNA gene region**.
+
+This pipeline processes long-read sequencing data through quality filtering, clustering, consensus polishing, 
+ITS extraction, and taxonomic assignment to generate high-confidence fungal identifications.
+
+.. note::
+
+  FunBarONT requires **single-end demultiplexed** Oxford Nanopore data as input.
+  The pipeline automatically handles the higher error rates typical of ONT sequencing through 
+  consensus polishing with racon and medaka.
+
+Directory structure
+-------------------
+
+.. code-block::
+   :caption: Required directory structure for FunBarONT
+
+    my_fungal_barcoding/   # SELECT THIS FOLDER AS WORKING DIRECTORY
+    └── sequences/
+        ├── sample1.fastq
+        ├── sample2.fastq
+        ├── sample3.fastq.gz
+        └── ...
+
+Input data must be **demultiplexed** with one fastq file per sample.
+
+
+**Default settings:**
+
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+| Analyses step                                          | Default setting                            | output directory              |
++========================================================+============================================+===============================+
+|| QUALITY CONTROL (NanoPlot)                            || generates quality reports per sample      || ``01_quality_reports``       |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+|| QUALITY FILTERING (chopper)                           || ``chopper quality`` = 10                  || ``02_filtered_sequences``    |
+||                                                       || ``chopper min read length`` = 150         ||                              |
+||                                                       || ``chopper max read length`` = 1000        ||                              |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+|| CLUSTERING (VSEARCH)                                  || ``vsearch cluster id`` = 0.95             || ``03_clusters``              |
+||                                                       || ``vsearch cluster strand`` = both         ||                              |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+|| SEQUENCE POLISHING (racon + medaka)                   || ``medaka model`` = r1041_e82_400bps_hac   || ``04_polished_sequences``    |
+||                                                       ||   _variant_v4.3.0                         ||                              |
+||                                                       || ``racon quality threshold`` = 20          ||                              |
+||                                                       || ``racon window length`` = 100             ||                              |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+|| ITS EXTRACTION (ITSx)                                 || ``use itsx`` = TRUE                       || ``05_its_extracted``         |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+|| TAXONOMY ASSIGNMENT (BLAST)                           || ``strands`` = both                        || ``06_blast_results``         |
+||                                                       || ``e value`` = 10                          ||                              |
+||                                                       || ``word size`` = 11                        ||                              |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+|| FINAL RESULTS                                         || ``run id`` = funbaront_run                || ``07_json_results``          |
+||                                                       || ``rel abu threshold`` = 10                ||                              |
+||                                                       || ``output all polished seqs`` = FALSE      ||                              |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
+
+
+Pipeline options
+----------------
+
++------------------------------+--------------------------------------------------------------------------------------------+
+| Setting                      | Tooltip                                                                                    |
++==============================+============================================================================================+
+| ``use itsx``                 | set to FALSE to skip ITS extraction (useful for non-ITS sequences)                         |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``output all polished seqs`` | output all polished sequences even those without database hits                             |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``rel abu threshold``        | output only clusters with relative abundance above this value (0-100%)                     |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``cpu threads``              | number of CPU threads to use for processing                                                |
++------------------------------+--------------------------------------------------------------------------------------------+
+
+
+Quality filtering (chopper)
+---------------------------
+
++------------------------------+--------------------------------------------------------------------------------------------+
+| Setting                      | Tooltip                                                                                    |
++==============================+============================================================================================+
+| ``chopper quality``          | minimum read quality score (Phred). Reads below this threshold are discarded               |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``chopper min read length``  | minimum read length in bp. Shorter reads are removed                                       |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``chopper max read length``  | maximum read length in bp. Longer reads are removed                                        |
++------------------------------+--------------------------------------------------------------------------------------------+
+
+
+Sequence polishing
+------------------
+
++------------------------------+--------------------------------------------------------------------------------------------+
+| Setting                      | Tooltip                                                                                    |
++==============================+============================================================================================+
+|| ``medaka model``            || medaka inference model for consensus polishing. Select based on your flowcell,            |
+||                             || kit, and basecaller model (e.g., r1041_e82_400bps_hac_variant_v4.3.0)                     |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``racon quality threshold``  | minimum average base quality for windows used by racon (default: 20)                       |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``racon window length``      | window length used by racon for polishing (default: 100)                                   |
++------------------------------+--------------------------------------------------------------------------------------------+
+
+
+VSEARCH clustering
+------------------
+
++------------------------------+--------------------------------------------------------------------------------------------+
+| Setting                      | Tooltip                                                                                    |
++==============================+============================================================================================+
+| ``vsearch cluster id``       | clustering identity threshold (0-1). Sequences above this similarity are clustered         |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``vsearch cluster strand``   | check both strands or plus strand only during clustering                                   |
++------------------------------+--------------------------------------------------------------------------------------------+
+
+
+Taxonomy assignment (BLAST)
+---------------------------
+
++------------------------------+--------------------------------------------------------------------------------------------+
+| Setting                      | Tooltip                                                                                    |
++==============================+============================================================================================+
+|| ``database file``           || reference database file in FASTA format (e.g., UNITE database).                           |
+||                             || Automatically converted to BLAST database format                                          |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``run id``                   | unique identifier for this analysis run. Used for naming output files                      |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``task``                     | BLAST search settings according to blastn or megablast                                     |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``strands``                  | query strand to search against database. Both = search also reverse complement             |
++------------------------------+--------------------------------------------------------------------------------------------+
+|| ``e value``                 || a parameter that describes the number of hits one can expect to see by chance when        |
+||                             || searching a database of a particular size. The lower the e-value the more 'significant'   |
+||                             || the match is                                                                              |
++------------------------------+--------------------------------------------------------------------------------------------+
+|| ``word size``               || the size of the initial word that must be matched between the database and the query      |
+||                             || sequence                                                                                  |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``reward``                   | reward for a match                                                                         |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``penalty``                  | penalty for a mismatch                                                                     |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``gap open``                 | cost to open a gap                                                                         |
++------------------------------+--------------------------------------------------------------------------------------------+
+| ``gap extend``               | cost to extend a gap                                                                       |
++------------------------------+--------------------------------------------------------------------------------------------+
+
+
+Output files
+------------
+
+The pipeline produces the following output structure:
+
++-------------------------------+-----------------------------------------------------------+
+| Output                        | Description                                               |
++===============================+===========================================================+
+| ``<run_id>.results.xlsx``     | Excel spreadsheet with all results (taxonomy, quality)    |
++-------------------------------+-----------------------------------------------------------+
+| ``README.md``                 | summary of the pipeline run with parameters and citations |
++-------------------------------+-----------------------------------------------------------+
+| ``01_quality_reports/``       | NanoPlot quality reports per sample                       |
++-------------------------------+-----------------------------------------------------------+
+| ``02_filtered_sequences/``    | chopper-filtered sequences (\*.chopper.fasta.gz)          |
++-------------------------------+-----------------------------------------------------------+
+| ``03_clusters/``              | VSEARCH clustering centroids (\*.centroids.fasta.gz)      |
++-------------------------------+-----------------------------------------------------------+
+| ``04_polished_sequences/``    | racon and medaka polished sequences                       |
++-------------------------------+-----------------------------------------------------------+
+| ``05_its_extracted/``         | ITSx extracted ITS sequences (\*.its.fasta)               |
++-------------------------------+-----------------------------------------------------------+
+| ``06_blast_results/``         | BLAST taxonomy results (\*.blast.tsv)                     |
++-------------------------------+-----------------------------------------------------------+
+| ``07_json_results/``          | JSON formatted results per sample                         |
++-------------------------------+-----------------------------------------------------------+
