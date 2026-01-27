@@ -39,6 +39,22 @@
   :width: 800
   :alt: FunBarONT workflow overview
 
+.. |funbaront_chopper| image:: _static/funbaront_chopper.png
+  :width: 800
+  :alt: Chopper parameter settings example
+
+.. |medaka_model_selection| image:: _static/medaka_model_selection.png
+  :width: 420
+  :alt: Medaka model selection drop-down
+
+.. |medaka_model| image:: _static/medaka_model.png
+  :width: 420
+  :alt: Medaka model list options
+
+.. |racon| image:: _static/racon.png
+  :width: 520
+  :alt: Racon parameter settings example
+
 .. meta::
     :description lang=en:
         PipeCraft manual. FunBarONT workflow tutorial
@@ -86,11 +102,11 @@ ____________________________________________________
 | ``SELECT PIPELINE`` --> ``FunBarONT``.
 
 |funbaront_workflow|
-| 
+
 | **To select input data**, press ``SELECT WORKDIR``
 | and specify
 | ``sequence files extension`` as **\*.fastq** or **\*.fastq.gz**;  
-| ``sequencing read types`` as **single-end**.
+| ``sequencing read types`` is not an effective option in this pipeline (both single-end and paired-end data are acceptable).
 
 ____________________________________________________
 
@@ -201,6 +217,8 @@ This step is critical for Oxford Nanopore data, which can have variable error ra
 Adjust the length thresholds based on your expected amplicon size. The ITS region in fungi typically ranges from 400-800 bp, 
 so default settings should work well for most applications.
 
+|funbaront_chopper|
+
 +--------------------------------------------+-------------------------------------------------------+
 | Output directory |output_icon|             | ``02_filtered_sequences``                             |
 +============================================+=======================================================+
@@ -244,9 +262,12 @@ Oxford Nanopore long reads often contain random errors that are corrected using 
 
 **Configurable parameters:**
 
-- **medaka_model** (default: r1041_e82_400bps_hac_variant_v4.3.0) - Select the medaka model based on your flowcell, kit, and basecaller.
+- **medaka_model** (default: r1041_e82_400bps_hac_variant_v4.3.0) - Select the medaka model based on your flowcell, kit, and basecaller. In this example should set to  **r1041_e82_260bps_sup_variant_g632**. 
 - **racon_quality_threshold** (default: 20) - Minimum average base quality for windows used by Racon.
 - **racon_window_length** (default: 100) - Window length used by Racon for polishing.
+
+|medaka_model_selection|
+|medaka_model|
 
 .. note::
 
@@ -256,6 +277,8 @@ Oxford Nanopore long reads often contain random errors that are corrected using 
   - **r941** models are for R9.4.1 flowcells
   - Choose **hac** (high accuracy) or **sup** (super accuracy) based on your basecalling model
   - The model affects consensus accuracy, so matching your setup is important
+
+|racon|
 
 +---------------------------------------+-----------------------------------------------+
 | Output directory |output_icon|        | ``04_polished_sequences``                     |
@@ -503,47 +526,3 @@ The taxonomy output typically includes a comma-separated or tab-delimited table 
 - Full sequence
 - Kingdom, Phylum, Class, Order, Family, Genus, Species
 - Confidence scores or assignment method detailsSetting
-
-Tooltip
-
-database_file
-
-select a database file in fasta format. Fasta format will be
-automatically converted to BLAST database
-fasta_file
-
-select a fasta file to be used as a query for BLAST search
-
-task
-
-BLAST search settings according to blastn or megablast
-
-strands
-
-query strand to search against database. Both = search also reverse
-complement
-e_value
-
-
-a parameter that describes the number of hits one can expect to see
-by chance when searching a database of a particular size. The lower
-the e-value the more ‘significant’ the match is
-word_size
-
-the size of the initial word that must be matched between the
-database and the query sequence
-reward
-
-reward for a match
-
-penalty
-
-penalty for a mismatch
-
-gap_open
-
-cost to open a gap
-
-gap_extend
-
-cost to extend a g
