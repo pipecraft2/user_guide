@@ -35,6 +35,10 @@
   :width: 280
   :alt: Alternative text
 
+.. |funbaront_workflow| image:: _static/funbaront_workflow.png
+  :width: 800
+  :alt: FunBarONT workflow overview
+
 .. meta::
     :description lang=en:
         PipeCraft manual. FunBarONT workflow tutorial
@@ -50,7 +54,7 @@ FunBarONT is a specialized pipeline for processing **Oxford Nanopore Technologie
 specifically targeting the **ITS rRNA gene region**. This pipeline is optimized for long-read sequencing data and incorporates 
 quality filtering, demultiplexing, sequence polishing, and taxonomic assignment to generate high-confidence fungal identifications.
 
-| Example data set details: **Oxford Nanopore long-read ITS rRNA gene amplicon sequences** (see nano_test_data folder).
+| `Download example data set here: <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/example_data_FunBarONT.zip>`_ and **unzip** it.
 | This is a sample dataset for **fungal identification and barcoding** using ITS amplicons.
 
 ____________________________________________________
@@ -80,6 +84,8 @@ ____________________________________________________
 
 | **To select FunBarONT pipeline**, press
 | ``SELECT PIPELINE`` --> ``FunBarONT``.
+
+|funbaront_workflow|
 | 
 | **To select input data**, press ``SELECT WORKDIR``
 | and specify
@@ -496,4 +502,48 @@ The taxonomy output typically includes a comma-separated or tab-delimited table 
 - OTU ID or sequence identifier
 - Full sequence
 - Kingdom, Phylum, Class, Order, Family, Genus, Species
-- Confidence scores or assignment method details
+- Confidence scores or assignment method detailsSetting
+
+Tooltip
+
+database_file
+
+select a database file in fasta format. Fasta format will be
+automatically converted to BLAST database
+fasta_file
+
+select a fasta file to be used as a query for BLAST search
+
+task
+
+BLAST search settings according to blastn or megablast
+
+strands
+
+query strand to search against database. Both = search also reverse
+complement
+e_value
+
+
+a parameter that describes the number of hits one can expect to see
+by chance when searching a database of a particular size. The lower
+the e-value the more ‘significant’ the match is
+word_size
+
+the size of the initial word that must be matched between the
+database and the query sequence
+reward
+
+reward for a match
+
+penalty
+
+penalty for a mismatch
+
+gap_open
+
+cost to open a gap
+
+gap_extend
+
+cost to extend a g
