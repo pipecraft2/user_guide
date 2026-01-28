@@ -118,14 +118,17 @@ The FunBarONT pipeline consists of the following processing steps designed to ha
 1. **Quality Control (NanoPlot)** - Generates quality reports and statistics for each sample
 2. **Quality Filtering (chopper)** - Filters reads based on quality scores and length thresholds
 3. **Clustering (VSEARCH)** - Groups similar sequences into clusters/OTUs
-4. **Sequence Polishing (racon + medaka)** - Corrects sequencing errors to generate high-accuracy consensus sequences
-5. **ITS Extraction (ITSx)** - Extracts the ITS region from fungal sequences (optional)
-6. **Taxonomy Assignment (BLAST)** - Assigns taxonomic classification using BLAST against a reference database
+4. **Read Mapping (minimap2)** - Maps reads to cluster centroids for consensus generation (no separate output; intermediate step for polishing)
+5. **Sequence Polishing (racon + medaka)** - Corrects sequencing errors to generate high-accuracy consensus sequences
+6. **ITS Extraction (ITSx)** - Extracts the ITS region from fungal sequences (optional)
+7. **Taxonomy Assignment (BLAST)** - Assigns taxonomic classification using BLAST against a reference database
 
 .. note::
 
   The FunBarONT pipeline is specifically designed for Oxford Nanopore fungal barcoding data. 
   All steps run automatically in sequence once the workflow is started.
+  
+  **minimap2** is used internally to align reads to cluster centroids before polishing—this step produces no separate output files but is essential for high-accuracy consensus calling.
 
 ____________________________________________________
 

@@ -981,6 +981,9 @@ Input data must be **demultiplexed** with one fastq file per sample.
 || CLUSTERING (VSEARCH)                                  || ``vsearch cluster id`` = 0.95             || ``03_clusters``              |
 ||                                                       || ``vsearch cluster strand`` = both         ||                              |
 +--------------------------------------------------------+--------------------------------------------+-------------------------------+
+|| READ MAPPING (minimap2)                               || maps reads to cluster centroids           || *no separate output*         |
+||                                                       || (intermediate step for polishing)         || *(used for polishing)*       |
++--------------------------------------------------------+--------------------------------------------+-------------------------------+
 || SEQUENCE POLISHING (racon + medaka)                   || ``medaka model`` = r1041_e82_400bps_hac   || ``04_polished_sequences``    |
 ||                                                       ||   _variant_v4.3.0                         ||                              |
 ||                                                       || ``racon quality threshold`` = 20          ||                              |
