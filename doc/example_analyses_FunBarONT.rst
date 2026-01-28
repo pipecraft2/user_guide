@@ -31,9 +31,9 @@
   :width: 50
   :alt: Alternative text
 
-.. |pulling_image| image:: _static/pulling_image.png
+.. |pulling_image| image:: _static/funbar_pulling.png
   :width: 280
-  :alt: Alternative text
+  :alt: FunBarONT pulling Docker image
 
 .. |funbaront_workflow| image:: _static/funbaront_workflow.png
   :width: 800
@@ -235,8 +235,8 @@ This reduces the impact of sequencing errors and produces representative sequenc
 
 **Configurable parameters:**
 
-- **vsearch_cluster_id** (default: 0.95) - Clustering identity threshold (0-1). Sequences with similarity above this threshold will be clustered together.
-- **vsearch_cluster_strand** (default: "both") - Check both strands or plus strand only during clustering.
+- **similarity_threshold** (default: 0.95) - Clustering identity threshold (0-1). Sequences with similarity above this threshold will be clustered together.
+- **strands** (default: "both") - Check both strands or plus strand only during clustering.
 
 **Why clustering for ONT data:**
 
@@ -355,7 +355,7 @@ Not all sequences may have reliable classifications; sequences without database 
 
 ____________________________________________________
 
-Final Results and JSON Output
+Final results and JSON output
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The FunBarONT pipeline produces comprehensive final results in multiple formats:
@@ -419,7 +419,6 @@ Once the FunBarONT workflow is complete, you have several files for further anal
 
 - Verify that the majority of OTUs are classified as fungi
 - Check for contamination (e.g., unusual taxa)
-- Review the rarefaction curves to assess sampling depth
 - Examine OTU abundance distributions
 
 ____________________________________________________
@@ -499,17 +498,7 @@ Troubleshooting
   
   - Lower the minimum identity threshold in taxonomy assignment
   - Verify the reference database is appropriate for your samples
-  - Consider BLAST search of unclassified OTUs against public databases (NCBI-nr)
-
-.. admonition:: Unexpected taxa in results
-
-  **Issue**: Non-fungal taxa appearing in taxonomy assignments
-  
-  **Solution**:
-  
-  - Filter output based on Kingdom classification (keep only Fungi)
-  - Review primer specificity for potential off-target amplification
-  - Consider whether environmental contamination is likely
+  - Consider BLAST search of unclassified OTUs against EUKARYOME database or a public database (NCBI)
 
 ____________________________________________________
 
@@ -518,11 +507,58 @@ Example output analysis
 
 After the workflow completes, you can examine the output files to understand your fungal community composition.
 
-**Example taxonomy summary visualization:**
+**Main Excel results file (default:funbaront_run.results.xlsx):**
 
-The taxonomy output typically includes a comma-separated or tab-delimited table with columns for:
+The Excel spreadsheet contains comprehensive results organized by sample with the following columns:
 
-- OTU ID or sequence identifier
-- Full sequence
-- Kingdom, Phylum, Class, Order, Family, Genus, Species
-- Confidence scores or assignment method detailsSetting
+1. **Sample**: Sample identifier from input fastq file
+2. **Number of clusters**: Total number of sequence clusters identified
+3. **Number of passed clusters**: Clusters that passed the relative abundance threshold (default ≥10%)
+4. **Total reads after filtering**: Number of quality-filtered reads for this sample
+5. **Cluster ID**: Unique identifier for each consensus sequence
+6. **Cluster size**: Number of reads grouped into this cluster
+7. **Cluster relative abundance**: Percentage of reads in this cluster (%)
+8. **Cluster sequence**: Trimmed ITS consensus sequence
+9. **Cluster sequence untrimmed**: Full-length consensus sequence before ITS extraction
+10. **BLASTn taxonomy assignment**: Species name from best BLAST match
+11. **BLASTn perc. ident.**: Sequence similarity to database match (%)
+12. **BLASTn query coverage**: Percentage of query sequence aligned (%)
+13. **BLASTn query length**: Length of the query sequence (bp)
+14. **BLASTn subject length**: Length of the database match sequence (bp)
+15. **BLASTn evalue**: Statistical significance of the BLAST match
+16. **BLASTn subject SH**: UNITE Species Hypothesis identifier (e.g., SH1292241.10FU)
+17. **BLASTn full taxonomy**: Complete taxonomic lineage (k__Kingdom;p__Phylum;c__Class;o__Order;f__Family;g__Genus;s__Species)
+
+.. note::
+
+   Each row represents a single cluster. Samples with multiple clusters will have multiple rows.
+   Failed samples show error messages in the "Number of clusters" column (e.g., "Analysis aborted! No ITS sequences extracted").
+
+**BLAST results files (*.blast.tsv):**
+
+Tab-separated files containing detailed BLAST alignments for each sample with columns:
+
+- Query sequence ID (cluster ID;size=N)
+- Subject sequence with full taxonomic path
+- Percent identity
+- Query coverage
+- E-value
+- Query length
+- Subject length
+
+Empty BLAST files indicate no sequences passed quality filtering or ITSx extraction.
+
+**JSON results files (*.results.json):**
+
+Per-sample JSON files containing structured data:
+
+- ``number_of_clusters``: Total number of consensus sequences
+- ``total_reads_after_filtering``: Number of reads after quality filtering
+- ``cluster_data``: Array of cluster objects with:
+  
+  - cluster_id, cluster_size
+  - cluster_sequence, cluster_sequence_untrimmed
+  - blastn_tax_name, blastn_sh_id, blastn_full_taxonomy
+  - blastn_pident, blastn_query_coverage, blastn_evalue
+  - blastn_query_length, blastn_subject_length
+  - relative_abundance (as decimal 0-1)

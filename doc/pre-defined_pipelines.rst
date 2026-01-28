@@ -1049,9 +1049,9 @@ VSEARCH clustering
 +------------------------------+--------------------------------------------------------------------------------------------+
 | Setting                      | Tooltip                                                                                    |
 +==============================+============================================================================================+
-| ``vsearch cluster id``       | clustering identity threshold (0-1). Sequences above this similarity are clustered         |
+| ``similarity threshold``     | clustering identity threshold (0-1). Sequences above this similarity are clustered         |
 +------------------------------+--------------------------------------------------------------------------------------------+
-| ``vsearch cluster strand``   | check both strands or plus strand only during clustering                                   |
+| ``strands``                  | check both strands or plus strand only during clustering                                   |
 +------------------------------+--------------------------------------------------------------------------------------------+
 
 
@@ -1097,7 +1097,7 @@ The pipeline produces the following output structure:
 +===============================+===========================================================+
 | ``<run_id>.results.xlsx``     | Excel spreadsheet with all results (taxonomy, quality)    |
 +-------------------------------+-----------------------------------------------------------+
-| ``README.txt``                 | summary of the pipeline run with parameters and citations |
+| ``README.txt``                | summary of the pipeline run with parameters and citations |
 +-------------------------------+-----------------------------------------------------------+
 | ``01_quality_reports/``       | NanoPlot quality reports per sample                       |
 +-------------------------------+-----------------------------------------------------------+
