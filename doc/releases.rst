@@ -37,10 +37,12 @@ ____________________________________________________
 * added workflow for dealing with dataset with thousands of samples for 'merge sequencing runs' in vsearch/unoise pipeline: 
 * SINTAX classifier did not work with UDB files, fixed. 
 * fix to MetaMATE to work with the default specification0.txt that in in the Docker container.
-* "ASV to OTU" module outputs OTU table with "Sequences" as 2nd column. 
 * PipeCraft2 automatically detects the file extensions in the working directory. 
-*  
+* added BlasCh module for identifying false-positive chimeras.
+* added swarm clustering 
 
+
+* "ASV to OTU" module outputs OTU table with "Sequences" as 2nd column.  ???
 
 __________________________________________________
 
