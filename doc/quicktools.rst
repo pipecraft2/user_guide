@@ -749,6 +749,51 @@ Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
 ||                          || ("none")                                                            |
 +---------------------------+----------------------------------------------------------------------+
 
+.. _clustering_swarm:
+
+`SWARM <https://github.com/torognes/swarm>`_ 
+---------------------------------------------
+
+| Cluster sequences using SWARM (`Mahé et al. 2021 <https://doi.org/10.1093/bioinformatics/btab493>`_), a robust and scalable clustering method 
+| that does not rely on an arbitrary global clustering threshold. SWARM v3 enables tera-scale amplicon clustering.
+
++----------------------+--------------------------------------------------------------------+
+| Setting              | Tooltip                                                            |
++======================+====================================================================+
+|| ``resolution (d)``  || the maximum number of differences allowed between two amplicons.  |
+||                     || Resolution of 1 is recommended for denoising. Higher values group |
+||                     || sequences more loosely into swarm-clusters. Default = 1           |
++----------------------+--------------------------------------------------------------------+
+|| ``no_otu_breaking`` || if TRUE, prevents the so-called 'OTU-breaking', which refines     |
+||                     || clusters by eliminating links between amplicons with specific     |
+||                     || abundance patterns. Recommended for denoising                     |
++----------------------+--------------------------------------------------------------------+
+|| ``fastidious``      || if TRUE (and resolution = 1), SWARM uses fastidious mode which    |
+||                     || grafts low-abundance swarms onto larger ones, reducing the number |
+||                     || of small clusters. Highly recommended for resolution=1            |
++----------------------+--------------------------------------------------------------------+
+|| ``boundary``        || minimum mass of a large swarm for fastidious mode. Only applies   |
+||                     || when fastidious mode is enabled and resolution = 1. Default = 3   |
++----------------------+--------------------------------------------------------------------+
+
+**Advanced options (for resolution > 1):**
+
++------------------------------+----------------------------------------------------------------------+
+| Setting                      | Tooltip                                                              |
++==============================+======================================================================+
+|| ``match_reward``            || reward for a nucleotide match in pairwise alignment. Only applies   |
+||                             || when resolution > 1. Default = 5                                    |
++------------------------------+----------------------------------------------------------------------+
+|| ``mismatch_penalty``        || penalty for a nucleotide mismatch in pairwise alignment. Only       |
+||                             || applies when resolution > 1. Default = 4                            |
++------------------------------+----------------------------------------------------------------------+
+|| ``gap_opening_penalty``     || penalty for opening a gap in pairwise alignment. Only applies when  |
+||                             || resolution > 1. Default = 12                                        |
++------------------------------+----------------------------------------------------------------------+
+|| ``gap_extension_penalty``   || penalty for extending a gap in pairwise alignment. Only applies     |
+||                             || when resolution > 1. Default = 4                                    |
++------------------------------+----------------------------------------------------------------------+
+
 .. _clustering_unoise3:
 
 `UNOISE3, with vsearch <https://github.com/torognes/vsearch>`_ 
