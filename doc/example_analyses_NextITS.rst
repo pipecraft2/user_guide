@@ -51,7 +51,7 @@ NextITS pipeline, Full-length ITS |PipeCraft2_logo|
 This example data analysis follows the **NextITS** pipeline as implemented in PipeCraft2's pre-compiled pipelines panel.
 NextITS is a specialized pipeline for analyzing **full-length ITS** reads obtained via **PacBio** sequencing.
 
-| `Download example data set here <https://raw.githubusercontent.com/pipecraft2/user_guide/refs/heads/master/data/example_data_NextITS.zip>`_ (1 Mb) and **unzip** it. 
+| `Download example data set here <https://zenodo.org/records/18770850/files/example_data_NextITS.zip?download=1>`_ (1 Mb) and **unzip** it. 
 | This is a **Full-length ITS dataset, PacBio sequencing**. 
 
 ____________________________________________________

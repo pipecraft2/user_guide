@@ -89,13 +89,11 @@ DADA2 ASVs pipeline, COI |PipeCraft2_logo|
 
 This example dataset consists of **COI mtDNA gene amplicon sequences with the target length of 313 bp**:
 
-| `Download example data set here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/example_data_COI_313bp.zip>`_ and **unzip** it. 
+| `Download example data set here <https://zenodo.org/records/18770850/files/example_data_COI_313bp.zip?download=1>`_ and **unzip** it. 
 
 For this example data run, we are using a subset of `CO1Classifier <https://github.com/terrimporter/CO1Classifier>`_ 
 database in the taxonomy annotation process,
-`download it from here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/Databases/SINTAX_COIv5.1.0.subset.zip>`_.
-See other databases available for taxonomy annotation :ref:`here <databases>`.
-
+`download it from here <https://zenodo.org/records/18770850/files/SINTAX_COIv5.1.0.subset.zip?download=1>`_.
 ____________________________________________________
 
 Starting point 
@@ -383,10 +381,7 @@ Here, we are using the `SINTAX <https://drive5.com/sintax/index.html>`_ classifi
 We need to specify the location of the **reference DATABASE** for the taxonomic classification of our ASVs. 
 For this example data run, we are using a subset 
 of `CO1Classifier <https://github.com/terrimporter/CO1Classifier>`_ database in the 
-taxonomy annotation process, `download it from here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/Databases/SINTAX_COIv5.1.0.subset.zip>`_
-and **unzip it**.
-
-|SINTAX_assign_tax_expand|
+taxonomy annotation process, `download it from here <https://zenodo.org/records/18770850/files/SINTAX_COIv5.1.0.subset.zip?download=1>`_
 
 Specify the location of your downloaded database and also the fasta file with ASVs (``fasta file``) to be classified.
 Herein, we use ``ASVs_collapsed.fasta`` file in the ``ASVs_out.dada2/curated`` directory 

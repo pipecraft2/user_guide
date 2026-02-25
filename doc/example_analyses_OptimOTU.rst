@@ -37,9 +37,9 @@
 OptimOTU pipeline, ITS2 |PipeCraft2_logo|
 -----------------------------------------
 
-This example data analyses follows OptimOTU workflow as implemented in PipeCraft2's pre-compiled pipelines panel. 
+This example data analyses follows OptimOTU workflow as implemented in PipeCraft2's pre-compiled pipelines panel.
 
-| `Download example data set here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/optimotu_ITS2.zip>`_ (4.1 Mb) and unzip it. 
+| `Download example data set here <https://zenodo.org/records/18770850/files/optimotu_ITS2.zip?download=1>`_ (4.1 Mb) and unzip it.
 | This is **paired end Illumina dataset, ITS2 amplicons**. 
 
 

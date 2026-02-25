@@ -66,11 +66,11 @@ FunBarONT pipeline, ITS |PipeCraft2_logo|
 
 This example data analyses follows **FunBarONT** workflow as implemented in PipeCraft2's pre-compiled pipelines panel. 
 
-FunBarONT is a specialized pipeline for processing **Oxford Nanopore Technologies (ONT) fungal barcoding data**, 
-specifically targeting the **ITS rRNA gene region**. This pipeline is optimized for long-read sequencing data and incorporates 
+FunBarONT is a specialized pipeline for processing **Oxford Nanopore Technologies (ONT) fungal barcoding data**,
+specifically targeting the **ITS rRNA gene region**. This pipeline is optimized for long-read sequencing data and incorporates
 quality filtering, demultiplexing, sequence polishing, and taxonomic assignment to generate high-confidence fungal identifications.
 
-| `Download example data set here: <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/example_data_FunBarONT.zip>`_ and **unzip** it.
+| `Download example data set here: <https://zenodo.org/records/18770850/files/example_data_FunBarONT.zip?download=1>`_ and **unzip** it.
 | This is a sample dataset for **fungal identification and barcoding** using ITS amplicons.
 
 ____________________________________________________

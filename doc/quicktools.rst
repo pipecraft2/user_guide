@@ -21,7 +21,7 @@ Individual steps (Quick Tools) |PipeCraft2_logo|
 DEMULTIPLEXING
 ==============
 
-| `Download example set here for trying demultiplexing <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/demux_example.zip>`_ and unzip it. 
+| `Download example set here for trying demultiplexing <https://zenodo.org/records/18770850/files/demux_example.zip?download=1>`_ and unzip it. 
 
 If data is **multiplexed, the first step would be demultiplexing** (using `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_ (`Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_)).
 This is done based on the user specified :ref:`indexes file <indexes>`, which includes molecular identifier sequences (so called indexes/tags/barcodes) per sample. 

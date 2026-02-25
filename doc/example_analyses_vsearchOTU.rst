@@ -77,9 +77,9 @@
 vsearch OTUs pipeline, ITS2 |PipeCraft2_logo|
 ---------------------------------------------
 
-This example data analyses follows vsearch OTUs workflow as implemented in PipeCraft2's pre-compiled pipelines panel. 
+This example data analyses follows vsearch OTUs workflow as implemented in PipeCraft2's pre-compiled pipelines panel.
 
-| `Download example data set here <https://raw.githubusercontent.com/pipecraft2/user_guide/master/data/example_data_ITS2.zip>`_ (15.1 Mb) and unzip it. 
+| `Download example data set here <https://zenodo.org/records/18770850/files/example_data_ITS2.zip?download=1>`_ (15.1 Mb) and unzip it.
 | This is **ITS2 Illumina MiSeq** dataset. 
 
 For this example, we are using `EUKARYOME database <https://eukaryome.org/>`_ in the taxonomy annotation process
