@@ -5,6 +5,8 @@ https://pipecraft2-manual.rtfd.io/
 
 PipeCraft2 development repo -> https://github.com/pipecraft2/pipecraft
 
+PipeCraft2 test datasets and databases -> https://zenodo.org/records/18770850
+
 ______________________________________________________
 
 
