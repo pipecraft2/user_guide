@@ -19,6 +19,24 @@ Docker images (with the bioinformatic tools) used in PipeCraft2 are stored on `D
 These images can be used to launch any tool with the Docker CLI to utilize the compiled tools.
 
 
+Images used in PipeCraft2 v1.2.0
+--------------------------------
+
++------------------------------+--------------------------------------+-----------------------------+
+| Image                        | Software                             | Used in ...                 |
++==============================+======================================+=============================+
+|| pipecraft/funbaront:1       || minimap2 v2.26, samtools v1.20,     || FunBarONT pipeline         |
+||                             || bcftools v1.20, racon v1.4.20,      ||                            |
+||                             || medaka v1.11, vsearch v2.30,        ||                            |
+||                             || chopper v0.7.1, filtlong v0.2.5,    ||                            |
+||                             || ITSx v2.1, BLAST v2.15, seqkit      ||                            |
+||                             || v2.12, nextflow v24.04, nanoplot    ||                            |
+||                             || v1.42, python3.10                   ||                            |
++------------------------------+--------------------------------------+-----------------------------+
+|| pipecraft/swarm:1           || swarm v3.1.6, vsearch v2.30.4,      || SWARM clustering           |
+||                             || seqkit v2.12.0, parallel v20260122  ||                            |
++------------------------------+--------------------------------------+-----------------------------+
+
 Images used in PipeCraft2 v1.1.0
 --------------------------------
 

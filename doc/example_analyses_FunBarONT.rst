@@ -66,7 +66,7 @@ FunBarONT pipeline, ITS |PipeCraft2_logo|
 
 This example data analyses follows **FunBarONT** workflow as implemented in PipeCraft2's pre-compiled pipelines panel. 
 
-FunBarONT is a specialized pipeline for processing **Oxford Nanopore Technologies (ONT) fungal barcoding data**,
+`FunBarONT <https://github.com/mdziurzynski/FunBarONT/tree/main>`_ is a specialized pipeline for processing **Oxford Nanopore Technologies (ONT) fungal barcoding data**,
 specifically targeting the **ITS rRNA gene region**. This pipeline is optimized for long-read sequencing data and incorporates
 quality filtering, demultiplexing, sequence polishing, and taxonomic assignment to generate high-confidence fungal identifications.
 
@@ -83,7 +83,7 @@ This example dataset consists of **ITS rRNA gene amplicon sequences**; targeting
 - **single-end** Oxford Nanopore sequencing data;
 - **demultiplexed** set (per-sample fastq files, typically demultiplexed using cutadapt, MinKNOW, or similar);
 - barcodes and adapters have already been **removed**;
-- sequences are generated using **long-read sequencing technology** (read lengths typically 1-10+ kb).
+- sequences are generated using **Nanopore sequencing technology** (read lengths typically 1-10+ kb).
 
 .. admonition:: when working with your own ONT data ...
 
@@ -122,6 +122,23 @@ The FunBarONT pipeline consists of the following processing steps designed to ha
 5. **Sequence Polishing (racon + medaka)** - Corrects sequencing errors to generate high-accuracy consensus sequences
 6. **ITS Extraction (ITSx)** - Extracts the ITS region from fungal sequences (optional)
 7. **Taxonomy Assignment (BLAST)** - Assigns taxonomic classification using BLAST against a reference database
+
+**FunBarONT tools and versions (v1.0):**
+
+- minimap2 v2.26 (read mapping and alignment)
+- samtools v1.20 (sequence alignment/map format utilities)
+- bcftools v1.20 (variant calling and file processing)
+- racon v1.4.20 (sequence polishing)
+- medaka v1.11 (neural network consensus calling for high-accuracy sequences)
+- vsearch v2.30 (clustering and chimera detection)
+- chopper v0.7.1 (quality filtering for long reads)
+- filtlong v0.2.5 (additional long-read quality filtering)
+- ITSx v2.1 (ITS region extraction)
+- BLAST v2.15 (local sequence alignment and taxonomy assignment)
+- seqkit v2.12 (sequence manipulation utilities)
+- nextflow v24.04 (workflow orchestration)
+- nanoplot v1.42 (quality control and visualization)
+- Python 3.10 (scripting and analysis environment)
 
 .. note::
 

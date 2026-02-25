@@ -942,7 +942,7 @@ FunBarONT
 `FunBarONT <https://github.com/mdziurzynski/ont_fungal_barcoding_pipeline>`_ is an automated pipeline for processing 
 **Oxford Nanopore Technologies (ONT) fungal barcoding data**, specifically targeting the **ITS rRNA gene region**.
 
-This pipeline processes long-read sequencing data through quality filtering, clustering, consensus polishing, 
+This pipeline processes Oxford Nanopore sequencing data through quality filtering, clustering, consensus polishing, 
 ITS extraction, and taxonomic assignment to generate high-confidence fungal identifications.
 
 .. note::
