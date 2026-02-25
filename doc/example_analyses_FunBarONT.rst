@@ -35,9 +35,13 @@
   :width: 280
   :alt: FunBarONT pulling Docker image
 
-.. |funbaront_workflow| image:: _static/funbaront_workflow.png
-  :width: 800
+.. |funbaront_workflow| image:: _static/funbaront_select_pipeline.png
+  :width: 200
   :alt: FunBarONT workflow overview
+
+.. |funbaront_workflow_overview| image:: _static/funbaront_workflow.png
+  :width: 800
+  :alt: FunBarONT workflow overview diagram
 
 .. |funbaront_chopper| image:: _static/funbaront_chopper.png
   :width: 800
@@ -103,9 +107,7 @@ ____________________________________________________
 
 |funbaront_workflow|
 
-| **To select input data**, press ``SELECT WORKDIR``
-| and specify
-| ``sequence files extension`` as **\*.fastq** or **\*.fastq.gz**;  
+| **To select input data**, press ``SELECT WORKDIR`` and specify ``sequence files extension`` as **\*.fastq**;  
 | ``sequencing read types`` is not an effective option in this pipeline (both single-end and paired-end data are acceptable).
 
 ____________________________________________________
@@ -122,6 +124,8 @@ The FunBarONT pipeline consists of the following processing steps designed to ha
 5. **Sequence Polishing (racon + medaka)** - Corrects sequencing errors to generate high-accuracy consensus sequences
 6. **ITS Extraction (ITSx)** - Extracts the ITS region from fungal sequences (optional)
 7. **Taxonomy Assignment (BLAST)** - Assigns taxonomic classification using BLAST against a reference database
+
+|funbaront_workflow_overview|
 
 **FunBarONT tools and versions (v1.0):**
 
@@ -342,6 +346,7 @@ Taxonomy Assignment (BLAST)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Taxonomy assignment uses **BLAST** to compare your sequences against a reference database and assign taxonomic classifications.
+This step is **compulsory** in the FunBarONT workflow, and the run will not start unless a BLAST database file is provided.
 
 **Configurable parameters:**
 
@@ -548,6 +553,148 @@ The Excel spreadsheet contains comprehensive results organized by sample with th
 15. **BLASTn evalue**: Statistical significance of the BLAST match
 16. **BLASTn subject SH**: UNITE Species Hypothesis identifier (e.g., SH1292241.10FU)
 17. **BLASTn full taxonomy**: Complete taxonomic lineage (k__Kingdom;p__Phylum;c__Class;o__Order;f__Family;g__Genus;s__Species)
+
+**Example rows from funbaront_run.results.xlsx** *(sequence columns omitted for brevity)*:
+
+.. list-table:: Example rows from funbaront_run.results.xlsx
+   :header-rows: 1
+   :widths: 8 20 10 12 30 8 14 20 10 10 10 10 8 14 26
+
+   * - Sample
+     - Number of clusters
+     - Passed clusters
+     - Total reads
+     - Cluster ID
+     - Cluster size
+     - Rel. abundance (%)
+     - BLASTn taxonomy
+     - Perc. ident.
+     - Query cov.
+     - Query len.
+     - Subject len.
+     - E-value
+     - Subject SH
+     - Full taxonomy
+   * - CLT16
+     - Analysis aborted! No ITS sequences extracted by ITSx.
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+   * - CLT15
+     - Analysis aborted! No ITS sequences extracted by ITSx.
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+     - \-
+   * - CLT01
+     - 18
+     - 3
+     - 138
+     - d4c2f2d3-a5d6-4ce9-a8c3-d36a36963e9b
+     - 64
+     - 46.38
+     - Roussoella_sp
+     - 99.123
+     - 100
+     - 454
+     - 528
+     - 0.0
+     - SH1292241.10FU
+     - k__Fungi;p__Ascomycota;c__Dothideomycetes;o__Pleosporales;f__Roussoellaceae;g__Roussoella;s__Roussoella_sp
+   * - CLT01
+     - 18
+     - 3
+     - 138
+     - bfd8cc6d-385a-4b8f-ad8e-874b873ca304
+     - 25
+     - 18.12
+     - Roussoella_sp
+     - 99.781
+     - 100
+     - 456
+     - 528
+     - 0.0
+     - SH1292241.10FU
+     - k__Fungi;p__Ascomycota;c__Dothideomycetes;o__Pleosporales;f__Roussoellaceae;g__Roussoella;s__Roussoella_sp
+   * - CLT01
+     - 18
+     - 3
+     - 138
+     - b4b3da0f-991d-4c3e-a03c-658d640e7436
+     - 14
+     - 10.14
+     - Roussoella_sp
+     - 99.781
+     - 100
+     - 456
+     - 528
+     - 0.0
+     - SH1292241.10FU
+     - k__Fungi;p__Ascomycota;c__Dothideomycetes;o__Pleosporales;f__Roussoellaceae;g__Roussoella;s__Roussoella_sp
+   * - CLT02
+     - 37
+     - 3
+     - 141
+     - 368c9255-821c-4d5a-a365-829ef52d5880
+     - 28
+     - 19.86
+     - Pseudopestalotiopsis_theae
+     - 99.359
+     - 100
+     - 468
+     - 491
+     - 0.0
+     - SH1272767.10FU
+     - k__Fungi;p__Ascomycota;c__Sordariomycetes;o__Amphisphaeriales;f__Sporocadaceae;g__Pseudopestalotiopsis;s__Pseudopestalotiopsis_theae
+   * - CLT02
+     - 37
+     - 3
+     - 141
+     - 85aeee25-1a09-4e44-aa40-9b38decc6fbd
+     - 17
+     - 12.06
+     - Pseudopestalotiopsis_theae
+     - 99.359
+     - 100
+     - 468
+     - 491
+     - 0.0
+     - SH1272767.10FU
+     - k__Fungi;p__Ascomycota;c__Sordariomycetes;o__Amphisphaeriales;f__Sporocadaceae;g__Pseudopestalotiopsis;s__Pseudopestalotiopsis_theae
+   * - CLT02
+     - 37
+     - 3
+     - 141
+     - 374d0a9d-b74f-4a03-b832-faffa4605a81
+     - 16
+     - 11.35
+     - Pseudopestalotiopsis_theae
+     - 99.359
+     - 100
+     - 468
+     - 491
+     - 0.0
+     - SH1272767.10FU
+     - k__Fungi;p__Ascomycota;c__Sordariomycetes;o__Amphisphaeriales;f__Sporocadaceae;g__Pseudopestalotiopsis;s__Pseudopestalotiopsis_theae
 
 .. note::
 
