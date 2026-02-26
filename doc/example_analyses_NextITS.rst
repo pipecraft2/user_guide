@@ -31,13 +31,13 @@
   :width: 280
 
 .. |NextITS_pipeline| image:: _static/nextits_pipeline.png
-  :width: 400
+  :width: 200
 
 .. |NextITS_step1_settings| image:: _static/nextits_step1_settings.png
-  :width: 400
+  :width: 800
 
 .. |NextITS_step2_settings| image:: _static/nextits_step2_settings.png
-  :width: 400
+  :width: 800
 
 .. meta::
     :description lang=en:
@@ -46,7 +46,7 @@
 |
 
 NextITS pipeline, Full-length ITS |PipeCraft2_logo|
--------------------------------------------------
+-------------------------------------------------------
 
 This example data analysis follows the **NextITS** pipeline as implemented in PipeCraft2's pre-compiled pipelines panel.
 NextITS is a specialized pipeline for analyzing **full-length ITS** reads obtained via **PacBio** sequencing.
