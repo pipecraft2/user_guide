@@ -969,36 +969,45 @@ Input data must be **demultiplexed** with one fastq file per sample.
 
 **Default settings:**
 
-+--------------------------------------------------------+--------------------------------------------+-------------------------------+
-| Analyses step                                          | Default setting                            | output directory              |
-+========================================================+============================================+===============================+
-|| QUALITY CONTROL (NanoPlot)                            || generates quality reports per sample      || ``01_quality_reports``       |
-+--------------------------------------------------------+--------------------------------------------+-------------------------------+
-|| QUALITY FILTERING (chopper)                           || ``chopper quality`` = 10                  || ``02_filtered_sequences``    |
-||                                                       || ``chopper min read length`` = 150         ||                              |
-||                                                       || ``chopper max read length`` = 1000        ||                              |
-+--------------------------------------------------------+--------------------------------------------+-------------------------------+
-|| CLUSTERING (VSEARCH)                                  || ``vsearch cluster id`` = 0.95             || ``03_clusters``              |
-||                                                       || ``vsearch cluster strand`` = both         ||                              |
-+--------------------------------------------------------+--------------------------------------------+-------------------------------+
-|| READ MAPPING (minimap2)                               || maps reads to cluster centroids           || *no separate output*         |
-||                                                       || (intermediate step for polishing)         || *(used for polishing)*       |
-+--------------------------------------------------------+--------------------------------------------+-------------------------------+
-|| SEQUENCE POLISHING (racon + medaka)                   || ``medaka model`` = r1041_e82_400bps_hac   || ``04_polished_sequences``    |
-||                                                       ||   _variant_v4.3.0                         ||                              |
-||                                                       || ``racon quality threshold`` = 20          ||                              |
-||                                                       || ``racon window length`` = 100             ||                              |
-+--------------------------------------------------------+--------------------------------------------+-------------------------------+
-|| ITS EXTRACTION (ITSx)                                 || ``use itsx`` = TRUE                       || ``05_its_extracted``         |
-+--------------------------------------------------------+--------------------------------------------+-------------------------------+
-|| TAXONOMY ASSIGNMENT (BLAST)                           || ``strands`` = both                        || ``06_blast_results``         |
-||                                                       || ``e value`` = 10                          ||                              |
-||                                                       || ``word size`` = 11                        ||                              |
-+--------------------------------------------------------+--------------------------------------------+-------------------------------+
-|| FINAL RESULTS                                         || ``run id`` = funbaront_run                || ``07_json_results``          |
-||                                                       || ``rel abu threshold`` = 10                ||                              |
-||                                                       || ``output all polished seqs`` = FALSE      ||                              |
-+--------------------------------------------------------+--------------------------------------------+-------------------------------+
++----------------------------------------+----------------------------------+---------------------------+
+| Analyses step                          | Default setting                  | output directory          |
++========================================+==================================+===========================+
+|| QUALITY CONTROL                       || generates quality reports       || ``01_quality_reports``   |
+|| (NanoPlot)                            || per sample                      ||                          |
++----------------------------------------+----------------------------------+---------------------------+
+|| QUALITY FILTERING                     || ``chopper quality`` = 10        || ``02_filtered_``         |
+|| (chopper)                             || ``chopper min read length``     || ``sequences``            |
+||                                       || = 150                           ||                          |
+||                                       || ``chopper max read length``     ||                          |
+||                                       || = 1000                          ||                          |
++----------------------------------------+----------------------------------+---------------------------+
+|| CLUSTERING                            || ``vsearch cluster id`` = 0.95   || ``03_clusters``          |
+|| (VSEARCH)                             || ``vsearch cluster strand``      ||                          |
+||                                       || = both                          ||                          |
++----------------------------------------+----------------------------------+---------------------------+
+|| READ MAPPING                          || maps reads to cluster           || *no separate output*     |
+|| (minimap2)                            || centroids (intermediate step    || *(used for polishing)*   |
+||                                       || for polishing)                  ||                          |
++----------------------------------------+----------------------------------+---------------------------+
+|| SEQUENCE POLISHING                    || ``medaka model`` =              || ``04_polished_``         |
+|| (racon + medaka)                      || r1041_e82_400bps_hac\_          || ``sequences``            |
+||                                       || variant_v4.3.0                  ||                          |
+||                                       || ``racon quality threshold``     ||                          |
+||                                       || = 20                            ||                          |
+||                                       || ``racon window length`` = 100   ||                          |
++----------------------------------------+----------------------------------+---------------------------+
+|| ITS EXTRACTION                        || ``use itsx`` = TRUE             || ``05_its_extracted``     |
+|| (ITSx)                                ||                                 ||                          |
++----------------------------------------+----------------------------------+---------------------------+
+|| TAXONOMY ASSIGNMENT                   || ``strands`` = both              || ``06_blast_results``     |
+|| (BLAST)                               || ``e value`` = 10                ||                          |
+||                                       || ``word size`` = 11              ||                          |
++----------------------------------------+----------------------------------+---------------------------+
+|| FINAL RESULTS                         || ``run id`` = funbaront_run      || ``07_json_results``      |
+||                                       || ``rel abu threshold`` = 10      ||                          |
+||                                       || ``output all polished seqs``    ||                          |
+||                                       || = FALSE                         ||                          |
++----------------------------------------+----------------------------------+---------------------------+
 
 
 Pipeline options
