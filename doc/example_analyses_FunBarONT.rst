@@ -236,10 +236,56 @@ This step is critical for Oxford Nanopore data, which can have variable error ra
 - **chopper_min_read_length** (default: 150 bp) - Minimum read length. Shorter reads are removed.
 - **chopper_max_read_length** (default: 1000 bp) - Maximum read length. Longer reads are removed.
 
-**For ITS fungal barcoding:**
+**Why these settings for ITS barcoding:**
 
-Adjust the length thresholds based on your expected amplicon size. The ITS region in fungi typically ranges from 400-800 bp, 
-so default settings should work well for most applications.
+- **What “quality 10” means:** ONT FASTQ qualities are reported on the **Phred scale**, where a score Q corresponds to an expected base-call error probability P via: ``Q = -10 * log10(P)``.  
+  So **Q10** corresponds to **~10% expected error per base** (roughly 90% per-base accuracy), **Q12** to ~6.3%, **Q15** to ~3.2%, and **Q20** to ~1%.
+
+- **Logic behind `chopper_quality = 10`:** this setting removes the “very noisy” reads that tend to:
+  1) inflate the number of spurious clusters/OTUs,
+  2) reduce identity to the true ITS sequence (hurting BLAST hits), and
+  3) make polishing less stable (because alignments contain too many mismatches/indels).
+  At the same time, ONT ITS datasets often benefit from keeping sufficient depth for clustering and consensus generation, so Q10 is a pragmatic balance between **read retention** and **error reduction**.
+
+- **Logic behind `min_read_length = 150`:** fungal ITS amplicons are typically ~400–800 bp, but real ONT data may contain truncated reads. A 150 bp minimum is mainly a guardrail to remove very short fragments (adapter remnants, primer dimers, broken reads) while still allowing partially truncated reads to contribute during clustering/polishing. If you require only near full-length ITS reads, increase this to e.g. 300–400 bp.
+
+- **Logic behind `max_read_length = 1000`:** reads much longer than the expected ITS amplicon are often off-target products, concatemers, or chimeric/multi-amplicon reads. Keeping an upper bound avoids these dominating alignments and distorting clustering/consensus.
+
+.. admonition:: NanoPlot results for this example dataset
+
+  Looking at the ``NanoStats.txt`` files produced for this example data, the quality picture across the four samples is:
+
+  +--------+--------+--------------+------------------+--------------------+--------------------+--------------------+
+  | Sample | Reads  | Mean len (bp)| Median len (bp)  | Mean quality (Q)   | >Q10 retained      | >Q15 retained      |
+  +========+========+==============+==================+====================+====================+====================+
+  | CLT01  | 6,920  | 1,543        | 1,755            | Q17.0              | 98.5 %             | 85.0 %             |
+  +--------+--------+--------------+------------------+--------------------+--------------------+--------------------+
+  | CLT02  | 19,621 | 1,404        | 1,466            | Q16.6              | 98.5 %             | 80.3 %             |
+  +--------+--------+--------------+------------------+--------------------+--------------------+--------------------+
+  | CLT15  | 992    | 1,254        | 1,309            | Q17.0              | 98.3 %             | 83.8 %             |
+  +--------+--------+--------------+------------------+--------------------+--------------------+--------------------+
+  | CLT16  | 212    | 525          | 522              | Q15.1              | 97.6 %             | 63.2 %             |
+  +--------+--------+--------------+------------------+--------------------+--------------------+--------------------+
+
+  **What these numbers tell us about the Q10 threshold:**
+  In all four samples, Q10 retains **97.6–98.5 %** of reads. This confirms that Q10 is a very permissive floor —
+  it only removes the truly unusable bottom fraction, while more stringent thresholds such as Q15 would already drop
+  17–37 % of reads. For clustering and consensus polishing to work reliably, retaining depth is important, so Q10 is
+  the right balance here.
+
+  **What the length distribution reveals:**
+  CLT01 and CLT02 have median read lengths of ~1,466–1,755 bp, well above the typical ITS amplicon size (~500–700 bp for fungi).
+  These longer reads are raw amplicon reads that include the ITS region embedded in flanking rRNA sequences (18S/5.8S/28S).
+  The **max_read_length = 1000** chopper setting therefore **deliberately captures only the shorter reads** that are more
+  likely to represent clean, full-length ITS amplicons, filtering out concatemers and off-target long fragments before
+  clustering and polishing begin.
+
+  **What ``max_read_length = 1000`` does to these samples:**
+  Because the median read lengths in CLT01 and CLT02 are 1,755 bp and 1,466 bp respectively — well above the 1,000 bp ceiling — the
+  length filter removes the majority of raw reads. That is by design: those long reads contain the ITS region
+  *embedded inside* longer flanking rRNA sequences, and they would produce mixed-content clusters. After chopper,
+  only the shorter reads that are more likely to span a clean ITS amplicon survive. CLT16 is an exception:
+  its median length was already 522 bp, so almost no reads are cut by the length filter (212 → 190 reads retained).
 
 |funbaront_chopper|
 
@@ -274,6 +320,40 @@ This reduces the impact of sequencing errors and produces representative sequenc
 | \*.centroids.fasta.gz                 | representative centroid sequences per sample  |
 +---------------------------------------+-----------------------------------------------+
 
+.. admonition:: Clustering results for this example dataset
+
+  After chopper filtering, VSEARCH groups reads into clusters at 95% identity:
+
+  .. list-table::
+     :header-rows: 1
+     :widths: 10 15 15 60
+
+     * - Sample
+       - Reads in
+       - Clusters out
+       - What this means
+     * - CLT01
+       - 1,046
+       - 594
+       - ~1.8 reads per cluster on average
+     * - CLT02
+       - 4,294
+       - 2,510
+       - ~1.7 reads per cluster on average
+     * - CLT15
+       - 163
+       - 115
+       - ~1.4 reads per cluster on average
+     * - CLT16
+       - 190
+       - 132
+       - ~1.4 reads per cluster on average
+
+  The low average reads-per-cluster reflects the diversity of this dataset and the ONT error rate:
+  each unique ITS sequence produces its own centroid, but many clusters contain only one read (singletons).
+  Singleton and small clusters are usually noise or rare off-target reads — the polishing step will
+  expose this, as consensus calling requires multiple reads per cluster to be reliable.
+
 ____________________________________________________
 
 Sequence Polishing (racon + medaka)
@@ -289,6 +369,19 @@ Oxford Nanopore long reads often contain random errors that are corrected using 
 - **medaka_model** (default: r1041_e82_400bps_hac_variant_v4.3.0) - Select the medaka model based on your flowcell, kit, and basecaller. In this example should set to  **r1041_e82_260bps_sup_variant_g632**. 
 - **racon_quality_threshold** (default: 20) - Minimum average base quality for windows used by Racon.
 - **racon_window_length** (default: 100) - Window length used by Racon for polishing.
+
+**Why these settings for this ONT ITS data:**
+
+- **What `racon_quality_threshold = 20` means:** similar to chopper, this threshold uses **Phred Q-scores**, where **Q20 ≈ 1% expected error per base**. In Racon, this is not “keep/discard the whole read”; instead it is used to decide which **local windows** of the read are trusted enough to drive corrections. The goal is to prevent low-quality tails or error-rich segments from “pulling” the consensus away from the true ITS sequence.
+
+- **Why 20 is reasonable here:** after chopper filtering and clustering, most remaining reads are informative, but ONT errors are still present (especially indels in homopolymers). Setting the window threshold to Q20 makes Racon focus on the more reliable parts of alignments, and then **Medaka** further improves the consensus by correcting systematic ONT errors.
+
+- **What `racon_window_length = 100` means:** Racon evaluates quality and corrections in windows. A 100 bp window is a compromise for ITS-length amplicons: it is long enough to average out per-base noise (stability) but short enough to remain sensitive to localized error hotspots.
+
+Tuning tips:
+
+- If you see over-correction or unstable consensuses (few reads per cluster, noisy data), try lowering `racon_quality_threshold` (e.g., 15–18) and/or reducing `racon_window_length`.
+- If your basecalling is very high quality and clusters have good depth, a higher threshold can yield a cleaner consensus, but may reduce how much of each read contributes to polishing.
 
 |medaka_model_selection|
 |medaka_model|
@@ -311,6 +404,42 @@ Oxford Nanopore long reads often contain random errors that are corrected using 
 +---------------------------------------+-----------------------------------------------+
 | \*.medaka.consensus.fasta             | Medaka-polished consensus sequences per sample|
 +---------------------------------------+-----------------------------------------------+
+
+.. admonition:: Polishing results for this example dataset
+
+  Racon and Medaka both produce the same number of polished sequences — Medaka refines what Racon produced,
+  it does not filter. The notable reduction vs. the number of clusters comes from a minimum cluster size
+  requirement: clusters with very few reads do not yield a reliable consensus and are dropped.
+
+  .. list-table::
+     :header-rows: 1
+     :widths: 10 15 20 55
+
+     * - Sample
+       - Clusters in
+       - Polished sequences out
+       - Reduction explained
+     * - CLT01
+       - 594
+       - 156
+       - 438 clusters (74%) were too small to polish
+     * - CLT02
+       - 2,510
+       - 544
+       - 1,966 clusters (78%) were too small to polish
+     * - CLT15
+       - 115
+       - 33
+       - 82 clusters (71%) too small
+     * - CLT16
+       - 132
+       - 17
+       - 115 clusters (87%) too small
+
+  The high fraction of small clusters is expected in ONT data with moderate depth: sequencing errors spread
+  reads across many near-identical but not identical sequences, producing many singleton clusters.
+  The polishing step therefore acts as an implicit quality gate — only clusters with enough reads
+  to build a trustworthy consensus survive.
 
 ____________________________________________________
 
@@ -339,6 +468,53 @@ This is particularly valuable for fungal identification because:
 +=======================================+===================================================+
 | \*.its.fasta                          | extracted ITS sequences per sample                |
 +---------------------------------------+---------------------------------------------------+
+
+.. admonition:: ITS extraction results for this example dataset
+
+  This step is often where the most dramatic filtering occurs. ITSx only extracts sequences where
+  it can detect the ITS region using fungal rRNA HMM profiles — consensus sequences from off-target
+  amplification or non-ITS content simply produce no output.
+
+  .. list-table::
+     :header-rows: 1
+     :widths: 10 22 18 50
+
+     * - Sample
+       - Medaka sequences in
+       - ITS sequences out
+       - Outcome
+     * - CLT01
+       - 156
+       - 18
+       - 138 polished sequences had no detectable ITS region
+     * - CLT02
+       - 544
+       - 37
+       - 507 polished sequences had no detectable ITS region
+     * - CLT15
+       - 33
+       - 0
+       - Analysis aborted — no ITS sequences detected at all
+     * - CLT16
+       - 17
+       - 0
+       - Analysis aborted — no ITS sequences detected at all
+
+  **CLT01 and CLT02:** the large majority of polished sequences do not contain a recognizable ITS region.
+  These are likely reads that passed length and quality filters but originate from flanking 18S/28S rRNA,
+  off-target amplification, or are simply too divergent for ITSx to classify. Only the consensus sequences
+  with a clear ITS1–5.8S–ITS2 architecture are extracted — 18 and 37 sequences respectively — and these
+  carry forward into BLAST.
+
+  **CLT15 and CLT16 — what went wrong:**
+  Both samples produced polished sequences (33 and 17 respectively), but ITSx found zero ITS regions in any of them.
+  Looking back at the NanoPlot data: CLT16 had only **212 raw reads** (the smallest dataset here), and its
+  very low read count persisted through every step — 190 after chopper, 132 clusters, 17 polished.
+  With such shallow depth, polished consensuses are noisy and are unlikely to match ITSx's HMM profiles.
+  CLT15 had better raw quality (Q17.0, 992 reads) but still produced no ITS — suggesting the sequenced
+  material in this sample simply did not contain the fungal ITS region at the expected architecture.
+  Both samples illustrate that **quality filtering and polishing alone cannot rescue samples with
+  insufficient depth or off-target sequencing content**.
 
 ____________________________________________________
 
@@ -377,6 +553,41 @@ Not all sequences may have reliable classifications; sequences without database 
 +=======================================+===========================================+
 | \*.blast.tsv                          | BLAST results in tabular format per sample|
 +---------------------------------------+-------------------------------------------+
+
+.. admonition:: BLAST results for this example dataset
+
+  Every ITS sequence that passed extraction is passed to BLAST, with one result row per sequence:
+
+  .. list-table::
+     :header-rows: 1
+     :widths: 10 15 12 63
+
+     * - Sample
+       - ITS seqs in
+       - BLAST hits
+       - Representative taxa found
+     * - CLT01
+       - 18
+       - 18
+       - Roussoella sp., Spegazzinia sp. (Ascomycota)
+     * - CLT02
+       - 37
+       - 37
+       - Pseudopestalotiopsis theae (Ascomycota)
+     * - CLT15
+       - 0
+       - 0
+       - No sequences passed ITSx; BLAST file is empty
+     * - CLT16
+       - 0
+       - 0
+       - No sequences passed ITSx; BLAST file is empty
+
+  All 18 sequences from CLT01 and all 37 from CLT02 received BLAST hits, which is a good sign:
+  it confirms that the polishing pipeline successfully produced high-accuracy ITS consensus sequences
+  (note the ≥99% identity hits for the dominant clusters in the final Excel file).
+  The cluster ``size`` field in the BLAST output (e.g., ``size=64``) indicates how many reads
+  supported that consensus — larger clusters generally yield more reliable taxonomy assignments.
 
 ____________________________________________________
 
