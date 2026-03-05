@@ -46,10 +46,12 @@ There are few specifc requirements for the input data for PipeCraft.
 - **index/barcodes file** for demultiplexing:
     * :ref:`see formatting requirements here <indexes>` 
   
-- **Please avoid spaces and non-ASCII symbols** in sample names.
+- **Please avoid spaces and** `non-ASCII symbols <https://terpconnect.umd.edu/~zben/Web/CharSet/htmlchars.html>`_ **in sample names.**
 
 - **Use at least 2 samples per sequencing run** for the pre-defined pipelines.
-  
+
+- **Please avoid spaces and** `non-ASCII symbols <https://terpconnect.umd.edu/~zben/Web/CharSet/htmlchars.html>`_ **in file paths.**
+
 - specific directory structure for NextITS pipeline 
     * :ref:`see NextITS page here <nextits_pipeline>` 
 
