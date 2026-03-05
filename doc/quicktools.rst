@@ -1068,7 +1068,7 @@ A *(noncomprehensive)* list of **public databases available for taxonomy annotat
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
 | `DIAT.BARCODE database <https://carrtel-collection.hub.inrae.fr/barcoding-databases/diat.barcode/pipelines-and-aligned-and-trimed-database>`_ | Diatoms rbcL/18S                                           |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
-| `PR2 database <https://pr2-database.org/>`_                                                                                                   | 18S rRNA, all Eukaryotes                                   |
+| `PR2 database <https://github.com/pr2database/pr2database/releases>`_                                                                          | 18S rRNA, all Eukaryotes                                   |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
 
 
