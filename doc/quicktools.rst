@@ -1042,6 +1042,83 @@ ____________________________________________________
 
 |
 
+.. _assign_taxonomy_boldigger3:
+
+`BOLDigger3 <https://github.com/DominikBuchner/BOLDigger3>`_
+------------------------------------------------------------
+
+| Identify sequences with BOLDigger3 (`Buchner & Leese 2020 <https://doi.org/10.3897/mbmg.4.53535>`_) 
+| against the `BOLD Systems v5 <https://www.boldsystems.org/>`_ online identification engine.
+
+BOLDigger3 is an automated tool designed for DNA sequence identification through BOLD Systems v5. 
+It provides high-performance processing with up to 10,000 identifications per hour (depending on settings), 
+and features an intelligent top-hit selection algorithm that considers similarity thresholds at different 
+taxonomic levels.
+
+.. important::
+
+  **No local database download required.** BOLDigger3 queries the BOLD Systems v5 online database directly.
+  The tool automatically manages the identification process, including queuing requests, downloading results, 
+  and selecting the best-fitting taxonomic assignment.
+
+| Supported file format for the input data is **fasta**.
+| 
+| **Output** files in ``taxonomy_out.boldigger3`` directory:
+| # *_identification_result.xlsx = taxonomy assignments with detailed metadata (Excel format)
+| # *_identification_result.parquet.snappy = taxonomy assignments (Parquet format for large datasets)
+| 
+| Additional BOLDigger3-generated files (metadata, cache, intermediate files) are also retained in the output directory.
+
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
+
++----------------+--------------------------------------------------------------------------------------+
+| Setting        | Tooltip                                                                              |
++================+======================================================================================+
+| ``fasta_file`` | select a fasta file to be used as a query for BOLDigger3                             |
++----------------+--------------------------------------------------------------------------------------+
+|| ``database``  || BOLD v5 database number (1-8). See database list below                              |
++----------------+--------------------------------------------------------------------------------------+
+|| ``mode``      || operating mode (1-3) that determines identification speed and thoroughness.         |
+||               || See operating modes below                                                           |
++----------------+--------------------------------------------------------------------------------------+
+|| ``thresholds``|| similarity thresholds (space-separated) for taxonomic levels: Species Genus Family  |
+||               || Order [Class]. Up to 5 values can be specified. Default: '97 95 90 85'.            |
+||               || Example: '99 97' sets Species=99%, Genus=97%, remaining levels use defaults        |
++----------------+--------------------------------------------------------------------------------------+
+
+**BOLD v5 Databases:**
+
+| 1 = ANIMAL LIBRARY (PUBLIC)
+| 2 = ANIMAL SPECIES-LEVEL LIBRARY (PUBLIC + PRIVATE)
+| 3 = ANIMAL LIBRARY (PUBLIC + PRIVATE)
+| 4 = VALIDATED CANADIAN ARTHROPOD LIBRARY
+| 5 = PLANT LIBRARY (PUBLIC)
+| 6 = FUNGI LIBRARY (PUBLIC)
+| 7 = ANIMAL SECONDARY MARKERS (PUBLIC)
+| 8 = VALIDATED ANIMAL RED LIST LIBRARY
+
+**Operating Modes:**
+
+| 1 = **Rapid Species Search** (fastest, up to 1000 sequences/batch, ~10,000 sequences/hour)
+| 2 = **Genus and Species Search** (200 sequences/batch, moderate speed)
+| 3 = **Exhaustive Search** (most thorough, 100 sequences/batch, slowest)
+
+.. note::
+
+  **Top-Hit Selection Algorithm:** BOLDigger3 uses an intelligent algorithm to select the best taxonomic 
+  assignment from up to 100 hits. It applies similarity thresholds at different taxonomic levels 
+  (default: 97% for species, 95% for genus, 90% for family, 85% for order), and selects the most 
+  common hit that has complete taxonomic information. The algorithm also implements a flagging system 
+  to highlight uncertain assignments (e.g., reverse BIN taxonomy, private data, unique hits, multiple BINs).
+
+
+____________________________________________________
+
+|
+
 .. _databases:
 
 Sequence databases
