@@ -268,7 +268,12 @@ ____________________________________________________
 QUALITY FILTERING
 =================
 
-Quality filter and trim sequences.
+Quality filtering removes low‑quality sequencing reads before downstream analysis.
+Keeping only high‑quality reads reduces sequencing errors, prevents noisy data from
+creating false OTUs/ASVs, and makes the final results more reliable. Different tools
+implement this step in slightly different ways, but the goal is the same: retain
+informative reads while discarding those that are too short, too error‑prone, or
+contain too many ambiguous bases.
 
 | **Fastq** formatted paired-end and single-end data are supported.
 | **Outputs** are fastq files in ``qualFiltered_out`` directory.
