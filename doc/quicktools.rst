@@ -1058,6 +1058,7 @@ taxonomic levels.
 .. important::
 
   **No local database download required.** BOLDigger3 queries the BOLD Systems v5 online database directly.
+  Because data are retrieved online for each run, total download time can remain substantial regardless of query FASTA file size.
   The tool automatically manages the identification process, including queuing requests, downloading results, 
   and selecting the best-fitting taxonomic assignment.
 
