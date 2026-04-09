@@ -1091,8 +1091,8 @@ taxonomic levels.
 ||               || See operating modes below                                                           |
 +----------------+--------------------------------------------------------------------------------------+
 || ``thresholds``|| similarity thresholds (space-separated) for taxonomic levels: Species Genus Family  |
-||               || Order [Class]. Up to 5 values can be specified. Default: '97 95 90 85'.            |
-||               || Example: '99 97' sets Species=99%, Genus=97%, remaining levels use defaults        |
+||               || Order [Class]. Up to 5 values can be specified. Default: '97 95 90 85'.             |
+||               || Example: '99 97' sets Species=99%, Genus=97%, remaining levels use defaults         |
 +----------------+--------------------------------------------------------------------------------------+
 
 **BOLD v5 Databases:**
@@ -1151,7 +1151,7 @@ A *(noncomprehensive)* list of **public databases available for taxonomy annotat
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
 | `DIAT.BARCODE database <https://carrtel-collection.hub.inrae.fr/barcoding-databases/diat.barcode/pipelines-and-aligned-and-trimed-database>`_ | Diatoms rbcL/18S                                           |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
-| `PR2 database <https://github.com/pr2database/pr2database/releases>`_                                                                          | 18S rRNA, all Eukaryotes                                   |
+| `PR2 database <https://github.com/pr2database/pr2database/releases>`_                                                                          | 18S rRNA, all Eukaryotes                                  |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------+
 
 
