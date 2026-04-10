@@ -274,6 +274,10 @@ creating false OTUs/ASVs, and makes the final results more reliable. Different t
 implement this step in slightly different ways, but the goal is the same: retain
 informative reads while discarding those that are too short, too error‑prone, or
 contain too many ambiguous bases.
+Before running quality filtering, it is best to inspect the read quality profiles
+to see where quality starts to decline and which trimming settings are appropriate.
+Checkout the :ref:`Inspect quality profiles <qualitycheck>` section for a walkthrough
+of this step.
 
 | **Fastq** formatted paired-end and single-end data are supported.
 | **Outputs** are fastq files in ``qualFiltered_out`` directory.
@@ -1070,8 +1074,8 @@ taxonomic levels.
 | Supported file format for the input data is **fasta**.
 | 
 | **Output** files in ``taxonomy_out.boldigger3`` directory:
-| # *_identification_result.xlsx = taxonomy assignments with detailed metadata (Excel format)
-| # *_identification_result.parquet.snappy = taxonomy assignments (Parquet format for large datasets)
+| # \*_identification_result.xlsx = taxonomy assignments with detailed metadata (Excel format)
+| # \*_identification_result.parquet.snappy = taxonomy assignments (Parquet format for large datasets)
 | 
 | Additional BOLDigger3-generated files (metadata, cache, intermediate files) are also retained in the output directory.
 
