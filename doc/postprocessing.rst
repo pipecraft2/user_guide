@@ -444,11 +444,11 @@ BlasCh
 .. important::
 
   **Workflow compatibility requirements:**
-  
+
   - BlasCh **cannot be run as part of a full pipeline (for now)** - it is a standalone post-processing tool
   - Must be used **after** chimera filtering has been completed
-  - Requires **manual workflow**: run chimera filtering → run BlasCh → run clustering 
-  - **Rescued sequences** must be later merged with non-chimeric sequences from original samples
+  - Requires **manual workflow**: run chimera filtering → run BlasCh → run clustering
+  - If a ``nonchimeric/`` folder is present in the working directory, BlasCh **automatically merges** rescued sequences with the pre-existing non-chimeric sequences into ``BlasCh_out/nonchimeric+rescued_reads/``
   - Not compatible with automated pipeline workflows that include clustering steps
 
 **How BlasCh Works:**
@@ -464,6 +464,7 @@ BlasCh employs a sophisticated BLAST-based approach to re-evaluate chimeric sequ
 The module implements smart rerun capabilities, automatically detecting and reusing existing BLAST XML files to enable parameter optimization without re-running computationally expensive BLAST searches.
 
 | Input data is **chimeric sequences** in FASTA format (`.chimeras.fasta`, `.chimeras.fa`, `.chimeras.fas` files) and a **reference database** (FASTA file or existing BLAST database).
+| Optionally, a ``nonchimeric/`` subfolder may be placed in the working directory, containing pre-existing non-chimeric sequences per sample in ``basename.fasta`` format (same naming convention as the self-database source files). When present, BlasCh merges those sequences with the recovered ``*_non_chimeric.fasta`` reads into a combined ``BlasCh_out/nonchimeric+rescued_reads/`` folder.
 
 .. important::
 
@@ -471,7 +472,7 @@ The module implements smart rerun capabilities, automatically detecting and reus
   
   - Reference database files must be stored in a **separate directory** from input chimera files
   - Input chimera files should be in the working directory
-  - Sample FASTA files (for self-database creation) should also be in the working directory
+  - Sample FASTA files for self-database creation should also be in the **working directory**. These are the files that were used for chimera filtering and should be present for BlasCh to create self-databases.
   - Do not place reference database files in the same folder as input files to avoid conflicts
 
 .. note::
@@ -490,6 +491,10 @@ BlasCh creates a well-organized output directory structure to separate rescued s
 | ``non_chimeric``/*_non_chimeric.fasta            | recovered non-chimeric sequences (high confidence rescue) |
 +--------------------------------------------------+-----------------------------------------------------------+
 | ``borderline``/*_borderline.fasta                | borderline sequences (moderate confidence rescue)         |
++--------------------------------------------------+-----------------------------------------------------------+
+| ``nonchimeric+rescued_reads``/*.fasta            || merged file per sample: input ``nonchimeric/``           |
+|                                                  || sequences + BlasCh-recovered ``_non_chimeric`` sequences |
+|                                                  || *(only created when* ``nonchimeric/`` *folder is present)*|
 +--------------------------------------------------+-----------------------------------------------------------+
 | **SUMMARY AND REPORTS**                          |                                                           |
 +--------------------------------------------------+-----------------------------------------------------------+
@@ -516,6 +521,7 @@ BlasCh creates a well-organized output directory structure to separate rescued s
 **Folder organization explanation:**
 
 - **Rescued Sequences**: The ``non_chimeric`` and ``borderline`` folders contain sequences that can be included in downstream analyses
+- **Merged Output**: The ``nonchimeric+rescued_reads`` folder (created only when a ``nonchimeric/`` input folder is provided) combines the pre-existing non-chimeric sequences with BlasCh-recovered sequences per sample, ready for direct use in clustering or downstream analyses
 - **Detailed Results**: The ``detailed_results`` folder contains sequences that remain excluded along with analysis details
 - **Summary Files**: Report files provide overview statistics and complete documentation of the analysis
 - **Technical Files**: Compressed XML files allow reanalysis with different parameters without re-running BLAST
@@ -559,7 +565,11 @@ BlasCh uses a sophisticated multi-tier classification system with the following 
 **Post-BlasCh Workflow:**
 
 1. **Merge rescued sequences** with original non-chimeric sequences from each sample
-2. **Run clustering manually** on the combined sequence sets
+
+   - *Automatic*: place a ``nonchimeric/`` folder (containing ``basename.fasta`` files) in the working directory before running BlasCh. The merged output will be written to ``BlasCh_out/nonchimeric+rescued_reads/`` automatically.
+   - *Manual*: combine ``non_chimeric/*_non_chimeric.fasta`` files with the corresponding per-sample non-chimeric sequences yourself.
+
+2. **Run clustering manually** on the combined sequence sets (use ``nonchimeric+rescued_reads/`` if the automatic merge was performed)
 3. **Proceed with downstream analyses** using the updated sequence data
 4. **Document** which sequences were rescued for transparency in results
 
