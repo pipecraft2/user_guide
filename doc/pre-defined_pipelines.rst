@@ -53,7 +53,16 @@ When working with multiple sequencing runs, then **pre-defined pipelines** can a
 then **merge the results** into a single output OTU/ASV table. Processing each sequencing run separately is 
 **necessary for appropriate handling of run-specifiec error profiles and tag-jumps filtering**.
 
-Identical sequences from different runs will be recognized as the same ASV, and therefore merged into a single ASV. 
+Identical sequences from different runs will be recognized, and merged into a single ASV (or OTU, within vsearch OTUs pipeline). 
+
+.. note::
+
+  If the total number of samples exeeds 5000, then the output table is a long-format feature (ASV/OTU) table in 
+  UNOISE ASVs and vsearch OTUs pipelines.
+
+__________________________________________________
+
+|
 
 Directory structure
 -------------------

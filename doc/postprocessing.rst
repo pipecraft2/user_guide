@@ -228,26 +228,58 @@ __________________________________________________
 metaMATE
 --------
 
-Determine and filter out putative NUMTs (from mitochondrial coding amplicon genes) and and other erroneous sequences based on relative read abundance thresholds within libraries, phylogenetic clades and/or taxonomic groupings.
- 
-Additional information:
- - `metaMATE repository <https://github.com/tjcreedy/metamate>`_
- - `metaMATE paper <https://doi.org/10.1111/1755-0998.13337>`_
-  
+Determine and filter out putative NUMTs (from **mitochondrial coding** amplicon genes, such as COI, rbcL) 
+and and other erroneous sequences based on relative read abundance thresholds within libraries, 
+phylogenetic clades and/or taxonomic groupings 
+(`metaMATE repository <https://github.com/tjcreedy/metamate>`_, `metaMATE paper <https://doi.org/10.1111/1755-0998.13337>`_).
+
+
+native metaMATE has three execution modes:
+ - `find <https://github.com/tjcreedy/metamate#find-mode>`_ (to assess the impact of filtering strategy and select the "best" strategy)
+ - `dump <https://github.com/tjcreedy/metamate#dump-mode>`_ (to filter the data according to the selected strategy. Applies **global filtering thresholds**)
+ - `filter-adaptive <https://github.com/tjcreedy/metamate#filter-adaptive-mode>`_ (as above two modes, but this mode applies **per-sample filtering thresholds**)
+
+To streamline the workflow and improve usability, PipeCraft2 automatically runs ``find`` and ``dump`` modes to perform data filtering.
+Since this process applies global filtering threshold, then it is called **global filter** mode in PipeCraft2. 
+Since ``filter-adaptive`` mode applies per-sample filtering thresholds, then it is called **per-sample filter** mode in PipeCraft2.
+
++---------------------------------+----------------------------------------------------------------+ 
+| Filtering mode                  | Description                                                    |
++=================================+================================================================+
+| global filter                   || applies global filtering thresholds to the data.              |
+|                                 || Performs ``find`` and then ``dump`` based on the              |
+|                                 || user specified threshold (NA_abund_thresh; default is 0.05).  |
++---------------------------------+----------------------------------------------------------------+  
+| per-sample filter               || applies per-sample filtering thresholds to the data           |
+|                                 || Executes ``filter-adaptive`` mode of metaMATE.                |
++---------------------------------+----------------------------------------------------------------+
+
+**global filter**: ``NA_abund_thresh`` corresponds to ``nonauthentic_retained_estimate_p`` column in the results.csv file (latter is metaMATE-find result).
+When ``NA_abund_thresh`` = 0.05 (*default value*), then for metaMATE-dump, select the result_index that corresponds to 
+setting with the highest accuracy score (column 'accuracy_score' in the results.csv) among settings 
+where the ratio of non-validated ASVs/OTUs is <5% (column 'nonauthentic_retained_estimate_p' in the results.csv). 
+
+**In most cases, the default settings are fine!**
+Most crucial user defined setting are ``genetic code`` and ``length`` settings.
+Verified non-authentic sequences are the ones that do not pass the genetic code translation 
+and have a length outside the specified range (length + basevariation). Therefore,
+check and specify the length of the expected amplicon sequence and genetic code (based on the target organism; 
+5 = invertebrate mitochondrial code. Use 1 for rbcL. Specify values from 1 to 33; see https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi).
 
 ___________________________________________________
 
 ORF-Finder
 ----------
 
-Filter out putative pseudogenes (NUMTs) from protein coding amplicon dataset (such as COI, rbcL) using NCBI's ORFfinder `(Sayers et al 2022) <https://doi.org/10.1093/nar/gkab1112>`_.
+Filter out putative pseudogenes (NUMTs) from protein coding amplicon dataset (such as COI, rbcL) 
+using NCBI's ORFfinder `(Sayers et al 2022) <https://doi.org/10.1093/nar/gkab1112>`_.
 This process translates sequences to open reading frames (ORFs) and retaines the longest ORF per sequence 
 if the length of the ORF is between the specified range of ``min length`` and ``max length``.
 
+Check and specify the min and max length of the expected amplicon sequence and genetic code (based on the target organism; 
+5 = invertebrate mitochondrial code. Use 1 for rbcL. Specify values from 1 to 33; see https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi).
 
-.. _assign_taxonomy:
-
-____________________________________________________
+__________________________________________________
 
 
 .. _postprocessing_deicode: 
@@ -402,142 +434,143 @@ Example of plotting the ordination scores
 
 ___________________________________________________
 
-.. 
-   HIDDEN SECTION
-   
-   
-   BlasCh
-   ----------
 
-   **False positive chimera detection and recovery module** for metabarcoding and environmental DNA (eDNA) datasets. BlasCh (BLAST-based Chimera detection) uses BLAST alignment analysis to identify, classify, and recover sequences that were incorrectly flagged as chimeric during initial chimera detection steps.
 
-   .. important::
+BlasCh
+----------
 
-     **Workflow compatibility requirements:**
-     
-     - BlasCh **cannot be run as part of a full pipeline (for now)** - it is a standalone post-processing tool
-     - Must be used **after** chimera filtering has been completed
-     - Requires **manual workflow**: run chimera filtering → run BlasCh → run clustering 
-     - **Rescued sequences** must be later merged with non-chimeric sequences from original samples
-     - Not compatible with automated pipeline workflows that include clustering steps
+**False positive chimera detection and recovery module** for metabarcoding and environmental DNA (eDNA) datasets. BlasCh (BLAST-based Chimera detection) uses BLAST alignment analysis to identify, classify, and recover sequences that were incorrectly flagged as chimeric during initial chimera detection steps.
 
-   **How BlasCh Works:**
+.. important::
 
-   BlasCh employs a sophisticated BLAST-based approach to re-evaluate chimeric sequences through multiple analysis steps:
+  **Workflow compatibility requirements:**
+  
+  - BlasCh **cannot be run as part of a full pipeline (for now)** - it is a standalone post-processing tool
+  - Must be used **after** chimera filtering has been completed
+  - Requires **manual workflow**: run chimera filtering → run BlasCh → run clustering 
+  - **Rescued sequences** must be later merged with non-chimeric sequences from original samples
+  - Not compatible with automated pipeline workflows that include clustering steps
 
-   1. **Database Creation**: Creates BLAST databases from both sample FASTA files (self-databases) and reference sequences
-   2. **BLAST Analysis**: Performs nucleotide BLAST searches against both self-databases and reference database
-   3. **Hit Analysis**: Examines BLAST alignments for multiple High-scoring Segment Pairs (HSPs), taxonomic diversity, and alignment quality
-   4. **Classification**: Applies multi-tier thresholds to classify sequences into distinct categories based on identity and coverage metrics
-   5. **Recovery**: Rescues sequences that meet quality criteria for inclusion in downstream analyses
+**How BlasCh Works:**
 
-   The module implements smart rerun capabilities, automatically detecting and reusing existing BLAST XML files to enable parameter optimization without re-running computationally expensive BLAST searches.
+BlasCh employs a sophisticated BLAST-based approach to re-evaluate chimeric sequences through multiple analysis steps:
 
-   | Input data is **chimeric sequences** in FASTA format (`.chimeras.fasta`, `.chimeras.fa`, `.chimeras.fas` files) and a **reference database** (FASTA file or existing BLAST database).
+1. **Database Creation**: Creates BLAST databases from both sample FASTA files (self-databases) and reference sequences
+2. **BLAST Analysis**: Performs nucleotide BLAST searches against both self-databases and reference database
+3. **Hit Analysis**: Examines BLAST alignments for multiple High-scoring Segment Pairs (HSPs), taxonomic diversity, and alignment quality
+4. **Classification**: Applies multi-tier thresholds to classify sequences into distinct categories based on identity and coverage metrics
+5. **Recovery**: Rescues sequences that meet quality criteria for inclusion in downstream analyses
 
-   .. important::
+The module implements smart rerun capabilities, automatically detecting and reusing existing BLAST XML files to enable parameter optimization without re-running computationally expensive BLAST searches.
 
-     **File organization requirements:**
-     
-     - Reference database files must be stored in a **separate directory** from input chimera files
-     - Input chimera files should be in the working directory
-     - Sample FASTA files (for self-database creation) should also be in the working directory
-     - Do not place reference database files in the same folder as input files to avoid conflicts
+| Input data is **chimeric sequences** in FASTA format (`.chimeras.fasta`, `.chimeras.fa`, `.chimeras.fas` files) and a **reference database** (FASTA file or existing BLAST database).
 
-   .. note::
+.. important::
 
-     To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
+  **File organization requirements:**
+  
+  - Reference database files must be stored in a **separate directory** from input chimera files
+  - Input chimera files should be in the working directory
+  - Sample FASTA files (for self-database creation) should also be in the working directory
+  - Do not place reference database files in the same folder as input files to avoid conflicts
 
-   **Output folder structure:**
+.. note::
 
-   BlasCh creates a well-organized output directory structure to separate rescued sequences from detailed analysis results:
+  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
 
-   +--------------------------------------+-------------------------------------------------------------------------+
-   | Output directory |output_icon| ``BlasCh_out``                                                                       |
-   +======================================+=========================================================================+
-   | **RESCUED SEQUENCES (main results)**                                                                             |
-   +--------------------------------------+-------------------------------------------------------------------------+
-   | ``non_chimeric``/*_non_chimeric.fasta | recovered non-chimeric sequences (high confidence rescue)             |
-   +--------------------------------------+-------------------------------------------------------------------------+
-   | ``borderline``/*_borderline.fasta     | borderline sequences (moderate confidence rescue)                     |
-   +--------------------------------------+-------------------------------------------------------------------------+
-   | **SUMMARY AND REPORTS**                                                                                          |
-   +--------------------------------------+-------------------------------------------------------------------------+
-   | chimera_recovery_report.txt          | summary statistics and classification results             |
-   +--------------------------------------+-------------------------------------------------------------------------+
-   | README.txt                           | documentation of analysis parameters and results         |
-   +--------------------------------------+-------------------------------------------------------------------------+
-   | **DETAILED ANALYSIS RESULTS**                                                                                    |
-   +--------------------------------------+-------------------------------------------------------------------------+
-   | ``detailed_results``/*_chimeric.fasta | confirmed chimeric sequences that remain excluded                     |
-   +--------------------------------------+-------------------------------------------------------------------------+
-   | ``detailed_results``/*_multiple_alignments.fasta | sequences with multiple HSPs and low coverage            |
-   +--------------------------------------+-------------------------------------------------------------------------+
-   | ``detailed_results``/*_sequence_details.csv | detailed classification results for each sequence             |
-   +--------------------------------------+-------------------------------------------------------------------------+
-   | **TECHNICAL FILES**                                                                                              |
-   +--------------------------------------+-------------------------------------------------------------------------+
-   | ``xml``/blast_results.zip            | compressed BLAST XML output files (can be used for reanalysis with different thresholds) |
-   +--------------------------------------+-------------------------------------------------------------------------+
+**Output folder structure:**
 
-   **Folder organization explanation:**
+BlasCh creates a well-organized output directory structure to separate rescued sequences from detailed analysis results:
 
-   - **Rescued Sequences**: The ``non_chimeric`` and ``borderline`` folders contain sequences that can be included in downstream analyses
-   - **Detailed Results**: The ``detailed_results`` folder contains sequences that remain excluded along with analysis details
-   - **Summary Files**: Report files provide overview statistics and complete documentation of the analysis
-   - **Technical Files**: Compressed XML files allow reanalysis with different parameters without re-running BLAST
++--------------------------------------------------+-----------------------------------------------------------+
+| Output directory                                 | ``BlasCh_out``                                            |
++==================================================+===========================================================+
+| **RESCUED SEQUENCES (main results)**             |                                                           |
++--------------------------------------------------+-----------------------------------------------------------+
+| ``non_chimeric``/*_non_chimeric.fasta            | recovered non-chimeric sequences (high confidence rescue) |
++--------------------------------------------------+-----------------------------------------------------------+
+| ``borderline``/*_borderline.fasta                | borderline sequences (moderate confidence rescue)         |
++--------------------------------------------------+-----------------------------------------------------------+
+| **SUMMARY AND REPORTS**                          |                                                           |
++--------------------------------------------------+-----------------------------------------------------------+
+| chimera_recovery_report.txt                      | summary statistics and classification results             |
++--------------------------------------------------+-----------------------------------------------------------+
+| README.txt                                       | documentation of analysis parameters and results          |
++--------------------------------------------------+-----------------------------------------------------------+
+| **DETAILED ANALYSIS RESULTS**                    |                                                           |
++--------------------------------------------------+-----------------------------------------------------------+
+| ``detailed_results``/*_chimeric.fasta            | confirmed chimeric sequences that remain excluded         |
++--------------------------------------------------+-----------------------------------------------------------+
+| ``detailed_results``/*_multiple_alignments.fasta | sequences with multiple HSPs and low coverage             |
++--------------------------------------------------+-----------------------------------------------------------+
+| ``detailed_results``/*_sequence_details.csv      | detailed classification results for each sequence         |
++--------------------------------------------------+-----------------------------------------------------------+
+| **TECHNICAL FILES**                              |                                                           |
++--------------------------------------------------+-----------------------------------------------------------+
+| ``xml``/blast_results.zip                        | compressed BLAST XML output files                         |
+|                                                  |   (can be used for reanalysis with different thresholds)  |
++--------------------------------------------------+-----------------------------------------------------------+
 
-   =============================================== =========================
-   Setting                                         Tooltip
-   =============================================== =========================
-   ``reference_db``                                | path to reference database (FASTA file or existing BLAST database). 
-                                                   | **Required** - must be provided and stored in separate folder from input files
-   ``high_identity_threshold``                     | identity threshold for high-quality matches (default: 99.0%)
-   ``high_coverage_threshold``                     | coverage threshold for high-quality matches (default: 99.0%)
-   ``borderline_identity_threshold``               | identity threshold for borderline recovery (default: 80.0%)
-   ``borderline_coverage_threshold``               | coverage threshold for borderline recovery (default: 89.0%)
-   =============================================== =========================
 
-   **Detailed classification logic:**
 
-   BlasCh uses a sophisticated multi-tier classification system with the following decision tree:
+**Folder organization explanation:**
 
-   1. **Multiple alignments**: Sequences with multiple HSPs in the first non-self BLAST alignment and ≤85% coverage → classified as multiple alignments
-   2. **Self-hits only**: Sequences that only match to their own sample without reference database matches → confirmed chimeric
-   3. **High-Quality matches**: Identity ≥threshold AND coverage ≥threshold against reference database → rescued as non-chimeric
-   4. **Borderline recovery**: Identity ≥threshold AND coverage ≥threshold against reference database → rescued as non-chimeric
-   5. **Taxonomic diversity**: Multiple different taxonomies in top hits without meeting quality thresholds → confirmed chimeric
+- **Rescued Sequences**: The ``non_chimeric`` and ``borderline`` folders contain sequences that can be included in downstream analyses
+- **Detailed Results**: The ``detailed_results`` folder contains sequences that remain excluded along with analysis details
+- **Summary Files**: Report files provide overview statistics and complete documentation of the analysis
+- **Technical Files**: Compressed XML files allow reanalysis with different parameters without re-running BLAST
 
-   **Smart rerun capability:**
+=============================================== =========================
+Setting                                         Tooltip
+=============================================== =========================
+``reference_db``                                | path to reference database (FASTA file or existing BLAST database). 
+                                                | **Required** - must be provided and stored in separate folder from input files
+``high_identity_threshold``                     | identity threshold for high-quality matches (default: 99.0%)
+``high_coverage_threshold``                     | coverage threshold for high-quality matches (default: 99.0%)
+``borderline_identity_threshold``               | identity threshold for borderline recovery (default: 80.0%)
+``borderline_coverage_threshold``               | coverage threshold for borderline recovery (default: 89.0%)
+=============================================== =========================
 
-   - Automatically detects existing BLAST XML files from previous runs
-   - Extracts XML files from compressed archives when needed
-   - Skips database creation and BLAST steps if XML files are complete
-   - Enables testing different classification thresholds without re-running BLAST
-   - Handles mixed scenarios (some samples have XML, others don't)
+**Detailed classification logic:**
 
-   **Expected Results:**
+BlasCh uses a sophisticated multi-tier classification system with the following decision tree:
 
-   - **Rescued sequences** (non-chimeric and borderline) can be included in downstream analyses
-   - **Detailed analysis results** provide transparency about why certain sequences were confirmed as chimeric
-   - **CSV reports** contain per-sequence classification details and summary statistics
-   - **Documentation** ensures reproducibility and parameter tracking
+1. **Multiple alignments**: Sequences with multiple HSPs in the first non-self BLAST alignment and ≤85% coverage → classified as multiple alignments
+2. **Self-hits only**: Sequences that only match to their own sample without reference database matches → confirmed chimeric
+3. **High-Quality matches**: Identity ≥threshold AND coverage ≥threshold against reference database → rescued as non-chimeric
+4. **Borderline recovery**: Identity ≥threshold AND coverage ≥threshold against reference database → rescued as non-chimeric
+5. **Taxonomic diversity**: Multiple different taxonomies in top hits without meeting quality thresholds → confirmed chimeric
 
-   **Post-BlasCh Workflow:**
+**Smart rerun capability:**
 
-   1. **Merge rescued sequences** with original non-chimeric sequences from each sample
-   2. **Run clustering manually** on the combined sequence sets
-   3. **Proceed with downstream analyses** using the updated sequence data
-   4. **Document** which sequences were rescued for transparency in results
+- Automatically detects existing BLAST XML files from previous runs
+- Extracts XML files from compressed archives when needed
+- Skips database creation and BLAST steps if XML files are complete
+- Enables testing different classification thresholds without re-running BLAST
+- Handles mixed scenarios (some samples have XML, others don't)
 
-   .. note::
+**Expected Results:**
 
-     BlasCh automatically detects `.chimeras` files with various extensions (.fasta, .fa, .fas) in the working directory and creates self-databases from available sample FASTA files. Original sample files are prioritized over .chimeras files for database creation.
+- **Rescued sequences** (non-chimeric and borderline) can be included in downstream analyses
+- **Detailed analysis results** provide transparency about why certain sequences were confirmed as chimeric
+- **CSV reports** contain per-sequence classification details and summary statistics
+- **Documentation** ensures reproducibility and parameter tracking
 
-   .. warning::
+**Post-BlasCh Workflow:**
 
-     **Important usage notes:**
-     
-     - Ensure chimera detection has been run prior to BlasCh analysis
-     - Reference database must be provided and in FASTA format or valid BLAST database format
-     - Reference database files must be stored in a separate directory from input files
+1. **Merge rescued sequences** with original non-chimeric sequences from each sample
+2. **Run clustering manually** on the combined sequence sets
+3. **Proceed with downstream analyses** using the updated sequence data
+4. **Document** which sequences were rescued for transparency in results
+
+.. note::
+
+  BlasCh automatically detects `.chimeras` files with various extensions (.fasta, .fa, .fas) in the working directory and creates self-databases from available sample FASTA files. Original sample files are prioritized over .chimeras files for database creation.
+
+.. warning::
+
+  **Important usage notes:**
+  
+  - Ensure chimera detection has been run prior to BlasCh analysis
+  - Reference database must be provided and in FASTA format or valid BLAST database format
+  - Reference database files must be stored in a separate directory from input files
