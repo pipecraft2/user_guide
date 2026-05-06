@@ -28,63 +28,82 @@ ____________________________________________________
 
 `DOWNLOAD link for v1.2.0 <https://github.com/pipecraft2/pipecraft/releases/tag/v1.2.0>`_
 
-* added FunBarONT pipeline for Oxford Nanopore ITS sequences
-* speed up the seq_count_summary making
-* bug fix to seq_count_summary making after ITSx for full_ITS/full_and_partial dir
-* added workflow for dealing with dataset with thousands of samples for 'merge sequencing runs' in vsearch/unoise pipeline. 
-* SINTAX classifier did not work with UDB files, fixed. 
-* fix to MetaMATE to work with the default specification0.txt that in in the Docker container.
-* update metaMATE to version 0.5.4; added per-sample filtering mode and OTU-mode.
-* PipeCraft2 automatically detects the file extensions in the working directory. 
-* added BlasCh module for identifying false-positive chimeras.
-* added swarm clustering 
+Software updates:
+
+* added FunBarONT pipeline for Oxford Nanopore ITS sequences (barcoding pipeline)
 * In Utilities, added module to add sequences to feature table (add sequences to table)
+* BlasCh module for identifying false-positive chimeras (postprocessing panel).
+* updated metaMATE to version 0.5.4; added per-sample filtering mode and OTU-mode. Global (find+dump) and per-sample (filter-adaptive) filtering modes are available.
+* added swarm clustering (in VSEARCH) to clustering panel.
+* updated NextITS pipeline to version 1.1.0.
+
+General updates:
+
+* speed up the seq_count_summary making
+* SINTAX classifier did not work with UDB files, fixed. 
+* added workflow for dealing with dataset with thousands of samples for 'merge sequencing runs' in vsearch/unoise pipeline. 
+* PipeCraft2 automatically detects the file extensions in the working directory. 
+  
+Bug fixes:
+
+* bug fix to seq_count_summary making after ITSx for full_ITS/full_and_partial dir
+* fix to MetaMATE to work with the default specification0.txt that in in the Docker container.
 
 
 Implemented software:
 *(software in red font denote new additions; 'version' in bold denotes version upgrade)*
 
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| Software/Process                                                                                                      | version    |
-+=======================================================================================================================+============+
-| swarm clustering (in VSEARCH)                                                                                         |            |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| `OptimOTU <https://github.com/brendanf/optimotu_targets>`_                                                            | 5.1.0      |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| `metaMATE <https://github.com/tjcreedy/metamate>`_                                                                    | **0.5.4**  |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| `BlasCh (BLAST-based Chimera detection) <https://github.com/alihkz94/long-chimeric-reads-project/tree/main/BlasCh >`_ | v0.1.0     |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| SINTAX (via vsearch)                                                                                                  | v2.30.4    |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| `NextITS pipeline <https://next-its.github.io/>`_                                                                     | **1.1.0**  |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| `ORFfinder <https://www.ncbi.nlm.nih.gov/orffinder/>`_                                                                | **v0.4.3** |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| RDP classifier                                                                                                        | v2.13      |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                                                                | 1.34       |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| `vsearch <https://github.com/torognes/vsearch>`_                                                                      | **2.30.4** |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_                                                       | 0.39       |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| `seqkit <https://bioinf.shenwei.me/seqkit/>`_                                                                         | **2.13.0** |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
-| `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_                                                              |            |
-+-----------------------------------------------------------------------------------------------------------------------+------------+
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| Software/Process                                                                                                          | version     |
++===========================================================================================================================+=============+
+| :red:`swarm` clustering (in VSEARCH)                                                                                      | **2.30.4**  |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| :red:`FunBarONT pipeline` `(github repo) <https://github.com/mdziurzynski/FunBarONT>`_                                    | 13.03.2026  |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| :red:`BlasCh` `BLAST-based Chimera detection <https://github.com/alihkz94/long-chimeric-reads-project/tree/main/BlasCh>`_ | v0.1.0      |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `OptimOTU <https://github.com/brendanf/optimotu_targets>`_                                                                | 5.1.0       |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `metaMATE <https://github.com/tjcreedy/metamate>`_                                                                        | **0.5.4**   |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| SINTAX (via vsearch)                                                                                                      | v2.30.4     |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `NextITS pipeline <https://next-its.github.io/>`_                                                                         | **1.1.0**   |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `ORFfinder <https://www.ncbi.nlm.nih.gov/orffinder/>`_                                                                    | **v0.4.3**  |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| RDP classifier                                                                                                            | v2.13       |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                                                                    | 1.34        |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `vsearch <https://github.com/torognes/vsearch>`_                                                                          | **2.30.4**  |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_                                                           | 0.39        |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `seqkit <https://bioinf.shenwei.me/seqkit/>`_                                                                             | **2.13.0**  |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_                                                                  | **v5.2**    |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `mothur <https://github.com/mothur/mothur>`_                                                                              | 1.46.1      |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `ITS Extractor <https://microbiology.se/software/itsx/>`_                                                                 | 1.1.3       |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `fqgrep <https://github.com/indraniel/fqgrep>`_                                                                           | 0.4.4       |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                                                                       | **2.16.0+** |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_                                                    | 0.11.9      |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `MultiQC <https://multiqc.info/>`_                                                                                        | 1.12        |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `LULU <https://github.com/tobiasgf/lulu>`_                                                                                | 0.1.0       |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `fastp <https://github.com/OpenGene/fastp>`_                                                                              | 0.23.2      |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
+| `DEICODE <https://github.com/biocore/DEICODE>`_                                                                           | 0.2.4       |
++---------------------------------------------------------------------------------------------------------------------------+-------------+
 
 
-
-`mothur <https://github.com/mothur/mothur>`_                             1.46.1
-`ITS Extractor <https://microbiology.se/software/itsx/>`_                1.1.3
-`fqgrep <https://github.com/indraniel/fqgrep>`_                          0.4.4
-`BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                      2.14.0+
-`FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_   0.11.9
-`MultiQC <https://multiqc.info/>`_                                       1.12
-`LULU <https://github.com/tobiasgf/lulu>`_                               0.1.0
-`fastp <https://github.com/OpenGene/fastp>`_                             0.23.2
-`DEICODE <https://github.com/biocore/DEICODE>`_                          0.2.4
 __________________________________________________
 
 .. _1.1.0:
