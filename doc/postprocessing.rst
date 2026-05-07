@@ -314,6 +314,8 @@ Finally, the filtering is performed on the OTUs using the provided OTU table.
 If planning to use :ref:`LULU POST-CLUSTERING <postclustering_lulu>`, then perform this after applying metaMATE 
 *(because after LULU, the uc file from clustering is not anymore compatible with OTU table, and thus metaMATE cannot work with post-clustered OTUs).*
 
+BBmap - MEM usage!!
+
 
 metaMATE outputs
 ~~~~~~~~~~~~~~~~
