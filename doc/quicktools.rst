@@ -638,7 +638,7 @@ CHIMERA FILTERING
 =================
 
 Chimeras are PCR artifacts that are a combination of two (or more) biological sequences. 
-In PipeCraft2 (via vsearch UCHIME), sequences are first **dereplicated** (identical sequences collapsed),
+In PipeCraft2 (via vsearch UCHIME/UCHIME3), sequences are first **dereplicated** (identical sequences collapsed),
 optionally **pre-clustered** (``pre_cluster``) so that very similar reads are merged and their **size annotations**
 reflect the combined abundance (helping to account for residual sequencing errors and providing more robust abundance
 information for chimera detection), and can be filtered by a minimum abundance (``min_unique_size``). 
@@ -647,13 +647,10 @@ Chimera filtering is performed by **sample-wise approach** (i.e. each sample (in
 
 For **de-novo** detection (``uchime_denovo``), 
 candidate sequences are evaluated against more abundant sequences in the same sample; a sequence 
-is flagged as chimeric if it can be explained as a mosaic of two “parent” sequences with higher support. 
+is flagged as chimeric if it can be explained as a mosaic of two "parent" sequences. 
 
-For **reference-based** detection (``uchime_ref``), sequences are compared against a curated reference database; 
-sequences showing a stronger mosaic fit than a full-length reference match are flagged as chimeras. 
-Non-chimeric sequences are written to the filtered output (``chimeraFiltered_out``), while flagged chimeras are excluded 
-(saved separately to ``chimeras`` directory).
-
+For **reference-based** detection (``uchime_ref``), sequences are compared against a reference database (user-provided). 
+Sequences are flagged as chimeras when they are better explained as a mosaic of two reference sequences than by any single reference match.
 
 | **Fastq/fasta** formatted single-end data is supported [fastq inputs will be converted to fasta].
 | **Outputs** are fasta files in ``chimera_Filtered_out`` directory.
@@ -750,19 +747,37 @@ ____________________________________________________
 `ITS Extractor <https://microbiology.se/software/itsx/>`_
 ==========================================================
 
-When working with ITS amplicons, then 
-extract ITS regions with `ITS Extractor <https://microbiology.se/software/itsx/>`_ (`Bengtsson-Palme et al. 2013 <https://doi.org/10.1111/2041-210X.12073>`_)
+ITSx (`Bengtsson-Palme et al. 2013 <https://doi.org/10.1111/2041-210X.12073>`_) detects **ITS regions** by searching for conserved rRNA gene fragments 
+(18S, 5.8S, 28S) using profile HMMs (HMMER). 
+When these boundaries are found, ITSx extracts the requested 
+region(s) (e.g. **ITS1**, **ITS2**, or the full **ITS1-5.8S-ITS2**) and outputs new FASTA files. 
+Parameters such as ``e-value``, ``scores``, and the required number of 
+matched ``domains`` control how strict the rRNA-gene detection is (stricter settings reduce false positives but may remove divergent sequences).
+
+If ``truncate`` is FALSE, then ITSx will identify the ITS sequences but 
+does not trim the flanking regions (default ``truncate`` is TRUE).
+
+ITSx is may be useful as it **standardizes what part of the rDNA amplicon you cluster and compare**:
+
+- It removes conserved flanking rRNA gene segments (18S/5.8S/28S) so clustering is driven by the ITS barcode region.
+- It improves comparability across taxa and studies by extracting the same region (ITS1/ITS2/full ITS) even when reads contain different amounts of flanking sequence.
+
+You *can* cluster ITS reads with flanking regions, 
+but it is often suboptimal because conserved rRNA segments can inflate sequence 
+similarity and bias clustering (e.g., over-merging distinct ITS variants or producing inconsistent distances when flanking lengths differ).
 
 .. note::
 
-  Note that for better detection of the 18S, 5.8S and/or 28S regions, keep the primers (i.e. do not use 'CUT PRIMERS')
+  Note that if the primer binding sites are close to the ITS region, then for better detection of the 18S, 5.8S and/or 28S regions 
+  it may be beneficial to keep the primers (i.e. do not use 'CUT PRIMERS') .
 
 | **Fastq/fasta** formatted single-end data is supported [fastq inputs will be converted to fasta].
 | **Outputs** are fasta files in ``ITSx_out`` directory.
 
 .. note::
 
-  To **START**, specify working directory under ``SELECT WORKDIR`` and the ``sequence files extension``, but the read types (single-end or paired-end) does not matter here (just click 'Next').
+  To **START**, specify working directory under ``SELECT WORKDIR`` and the ``sequence files extension`` (fasta or fastq), 
+  but the ``read types`` (paired-end or single-end) does not matter here (just click 'Confirm').
 
 +----------------+-----------------------------------------------------------------------+
 | Setting        | Tooltip                                                               |
@@ -775,8 +790,12 @@ extract ITS regions with `ITS Extractor <https://microbiology.se/software/itsx/>
 ||               || region [ITS1-5.8S-ITS2])                                             |
 +----------------+-----------------------------------------------------------------------+
 || ``partial``   || if larger than 0, ITSx will save additional FASTA-files for full and |
-||               || partial ITS sequences longer than the specified cutoff value. If his |
-||               || setting is left to 0 (zero), it means OFF                            |
+||               || partial ITS sequences longer than the specified value. This can be   |
+||               || beneficial when some taxa have ITS regions that are too long to be   |
+||               || fully covered/assembled (or reads are truncated by quality), so      |
+||               || keeping partial ITS sequences helps retain those taxa in downstream  |
+||               || clustering and diversity analyses. If this setting is left to 0      |
+||               || (zero), it means OFF                                                 |
 +----------------+-----------------------------------------------------------------------+
 || ``e-value``   || domain e-value cutoff a sequence must obtain in the HMMER-based step |
 ||               || to be included in the output                                         |
@@ -808,19 +827,27 @@ ____________________________________________________
 CLUSTERING
 ==========
 
-Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
+Cluster sequences, generate OTUs (with :ref:`vsearch <clustering_vsearch>`), 
+swarm-clusters (with :ref:`SWARM <clustering_swarm>`) 
+or zOTUs (with :ref:`UNOISE3 <clustering_unoise3>`).
 
-| Supported file format for the input data is **fasta**.
-| **Outputs** are **OTUs.fasta**, **OTU_table.txt** and **OTUs.uc** files in ``clustering_out`` directory.
+Clustering groups similar sequences into units that are treated as the same biological feature. 
+Reads that are sufficiently similar (method-dependent) are assigned to the same cluster, 
+producing a representative sequence for each cluster (fasta file) and a corresponding abundance table per sample ("OTU table").
 
 .. note::
 
- output OTU table is tab delimited text file.
+  To **START**, specify working directory under ``SELECT WORKDIR`` and the ``sequence files extension`` (must be fasta/fa), 
+  but the ``read types`` (paired-end or single-end) does not matter here (just click 'Confirm').
 
 .. _clustering_vsearch:
 
 `vsearch <https://github.com/torognes/vsearch>`_ 
 ------------------------------------------------
+
+vsearch performs a similarity-threshold clustering (e.g., 97% identity threshold). 
+Sequences are grouped if they meet a chosen global identity cutoff. 
+Output units are "traditional" OTUs and depend strongly on the selected identity threshold and input data.
 
 +---------------------------+----------------------------------------------------------------------+
 | Tooltip                   |                                                                      |
@@ -862,13 +889,15 @@ Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
 `SWARM <https://github.com/torognes/swarm>`_ 
 ---------------------------------------------
 
-| Cluster sequences using SWARM (`Mahé et al. 2021 <https://doi.org/10.1093/bioinformatics/btab493>`_), a robust and scalable clustering method 
-| that does not rely on an arbitrary global clustering threshold. SWARM v3 enables tera-scale amplicon clustering.
+Cluster sequences using SWARM (`Mahé et al. 2021 <https://doi.org/10.1093/bioinformatics/btab493>`_), a 
+robust and scalable clustering method that does not rely on an global clustering threshold.
+Sequences are clustered using a distance parameter (``d``: maximum number of differences between reads (local linking threshold)), 
+where clusters are resilient to input-order changes, therefore, forming stable features.
 
 +----------------------+--------------------------------------------------------------------+
 | Setting              | Tooltip                                                            |
 +======================+====================================================================+
-|| ``resolution (d)``  || the maximum number of differences allowed between two amplicons.  |
+|| ``d``               || the maximum number of differences allowed between two amplicons.  |
 ||                     || Resolution of 1 is recommended for denoising. Higher values group |
 ||                     || sequences more loosely into swarm-clusters. Default = 1           |
 +----------------------+--------------------------------------------------------------------+
@@ -907,42 +936,38 @@ Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
 `UNOISE3, with vsearch <https://github.com/torognes/vsearch>`_ 
 ---------------------------------------------------------------
 
-+---------------------------+-----------------------------------------------------------------------+
-| Tooltip                   |                                                                       |
-+===========================+=======================================================================+
-|| ``similarity_threshold`` || optionally cluster zOTUs to OTUs based on the sequence similarity    |
-||                          || threshold; if id = 1, no OTU clustering will be performed            |
-+---------------------------+-----------------------------------------------------------------------+
-|| ``similarity_type``      || pairwise sequence identity definition for OTU clustering             |
-||                          || `--iddef <_static/vsearch_manual_2.22.1.pdf>`_                       |
-+---------------------------+-----------------------------------------------------------------------+
-| ``maxaccepts``            | maximum number of hits to accept before stopping the search           |
-+---------------------------+-----------------------------------------------------------------------+
-|| ``maxrejects``           || maximum number of non-matching target sequences to consider before   |
-||                          || stopping the search                                                  |
-+---------------------------+-----------------------------------------------------------------------+
-|| ``mask``                 || mask regions in sequences using the "dust" method, or do not mask    |
-||                          || ("none")                                                             |
-+---------------------------+-----------------------------------------------------------------------+
-|| ``strands``              || when comparing sequences with the cluster seed, check both strands   |
-||                          || (forward and reverse complementary) or the plus strand only          |
-+---------------------------+-----------------------------------------------------------------------+
-| ``minsize``               | minimum abundance of sequences for denoising                          |
-+---------------------------+-----------------------------------------------------------------------+
-|| ``unoise_alpha``         || alpha parameter to the vsearch --cluster_unoise command. default =   |
-||                          || 2.0.                                                                 |
-+---------------------------+-----------------------------------------------------------------------+
-|| ``denoise_level``        || at which level to perform denoising; global = by pooling samples,    |
-||                          || individual = independently for each sample (if samples are denoised  |
-||                          || individually, reducing minsize to 4 may be more reasonable for       |
-||                          || higher sensitivity)                                                  |
-+---------------------------+-----------------------------------------------------------------------+
-| ``remove_chimeras``       | perform chimera removal with **uchime3_denovo** algoritm              |
-+---------------------------+-----------------------------------------------------------------------+
-|| ``abskew``               || the abundance skew of chimeric sequences in comparsion with parental |
-||                          || sequences (by default, parents should be at least 16 times more      |
-||                          || abundant than their chimera)                                         |
-+---------------------------+-----------------------------------------------------------------------+
+UNOISE3 is a denoising-based approach that outputs ASVs (zOTUs) that that represent sequence variants, not similarity-binned OTUs.
+
++---------------------+-----------------------------------------------------------------------+
+| Tooltip             |                                                                       |
++=====================+=======================================================================+
+|| ``strands``        || when comparing sequences with the cluster seed, check both strands   |
+||                    || (forward and reverse complementary) or the plus strand only          |
++---------------------+-----------------------------------------------------------------------+
+| ``minsize``         | minimum abundance of sequences for denoising                          |
++---------------------+-----------------------------------------------------------------------+
+| ``remove_chimeras`` | perform chimera removal with **uchime3_denovo** algoritm              |
++---------------------+-----------------------------------------------------------------------+
+|| ``unoise_alpha``   || alpha parameter to the vsearch --cluster_unoise command. default =   |
+||                    || 2.0.                                                                 |
++---------------------+-----------------------------------------------------------------------+
+|| ``denoise_level``  || at which level to perform denoising; global = by pooling samples,    |
+||                    || individual = independently for each sample (if samples are denoised  |
+||                    || individually, reducing minsize to 4 may be more reasonable for       |
+||                    || higher sensitivity)                                                  |
++---------------------+-----------------------------------------------------------------------+
+|| ``abskew``         || the abundance skew of chimeric sequences in comparsion with parental |
+||                    || sequences (by default, parents should be at least 16 times more      |
+||                    || abundant than their chimera)                                         |
++---------------------+-----------------------------------------------------------------------+
+| ``maxaccepts``      | maximum number of hits to accept before stopping the search           |
++---------------------+-----------------------------------------------------------------------+
+|| ``maxrejects``     || maximum number of non-matching target sequences to consider before   |
+||                    || stopping the search                                                  |
++---------------------+-----------------------------------------------------------------------+
+|| ``mask``           || mask regions in sequences using the "dust" method, or do not mask    |
+||                    || ("none")                                                             |
++---------------------+-----------------------------------------------------------------------+
 
 .. _assign_taxonomy:
 
@@ -1028,7 +1053,7 @@ ____________________________________________________
 RDP classifier
 ---------------
 
-| Classify sequences with RDP classifier (`Wang et al. 2007 <https://doi.org/10.1128/aem.00062-07>`_) againt trained RDP database.
+Classify sequences with RDP classifier (`Wang et al. 2007 <https://doi.org/10.1128/aem.00062-07>`_) againt trained RDP database.
 
 .. important::
 
@@ -1092,7 +1117,7 @@ SINTAX
 .. note::
 
   To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
-  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Confirm').
 
 +----------------+---------------------------------------------------------------------+
 | Setting        | Tooltip                                                             |
@@ -1119,7 +1144,7 @@ ____________________________________________________
 `DADA2 classifier <https://github.com/benjjneb/dada2>`_ 
 -------------------------------------------------------
 
-| Classify sequences with DADA2 RDP naive Bayesian classifier (function assignTaxonomy) againt selected :ref:`database <databases>`.
+| Classify sequences with DADA2 RDP naive Bayesian classifier (function *assignTaxonomy*) againt selected :ref:`database <databases>`.
 
 | Supported file format for the input data is **fasta**.
 | 
@@ -1129,7 +1154,7 @@ ____________________________________________________
 .. note::
 
   To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
-  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Confirm').
 
 +---------------------+--------------------------------------------------------------------------------------------------------+
 | Setting             | Tooltip                                                                                                |
@@ -1181,7 +1206,7 @@ taxonomic levels.
 .. note::
 
   To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
-  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Confirm').
 
 +----------------+--------------------------------------------------------------------------------------+
 | Setting        | Tooltip                                                                              |

@@ -30,7 +30,7 @@ Post-processing tools |PipeCraft2_logo|
 
 .. note:: 
 
-  All post-processing tools accessible under **ADD STEP** -> **POSTPROCESSING**
+  All post-processing tools accessible under **QuickTools** -> **Postprocessing**
 
 .. contents:: Contents
    :depth: 2
@@ -47,11 +47,19 @@ Filter tag-jumps
 
 Filter out putative tag-jumps with `UNCROSS2 <https://www.drive5.com/usearch/manual/uncross2_algo.html>`_. 
 
-| Input data is tab delimited **OTU table** and corresponding **fasta file** (representative sequences of ASV/OTUs).
+Tag-jumps (also called index/tag switching or sample cross-talk) are library-preparation/sequencing 
+artifacts where a small fraction of reads are assigned the wrong sample index. 
+This creates low-level "ghost" occurrences of real sequences in samples where they are not truly present.
+If not removed, tag-jumps can inflate apparent diversity, 
+introduce false positives (especially in low-biomass samples), 
+which may bias downstream analyses. 
+**Tag-jumps filtering aims to remove these low-frequency cross-sample contaminants.**
+
+| Input data is tab delimited **OTU/ASV table** and corresponding **fasta file** (representative sequences of ASV/OTUs).
 
 .. note::
 
-  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
+  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Confirm').
 
 +-----------------------+-------------------------------------------------------------------------------+
 | Outputs               |                                                                               |
@@ -89,7 +97,7 @@ ASV to OTU
 Cluster ASVs (or zOTUs) to OTUs.
 
 If the aim is to work on OTU-level, but also benefit from the denoising workflows as implemented in DADA2 or UNOISE pipelines (that produce ASVs), 
-then resulting ASVs can be clustered to OTUs (using vsearch). This is done in ``Postprocessing -> ASV TO OTU``.
+then resulting ASVs can be clustered to OTUs (using vsearch). This is done in ``QuickTools -> Postprocessing -> ASV TO OTU``.
 
 | **Input data** is tab delimited **ASV table** and **ASV sequences** in fasta format.
 | 2nd column of **ASV table** MUST BE 'Sequences' (1st column is ASV IDs; default pipecraft output table).
@@ -123,7 +131,8 @@ ___________________________________________________
 LULU post-clustering
 ---------------------
 
-Perform OTU post-clustering with `LULU <https://github.com/tobiasgf/lulu>`_ to merge co-occurring 'daughter' OTUs.
+Perform OTU post-clustering with `LULU <https://github.com/tobiasgf/lulu>`_ to merge co-occurring 'daughter' OTUs; 
+``QuickTools -> Postprocessing -> LULU``.
 
 LULU description from the `LULU repository <https://github.com/tobiasgf/lulu>`_: the purpose of LULU is to reduce the number of 
 erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. 
@@ -141,7 +150,7 @@ Additional information:
 
 .. note::
 
-  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
+  To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Confirm').
 
 
 +-----------------------+----------------------------------------------------------------------------+
@@ -199,7 +208,7 @@ DADA2 `collapseNoMismatch <https://www.bioconductor.org/packages/devel/bioc/manu
 Representative sequence of a collapsed ASV will be the most abundant one. 
 and ASVs filtering based on minimum accepted sequence length (custom R functions). 
 
-To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Next').
+To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Confirm').
 
 
 +---------------------------------+-------------------------------------------------------------------------------------+
@@ -248,6 +257,8 @@ native metaMATE has three execution modes:
  - `find <https://github.com/tjcreedy/metamate#find-mode>`_ (to assess the impact of filtering strategy and select the "best" strategy)
  - `dump <https://github.com/tjcreedy/metamate#dump-mode>`_ (to filter the data according to the selected strategy. Applies **global filtering thresholds**)
  - `filter-adaptive <https://github.com/tjcreedy/metamate#filter-adaptive-mode>`_ (as above two modes, but this mode applies **per-sample filtering thresholds**)
+
+To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Confirm').
 
 To streamline the workflow and improve usability, PipeCraft2 automatically runs ``find`` and ``dump`` modes to perform data filtering.
 Since this process applies global filtering threshold, then it is called **global filter** mode in PipeCraft2. 
@@ -303,7 +314,8 @@ Finally, the filtering is performed on the OTUs using the provided OTU table.
   clustered ASVs to OTUs (Postprocessing -> 'ASV TO OTU').
 
   If you do not have the ASVs.fasta and ASV table files 
-  (that is, you have performed OTUs pipeline), then run metaMATE with ``otu mode`` disabled.
+  (that is, you have performed OTUs pipeline), then run metaMATE with ``otu mode`` disabled. 
+  However, note that metaMETA will then work only with the representative sequences of OTUs.
   
 
 .. |metamate_otumode| image:: _static/metamate_otumode.png
@@ -314,7 +326,11 @@ Finally, the filtering is performed on the OTUs using the provided OTU table.
 If planning to use :ref:`LULU POST-CLUSTERING <postclustering_lulu>`, then perform this after applying metaMATE 
 *(because after LULU, the uc file from clustering is not anymore compatible with OTU table, and thus metaMATE cannot work with post-clustered OTUs).*
 
-BBmap - MEM usage!!
+.. admonition:: memory (RAM) usage
+
+  if a reference database (``reference seqs``) is very large, then the process may require a lot of RAM.
+  If you receive an error message "*.ERROR: BBMap alignment produced no matches and a memory error was detected*", 
+  then you may need to increase the :ref:`memory (RAM) allocated to Docker <manage_resources>` and or close other applications that are using a lot of RAM.
 
 
 metaMATE outputs
@@ -363,6 +379,8 @@ if the length of the ORF is between the specified range of ``min length`` and ``
 
 Check and specify the min and max length of the expected amplicon sequence and genetic code (based on the target organism; 
 5 = invertebrate mitochondrial code. Use 1 for rbcL. Specify values from 1 to 33; see https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi).
+
+To **START**, specify working directory under ``SELECT WORKDIR``, but the file formats do not matter here (just click 'Confirm').
 
 __________________________________________________
 

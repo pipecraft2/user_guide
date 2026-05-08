@@ -41,84 +41,84 @@ ____________________________________________________
 General errors
 ==============
 
+.. admonition:: "rm: cannot remove ... File is not accessible"
+  :class: error
 
-.. error::
+  **Possible reason**: The file is being used by another process OR Docker does not have permissions to delete the file(s).
 
-  "rm: cannot remove ... File is not accessible"
-
-
-**Possible reason**: The file is being used by another process OR Docker does not have permissions to delete the file(s).
-
-**Fix**: Close all other applications that might be using the file / Delete the file manually when attempting to rerun the workflow.
+  **Fix**: Close all other applications that might be using the file / Delete the file manually when attempting to rerun the workflow.
 
 ____________________________________________________
 
-.. error::
+.. admonition:: BBmap error in metaMATE (memory error)
+  :class: error
 
- No files in the output folder, but PipeCraft said "Workflow finished".
+  if a reference database (``reference seqs``) is very large, then the process may require a lot of RAM.
+  If you receive an error message "*.ERROR: BBMap alignment produced no matches and a memory error was detected*", 
+  then you may need to increase the :ref:`memory (RAM) allocated to Docker <manage_resources>` and or close other applications that are using a lot of RAM.
 
-**Possible reason**: Computer's memory (RAM) is full, and process was killed. Cannot finish the analyses with those local resources. 
+__________________________________________________
 
-**Possible fix**: In Windows, try to increase the RAM size accessible to Docker (see :ref:`here <increase_RAM>`).
+.. admonition:: No files in the output folder, but PipeCraft said "Workflow finished"
+  :class: error
+
+  **Possible reason**: Computer's memory (RAM) is full, and process was killed. Cannot finish the analyses with those local resources. 
+
+  **Possible fix**: In Windows, try to increase the RAM size accessible to Docker (see :ref:`here <increase_RAM>`).
   Check if there was a README.txt output and read that. Please :ref:`report <contact>` unexpexted errors. 
 
 ____________________________________________________
 
-.. error::
+.. admonition:: No OTU_table.txt with version v0.1.4
+  :class: error
 
- No OTU_table.txt with version v0.1.4
+  **Possible reason**: known bug.
 
-**Reason**: known bug.
-
-**Fix**: Fixed the bug. Reinstall PipeCraft v0.1.4 (or higher)
+  **Fix**: Fixed the bug. Reinstall PipeCraft v0.1.4 (or higher)
 
 ____________________________________________________
 
-.. error::
+.. admonition:: "ERROR]: cannot find files with specified extension"
+  :class: error
   
-  "ERROR]: cannot find files with specified extension"
+  **Possible reason**: wrongly specified working directory or extension; OR issues with external hard drives in Windows.
 
-**Reason**: wrongly specified working directory or extension; OR issues with external hard drives in Windows.
-
-**Fix**: Double-check the specified directory and extention; OR restart Windows.
-
+  **Fix**: Double-check the specified directory and extention; OR restart Windows.
 
 ____________________________________________________
 
-.. error::
-  "Workflow stopped"
+.. admonition:: Workflow stopped
+  :class: error
 
- |workflow_stopped|
+  |workflow_stopped|
 
-**Possible reason**: Computer's memory (RAM) is full, and process was killed. Cannot finish the analyses with those local resources. 
+  **Possible reason**: Computer's memory (RAM) is full, and process was killed. Cannot finish the analyses with those local resources. 
 
-**Possible fix**: In Windows, try to increase the RAM size accessible to Docker (see :ref:`here <increase_RAM>`).
+  **Possible fix**: In Windows, try to increase the RAM size accessible to Docker (see :ref:`here <increase_RAM>`).
 
 ____________________________________________________
 
-.. error::
-
- Error in filterAndTrim. Every input file must have a corresponding output file.
+.. admonition:: Error in DADA2 quality filtering (filterAndTrim)
+  :class: error
 
   |DADA2_read_identifiers|
 
-**Possible reason**: wrong read identifiers for ``read R1`` and ``read R2`` in QUALITY FILTERING panel. 
+  **Possible reason**: wrong read identifiers for ``read R1`` and ``read R2`` in QUALITY FILTERING panel. 
 
-**Fix**: Check the input fastq file names and edit the identifiers. 
-Specify identifyer string that is common for all R1 reads (e.g. when all R1 files have '.R1' string, then enter '\\.R1'. 
-Note that backslash is only needed to escape dot regex; e.g. when all R1 files have '_R1' string, then enter '_R1'.). 
+  **Fix**: Check the input fastq file names and edit the identifiers. 
+  Specify identifyer string that is common for all R1 reads (e.g. when all R1 files have '.R1' string, then enter '\\.R1'. 
+  Note that backslash is only needed to escape dot regex; e.g. when all R1 files have '_R1' string, then enter '_R1'.). 
 
 ____________________________________________________
 
-.. error::
-
-  "Error rates could not be estimated (this is usually because of very few reads). Error in getErrors(err, enforce = TRUE) : Error matrix is null."
-
+.. admonition:: "Error rates could not be estimated (this is usually because of very few reads). Error in getErrors(err, enforce = TRUE) : Error matrix is null."
+  :class: error
+  
   |learnErrors_fewReads|
 
-**Possible reason**: Too small data set; samples contain too few reads for DADA2 denoising.
+  **Possible reason**: Too small data set; samples contain too few reads for DADA2 denoising.
 
-**Fix**: use OTU workflow.
+  **Fix**: use OTU workflow.
 
 ____________________________________________________
 
