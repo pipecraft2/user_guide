@@ -34,7 +34,7 @@ Software updates:
 * In Utilities, added module to add sequences to feature table (add sequences to table)
 * BlasCh module for identifying false-positive chimeras (postprocessing panel).
 * updated metaMATE to version 0.5.4; added per-sample filtering mode and OTU-mode. Global (find+dump) and per-sample (filter-adaptive) filtering modes are available.
-* added swarm clustering (in VSEARCH) to clustering panel.
+* added swarm clustering to clustering panel.
 * updated NextITS pipeline to version 1.1.0.
 
 General updates:

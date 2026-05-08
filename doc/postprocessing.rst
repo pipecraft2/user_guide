@@ -388,7 +388,7 @@ __________________________________________________
 BlasCh
 ----------
 
-**False positive chimera detection and recovery module** for metabarcoding and environmental DNA (eDNA) datasets. BlasCh (BLAST-based Chimera detection) uses BLAST alignment analysis to identify, classify, and recover sequences that were incorrectly flagged as chimeric during initial chimera detection steps.
+**False positive chimera detection and recovery module** for metabarcoding and environmental DNA (eDNA) datasets. `BlasCh <https://github.com/alihkz94/BlasCh/tree/main>`_ (BLAST-based Chimera detection) uses BLAST alignment analysis to identify, classify, and recover sequences that were incorrectly flagged as chimeric during initial chimera detection steps.
 
 .. important::
 
