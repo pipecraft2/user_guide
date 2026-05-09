@@ -318,7 +318,7 @@ This is basically equivalent to 100% clustering by ignoring the end gaps.
 
 .. note:: 
 
-  The pre-defined pipeline ends here. Outputs COI ASVs should be further filtered to **remove 
+  The pre-compiled pipeline ends here. Outputs COI ASVs should be further filtered to **remove 
   putative pseudogenes (NUMTs)**, and optionally ASVs can be clustered into OTUs. See below. 
 
 ____________________________________________________

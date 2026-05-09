@@ -65,6 +65,8 @@
 
 |
 
+.. _example_analyses_FunBarONT:
+
 FunBarONT pipeline, ITS |PipeCraft2_logo|
 -------------------------------------------
 

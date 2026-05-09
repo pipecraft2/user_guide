@@ -22,15 +22,15 @@
 
 .. _predefinedpipelines: 
 
-=======================================
-Pre-defined pipelines |PipeCraft2_logo|
-=======================================
+========================================
+Pre-compiled pipelines |PipeCraft2_logo|
+========================================
 
-Pre-defined pipelines in PipeCraft2 provide automated workflows for processing amplicon sequencing data. 
+Pre-compiled pipelines in PipeCraft2 provide automated workflows for processing amplicon sequencing data. 
 These pipelines include options for generating ASVs with DADA2, ASVs with UNOISE3, OTUs with vsearch, and specialized pipelines like NextITS and OptimOTU. 
 Each pipeline is carefully configured with sensible defaults while still allowing customization of key parameters to suit different experimental needs.
 
-- **Use at least 2 samples per sequencing run** for the pre-defined pipelines.
+- **Use at least 2 samples per sequencing run** for the pre-compiled pipelines.
 
 .. admonition:: example data analyses
  
@@ -46,10 +46,10 @@ Working with multiple sequencing runs
 ======================================
 
 Applicable to: :ref:`DADA2 ASVs <asvpipe>`, :ref:`UNOISE ASVs <unoise_asvs>`,
-:ref:`vsearch OTUs <vsearchOTUs>` pre-defined pipelines.
+:ref:`vsearch OTUs <vsearchOTUs>` pre-compiled pipelines.
 
 
-When working with multiple sequencing runs, then **pre-defined pipelines** can automatically process each sequencing run separately, and 
+When working with multiple sequencing runs, then **pre-compiled pipelines** can automatically process each sequencing run separately, and 
 then **merge the results** into a single output OTU/ASV table. Processing each sequencing run separately is 
 **necessary for appropriate handling of run-specifiec error profiles and tag-jumps filtering**.
 
@@ -118,7 +118,7 @@ Merge sequencing runs
 When working with multiple sequencing runs, then you can merge the results into a single ASV/OTU table
 by enabling the **MERGE SEQUENCING RUNS** option in the 
 :ref:`DADA2 ASVs <asvpipe>`, :ref:`UNOISE ASVs <unoise_asvs>`,
-:ref:`vsearch OTUs <vsearchOTUs>` pre-defined pipelines.
+:ref:`vsearch OTUs <vsearchOTUs>` pre-compiled pipelines.
 
 Note that NextITS and OptimOTU pipelines also support merging of sequencing runs, but require 
 slightly different directory structure (see here for NextITS: :ref:`nextits_pipeline` and 
@@ -690,7 +690,7 @@ OptimOTU
 
 .. note:: 
 
-    Note that compared with other herein (in PipeCraft) pre-defined pipelines, OptimOTU requires a lot of resources (CPU, RAM), 
+    Note that compared with other herein (in PipeCraft) pre-compiled pipelines, OptimOTU requires a lot of resources (CPU, RAM), 
     so please allocate sufficient resources when running this pipeline. Due to many optimized steps in the pipeline, 
     the local run of OptimOTU takes comparably more time.
 
@@ -953,6 +953,8 @@ FunBarONT
 
 This pipeline processes Oxford Nanopore sequencing data through quality filtering, clustering, consensus polishing, 
 ITS extraction, and taxonomic assignment to generate high-confidence fungal identifications.
+
+See example :ref:`data analysis tutorial here <example_analyses_FunBarONT>`.
 
 .. note::
 

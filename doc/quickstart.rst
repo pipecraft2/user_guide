@@ -48,9 +48,9 @@ There are few specifc requirements for the input data for PipeCraft.
   
 - **Please avoid spaces and** `non-ASCII symbols <https://terpconnect.umd.edu/~zben/Web/CharSet/htmlchars.html>`_ **in sample names** and **file paths**.
 
-- **Use at least 2 samples per sequencing run** for the pre-defined pipelines.
+- **Use at least 2 samples per sequencing run** for the pre-compiled pipelines.
 
-- specific directory structure for the pre-defined pipelines:
+- specific directory structure for the pre-compiled pipelines:
     * If running NextITS pipeline, then follow specific directory structure (:ref:`see NextITS page here <nextits_pipeline>`)
     * If running OptimOTU pipeline, then follow specific directory structure (:ref:`see OptimOTU page here <optimotu_pipeline>`)
     * If combining multiple sequencing runs with vsearch, unoise, or DADA2 pipelines, then follow specific directory structure (:ref:`see here <multi_run_dir>`)
@@ -135,7 +135,7 @@ The **README** file in the output directory states some of the details about the
 ____________________________________________________
 
 
- :ref:`Ready-to-run pre-defined pipelines here <predefinedpipelines>`
+ :ref:`Ready-to-run pre-compiled pipelines here <predefinedpipelines>`
 
  :ref:`QuickTools page here <quicktools>`
 
