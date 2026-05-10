@@ -59,6 +59,10 @@ which may bias downstream analyses.
 
 |tagjump_filtering_example|
 
+
+Input data
+~~~~~~~~~~
+
 Input data is tab delimited **OTU/ASV table** and corresponding **fasta file** (representative sequences of ASV/OTUs).
 Note that the input FASTA file is not changed: tag-jumps filtering does not delete ASVs/OTUs globally. Instead, it adjusts the **feature table**
 by removing (setting to zero) low-abundance occurrences of a feature in specific samples where they are likely due to tag-jumps.
@@ -79,7 +83,7 @@ This is needed for example when subjecting the resulting feature table to furthe
 
 .. admonition:: To **START**
 
-  To **START**, specify working directory under ``SELECT WORKDIR``, 
+  To **START**, specify working directory under ``SELECT WORKDIR`` (outputs will be written here), 
   but the following requests about ``Sequence files extension`` and ``Sequencing read types`` **do not matter here**, just click 'Confirm'.
 
 Settings
@@ -135,6 +139,9 @@ then resulting ASVs can be clustered to OTUs (using vsearch). This is done via `
 
 |asv2otu_example|
 
+Input data
+~~~~~~~~~~
+
 **Input data** is tab delimited **ASV table** and **ASV sequences** in fasta format. 
 2nd column of **ASV table** MUST BE 'Sequences' (1st column is ASV IDs; default pipecraft output table). 
 For clustering, the ASV size annotation is obtained from the ASV table. 
@@ -153,7 +160,7 @@ For clustering, the ASV size annotation is obtained from the ASV table.
 
 .. admonition:: To **START**
 
-  To **START**, specify working directory under ``SELECT WORKDIR``, 
+  To **START**, specify working directory under ``SELECT WORKDIR`` (outputs will be written here),  
   but the following requests about ``Sequence files extension`` and ``Sequencing read types`` **do not matter here**, just click 'Confirm'.
 
 If the ASV table does not contain 'Sequence' column, then add those with ``QuickTools -> Utilities -> Add sequences to table``.
@@ -243,6 +250,9 @@ in more realistic diversity metrics.
 
 |lulu_example|
 
+Input data
+~~~~~~~~~~
+
 Input data is tab delimited **OTU table** (``table``) and **OTU sequences** (``rep_seqs``) in fasta format.
 
 .. admonition:: The **input table format**; can contain "Sequence" column (but this is ignored):
@@ -259,7 +269,7 @@ Input data is tab delimited **OTU table** (``table``) and **OTU sequences** (``r
 
 .. admonition:: To **START**
 
-  To **START**, specify working directory under ``SELECT WORKDIR``, 
+  To **START**, specify working directory under ``SELECT WORKDIR`` (outputs will be written here), 
   but the following requests about ``Sequence files extension`` and ``Sequencing read types`` **do not matter here**, just click 'Confirm'.
 
 
@@ -323,55 +333,70 @@ DADA2 `collapseNoMismatch <https://www.bioconductor.org/packages/devel/bioc/manu
 collapses identical ASVs with no internal mismatches (~greedy 100% clustering with end-gapping ignored).
 Representative sequence of a collapsed ASV will be the most abundant one.
 
+.. |DADA2_collapse_ASVs| image:: _static/DADA2_collapse_ASVs.png
+  :width: 600
+
+|DADA2_collapse_ASVs|
+
+Input data
+~~~~~~~~~~
+
 Input data is **DADA2 compatible RSD table file** resulting from DADA2 workflow (in dir ``ASVs_out.dada2``). 
 
-**This process can be automatically performed** also by setting the ``collapseNoMismatch`` = TRUE while running the **DADA2 pre-compiled pipeline**
+**This process can be automatically performed** also by setting the 
+``collapseNoMismatch`` = TRUE while running the **DADA2 pre-compiled pipeline**
 (:ref:`see here <curate_asv_table>`).
 
 .. admonition:: To **START**
 
-  To **START**, specify working directory under ``SELECT WORKDIR``, 
+  To **START**, specify working directory under ``SELECT WORKDIR`` (outputs will be written here), 
   but the following requests about ``Sequence files extension`` and ``Sequencing read types`` **do not matter here**, just click 'Confirm'.
 
 
 Settings
 ~~~~~~~~
 
-========================== ============
-Setting                    Tooltip
-========================== ============
-``DADA2 table``            | select the RDS file (ASV table), output from DADA2 workflow; 
-                           | usually in ASVs_out.dada2/ASVs_table.denoised-merged.rds
-``collapseNoMismatch``     | collapses ASVs that are identical up to shifts or 
-                           | length variation, i.e. that have no mismatches or internal indels
-``by_length``              | discard ASVs from the ASV table that are shorter than specified 
-                           | value (in base pairs). Value 0 means OFF, no filtering by length
-``minOverlap``             | collapseNoMismatch setting. Default = 20. The minimum overlap of 
-                           | base pairs between ASV sequences required to collapse them together
-``vec``                    | collapseNoMismatch setting. Default = TRUE. Use the vectorized 
-                           | aligner. Should be turned off if sequences exceed 2kb in length
-========================== ============
++-------------------------+----------------------------------------------------------------------+
+| Setting                 | Tooltip                                                              |
++=========================+======================================================================+
+|| ``DADA2 table``        || select the RDS file (ASV table), output from DADA2 workflow;        |
+||                        || usually in ASVs_out.dada2/ASVs_table.*.rds                          |
++-------------------------+----------------------------------------------------------------------+
+|| ``collapseNoMismatch`` || collapses ASVs that are identical up to shifts or                   |
+||                        || length variation, i.e. that have no mismatches or internal indels   |
++-------------------------+----------------------------------------------------------------------+
+|| ``by_length``          || discard ASVs from the ASV table that are shorter than specified     |
+||                        || value (in base pairs). Value 0 means OFF, no filtering by length    |
++-------------------------+----------------------------------------------------------------------+
+|| ``minOverlap``         || collapseNoMismatch setting. Default = 20. The minimum overlap of    |
+||                        || base pairs between ASV sequences required to collapse them together |
++-------------------------+----------------------------------------------------------------------+
+|| ``vec``                || collapseNoMismatch setting. Default = TRUE. Use the vectorized      |
+||                        || aligner. Should be turned off if sequences exceed 2kb in length     |
++-------------------------+----------------------------------------------------------------------+
 
 Outputs
 ~~~~~~~
 
 Outputs are in ``filtered_table`` directory:
 
-+---------------------------------+-------------------------------------------------------------------------------------+
-| Outputs ``filtered_table``      |                                                                                     |
-+=================================+=====================================================================================+
-| ASVs_table_collapsed.txt        | ASV table after collapsing identical ASVs                                           |
-+---------------------------------+-------------------------------------------------------------------------------------+
-| ASVs_collapsed.fasta            | ASV sequences after collapsing identical ASVs                                       |
-+---------------------------------+-------------------------------------------------------------------------------------+
-| ASV_table_collapsed.rds         | ASV table in RDS format after collapsing identical ASVs                             |
-+---------------------------------+-------------------------------------------------------------------------------------+
-| If length filtering was applied |                                                                                     |
-+---------------------------------+-------------------------------------------------------------------------------------+
-| ASV_table_lenFilt.tx            | ASV table after filtering out ASVs with shorther than specified sequence length     |
-+---------------------------------+-------------------------------------------------------------------------------------+
-| ASVs_lenFilt.fasta              | ASV sequences after filtering out ASVs with shorther than specified sequence length |
-+---------------------------------+-------------------------------------------------------------------------------------+
++----------------------------------+----------------------------------------------------------------------+
+| Outputs ``filtered_table``       |                                                                      |
++==================================+======================================================================+
+| ASVs_table_collapsed.txt         | ASV table after collapsing identical ASVs                            |
++----------------------------------+----------------------------------------------------------------------+
+| ASVs_collapsed.fasta             | ASV sequences after collapsing identical ASVs                        |
++----------------------------------+----------------------------------------------------------------------+
+| ASV_table_collapsed.rds          | ASV table in RDS format after collapsing identical ASVs              |
++----------------------------------+----------------------------------------------------------------------+
+| If length filtering was applied: |                                                                      |
++----------------------------------+----------------------------------------------------------------------+
+|| ASV_table_lenFilt.tx            || ASV table after filtering out ASVs with shorther than specified     |
+||                                 || sequence length                                                     |
++----------------------------------+----------------------------------------------------------------------+
+|| ASVs_lenFilt.fasta              || ASV sequences after filtering out ASVs with shorther than specified |
+||                                 || sequence length                                                     |
++----------------------------------+----------------------------------------------------------------------+
 
 __________________________________________________
 
@@ -403,6 +428,8 @@ Since ``filter-adaptive`` mode applies per-sample filtering thresholds, then it 
 |                                  || Executes ``filter-adaptive`` mode of metaMATE.                |
 +----------------------------------+----------------------------------------------------------------+
 
+Input data
+~~~~~~~~~~
 
 .. admonition:: The **input table format**; can contain "Sequence" column (but this is ignored):
 
@@ -418,7 +445,7 @@ Since ``filter-adaptive`` mode applies per-sample filtering thresholds, then it 
 
 .. admonition:: To **START**
 
-  To **START**, specify working directory under ``SELECT WORKDIR``, 
+  To **START**, specify working directory under ``SELECT WORKDIR`` (outputs will be written here), 
   but the following requests about ``Sequence files extension`` and ``Sequencing read types`` **do not matter here**, just click 'Confirm'.
 
 Settings
@@ -577,6 +604,9 @@ Therefore, the ``genetic code`` is 5. By specifying ``min length`` = 310 and ``m
 allowing length variation up to one codon (±3 bp) around the target amplicon length. 
 Only input sequences with open reading frames (ORFs) that are within the specified length range are kept.
 
+Input data
+~~~~~~~~~~
+
 .. admonition:: The **input table format**; can contain "Sequence" column:
 
   +-------+--------------+----------+----------+----------+-----+
@@ -591,7 +621,7 @@ Only input sequences with open reading frames (ORFs) that are within the specifi
 
 .. admonition:: To **START**
 
-  To **START**, specify working directory under ``SELECT WORKDIR``, 
+  To **START**, specify working directory under ``SELECT WORKDIR`` (outputs will be written here), 
   but the following requests about ``Sequence files extension`` and ``Sequencing read types`` **do not matter here**, just click 'Confirm'.
 
 Settings
@@ -821,8 +851,10 @@ Additional information:
  - `DEICODE paper <https://journals.asm.org/doi/10.1128/mSystems.00016-19>`_
 
 
+Input data
+~~~~~~~~~~
 
-| Input data is tab delimited **OTU table** and optionally **subset of OTU ids** to generate results also for the selected subset (see input examples below). 
+Input data is tab delimited **OTU table** and optionally **subset of OTU ids** to generate results also for the selected subset (see input examples below). 
 
 Example of input ``table`` (tab delimited text file):
 
@@ -853,7 +885,7 @@ Example of input ``subset_IDs``:
 
 .. admonition:: To **START**
 
-  To **START**, specify working directory under ``SELECT WORKDIR``, 
+  To **START**, specify working directory under ``SELECT WORKDIR`` (outputs will be written here), 
   but the following requests about ``Sequence files extension`` and ``Sequencing read types`` **do not matter here**, just click 'Confirm'.
 
 

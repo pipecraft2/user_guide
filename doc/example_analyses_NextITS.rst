@@ -45,7 +45,7 @@
 
 |
 
-NextITS pipeline, Full-length ITS |PipeCraft2_logo|
+NextITS pipeline, full-length ITS |PipeCraft2_logo|
 -------------------------------------------------------
 
 This example data analysis follows the **NextITS** pipeline as implemented in PipeCraft2's pre-compiled pipelines panel.
@@ -96,7 +96,7 @@ To process data with NextITS in PipeCraft2, your input directory must follow a s
 
 ____________________________________________________
 
-Select Pipeline and Input
+Select pipeline and input
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | **To select the NextITS pipeline**, press:
@@ -109,7 +109,7 @@ Select Pipeline and Input
 
 ____________________________________________________
 
-Step 1: Quality Control and Artefact Removal
+Step 1: Quality control and artefact removal
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 NextITS processes data in **two distinct steps**. Step 1 is performed **per sequencing run** to handle run-specific errors and artefacts.
@@ -151,7 +151,7 @@ Step 1 includes:
 
 ____________________________________________________
 
-Step 2: Aggregation and Clustering
+Step 2: Aggregation and clustering
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 After Step 1 processes each run individually, **Step 2 pools all valid sequences** from all runs and clusters them into OTUs.
@@ -173,7 +173,7 @@ You can choose between three clustering strategies via ``clustering_method``:
 
 ____________________________________________________
 
-Save and Start
+Save and start
 ~~~~~~~~~~~~~~
 
 Once settings are configured:
@@ -189,7 +189,7 @@ Once settings are configured:
 
 ____________________________________________________
 
-Examine the Outputs
+Examine the outputs
 ~~~~~~~~~~~~~~~~~~~
 
 NextITS organizes outputs into ``Step1_Results`` and ``Step2_Results``.
@@ -200,7 +200,7 @@ NextITS organizes outputs into ``Step1_Results`` and ``Step2_Results``.
     This folder includes ``execution_trace_*.txt`` with the detailed log of the pipeline execution (e.g., duration and resources used per each process), 
     as well as ``README_Step{1,2}_Methods.txt`` with the human-readable description (suitable for materials and methods of a publication) of the pipeline steps with references to software tools used.
 
-Step 1 Outputs (Per Run)
+Step 1 outputs (per run)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 Located in ``Step1_Results/Run_XX/``. Key folders include:
@@ -212,7 +212,7 @@ Located in ``Step1_Results/Run_XX/``. Key folders include:
 *   ``07_SeqTable``: **Final processed sequences for this run**. These are used as input for Step 2.
 *   ``08_RunSummary``: Contains ``Run_summary.xlsx`` with read counts per sample at each step. **Check this to evaluate sample quality and dropout.**
 
-Step 2 Outputs (Pooled)
+Step 2 outputs (pooled)
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 Located in ``Step2_Results/``. This is where your final results are stored.
@@ -239,15 +239,8 @@ If required, RData files can be loaded into R using ``readRDS`` function, e.g.:
 
 ____________________________________________________
 
-Taxonomy Assignment
+Taxonomy assignment
 ~~~~~~~~~~~~~~~~~~~
 
-Taxonomy assignment is not part of the core NextITS clustering pipeline but can be run subsequently using **QuickTools**.
-
-1.  Go to **QuickTools** (right ribbon).
-2.  Select **Assign Taxonomy (BLAST)**.
-3.  **Input FASTA**: Select ``Step2_Results/05.LULU/OTUs_LULU.fa.gz``.
-4.  **Database**: Select a reference database (e.g., UNITE for Fungi).
-5.  **Start**: Run the assignment.
-
-This will generate a BLAST output table that can be merged with your OTU table for ecological analysis.
+Taxonomy assignment **is not** part of the core NextITS pipeline but can be run subsequently using **QuickTools**.
+:ref:`See here <assign_taxonomy>`.

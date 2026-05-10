@@ -31,17 +31,44 @@ __________________________________________________
 DEMULTIPLEXING
 ==============
 
-| `Download example set here for trying demultiplexing <https://zenodo.org/records/18770850/files/demux_example.zip?download=1>`_ and unzip it. 
 
-If the data is **multiplexed, the first step would be demultiplexing** (using `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_ (`Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_)).
-This is done based on the user specified :ref:`indexes file <indexes>`, which includes molecular identifier sequences 
+If the data is **multiplexed, the first step would be demultiplexing**.
+PipeCraft2 wraps `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_ 
+(`Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_) to perform demultiplexing.
+Demultiplexing is done based on the user specified :ref:`indexes file <indexes>`, 
+which includes molecular identifier sequences 
 (so-called indexes/tags/barcodes) per sample. 
-Note that reverse complementary matches will also be searched. 
 
-| **Fastq/fasta** formatted paired-end and single-end data are supported.
-| **Outputs** are fastq/fasta files per sample in ``demultiplexed_out`` directory. Indexes are **truncated** from the sequences. 
-| Paired-end samples get ``.R1`` and ``.R2`` read identifiers.
-| **unknown.fastq** file contain sequences where specified index combinations were not found. 
+Note that **reverse complementary** matches will also be searched, so 
+if your data consists of amplicons that are **both 5'-3' and 3'-5' oriented**, 
+then this is accounted for automatically.
+
+.. |demux_quicktools| image:: _static/demux_quicktools.png
+  :width: 600
+
+|demux_quicktools|
+
+Input data
+----------
+
+.. code-block:: text
+
+  my_multiplexed_fastq_file/
+  └── data_multiplexed.fastq.gz
+
+
+**Input fastq/fasta file** must be in the **working directory** (specified with ``SELECT WORKDIR`` button).
+
+Index file location is specified with ``index file`` button, thus can be anywhere in the system (as long as the file 
+path **does not contain non-ASCII symbols**).
+
+  **Supported file formats**: paired-end or single-end fastq/fasta file [ONE fastq or fasta file in the WORKDIR for demultiplexing!]
+
+`Download example set here for trying demultiplexing <https://zenodo.org/records/18770850/files/demux_example.zip?download=1>`_ and unzip it. 
+
+**Outputs** are fastq/fasta files per sample in ``demultiplexed_out`` directory. Indexes are **truncated** from the sequences. 
+Paired-end samples get ``.R1`` and ``.R2`` read identifiers.
+**unknown.fastq** file contain sequences where specified index combinations were not found. 
 
 .. note:: 
 
@@ -53,6 +80,9 @@ Note that reverse complementary matches will also be searched.
 
 
 .. _demux_settings:
+
+Settings
+--------
 
 +--------------------+----------------------------------------------------------------------+
 | Setting            | Tooltip                                                              |
@@ -134,7 +164,7 @@ Indexes file example (fasta formatted)
 .. note::
 
  Anchored indexes (https://cutadapt.readthedocs.io/en/stable/guide.html#anchored-5adapters) with ^ symbol are **not supported** 
- in PipeCraft demultiplex GUI panel. 
+ in PipeCraft demultiplex GUI panel. Instead, specify ``search window`` = 0.
 
  DO NOT USE, e.g. 
 
@@ -144,12 +174,11 @@ Indexes file example (fasta formatted)
  | >sample1
  | ^AGCTGCACCTAA...AGCTGCACCTAA
 
- Instead, specify ``search window`` = 0.
-
 |
 
 How to compose indexes.fasta 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 In Excel (or any alternative program); 
 first column represents sample names,
 second (and third) column represent indexes (or index combinations) per sample:
@@ -850,7 +879,7 @@ Sequences are grouped if they meet a chosen global identity cutoff.
 Output units are "traditional" OTUs and depend strongly on the selected identity threshold and input data.
 
 +---------------------------+----------------------------------------------------------------------+
-| Tooltip                   |                                                                      |
+| Setting                   | Tooltip                                                              |
 +===========================+======================================================================+
 || ``OTU_type``             || centroid" = output centroid sequences; "consensus" = output         |
 ||                          || consensus sequences                                                 |
