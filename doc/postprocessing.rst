@@ -688,11 +688,11 @@ The module implements smart rerun capabilities, automatically detecting and reus
 
     workdir/                         ← SELECT WORKDIR in PipeCraft2
     ├── sample1.chimeras.fasta       ← chimeric sequences output from denoiser
-    ├── sample2.chimeras.fasta       ←   (placed directly in workdir)
+    ├── sample2.chimeras.fasta       ← (placed directly in workdir)
     ├── self_database/               ← original per-sample FASTAs (before chimera filtering)
     │   ├── sample1.fasta
     │   └── sample2.fasta
-    ├── nonchimeric/                 ← (optional) pre-existing non-chimeric reads per sample
+    ├── nonchimeric/                 ← (optional) non-chimeric reads per sample (after chimera filtering)
     │   ├── sample1.fasta
     │   └── sample2.fasta
     └── /path/to/reference_db/       ← reference database in a SEPARATE location
