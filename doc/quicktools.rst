@@ -43,6 +43,11 @@ Note that **reverse complementary** matches will also be searched, so
 if your data consists of amplicons that are **both 5'-3' and 3'-5' oriented**, 
 then this is accounted for automatically.
 
+.. note::
+
+ Heterogenity spacers or any redundant base pairs attached to index sequences do not affect demultiplexing. 
+ Indexes are trimmed from the best matching position.
+
 .. |demux_quicktools| image:: _static/demux_quicktools.png
   :width: 600
 
@@ -51,33 +56,24 @@ then this is accounted for automatically.
 Input data
 ----------
 
+**Input fastq/fasta file** must be in the **working directory** (specified with ``SELECT WORKDIR`` button).
+
 .. code-block:: text
 
-  my_multiplexed_fastq_file/
-  └── data_multiplexed.fastq.gz
-
-
-**Input fastq/fasta file** must be in the **working directory** (specified with ``SELECT WORKDIR`` button).
+  my_multiplexed_fastq_file/     --> SELECT THIS FOLDER AS WORKING DIRECTORY
+  ├── data_multiplexed.fastq.gz *[ONE fastq or fasta file in the WORKDIR for demultiplexing!]*
+  └── indexes.fasta
 
 Index file location is specified with ``index file`` button, thus can be anywhere in the system (as long as the file 
 path **does not contain non-ASCII symbols**).
 
-  **Supported file formats**: paired-end or single-end fastq/fasta file [ONE fastq or fasta file in the WORKDIR for demultiplexing!]
+.. admonition:: Supported file formats
+  :class: important
+
+  **Supported file formats**: paired-end or single-end fastq/fasta file for demultiplexing; and 
+  indexes file must be fasta format (:ref:`see below for example <indexes>`).
 
 `Download example set here for trying demultiplexing <https://zenodo.org/records/18770850/files/demux_example.zip?download=1>`_ and unzip it. 
-
-**Outputs** are fastq/fasta files per sample in ``demultiplexed_out`` directory. Indexes are **truncated** from the sequences. 
-Paired-end samples get ``.R1`` and ``.R2`` read identifiers.
-**unknown.fastq** file contain sequences where specified index combinations were not found. 
-
-.. note:: 
-
-  **When using paired indexes**, then sequences with all possible index combinations will be outputted to 'unnamed_index_combinations' dir.
-  That means, if, for example, your sample_1 is indexed with *indexFwd_1-indexRev_1* and 
-  sample_2 with *indexFwd_2-indexRev_2*, then files with *indexFwd_1-indexRev_2* and *indexFwd_2-indexRev_1*
-  are also written (although latter index combinations were not used in the lab to index any sample [i.e. represent tag-switches]). 
-  Simply remove those files if not needed or use to estimate tag-switching error if relevant. 
-
 
 .. _demux_settings:
 
@@ -109,10 +105,22 @@ Settings
 +--------------------+----------------------------------------------------------------------+
 
 
-.. note::
+Outputs
+-------
 
- Heterogenity spacers or any redundant base pairs attached to index sequences do not affect demultiplexing. 
- Indexes are trimmed from the best matching position.
+**Outputs** are fastq/fasta files per sample in ``demultiplexed_out`` directory. 
+Indexes are **truncated** from the sequences. 
+Paired-end samples get ``.R1`` and ``.R2`` read identifiers.
+**unknown.fastq** file contain sequences where specified index combinations were not found. 
+
+.. note:: 
+
+  **When using paired indexes**, then sequences with all possible index combinations will be outputted to 'unnamed_index_combinations' dir.
+  That means, if, for example, your sample_1 is indexed with *indexFwd_1-indexRev_1* and 
+  sample_2 with *indexFwd_2-indexRev_2*, then files with *indexFwd_1-indexRev_2* and *indexFwd_2-indexRev_1*
+  are also written (although latter index combinations were not used in the lab to index any sample [i.e. represent tag-switches]). 
+  Simply remove those files if not needed or use to estimate tag-switching error if relevant. 
+
 
 .. _indexes:
 
@@ -242,32 +250,44 @@ For generating OTUs or ASVs, it is recommended to truncate the primers from the 
 (**unless ITS Extractor is used** to remove flanking primer binding regions from ITS1/ITS2/full ITS; 
 in that case keep the primers for better detection of the 18S, 5.8S and/or 28S regions). 
 Sequences where PCR primer strings were not detected are discarded by default (but stored in 'untrimmed' directory). 
-Reverse complementary search of the primers in the sequences is also performed. 
+
+**Reverse complementary** search of the primers in the sequences is also performed. 
 Thus, primers are clipped from both 5'-3' and 3'-5' oriented reads. However, note that 
-**paired-end reads will not be reoriented** to 5'-3' during this process, 
+paired-end reads will **not be reoriented** to 5'-3' during this process, 
 but **single-end reads will be reoriented** to 5'-3'.
-
-.. note::
-
- For paired-end data, the **seqs_to_keep option should be left as default ('keep_all')**. 
- This will output sequences where at least one primer has been clipped. 
- 'keep_only_linked' option outputs only sequences where both the forward and reverse primers are found (i.e. 5'-forward…reverse-3'). 
- 'keep_only_linked' may be used for single-end data to keep only **full-length amplicons**.
-
 
 |cut_primers_expand_example|
 
-Example above: Forward primer has 19 bp and reverse 20 bp - to keep a bit of flexibility in the primer search, we are requesting the ``min overlap`` of **18 bp** and are allowing maximum of 2 ``mismatches`` . 
+Example above: Forward primer has 19 bp and reverse 20 bp - to keep a bit of flexibility 
+in the primer search, we are requesting the ``min overlap`` of **18 bp** and are allowing maximum of 2 ``mismatches`` . 
 Note that too low ``min overlap`` may lead to random matches.
 
-| **Fastq**/**fasta** formatted paired-end and single-end data are supported.
-| **Outputs** are fastq/fasta files in ``primersCut_out`` directory. Primers are **truncated** from the sequences. 
 
+Input data
+----------
 
-.. admonition:: when working with your own ITS data ... 
+**Input fastq/fasta file(s)** must be in the **working directory** (specified with ``SELECT WORKDIR`` button).
 
-  ... and applying the **ITSx** step, then note that cutting primers process may be skipped, since those regions are removed in the ITS subregion extraction process. 
+.. code-block:: text
+
+  my_data/    --> SELECT THIS FOLDER AS WORKING DIRECTORY
+  ├── sample1.fastq.gz
+  ├── sample2.fastq.gz
+  ├── sample3.fastq.gz
+  └── ...
+
+.. admonition:: Supported file formats
+  :class: important
+
+  **Supported file formats**: paired-end or single-end fastq/fasta files.
+
+.. admonition:: When working with ITS sequences ... 
+
+  ... and applying the **ITSx** step, then note that cutting primers process 
+  may be skipped, since those regions are removed in the ITS subregion extraction process. 
   
+Settings
+--------
 
 +----------------------+-----------------------------------------------------------------------+
 | Setting              | Tooltip                                                               |
@@ -305,6 +325,20 @@ Note that too low ``min overlap`` may lead to random matches.
 ||                     || are the only type of errors accounted in the error rate parameter    |
 +----------------------+-----------------------------------------------------------------------+
 
+.. note::
+
+ For paired-end data, the **seqs_to_keep option should be left as default ('keep_all')**. 
+ This will output sequences where at least one primer has been clipped. 
+ 'keep_only_linked' option outputs only sequences where both the forward and reverse primers are found (i.e. 5'-forward…reverse-3'). 
+ 'keep_only_linked' may be used for single-end data to keep only **full-length amplicons**.
+
+Outputs
+-------
+
+**Outputs** are fastq/fasta files in ``primersCut_out`` directory. 
+Primers are **truncated** from the sequences. 
+Sequences where primers were not found are stored in ``untrimmed`` directory.
+
 ____________________________________________________
 
 |
@@ -325,10 +359,33 @@ to see where quality starts to decline and which trimming settings could be appr
 Checkout the :ref:`Inspect quality profiles <qualitycheck>` section for a walkthrough
 of this step.
 
-| **Fastq** formatted paired-end and single-end data are supported.
-| **Outputs** are fastq files in ``qualFiltered_out`` directory.
 
-Below lists the different quality filtering tools implemented in PipeCraft.
+Input data
+----------
+
+**Input fastq file(s)** must be in the **working directory** (specified with ``SELECT WORKDIR`` button).
+
+.. code-block:: text
+
+  my_data/    --> SELECT THIS FOLDER AS WORKING DIRECTORY
+ ├── sample1.fastq.gz
+ ├── sample2.fastq.gz
+ ├── sample3.fastq.gz
+ └── ...
+
+.. admonition:: Supported file formats
+  :class: important
+
+  **Supported file formats**: paired-end or single-end fastq files.
+
+Outputs
+-------
+
+**Outputs** are quality filtered fastq files in ``qualFiltered_out`` directory.
+
+__________________________________________________
+
+Below lists the different quality filtering tools implemented in PipeCraft2.
 
 .. _qfilt_vsearch:
 
@@ -543,11 +600,50 @@ ____________________________________________________
 ASSEMBLE PAIRED-END reads 
 =========================
 
-Assemble/merge paired-end sequences (such as those from Illumina or MGI-Tech platforms). 
+Assemble/merge paired-end reads (such as those from Illumina or MGI-Tech platforms) into a single sequence.
+This is done to **reconstruct the full amplicon** (or a longer contiguous region) from the forward (R1)
+and reverse (R2) reads when they **overlap**. Merging can improve accuracy in the overlap region because base
+conflicts are resolved using the quality scores. 
+Assembling corresponding paired reads produces one read for downstream steps.
 
-**Fastq** formatted paired-end data is supported.
-**Outputs** are fastq files in ``assembled_out`` directory.
+Assembly is **not needed** when you already have single-end data (e.g., already assembled, or PacBio data), 
+when reads **do not overlap** (insert too long),
+or when you intentionally want to work with only R1 reads. 
 
+
+Input data
+----------
+
+**Input fastq file(s)** must be in the **working directory** (specified with ``SELECT WORKDIR`` button).
+
+.. code-block:: text
+
+  my_data/    --> SELECT THIS FOLDER AS WORKING DIRECTORY
+ ├── sample1.R1.fastq.gz
+ ├── sample1.R2.fastq.gz
+ ├── sample2.R1.fastq.gz
+ ├── sample2.R2.fastq.gz
+ ├── sample3.R1.fastq.gz
+ ├── sample3.R2.fastq.gz
+ ├── sample4.R1.fastq.gz
+ ├── sample4.R2.fastq.gz
+ └── ...
+
+.. admonition:: Supported file formats
+  :class: important
+
+  | **Supported file formats**: 
+  | paired-end fastq files, with **R1** and **R2** read identifiers (**NOT** just _1 and _2 suffixes, e.g. ``sample_L001_1.fastq`` and ``sample_L001_2.fastq``). 
+  | **File names may not contain R1/R2 strings.**
+
+Outputs
+-------
+
+**Outputs** are assembled reads in ``assembled_out`` directory.
+
+__________________________________________________
+
+Below lists the different assembly tools implemented in PipeCraft2.
 
 .. _merge_vsearch:
 
@@ -679,10 +775,42 @@ candidate sequences are evaluated against more abundant sequences in the same sa
 is flagged as chimeric if it can be explained as a mosaic of two "parent" sequences. 
 
 For **reference-based** detection (``uchime_ref``), sequences are compared against a reference database (user-provided). 
-Sequences are flagged as chimeras when they are better explained as a mosaic of two reference sequences than by any single reference match.
+Sequences are flagged as chimeras when they are better explained as a mosaic of two reference 
+sequences than by any single reference match.
 
-| **Fastq/fasta** formatted single-end data is supported [fastq inputs will be converted to fasta].
-| **Outputs** are fasta files in ``chimera_Filtered_out`` directory.
+Chimera filtering algorithms do a good job but are **not perfect**: depending on the marker, read length, 
+abundance distribution, and reference database,
+some true biological sequences can be flagged as chimeras (**false positives**) and removed.
+If you want to inspect the flagged sequences and potentially **rescue** such false positives, 
+see the :ref:`BlasCh <postprocessing_blasch>` module.
+
+Input data
+----------
+
+**Input fasta/fastq file(s)** must be in the **working directory** (specified with ``SELECT WORKDIR`` button).
+Fastq inputs will be automatically converted to fasta for chimera filtering.
+
+.. code-block:: text
+
+  my_data/    --> SELECT THIS FOLDER AS WORKING DIRECTORY
+ ├── sample1.fasta.gz
+ ├── sample2.fasta.gz
+ ├── sample3.fasta.gz
+ └── ...
+
+.. admonition:: Supported file formats
+  :class: important
+
+  **Supported file formats**: single-end fasta/fastq files.
+
+Outputs
+-------
+
+**Outputs** are chimera filtered fasta files in ``chimera_Filtered_out`` directory.
+
+__________________________________________________
+
+Below lists the different chimera filtering tools implemented in PipeCraft2.
 
 .. _chimFilt_vsearch:
 
@@ -776,7 +904,8 @@ ____________________________________________________
 `ITS Extractor <https://microbiology.se/software/itsx/>`_
 ==========================================================
 
-ITSx (`Bengtsson-Palme et al. 2013 <https://doi.org/10.1111/2041-210X.12073>`_) detects **ITS regions** by searching for conserved rRNA gene fragments 
+ITSx (`Bengtsson-Palme et al. 2013 <https://doi.org/10.1111/2041-210X.12073>`_) detects 
+**ITS regions** by searching for conserved rRNA gene fragments 
 (18S, 5.8S, 28S) using profile HMMs (HMMER). 
 When these boundaries are found, ITSx extracts the requested 
 region(s) (e.g. **ITS1**, **ITS2**, or the full **ITS1-5.8S-ITS2**) and outputs new FASTA files. 
@@ -800,13 +929,32 @@ similarity and bias clustering (e.g., over-merging distinct ITS variants or prod
   Note that if the primer binding sites are close to the ITS region, then for better detection of the 18S, 5.8S and/or 28S regions 
   it may be beneficial to keep the primers (i.e. do not use 'CUT PRIMERS') .
 
-| **Fastq/fasta** formatted single-end data is supported [fastq inputs will be converted to fasta].
-| **Outputs** are fasta files in ``ITSx_out`` directory.
+Input data
+----------
+
+**Input fasta/fastq file(s)** must be in the **working directory** (specified with ``SELECT WORKDIR`` button).
+Fastq inputs will be automatically converted to fasta for chimera filtering.
+
+.. code-block:: text
+
+  my_data/    --> SELECT THIS FOLDER AS WORKING DIRECTORY
+ ├── sample1.fasta.gz
+ ├── sample2.fasta.gz
+ ├── sample3.fasta.gz
+ └── ...
+
+.. admonition:: Supported file formats
+  :class: important
+
+  **Supported file formats**: single-end fasta/fastq files [fastq inputs will be converted to fasta].
 
 .. note::
 
   To **START**, specify working directory under ``SELECT WORKDIR`` and the ``sequence files extension`` (fasta or fastq), 
-  but the ``read types`` (paired-end or single-end) does not matter here (just click 'Confirm').
+  but the ``read types`` (paired-end or single-end) do not matter here (just click 'Confirm').
+
+Settings
+--------
 
 +----------------+-----------------------------------------------------------------------+
 | Setting        | Tooltip                                                               |
@@ -847,6 +995,50 @@ similarity and bias clustering (e.g., over-merging distinct ITS variants or prod
 ||               || If FALSE, the whole input sequence is saved                          |
 +----------------+-----------------------------------------------------------------------+
 
+Outputs
+-------
+
+**Output** sequences are in ``ITSx_out`` directory.
+
+.. code-block:: text
+
+  my_data/ 
+ ├── sample1.fasta.gz
+ ├── sample2.fasta.gz
+ ├── sample3.fasta.gz
+ └── ITSx_out/
+    ├── 5_8S/                 ---> 5.8S region sequences
+    |   ├── sample1.5_8S.fasta
+    |   ├── sample2.5_8S.fasta
+    |   ├── sample3.5_8S.fasta
+    |   └── ...
+    ├── full_ITS/             ---> full ITS region sequences
+    |   ├── sample1.full_ITS.fasta
+    |   ├── sample2.full_ITS.fasta
+    |   ├── sample3.full_ITS.fasta
+    |   └── ...
+    ├── ITS1/                 ---> ITS1 region sequences
+    |   ├── sample1.ITS1.fasta
+    |   ├── sample2.ITS1.fasta
+    |   ├── sample3.ITS1.fasta
+    |   └── ...
+    ├── ITS2/                 ---> ITS2 region sequences
+    |   ├── sample1.ITS2.fasta
+    |   ├── sample2.ITS2.fasta
+    |   ├── sample3.ITS2.fasta
+    |   └── ...
+    ├── SSU/                  ---> SSU region sequences
+    |   ├── sample1.SSU.fasta
+    |   ├── sample2.SSU.fasta
+    |   ├── sample3.SSU.fasta
+    |   └── ...
+    ├── LSU/                  ---> LSU region sequences
+    |   ├── sample1.LSU.fasta
+    |   ├── sample2.LSU.fasta
+    |   ├── sample3.LSU.fasta
+    |   └── ...
+    └── no_detections/
+
 ____________________________________________________
 
 |
@@ -864,10 +1056,48 @@ Clustering groups similar sequences into units that are treated as the same biol
 Reads that are sufficiently similar (method-dependent) are assigned to the same cluster, 
 producing a representative sequence for each cluster (fasta file) and a corresponding abundance table per sample ("OTU table").
 
+Input data
+----------
+
+**Input fasta file(s)** must be in the **working directory** (specified with ``SELECT WORKDIR`` button).
+
+.. code-block:: text
+
+  my_data/    --> SELECT THIS FOLDER AS WORKING DIRECTORY
+ ├── sample1.fasta
+ ├── sample2.fasta
+ ├── sample3.fasta
+ └── ...
+
+.. admonition:: Supported file formats
+  :class: important
+
+  **Supported file formats**: single-end fasta files.
+
 .. note::
 
   To **START**, specify working directory under ``SELECT WORKDIR`` and the ``sequence files extension`` (must be fasta/fa), 
-  but the ``read types`` (paired-end or single-end) does not matter here (just click 'Confirm').
+  but the ``read types`` (paired-end or single-end) do not matter here (just click 'Confirm').
+
+Outputs
+-------
+
+**Output** feature table and corresponding sequences are in ``clustering_out`` directory.
+
+.. code-block:: text
+
+  my_data/ 
+ ├── sample1.fasta
+ ├── sample2.fasta
+ ├── sample3.fasta
+ └── clustering_out/
+    ├── OTU_table.txt    ---> OTU-by-sample table
+    ├── OTUs.fasta       ---> corresponding FASTA formated OTU sequences
+    └── ...
+
+__________________________________________________
+
+Below lists the different clustering tools implemented in PipeCraft2.
 
 .. _clustering_vsearch:
 
@@ -1005,36 +1235,75 @@ ____________________________________________________
 ASSIGN TAXONOMY
 ===============
 
-Implemented tools for taxonomy annotation:
+**Taxonomy assignment**/annotation is the step where each input sequence
+(e.g. typically a representative sequence of an OTU/ASV) is linked to a **taxonomic name**. 
+That is done by comparing the query
+sequences to a **reference database** of sequences with known taxonomy. 
+The output is a **taxonomy table** that can be joined to
+feature table for ecological interpretation (or further filtering to e.g., remove off-target taxa).
+
+:ref:`See here <databases>` for the **list of reference databases** for taxonomy annotation.
+
+Input data
+----------
+
+**Input is a fasta file** and **database** file. 
+Since the paths of those input files are specified via independent buttons, they can be in different directories.
+
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) do not matter here (just click 'Next').
+
+
+Outputs
+-------
+
+The outputs are in ``taxonomy_out`` directory (a subdirectory of the  **working directory**; 
+specified with ``SELECT WORKDIR`` button).
+
+__________________________________________________
+
+Below lists the different taxonomy annotation tools implemented in PipeCraft2.
 
 .. _assign_taxonomy_blast:
 
 `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_ 
 ---------------------------------------------------
 
-| BLAST search (`Camacho et al. 2009 <https://doi.org/10.1186/1471-2105-10-421>`_) sequences againt selected :ref:`database <databases>`. 
+BLAST (`Camacho et al. 2009 <https://doi.org/10.1186/1471-2105-10-421>`_) compares each **query** sequence
+in your FASTA to sequences in a user-selected :ref:`database <databases>`.
+BLAST looks for short
+exact or near-exact matching seeds (controlled in part by ``word_size``), extends those into longer
+high-scoring segment pairs (local alignments) using match/mismatch and gap penalties, and keeps the best
+alignments per subject. 
+
+The **top hit(s)** and their scores (such as sim_score, e-value) inform how confidently you can assign a name to each query feature.
+In PipeCraft, **sim_score** (similarity score) is % identity of the query sequence to the target sequence by 
+taking the query coverage into account (pident * (alignment length / qlen)). 
+**Similarity score may be better for confirming taxonomy than simple % identity (pident)**, 
+since partial alignments can have high *pident* but 
+low query coverage (qcov; i.e., the query sequence is only **partially aligned** to the target sequence).
 
 .. important::
 
- **BLAST database needs to be an unzipped fasta file in a separate folder** (fasta will be automatically converted to BLAST database files). 
- If converted BLAST database files (.ndb, .nhr, .nin, .not, .nsq, .ntf, .nto) already exist, then just SELECT **one** of those files as BLAST database in 
- 'ASSIGN TAXONOMY' panel.
+ **BLAST database needs to be an unzipped fasta file in a separate folder** 
+ (fasta will be automatically converted to BLAST database files). 
+ If converted BLAST database files (.ndb, .nhr, .nin, .not, .nsq, .ntf, .nto) already exist, 
+ then just SELECT **one** of those files as BLAST database (``database file`` button).
+
+
+.. important::
+
+  Make sure you do not have any other BLAST database files is the same directory with the database you are using.
+  That is, use dedicated directory for the BLAST database.
+
 
 | Supported file format for the input data is **fasta**.
 | 
-| **Output** files in``taxonomy_out`` directory:
+| **Output** files in ``taxonomy_out.blast`` directory:
 | # BLAST_1st_best_hit.txt = BLAST results for the 1st best hit in the used database.
 | # BLAST_10_best_hits.txt = BLAST results for the 10 best hits in the used database.
-
-.. note::
-
-  To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
-  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
-
-.. important::
-
-  Make sure you do not have any other BLAST database files is the same directory as the database you are using.
-  That is, use dedicated directory for the BLAST database.
 
 .. note::
 
@@ -1082,7 +1351,17 @@ ____________________________________________________
 RDP classifier
 ---------------
 
-Classify sequences with RDP classifier (`Wang et al. 2007 <https://doi.org/10.1128/aem.00062-07>`_) againt trained RDP database.
+The RDP classifier (`Wang et al. 2007 <https://doi.org/10.1128/aem.00062-07>`_) classifies query sequences
+against a **trained** RDP-style database. It assigns taxonomy without
+pairwise alignment to each reference sequence (thus is faster than alignment-based methods). 
+RDP treats each query as a bag of short subsequences
+(**k-mers**) and compares their frequencies to **trained**
+frequency models for each taxon in a curated hierarchy. Classification uses a **naive Bayesian** rule:
+at each rank it asks which taxon's model best explains the observed k-mer composition of the query.
+
+**Bootstrap** resampling (random draws of k-mers from the query) yields **confidence** values for each
+assignment; if confidence at a rank falls below your ``confidence`` threshold, the lineage is 
+truncated at the last well-supported rank. 
 
 .. important::
 
@@ -1097,7 +1376,7 @@ Classify sequences with RDP classifier (`Wang et al. 2007 <https://doi.org/10.11
 .. note::
 
   To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
-  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Next').
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) do not matter here (just click 'Next').
 
 +----------------+--------------------------------------------------------------+
 | Setting        | Tooltip                                                      |
@@ -1120,11 +1399,21 @@ __________________________________________________
 SINTAX
 ------
 
-| Classify sequences with SINTAX (`Edgar 2016 <https://www.biorxiv.org/content/10.1101/074161v1>`_) againt selected :ref:`database <databases>` in fasta format.
+SINTAX (`Edgar 2016 <https://www.biorxiv.org/content/10.1101/074161v1>`_, implemented in vsearch) classifies
+each query sequence against a :ref:`database <databases>` whose headers carry an explicit
+**tax=** string (see format below). Like the :ref:`RDP classifier <assign_taxonomy_rdp>`, SINTAX is
+**k-mer-based** and does not perform a full pairwise alignment for every query-subject pair, so it scales
+well to large reference sets. SINTAX compares **k-mers** in the query to k-mers associated with taxonomic
+lineages in the references and infers the best-supported path through the ranks. **Bootstrap** resampling
+of k-mers from the query yields **per-rank confidence**; assignments below your ``cutoff`` are trimmed at the last confident rank.
+
+SINTAX uses the **taxonomy embedded in each reference header**
+on your chosen FASTA, so you can point it at **custom** references as long as they follow the required
+header syntax (no database training required).
 
 .. important::
 
-  Note that the database sequence headers need to be in the following format: 
+  The database sequence headers need to be in the following **FASTA** format: 
   >CP002711;tax=d:Fungi,p:Ascomycota,c:Saccharomycetes,o:Saccharomycetales,
   f:Saccharomycetaceae,g:Eremothecium,s:gossypii;
 
@@ -1137,16 +1426,15 @@ SINTAX
   | - g denotes the genus
   | - s denotes the species
 
-  This structured header allows SINTAX to accurately interpret the taxonomic hierarchy of each reference sequence.
 
-| **Output** files in ``taxonomy_out.sintax`` directory:
+| **Output** is in ``taxonomy_out.sintax`` directory:
 | # taxonomy.sintax.txt = classifier results with bootstrap values.
 
 
 .. note::
 
   To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
-  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Confirm').
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) do not matter here (just click 'Confirm').
 
 +----------------+---------------------------------------------------------------------+
 | Setting        | Tooltip                                                             |
@@ -1173,17 +1461,27 @@ ____________________________________________________
 `DADA2 classifier <https://github.com/benjjneb/dada2>`_ 
 -------------------------------------------------------
 
-| Classify sequences with DADA2 RDP naive Bayesian classifier (function *assignTaxonomy*) againt selected :ref:`database <databases>`.
+Classify sequences with DADA2 RDP naive Bayesian classifier (function *assignTaxonomy*) against selected :ref:`database <databases>`.
 
-| Supported file format for the input data is **fasta**.
-| 
-| **Output** files in``taxonomy_out.dada2`` directory:
-| # taxonomy.txt = classifier results with bootstrap values.
+DADA2's *assignTaxonomy* function uses the **naive Bayesian k-mer classifier** described for the RDP method
+(`Wang et al. 2007 <https://doi.org/10.1128/aem.00062-07>`_): each query sequence is decomposed into
+**k-mers**, and taxonomic assignment
+proceeds rank by rank by comparing k-mer frequencies in the query to conditional probabilities learned
+from the reference FASTA that is supplied. Each reference sequence must carry a taxonomic string in the header,
+in **DADA2-compatible** form; see the `DADA2 training fastas <https://benjjneb.github.io/dada2/training.html>`_).
+
+**Bootstrap** resampling of k-mers from the query produces confidence values; ranks below ``minBoot`` are
+not assigned (or the lineage is truncated there). Optional ``tryRC`` classifies the **reverse complement**
+if it matches the references better.
+
+
+| **Output** is in ``taxonomy_out.dada2`` directory:
+| # taxonomy.csv = classifier results with bootstrap values.
 
 .. note::
 
   To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
-  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Confirm').
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) do not matter here (just click 'Confirm').
 
 +---------------------+--------------------------------------------------------------------------------------------------------+
 | Setting             | Tooltip                                                                                                |
@@ -1235,7 +1533,7 @@ taxonomic levels.
 .. note::
 
   To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
-  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) does not matter here (just click 'Confirm').
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) do not matter here (just click 'Confirm').
 
 +----------------+--------------------------------------------------------------------------------------+
 | Setting        | Tooltip                                                                              |
@@ -1330,63 +1628,26 @@ UTILITIES
 
 Utility tools for sequence processing and manipulation.
 
-.. _utilities_reorient:
+__________________________________________________
 
-reorient
---------
 
-Sequences are often (if not always) in both, 5'-3' and 3'-5', orientations in the raw sequencing data sets. 
-If the data still contains PCR primers that were used to generate amplicons, 
-then by specifying these PCR primers, this panel will perform sequence reorientation 
-of all sequences. 
+Add sequences to table
+----------------------
 
-**Generally, this step is not needed** when following **vsearch OTUs** or **UNOISE ASVs** pipeline, 
-because both strands of the sequences can be compared prior forming OTUs (``strand=both``). 
-This is automatically handled also in **NextITS** pipeline.
-In the **DADA2 ASVs** pipeline, if working with mixed orientation data (seqs in 5'-3' and 3'-5' orientations), 
-then select ``PAIRED-END MIXED`` mode to account for mixed orientation data. 
+This tool takes a **feature table** (abundance matrix: features as rows, samples as columns) and a
+**feature FASTA** whose sequence IDs match the feature identifiers in the table. It **joins** the
+corresponding sequences into the table as an extra column named **``Sequence``**, inserted as the
+**second** column (after the feature ID column).
 
-**Process description:** for reorienting, 
-first the forward primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_)  
-and if detected then the read is considered as forward complementary (5'-3'). 
-Then the reverse primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_) 
-from the same input data and if detected, then the read is considered to be in 
-reverse complementary orientation (3'-5'). Latter reads will be transformed to 5'-3' 
-orientation and merged with other 5'-3' reads. 
-Note that for paired-end data, R1 files will be reoriented to 5'-3' 
-but R2 reads will be reoriented to 3'-5' in order to merge paired-end reads.
+In PipeCraft2, steps such as :ref:`ASV TO OTU <asv2otu>` expect the table to carry also sequences. 
+If your table was exported without a ``Sequence`` column, run this tool before running :ref:`ASV TO OTU <asv2otu>`.
 
-At least one of the PCR primers must be found in the sequence. 
-For example, read will be recorded if forward primer was found even 
-though reverse primer was not found (and vice versa). 
-**Sequence is discarded if none of the PCR primers are found.** 
+.. |add_seqs_to_table| image:: _static/add_seqs_to_table.png
+  :width: 600
 
-Sequences that contain **multiple forward or reverse primers (multi-primer artefacts) 
-are discarded** as it is highly likely that these are chimeric sequences. 
-Reorienting sequences **will not remove** primer strings from the sequences. 
+|add_seqs_to_table|
 
-.. note::
-
- For single-end data, sequences will be reoriented also during 
- the 'cut primers' process (see below); therefore this step may be skipped
- when working with single-end data (such as data from PacBio machines OR already assembled paired-end data).
-
-Supported file formats for paired-end input data are only **fastq**,
-but also **fasta** for single-end data.
-**Outputs** are fastq/fasta files in ``reoriented_out`` directory. 
-Primers are **not truncated** from the sequences; this can be done using :ref:`CUT PRIMER panel <remove_primers>`
-
-+----------------------------------+----------------------------------------------------------------------+
-| Setting                          | Tooltip                                                              |
-+==================================+======================================================================+
-| ``mismatches``                   | allowed mismatches in the primer search                              |
-+----------------------------------+----------------------------------------------------------------------+
-| ``forward_primers``              | specify forward primer **(5'-3')**; IUPAC codes allowed; add up to   |
-|                                  | 13 primers                                                           |
-+----------------------------------+----------------------------------------------------------------------+
-| ``reverse_primers``              | specify reverse primer **(3'-5')**; IUPAC codes allowed; add up to   |
-|                                  | 13 primers                                                           |
-+----------------------------------+----------------------------------------------------------------------+
+**Output file**, \*_wSeqs.txt is in the same directory as specified with ``SELECT WORKDIR`` button.
 
 ____________________________________________________
 
@@ -1430,12 +1691,14 @@ ____________________________________________________
 Self-comparison
 ---------------
 
-You can run self-comparison of sequences in a fasta file to find identical or similar sequences within the same file. 
+Run self-comparison of sequences in a **fasta file** to find identical or similar sequences within the same file. 
 There are two methods implemented: BLAST and vsearch. This tool is useful for identifying duplicate, near-duplicate, 
 or highly similar sequences within your dataset.
 
-| **Supported file format** for input data is **fasta**.
-| **Outputs** are tab-delimited text files in ``self_comparison_out`` directory.
+.. note::
+
+  To **START**, specify working directory under ``SELECT WORKDIR`` (will be the output directory),
+  but the ``sequence files extension`` and ``read type`` (single-end or paired-end) do not matter here (just click 'Confirm').
 
 
 +------------------------------------+-------------------------------------+
@@ -1458,10 +1721,12 @@ or highly similar sequences within your dataset.
 |           strand                   |              both or plus           |
 +------------------------------------+-------------------------------------+
 
+Outputs
+~~~~~~~
 
+**Output** is a tab-delimited text file in ``self_comparison_out`` directory.
 
 **vsearch output:**
-
 
 +---------+---------------------------------+
 | Column  | Description                     |
@@ -1540,6 +1805,67 @@ or highly similar sequences within your dataset.
 +----------+----------------------------------+
 
 ____________________________________________________
+
+
+.. _utilities_reorient:
+
+reorient
+--------
+
+Sequences are often (if not always) in both, 5'-3' and 3'-5', orientations in the raw sequencing data sets. 
+If the data still contains PCR primers that were used to generate amplicons, 
+then by specifying these PCR primers, this panel will perform sequence reorientation 
+of all sequences. 
+
+**Generally, this step is not needed** when following **vsearch OTUs** or **UNOISE ASVs** pipeline, 
+because both strands of the sequences can be compared prior forming OTUs (``strand=both``). 
+This is automatically handled also in **NextITS** pipeline.
+In the **DADA2 ASVs** pipeline, if working with mixed orientation data (seqs in 5'-3' and 3'-5' orientations), 
+then select ``PAIRED-END MIXED`` mode to account for mixed orientation data. 
+
+**Process description:** for reorienting, 
+first the forward primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_)  
+and if detected then the read is considered as forward complementary (5'-3'). 
+Then the reverse primer will be searched (using `fqgrep <https://github.com/indraniel/fqgrep>`_) 
+from the same input data and if detected, then the read is considered to be in 
+reverse complementary orientation (3'-5'). Latter reads will be transformed to 5'-3' 
+orientation and merged with other 5'-3' reads. 
+Note that for paired-end data, R1 files will be reoriented to 5'-3' 
+but R2 reads will be reoriented to 3'-5' in order to merge paired-end reads.
+
+At least one of the PCR primers must be found in the sequence. 
+For example, read will be recorded if forward primer was found even 
+though reverse primer was not found (and vice versa). 
+**Sequence is discarded if none of the PCR primers are found.** 
+
+Sequences that contain **multiple forward or reverse primers (multi-primer artefacts) 
+are discarded** as it is highly likely that these are chimeric sequences. 
+Reorienting sequences **will not remove** primer strings from the sequences. 
+
+.. note::
+
+ For single-end data, sequences will be reoriented also during 
+ the 'cut primers' process (see below); therefore this step may be skipped
+ when working with single-end data (such as data from PacBio machines OR already assembled paired-end data).
+
+Supported file formats for paired-end input data are only **fastq**,
+but also **fasta** for single-end data.
+**Outputs** are fastq/fasta files in ``reoriented_out`` directory. 
+Primers are **not truncated** from the sequences; this can be done using :ref:`CUT PRIMER panel <remove_primers>`
+
++----------------------------------+----------------------------------------------------------------------+
+| Setting                          | Tooltip                                                              |
++==================================+======================================================================+
+| ``mismatches``                   | allowed mismatches in the primer search                              |
++----------------------------------+----------------------------------------------------------------------+
+| ``forward_primers``              | specify forward primer **(5'-3')**; IUPAC codes allowed; add up to   |
+|                                  | 13 primers                                                           |
++----------------------------------+----------------------------------------------------------------------+
+| ``reverse_primers``              | specify reverse primer **(3'-5')**; IUPAC codes allowed; add up to   |
+|                                  | 13 primers                                                           |
++----------------------------------+----------------------------------------------------------------------+
+
+__________________________________________________
 
 .. _expert_mode:
 
