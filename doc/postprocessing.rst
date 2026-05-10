@@ -676,11 +676,27 @@ The module implements smart rerun capabilities, automatically detecting and reus
 .. important::
 
   **File organization requirements:**
-  
-  - Reference database files must be stored in a **separate directory** from input chimera files
-  - Input chimera files should be in the working directory
-  - Sample FASTA files for self-database creation should also be in the **working directory**. These are the files that were used for chimera filtering and should be present for BlasCh to create self-databases.
-  - Do not place reference database files in the same folder as input files to avoid conflicts
+
+  - Input chimera files (``.chimeras.fasta`` / ``.chimeras.fa`` / ``.chimeras.fas``) must be placed directly in the working directory
+  - Sample FASTA files (the per-sample sequences **before** chimera filtering) must be placed in a subfolder named ``self_database/`` inside the working directory — BlasCh reads them from there to build per-sample BLAST self-databases
+  - Reference database files must be stored in a **separate directory** from the working directory to avoid conflicts
+  - Do not mix reference database files with input chimera files or self-database FASTAs
+
+  **Expected input folder structure:**
+
+  .. code-block::
+
+    workdir/                         ← SELECT WORKDIR in PipeCraft2
+    ├── sample1.chimeras.fasta       ← chimeric sequences output from denoiser
+    ├── sample2.chimeras.fasta       ←   (placed directly in workdir)
+    ├── self_database/               ← original per-sample FASTAs (before chimera filtering)
+    │   ├── sample1.fasta
+    │   └── sample2.fasta
+    ├── nonchimeric/                 ← (optional) pre-existing non-chimeric reads per sample
+    │   ├── sample1.fasta
+    │   └── sample2.fasta
+    └── /path/to/reference_db/       ← reference database in a SEPARATE location
+        └── reference.fasta
 
 Settings
 ~~~~~~~~
@@ -712,7 +728,7 @@ Outputs are in ``BlasCh_out`` directory:
 +======================================================+=========================================================+
 | **RESCUED SEQUENCES (main results)**                 |                                                         |
 +------------------------------------------------------+---------------------------------------------------------+
-|| ``non_chimeric``/``*_non_chimeric.fasta``           || recovered non-chimeric sequences                       |
+|| ``nonchimeric``/``*_non_chimeric.fasta``            || recovered non-chimeric sequences                       |
 ||                                                     || (high confidence rescue)                               |
 +------------------------------------------------------+---------------------------------------------------------+
 | ``borderline``/``*_borderline.fasta``                | borderline sequences (moderate confidence rescue)       |
@@ -728,8 +744,6 @@ Outputs are in ``BlasCh_out`` directory:
 | README.txt                                           | documentation of analysis parameters and results        |
 +------------------------------------------------------+---------------------------------------------------------+
 | **DETAILED ANALYSIS RESULTS**                        |                                                         |
-+------------------------------------------------------+---------------------------------------------------------+
-| ``detailed_results``/``*_chimeric.fasta``            | confirmed chimeric sequences that remain excluded       |
 +------------------------------------------------------+---------------------------------------------------------+
 | ``detailed_results``/``*_multiple_alignments.fasta`` | sequences with multiple HSPs and low coverage           |
 +------------------------------------------------------+---------------------------------------------------------+
