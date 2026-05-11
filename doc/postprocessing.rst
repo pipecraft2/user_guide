@@ -420,13 +420,27 @@ Since ``filter-adaptive`` mode applies per-sample filtering thresholds, then it 
 +----------------------------------+----------------------------------------------------------------+ 
 | ``filter mode``                  | Description                                                    |
 +==================================+================================================================+
-| global filter                    || applies global filtering thresholds to the data.              |
-|                                  || Performs ``find`` and then ``dump`` based on the              |
-|                                  || user specified threshold (NA_abund_thresh; default is 0.05).  |
+| global filter                    || Performs ``find`` and then ``dump`` based on                  |
+|                                  || NA_abund_thresh (default is 0.05).                            |
 +----------------------------------+----------------------------------------------------------------+  
-| per-sample filter                || applies per-sample filtering thresholds to the data           |
-|                                  || Executes ``filter-adaptive`` mode of metaMATE.                |
+| per-sample filter                || Executes ``filter-adaptive`` mode of metaMATE, where          |
+|                                  || filtering thresholds are calculated for each sample.          |
 +----------------------------------+----------------------------------------------------------------+
+
+Classification and filtering logic for the features:
+
++----------------+--------------------------------------------------------------------+
+| Feature Status | Description                                                        |
++================+====================================================================+
+|| Authentic     || feature that perfectly matched the reference sequence (refpass).  |
+||               || Retained regardless of meeting the applied abundance threshold.   |
++----------------+--------------------------------------------------------------------+
+|| Non-Authentic || feature that did not pass the genetic code translation (stopfail) |
+||               || or length filter (lengtfail). Those features are always removed.  |
++----------------+--------------------------------------------------------------------+
+|| Unclassified  || feature that is not a refpass, lenghtfail or stopfail.            |
+||               || Removed if they do not meet the applied abundance threshold.      |
++----------------+--------------------------------------------------------------------+
 
 Input data
 ~~~~~~~~~~
@@ -459,21 +473,26 @@ check and specify the length of the expected amplicon sequence and genetic code 
 5 = invertebrate mitochondrial code. Use 1 for rbcL. `Specify values from 1 to 33 <https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi>`_.
 
 
-+---------------------------------+----------------------------------------------------------------+ 
-| Setting                         | Tooltip                                                        |
-+=================================+================================================================+
-| global filter                   || applies global filtering thresholds to the data.              |
-|                                 || Performs ``find`` and then ``dump`` based on the              |
-|                                 || user specified threshold (NA_abund_thresh; default is 0.05).  |
-+---------------------------------+----------------------------------------------------------------+  
-| per-sample filter               || applies per-sample filtering thresholds to the data           |
-|                                 || Executes ``filter-adaptive`` mode of metaMATE.                |
-+---------------------------------+----------------------------------------------------------------+  
++----------------------------------+----------------------------------------------------------------+ 
+| Setting                          | Tooltip                                                        |
++==================================+================================================================+
+| global filter                    || applies global filtering thresholds to the data;              |
+|                                  || features are removed globally (across all samples).           |
+|                                  || Performs ``find`` and then ``dump`` based on the              |
+|                                  || user specified threshold (NA_abund_thresh; default is 0.05).  |
++----------------------------------+----------------------------------------------------------------+  
+| per-sample filter                || applies per-sample filtering thresholds to the data, that is, |
+|                                  || Features are removed per sample.                              |
+|                                  || Executes ``filter-adaptive`` mode of metaMATE, where          |
+|                                  || filtering thresholds are calculated for each sample.          |
++----------------------------------+----------------------------------------------------------------+
 
-**global filter**: ``NA_abund_thresh`` corresponds to ``nonauthentic_retained_estimate_p`` column in the results.csv file (latter is metaMATE-find result).
+**global filter**: ``NA_abund_thresh`` corresponds to ``nonauthentic_retained_estimate_p`` 
+column in the results.csv file (latter is metaMATE-find result).
 When ``NA_abund_thresh`` = 0.05 (*default value*), then for metaMATE-dump, select the result_index that corresponds to 
 setting with the highest accuracy score (column 'accuracy_score' in the results.csv) among settings 
-where the ratio of non-validated ASVs/OTUs is <5% (column 'nonauthentic_retained_estimate_p' in the results.csv). 
+where the ratio of non-validated features is <5% (column 'nonauthentic_retained_estimate_p' in the results.csv). 
+
 
 OTU mode
 ~~~~~~~~~
