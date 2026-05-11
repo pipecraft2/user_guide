@@ -83,7 +83,7 @@ ____________________________________________________
   
   **Possible reason**: wrongly specified working directory or extension; OR issues with external hard drives in Windows.
 
-  **Fix**: Double-check the specified directory and extention; OR restart Windows.
+  **Fix**: Double-check the specified directory and extention; OR **restart Docker engine**.
 
 ____________________________________________________
 
