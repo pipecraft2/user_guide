@@ -35,6 +35,7 @@ All post-processing tools accessible under **QuickTools** -> **Postprocessing**
 
 |postprocessing_button|
 
+.. _filter_tag_jumps:
 
 ____________________________________________________
 
@@ -53,6 +54,7 @@ If not removed, tag-jumps can inflate apparent diversity,
 introduce false positives (especially in low-biomass samples), 
 which may bias downstream analyses. 
 **Tag-jumps filtering aims to remove these low-frequency cross-sample contaminants.**
+
 
 .. |tagjump_filtering_example| image:: _static/tagjump_filtering_example.png
   :width: 600
@@ -106,6 +108,10 @@ Settings
 ||                || in the UNCROSS formula. Default is 1. Opt for 0.5 or 0.3 to steepen the curve           |
 +-----------------+------------------------------------------------------------------------------------------+
 
+The ``f value`` and ``p value`` settings are used to filter out putative tag jumps (using UNCROSS2 algorithm). 
+Generally, we recommend to use p_value of 1 (default), and **f_value of 0.03** when using combinational indexing strategy; 
+f_value of 0.05 when using single-indexes, and f_value of 0.01 when using unique dual-indexes.
+
 Outputs
 ~~~~~~~
 
@@ -142,9 +148,19 @@ then resulting ASVs can be clustered to OTUs (using vsearch). This is done via `
 Input data
 ~~~~~~~~~~
 
-**Input data** is tab delimited **ASV table** and **ASV sequences** in fasta format. 
-2nd column of **ASV table** MUST BE 'Sequences' (1st column is ASV IDs; default pipecraft output table). 
+**Input data** is **ASV sequences** in fasta format and corresponding tab delimited **ASV table** file.
+2nd column of the **ASV table** MUST BE 'Sequences' (1st column is ASV IDs; default pipecraft output table). 
 For clustering, the ASV size annotation is obtained from the ASV table. 
+
+If the ASV table does not contain 'Sequence' column, then add those with ``QuickTools -> Utilities -> Add sequences to table``
+:ref:`see here <add_seqs_to_table>`.
+
+It **is allowed** that the selected fasta file (``ASV fasta``) contains 
+a **subset of ASVs** that are present in the provided table file (``ASV table``). 
+The clustering will be applied to the ASVs in the fasta file. 
+This enables to cluster ASVs if, for example, :ref:`ITSx is applied <itsextractor>` after DADA2 ASVs pipeline, 
+and some ASVs are discarded by ITSx (i.e., no ITS region detected).
+
 
 .. admonition:: The **input table format**; **MUST** contain "Sequence" column:
 
@@ -163,12 +179,6 @@ For clustering, the ASV size annotation is obtained from the ASV table.
   To **START**, specify working directory under ``SELECT WORKDIR`` (outputs will be written here),  
   but the following requests about ``Sequence files extension`` and ``Sequencing read types`` **do not matter here**, just click 'Confirm'.
 
-If the ASV table does not contain 'Sequence' column, then add those with ``QuickTools -> Utilities -> Add sequences to table``.
-
-.. |add_seqs_to_table| image:: _static/add_seqs_to_table.png
-  :width: 600
-
-|add_seqs_to_table|
 
 Settings
 ~~~~~~~~

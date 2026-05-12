@@ -58,6 +58,9 @@ There are few specifc requirements for the input data for PipeCraft.
 - Rerunning the same process: 
     * when rerunning the same process, **close any open files from the previous run** to avoid conflicts in overwriting the files.
 
+
+.. _modify_resources:
+
 ____________________________________________________
 
 Modify resources usage

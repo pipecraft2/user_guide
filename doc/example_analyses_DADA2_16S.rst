@@ -219,7 +219,7 @@ ___________________________________________________
 Chimera filtering
 ~~~~~~~~~~~~~~~~~
 
-This step performs chimera filtering according to DADA2 removeBimeraDenovo function. During this step, the **ASV table** is also generated. 
+This step performs chimera filtering according to DADA2 *removeBimeraDenovo* function. During this step, the **ASV table** is also generated. 
 
 .. important:: 
 
@@ -254,8 +254,9 @@ ____________________________________________________
 Curate ASV table
 ~~~~~~~~~~~~~~~~
 
-This process first removes putative **tag jumps** and then **collapses the ASVs that are identical** up to shifts or length variation, 
-i.e. ASVs that have no internal mismatches; and finally 
+This process first removes putative :ref:`tag jumps <filter_tag_jumps>` 
+and then **collapses the ASVs that are identical** up to shifts or length variation, 
+i.e. ASVs that have no internal mismatches (PipeCraft2 uses vsearch *usearch_global --id 1* for that); and finally 
 filters out ASVs that are shorter/longer than specified length (in base pairs).
 
 |DADA2_filter_table_expand|
@@ -297,7 +298,10 @@ This is basically equivalent to 100% clustering by ignoring the end gaps.
   (even when there is nothing to tag-jump filter - in which case ASVs_table_TagJumpFilt.txt is the same 
   ASVs_table.txt in the ``ASVs_out.dada2`` directory).
 
+.. note:: 
 
+  The pre-compiled pipeline ends here. Outputs 16S ASVs can be further 
+  :ref:`clustered into OTUs <asv2otu>`.
 
 ____________________________________________________
 

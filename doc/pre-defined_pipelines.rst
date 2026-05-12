@@ -424,7 +424,7 @@ obtained via **PacBio** sequencing.
 
 .. important:: 
 
-  NextITS in pipecraft v1.0.0 requires that your PC has at least 8 cores (and Docker has access to those cores).
+  NextITS in pipecraft v1.0.0 requires that your PC has at least 8 cores (and Docker has access to those cores; :ref:`see here <modify_resources>`).
   
   NextITS requires your data and folders to be structured in a specific way (see below)! 
   Directory ``my_dir_for_NextITS`` contains ``Input`` [hard-coded requirement here] and one or multiple sequencing runs.

@@ -44,11 +44,13 @@ General updates:
 * added workflow for dealing with dataset with thousands of samples for 'merge sequencing runs' in vsearch/unoise pipeline. 
 * PipeCraft2 automatically detects the file extensions in the working directory. 
 * ORF-finder module now automatically filters also the feature table (input table required; can contain "Sequence" column).
+* ASV TO OTU module: fasta file can contain a subset of ASVs that are present in the provided table file.
 
 Bug fixes:
 
 * bug fix to seq_count_summary making after ITSx for full_ITS/full_and_partial dir
 * fix to MetaMATE to work with the default specification0.txt that in in the Docker container.
+* ITSx: fix the issue of reporting ERROR when all sequences had ITS region detected (i.e., no sequences in no_detection directory)
 
 
 Implemented software:

@@ -191,10 +191,10 @@ ____________________________________________________
 
 **Click on** ``QUALITY FILTERING`` **to expand the panel**
 
-.. |COI_ex_qFilt.png| image:: _static/COI_ex_qFilt.png
+.. |COI_ex_qFilt| image:: _static/COI_ex_qFilt.png
   :width: 600
 
-|COI_ex_qFilt.png|
+|COI_ex_qFilt|
 
 Here, we can leave the settings as DEFAULT by discarding sequences with 
 **maximum error rate of >2** and with **ambiguous bases of >0**. 
@@ -239,7 +239,7 @@ ___________________________________________________
 Chimera filtering
 -----------------
 
-This step performs chimera filtering according to DADA2 removeBimeraDenovo function. During this step, the **ASV table** is also generated. 
+This step performs chimera filtering according to DADA2 *removeBimeraDenovo* function. During this step, the **ASV table** is also generated. 
 
 .. important:: 
 
@@ -248,7 +248,7 @@ This step performs chimera filtering according to DADA2 removeBimeraDenovo funct
 Here, we filter chimeras using the **consensus** method. 
 
 +----------------------------------------+-------------------------------------------------------+
-| Output directory                       | ``chimeraFiltered_out.dada2``                         |
+| Output directory |output_icon|           ``chimeraFiltered_out.dada2``                         |
 +========================================+=======================================================+
 | \*.fasta                               | chimera filtered ASVs per sample                      |
 +----------------------------------------+-------------------------------------------------------+
@@ -258,7 +258,7 @@ Here, we filter chimeras using the **consensus** method.
 +----------------------------------------+-------------------------------------------------------+
 
 +----------------------------------------+-------------------------------------------------------+
-| Output directory                       | ``ASVs_out.dada2``                                    |
+| Output directory |output_icon|           ``ASVs_out.dada2``                                    |
 +========================================+=======================================================+
 | ASVs_table.txt                         | denoised and chimera filtered ASV-by-sample table     |
 +----------------------------------------+-------------------------------------------------------+
@@ -273,8 +273,9 @@ ____________________________________________________
 Curate ASV table
 ----------------
 
-This process first removes putative **tag jumps** and then **collapses the ASVs that are identical** up to shifts or length variation, 
-i.e. ASVs that have no internal mismatches; and finally 
+This process first removes putative :ref:`tag jumps <filter_tag_jumps>` 
+and then **collapses the ASVs that are identical** up to shifts or length variation, 
+i.e. ASVs that have no internal mismatches (PipeCraft2 uses vsearch *usearch_global --id 1* for that); and finally 
 filters out ASVs that are shorter/longer than specified length (in base pairs).
 
 Here, we are **enabling this process** by checking the box for ``CURATE ASV TABLE`` in the DADA2 ASV workflow panel. 
@@ -320,7 +321,7 @@ This is basically equivalent to 100% clustering by ignoring the end gaps.
 .. note:: 
 
   The pre-compiled pipeline ends here. Outputs COI ASVs should be further filtered to **remove 
-  putative pseudogenes (NUMTs)**, and optionally ASVs can be clustered into OTUs. See below. 
+  putative pseudogenes (NUMTs)**, and optionally :ref:`ASVs can be clustered into OTUs <asv2otu>`. See below. 
 
 ____________________________________________________
 
@@ -374,7 +375,7 @@ Assign taxonomy
 ---------------
 
 Assign taxonomy **is not the part of the full per-defined pipeline**, but can be run as a **separate step in QuickTools**.
-Here, we are using the `SINTAX <https://drive5.com/sintax/index.html>`_ classifier for that.
+Here, we are using the :ref:`SINTAX <assign_taxonomy_sintax>` classifier for that.
 
 
 |select_SINTAX_classifier|
@@ -395,13 +396,21 @@ This means that taxonomic ranks with at least bootstrap value of 80 will get cla
 but since SINTAX is fast, I'll leave it as default (both - comparre both strands).
 
 
-**Press "START" to start the taxonomy assignment process**.
+.. admonition:: To **START**
 
-+-------------------------------------------------------------+
-| Output directory   |output_icon| ``taxonomy_out.dada2``     |
-+==================+==========================================+
-| taxonomy.csv     | classifier results with bootstrap values |
-+------------------+------------------------------------------+
+  To **START**, specify working directory under ``SELECT WORKDIR`` (outputs will be written here), 
+  but the following requests about ``Sequence files extension`` and ``Sequencing read types`` **do not matter here**, just click 'Confirm'.
+
+.. note::
+
+  First time usage of the fasta formatted database requires conversion to the SINTAX database format (.udb).
+  This conversion is performed automatically by PipeCraft2, and will take some time, depending on the size of the database.
+
++---------------------+------------------------------------------+
+| Output directory    | ``taxonomy_out.sintax``                  |
++=====================+==========================================+
+| taxonomy.sintax.txt | classifier results with bootstrap values |
++---------------------+------------------------------------------+
 
 __________________________________________________
 
@@ -514,7 +523,7 @@ and all the following columns represent number of sequences in the corresponding
 *Note: even though the ASVs column header is "OTU", it represents ASVs as we preformed an ASVs workflow!*
 
 
-We applied also **tag-jump filtering** process (via ``f_value`` and ``p_value`` settings). 
+We applied also :ref:`tag-jump filtering <filter_tag_jumps>` process (via ``f_value`` and ``p_value`` settings). 
 When checking the ``TagJump_stats.txt`` file in the ``ASVs_out.dada2/curated`` directory, 
 we see that based on our settings, **0 tag-jump events** were detected.
 [Therefore, ``ASVs_table_TagJumpFilt.txt`` and ``ASVs_out.dada2/ASVs_table.txt`` files are the same.]
@@ -1011,6 +1020,9 @@ As a ``similarity threshold`` we are using the commonly used **97%** (0.97, defa
   (1st column is ASV IDs; this is the default PipeCraft2 output table, so you don't need to worry about this if you have followed this pipeline).
   For clustering, the ASV size annotation is obtained from the ASV table. 
 
+  If the ASV table does not contain 'Sequence' column, then add those with ``QuickTools -> Utilities -> Add sequences to table`` 
+  :ref:`see here <add_seqs_to_table>`.
+
 Specify ``ORF_filtered`` directory as a working directory via ``SELECT WORKDIR`` button and press "START" to start the process.
 
 __________________________________________________
@@ -1071,12 +1083,15 @@ Herein, **clustering formed 17 OTUs** from 19 ASVs (with 97% similarity threshol
     But let's check if the post-clustering process will help to
     merge these OTUs with same species names (see below).
 
+
+.. _lulu_postclustering_DADA2_COI:
+
 ___________________________________________________
 
 LULU post-clustering
 ~~~~~~~~~~~~~~~~~~~~
 
-Additionally, we can perform `LULU post-clustering <https://github.com/tobiasgf/lulu>`_ to merge co-occurring 'daughter' OTUs.
+Additionally, we can perform :ref:`LULU post-clustering <postclustering_lulu>` to merge co-occurring 'daughter' OTUs.
 
 LULU description from the `LULU repository <https://github.com/tobiasgf/lulu>`_: the purpose of LULU is to reduce the number of 
 erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. 
@@ -1093,6 +1108,10 @@ but feel free to experiment with various settings to see the effect on the resul
 
 |LULU| 
 
+.. admonition:: To **START**
+
+  To **START**, specify working directory under ``SELECT WORKDIR`` (outputs will be written here), 
+  but the following requests about ``Sequence files extension`` and ``Sequencing read types`` **do not matter here**, just click 'Confirm'.
 
 +-----------------------+----------------------------------------------------------------------------+
 | Outputs in ``lulu_out`` directory:                                                                 |

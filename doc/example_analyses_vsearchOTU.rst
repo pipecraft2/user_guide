@@ -82,7 +82,7 @@ This example data analyses follows vsearch OTUs workflow as implemented in PipeC
 | `Download example data set here <https://zenodo.org/records/18770850/files/example_data_ITS2.zip?download=1>`_ (15.1 Mb) and unzip it.
 | This is **ITS2 Illumina MiSeq** dataset. 
 
-For this example, we are using `EUKARYOME database <https://eukaryome.org/>`_ in the taxonomy annotation process
+For this example, we are using `EUKARYOME database <https://eukaryome.org/>`_ in the taxonomy annotation process (BLAST).
 Download the **General_EUK_ITS** file from `here <https://eukaryome.org/generalfasta/>`_
 and **unzip** it (note: use `7-Zip software <https://www.7-zip.org/download.html>`_ for **unzipping** files **in Windows**). 
 
@@ -127,21 +127,34 @@ ___________________________________________________
 Cut primers
 ~~~~~~~~~~~
 
-The example dataset **contains primer sequences**. Generally, we need to remove these to proceed the analyses only with the variable metabarcode of interest.
-If there are some additional sequence fragments, from eg. sequencing adapters or poly-G tails, then clipping the primers will remove those fragments as well.
+The example dataset **contains primer sequences**. 
+Generally, we need to remove these to proceed the analyses only with the variable metabarcode of interest.
+If there are some additional sequence fragments, from eg. sequencing adapters or poly-G tails, 
+then clipping the primers will remove those fragments as well.
 
 Tick the box for ``CUT PRIMERS`` and specify forward and reverse primers.
-For the example data, the **forward primer is GTGARTCATCGAATCTTTG** and **reverse primer is TCCTCCGCTTATTGATATGC**.
+For the example data, the **forward primer is GTGARTCATCGAATCTTTG** (fITS7) 
+and **reverse primer is TCCTCCGCTTATTGATATGC** (ITS4).
 
 |cut_primers_expand_example|
 
-Forward primer has 19 bp and reverse 20 bp - to keep a bit of flexibility in the primer search, we are requesting the ``min overlap`` of **18 bp** and are allowing maximum of 2 ``mismatches`` . 
+Forward primer has 19 bp and reverse 20 bp - to keep a bit of flexibility in the primer search, 
+we are requesting the ``min overlap`` of **18 bp** and are allowing maximum of 2 ``mismatches`` . 
 Note that too low ``min overlap`` may lead to random matches. Check :ref:`other CUT PRIMER options here <remove_primers>`.
 
-.. admonition:: when working with your own ITS data ... 
+.. note:: 
 
-  ... and applying the **ITSx** step, then note that cutting primers process may be skipped, since those regions are removed in the ITS subregion extraction process. 
+  You may specify add up to 13 primer pairs. 
+
+.. admonition:: A consideration when working with ITS sequences and plan to use ITS Extractor
+
+  Since fITS7 and ITS4 primer binding sites are >50 bp from ITS2 region from the 5.8S side and >40 bp from the 28S side, 
+  we can clip the primers in order to safely use :ref:`ITS Extractor <itsextractor>` 
+  to remove the flanking regions from ITS2 reads. 
   
+  However, when the primer binding sites are very close to the ITS region (< 25 bp), 
+  then you may want to keep the primers for better detection of the 18S, 5.8S and 28S regions.
+
 ____________________________________________________
 
 Merge paired-end reads
@@ -223,7 +236,7 @@ Extract ITS2
 Here, in this example dataset, we are working with **ITS2 amplicons**, and 
 we want to remove the conservative flanking regions (where the primer binding sites are located) 
 that are affecting the clustering thresholds. For that,
-we are using `ITSx <https://microbiology.se/software/itsx/>`_.
+we are using :ref:`ITSx <itsextractor>`.
 
 Since we are working with **ITS2** amplicons and are interesed only in **fungi**, 
 we can limit the ``organisms`` to only fungi and keep the ``region for clusering`` as **ITS2**. 
@@ -241,7 +254,7 @@ For **real-world applications**, you may set ``organism`` to "all", and
   so that PipeCraft can proceed with **clustering the corresponding ITS region**.
 
   **If you are working with only 5'-3' oriented amplicons**, then turn off ``complement`` setting under ``TOGGLE ADVANCE OPTIONS``
-  to skip the reverse complementary search; and possibly add more ``cores`` to speed things up.
+  to skip the reverse complementary search; and possibly add more ``cores`` to speed things up (:ref:`see here <modify_resources>`).
 
 The ``partial`` setting is set to 50, which means that if **at least one of the 5.8S or 28S motif is found in the sequence**
 and that sequence is **at least 50 bp long** (after cutting the motif), 
@@ -258,7 +271,7 @@ But this behaviour can be turned off by turning off the ``cluster full and parti
 .. note::
 
   For better detection of the 18S, 5.8S and/or 28S regions by ITSx, you may not want to CUT PRIMERS in your own dataset. 
-  With this example dataset, `ITSx <https://microbiology.se/software/itsx/>`_ works fine even when primers were clipped.
+  With this example dataset, :ref:`ITSx <itsextractor>` works fine even when primers were clipped.
 
 
 +-------------------------------------------+-------------------------------------------------------------+
@@ -403,7 +416,7 @@ See other databases available for taxonomy annotation :ref:`here <databases>`.
 
 |BLAST_assign_tax_expand|
 
-Specify the location of your downloaded database and also the fasta file with ASVs (``fasta file``) to be classified.
+Specify the location of your downloaded database and also the fasta file with OTUs (``fasta file``) to be classified.
 Herein, we use ``OTUs.fasta`` file in the ``clustering_out/curated`` directory (since we applied also ``CURATE OTU TABLE`` process).
 
 .. important::
@@ -421,10 +434,10 @@ sequences and is typically used when sequences are expected to be nearly identic
 **megablast is substantially faster than blastn, but less sensitive to divergent matches**. Note that the 
 sensitivity settings can be adjusted under ``TOGGLE ADVANCE OPTIONS`` panel.
 
-Be sure to **select the correct working directory**, which needs to be the 
-one where our input fasta file is located (OTUs.fasta file in the ``clustering_out/curated`` directory).
+.. admonition:: To **START**
 
-**Press "START" to start the taxonomy assignment process**.
+  To **START**, specify working directory under ``SELECT WORKDIR`` (outputs will be written here), 
+  but the following requests about ``Sequence files extension`` and ``Sequencing read types`` **do not matter here**, just click 'Confirm'.
 
 +------------------------+----------------------------------------------------------+
 | Output directory       |output_icon|  ``taxonomy_out.blast``                      |
@@ -466,8 +479,7 @@ Examine those to track the read counts throughout the pipeline.
 
 For example, from the ``seq_count_summary.txt`` file in ``qualFiltered_out`` we see that 
 first two samples did not contains much of bad quality sequences, while most of the sequences 
-were discarded from the last two samples. *(note that this is an example dataset and the good-bad* 
-*sequence distribution is generally more even among samples)*.
+were discarded from the last three samples *(note that this is an example dataset, with intentionally lower quality sequences in the last three samples)*.
 
 +---------------+----------+-----------+
 | File          | Reads_in | Reads_out |
@@ -507,9 +519,9 @@ then this means that some OTUs were discarded because of the length filtering.
 Let's check the ``README.txt`` file:
 there we can read that **input** OTU table for curation (``clustering_out/OTU_table.txt``)  had 20 OTUs and the **output** 
 OTU table (``clustering_out/curated/OTU_table_TagJumpFilt_lenFilt.txt``) has also 20 OTUs, since 
-we did not apply length filtering, but only tag-jump filtering which does not affect the number of OTUs.
+we did not apply length filtering, but only :ref:`tag-jump filtering <filter_tag_jumps>` which does not affect the number of OTUs.
 
-``OTU_table_TagJumpFilt.txt`` represents the OTU table after the tag-jump filtering, 
+``OTU_table_TagJumpFilt.txt`` represents the OTU table after the :ref:`tag-jump filtering <filter_tag_jumps>`, 
 where the **1st column** represents OTU identifiers (sha1 encoded), 
 **2nd column** is the sequence of an OTU,
 and all the following columns represent number of sequences in the corresponding samples 
@@ -886,7 +898,7 @@ __________________________________________________
 LULU post-clustering
 ~~~~~~~~~~~~~~~~~~~~
 
-Additionally, we can perform `LULU post-clustering <https://github.com/tobiasgf/lulu>`_ to merge co-occurring 'daughter' OTUs.
+Additionally, we can perform :ref:`LULU post-clustering <postclustering_lulu>` to merge co-occurring 'daughter' OTUs.
 
 LULU description from the `LULU repository <https://github.com/tobiasgf/lulu>`_: the purpose of LULU is to reduce the number of 
 erroneous OTUs in OTU tables to achieve more realistic biodiversity metrics. 
@@ -899,28 +911,15 @@ Here, we are **performing LULU post-clustering** via **QuickTools** panel (on th
 
 The **input data** are ``OTU_table_TagJumpFilt.txt`` and ``OTUs.fasta`` files in the ``clustering_out/curated`` directory. 
 
-.. note:: 
-
-  When specifying the WORKING DIRECTORY via ``SELECT WORKDIR`` button, then 
-  here, the **file extension** and **read-type** selections **do not have any effect**, 
-  just make sure you are correctly specifying the 
-  ``table`` and ``fasta file`` files. 
-
-|LULU| 
-
 Here, we are using the default settings (which are suitable for most cases), 
 but feel free to experiment with various settings to see the effect on the results.
 
-.. admonition:: Did 'postclustering with LULU' have any effect?
+|LULU| 
 
-  In this example, we applied the postclustering step.
-  The results of this is in the ``$WD/lulu_out`` folder (where $WD is the working directory). 
-  If we examine the ``README.txt`` file in that folder, 
-  then we see that **"Total of 0 Features (OTUs/ASVs) were merged"**, and therefore we 
-  do not have any OTU table or fasta file on the ``$WD/lulu_out`` folder. 
+.. admonition:: To **START**
 
-  **Note that this is a small example dataset**, but with larger datasets postclustering merges many 'daughter' OTUs into 'parent' OTUs. 
-
+  To **START**, specify working directory under ``SELECT WORKDIR`` (outputs will be written here), 
+  but the following requests about ``Sequence files extension`` and ``Sequencing read types`` **do not matter here**, just click 'Confirm'.
 
 
 If postclustering merges some OTUs, then the outputs are:
@@ -937,6 +936,18 @@ If postclustering merges some OTUs, then the outputs are:
 || discarded_units.lulu || molecular units (OTUs or ASVs) that were merged with other units based on |
 ||                      || specified thresholds                                                      |
 +-----------------------+----------------------------------------------------------------------------+
+
+
+.. admonition:: Did 'postclustering with LULU' have any effect?
+
+  In this example, we applied the postclustering step.
+  The results of this is in the ``$WD/lulu_out`` folder (where $WD is the working directory). 
+  If we examine the ``README.txt`` file in that folder, 
+  then we see that **"Total of 0 Features (OTUs/ASVs) were merged"**, and therefore we 
+  do not have any OTU table or fasta file on the ``$WD/lulu_out`` folder. 
+
+  **Note that this is a small example dataset**, but with larger datasets postclustering merges many 'daughter' OTUs into 'parent' OTUs. 
+
 
 __________________________________________________
 

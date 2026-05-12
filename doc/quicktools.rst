@@ -247,14 +247,19 @@ If the input data contains PCR primers (or e.g. adapters), these can be removed 
 CUT PRIMERS processes relies on `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_ (`Martin 2011 <https://doi.org/10.14806/ej.17.1.200>`_). 
 
 For generating OTUs or ASVs, it is recommended to truncate the primers from the reads 
-(**unless ITS Extractor is used** to remove flanking primer binding regions from ITS1/ITS2/full ITS; 
-in that case keep the primers for better detection of the 18S, 5.8S and/or 28S regions). 
 Sequences where PCR primer strings were not detected are discarded by default (but stored in 'untrimmed' directory). 
 
 **Reverse complementary** search of the primers in the sequences is also performed. 
 Thus, primers are clipped from both 5'-3' and 3'-5' oriented reads. However, note that 
 paired-end reads will **not be reoriented** to 5'-3' during this process, 
 but **single-end reads will be reoriented** to 5'-3'.
+
+.. admonition:: When you may want to keep the primers
+
+  When you are working with **ITS sequences** and plan to use :ref:`ITS Extractor <itsextractor>` 
+  to remove flanking primer binding regions from ITS1/ITS2/full ITS: 
+  if the ITS **primer binding sites are very close to the ITS region** (< 25 bp),
+  then you may want to keep the primers for better detection of the 18S, 5.8S and/or 28S regions.
 
 |cut_primers_expand_example|
 
@@ -1037,7 +1042,7 @@ Outputs
     |   ├── sample2.LSU.fasta
     |   ├── sample3.LSU.fasta
     |   └── ...
-    └── no_detections/
+    └── no_detections/ ---> present only if there were seqs where no ITS regions were detected
 
 ____________________________________________________
 
@@ -1278,6 +1283,13 @@ exact or near-exact matching seeds (controlled in part by ``word_size``), extend
 high-scoring segment pairs (local alignments) using match/mismatch and gap penalties, and keeps the best
 alignments per subject. 
 
+BLAST ``task`` parameter offers two search modes: **blastn** and **megablast**.
+**blastn** is the general-purpose nucleotide search: it is more suitable when similarity may be **moderate to
+distant**, e.g. when divergence is expected. **megablast** is tuned for **very similar** sequences: 
+it is **much faster** than blastn, but can miss or
+rank poorly some **divergent** hits that blastn would still find. Choose the task to match how similar you
+expect queries to be to the reference; finer control of sensitivity is available under ``TOGGLE ADVANCE OPTIONS``.
+
 The **top hit(s)** and their scores (such as sim_score, e-value) inform how confidently you can assign a name to each query feature.
 In PipeCraft, **sim_score** (similarity score) is % identity of the query sequence to the target sequence by 
 taking the query coverage into account (pident * (alignment length / qlen)). 
@@ -1408,7 +1420,7 @@ lineages in the references and infers the best-supported path through the ranks.
 of k-mers from the query yields **per-rank confidence**; assignments below your ``cutoff`` are trimmed at the last confident rank.
 
 SINTAX uses the **taxonomy embedded in each reference header**
-on your chosen FASTA, so you can point it at **custom** references as long as they follow the required
+on your chosen FASTA, so you can use a **custom database** as long as it follows the required
 header syntax (no database training required).
 
 .. important::
@@ -1626,41 +1638,31 @@ ____________________________________________________
 UTILITIES
 =========
 
-Utility tools for sequence processing and manipulation.
+Utility tools for sequence processing and manipulation. 
+Access via ``QuickTools --> Utilities`` button.
 
-__________________________________________________
-
-
-Add sequences to table
-----------------------
-
-This tool takes a **feature table** (abundance matrix: features as rows, samples as columns) and a
-**feature FASTA** whose sequence IDs match the feature identifiers in the table. It **joins** the
-corresponding sequences into the table as an extra column named **``Sequence``**, inserted as the
-**second** column (after the feature ID column).
-
-In PipeCraft2, steps such as :ref:`ASV TO OTU <asv2otu>` expect the table to carry also sequences. 
-If your table was exported without a ``Sequence`` column, run this tool before running :ref:`ASV TO OTU <asv2otu>`.
-
-.. |add_seqs_to_table| image:: _static/add_seqs_to_table.png
-  :width: 600
-
-|add_seqs_to_table|
-
-**Output file**, \*_wSeqs.txt is in the same directory as specified with ``SELECT WORKDIR`` button.
-
-____________________________________________________
-
-
-|
 
 .. _utilities_seqkit_stats:
+
+__________________________________________________
 
 seqkit stats
 ------------
 
 Get sequence statistics with `seqkit stats <https://bioinf.shenwei.me/seqkit/>`_. 
 Works with **fasta(.gz)/fastq(.gz)** files in the WORKING DIRECTORY. 
+
+Check the "SEQKIT STATS" box,
+press ``SELECT WORKDIR`` button to specify the working directory and 
+``Sequence files extension`` as fasta or fastq (``Sequencing read types`` do not matter here, just click 'Confirm').
+Press ``START`` button --> `seqkit <https://bioinf.shenwei.me/seqkit/>`_ will make stats for all fastq/fastq files in the working directory.
+
+
+.. |seqkit_stats| image:: _static/seqkit_stats.png
+  :width: 600
+
+|seqkit_stats|
+
 
 **Output** is the tab-delimited text file *seqkit_stats.$fileFormat.txt* with the following content:
 
@@ -1684,9 +1686,34 @@ Works with **fasta(.gz)/fastq(.gz)** files in the WORKING DIRECTORY.
 | max_len   | Maximum sequence length   |
 +-----------+---------------------------+
 
-____________________________________________________
+
+.. _add_seqs_to_table:
+
+__________________________________________________
+
+
+Add sequences to table
+----------------------
+
+This tool takes a **feature table** (abundance matrix: features as rows, samples as columns) and a
+**feature FASTA** whose sequence IDs match the feature identifiers in the table. It **joins** the
+corresponding sequences into the table as an extra column named **``Sequence``**, inserted as the
+**second** column (after the feature ID column).
+
+In PipeCraft2, steps such as :ref:`ASV TO OTU <asv2otu>` expect the table to carry also sequences. 
+If your table was exported without a ``Sequence`` column, run this tool before running :ref:`ASV TO OTU <asv2otu>`.
+
+.. |add_seqs_to_table| image:: _static/add_seqs_to_table.png
+  :width: 600
+
+|add_seqs_to_table|
+
+**Output file**, \*_wSeqs.txt is in the same directory as specified with ``SELECT WORKDIR`` button.
+
 
 .. _utilities_self-comparison:
+
+____________________________________________________
 
 Self-comparison
 ---------------
@@ -1804,10 +1831,9 @@ Outputs
 | sstrand  | Subject strand orientation       |
 +----------+----------------------------------+
 
-____________________________________________________
-
-
 .. _utilities_reorient:
+
+____________________________________________________
 
 reorient
 --------
@@ -1865,9 +1891,9 @@ Primers are **not truncated** from the sequences; this can be done using :ref:`C
 |                                  | 13 primers                                                           |
 +----------------------------------+----------------------------------------------------------------------+
 
-__________________________________________________
-
 .. _expert_mode:
+
+__________________________________________________
 
 Expert-mode (PipeCraft2 console)
 ================================
