@@ -723,40 +723,50 @@ and **concatenation** of the forward and reverse-complemented reverse read with 
 
   Here, dada2 will perform also denoising (function 'dada') before assembling paired-end data. 
   Because of that, input sequences (in **fastq** format) must consist of 
-  only A/T/C/Gs (**no ambiguous bases (Ns)**); theerefore apply DADA2 merge on quality-filtered reads. 
+  only A/T/C/Gs (**no ambiguous bases (Ns)**); therefore apply on quality-filtered reads. 
+  Due to denoising, **this process takes longer** compared with just merging paired-end reads.
 
-+----------------------+-----------------------------------------------------------------------+
-| Setting              | Tooltip                                                               |
-+======================+=======================================================================+
-|| ``minOverlap``      || the minimum length of the overlap required for merging the forward   |
-||                     || and reverse reads                                                    |
-+----------------------+-----------------------------------------------------------------------+
-| ``maxMismatch``      | the maximum mismatches allowed in the overlap region                  |
-+----------------------+-----------------------------------------------------------------------+
-|| ``trimOverhang``    || if TRUE, overhangs in the alignment between the forwards and reverse |
-||                     || read are trimmed off. Overhangs are when the reverse read extends    |
-||                     || past the start of the forward read, and vice-versa, as can happen    |
-||                     || when reads are longer than the amplicon and read into the            |
-||                     || other-direction primer region                                        |
-+----------------------+-----------------------------------------------------------------------+
-|| ``justConcatenate`` || if TRUE, the forward and reverse-complemented reverse read are       |
-||                     || concatenated rather than merged, with a NNNNNNNNNN (10 Ns) spacer    |
-||                     || inserted between them                                                |
-+----------------------+-----------------------------------------------------------------------+
-|| ``pool``            || denoising setting. If TRUE, the algorithm will pool together all     |
-||                     || samples prior to sample inference. Pooling improves the detection of |
-||                     || rare variants, but is computationally more expensive. If pool =      |
-||                     || 'pseudo', the algorithm will perform pseudo-pooling between          |
-||                     || individually processed samples.                                      |
-+----------------------+-----------------------------------------------------------------------+
-|| ``selfConsist``     || denoising setting. If TRUE, the algorithm will alternate between     |
-||                     || sample inference and error rate estimation until convergence         |
-+----------------------+-----------------------------------------------------------------------+
-|| ``qualityType``     || 'Auto' means to attempt to auto-detect the fastq quality encoding.   |
-||                     || This may fail for PacBio files with uniformly high quality scores,   |
-||                     || in which case use 'FastqQuality'                                     |
-+----------------------+-----------------------------------------------------------------------+
+Here, the output are **all** merged R1 and R2 reads in ``denoised_assembled.dada2`` directory. 
+As DADA2 denoising produces ASVs, then merged ASVs per samples are in the ``denoised_assembled.dada2/merged_ASVs`` directory.
 
++----------------------+-----------------------------------------------------------------------------------+
+| Setting              | Tooltip                                                                           |
++======================+===================================================================================+
+|| ``minOverlap``      || the minimum length of the overlap required for merging the forward               |
+||                     || and reverse reads                                                                |
++----------------------+-----------------------------------------------------------------------------------+
+| ``maxMismatch``      | the maximum mismatches allowed in the overlap region                              |
++----------------------+-----------------------------------------------------------------------------------+
+|| ``trimOverhang``    || if TRUE, overhangs in the alignment between the forwards and reverse             |
+||                     || read are trimmed off. Overhangs are when the reverse read extends                |
+||                     || past the start of the forward read, and vice-versa, as can happen                |
+||                     || when reads are longer than the amplicon and read into the                        |
+||                     || other-direction primer region                                                    |
++----------------------+-----------------------------------------------------------------------------------+
+|| ``justConcatenate`` || if TRUE, the forward and reverse-complemented reverse read are                   |
+||                     || concatenated rather than merged, with a NNNNNNNNNN (10 Ns) spacer                |
+||                     || inserted between them                                                            |
++----------------------+-----------------------------------------------------------------------------------+
+|| ``errorEstFun``     || denoising setting. DADA2 errorEstimationFunction:                                |
+||                     || 'loessErrfun' for Illumina data; 'PacBioErrfun' for PacBio data                  |
++----------------------+-----------------------------------------------------------------------------------+
+|| ``nbases``          || denoising setting. The minimum number of bases to use for error rate estimation. |
+||                     || Default is 1e8 (100 million bases)                                               |
++----------------------+-----------------------------------------------------------------------------------+
+|| ``randomize``       || denoising setting. Default = TRUE. If TRUE, samples are picked at                |
+||                     || random from those provided. If FALSE, samples are picked                         |
+||                     || in the order they are provided until enough reads are obtained.                  |
++----------------------+-----------------------------------------------------------------------------------+
+|| ``pool``            || denoising setting. If TRUE, the algorithm will pool together all                 |
+||                     || samples prior to sample inference. Pooling improves the detection of             |
+||                     || rare variants, but is computationally more expensive. If pool =                  |
+||                     || 'pseudo', the algorithm will perform pseudo-pooling between                      |
+||                     || individually processed samples.                                                  |
++----------------------+-----------------------------------------------------------------------------------+
+|| ``qualityType``     || 'Auto' means to attempt to auto-detect the fastq quality encoding.               |
+||                     || This may fail for PacBio files with uniformly high quality scores,               |
+||                     || in which case use 'FastqQuality'                                                 |
++----------------------+-----------------------------------------------------------------------------------+
 
 .. _chimFilt:
 

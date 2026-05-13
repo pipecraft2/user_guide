@@ -51,6 +51,7 @@ Bug fixes:
 * bug fix to seq_count_summary making after ITSx for full_ITS/full_and_partial dir
 * fix to MetaMATE to work with the default specification0.txt that in in the Docker container.
 * ITSx: fix the issue of reporting ERROR when all sequences had ITS region detected (i.e., no sequences in no_detection directory)
+* only v1.1.0: specifying MERGE PAIRS settings in DADA2 ASVs workflow did not have any effect, the run was always using the default settings (THIS IS FINE UNLESS some settings were tuned). Fixed in v1.2.0.
 
 
 Implemented software:
