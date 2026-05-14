@@ -1,6 +1,6 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :target: https://github.com/pipecraft2/user_guide
+  :target: https://github.com/pipecraft2/pipecraft
 
 .. |main_interface| image:: _static/main_interface.png
   :width: 2000
