@@ -63,8 +63,6 @@
     :description lang=en:
         PipeCraft manual. FunBarONT workflow tutorial
 
-|
-
 .. _example_analyses_FunBarONT:
 
 FunBarONT pipeline, ITS |PipeCraft2_logo|

@@ -52,7 +52,7 @@
     :description lang=en:
         PipeCraft manual. tutorial
 
-|
+.. _example_analyses_DADA2_ITS:
 
 DADA2 ASVs pipeline, ITS2 |PipeCraft2_logo|
 ===========================================
@@ -690,6 +690,8 @@ Thus, with this example dataset, our final OTU table and fasta file are
 
 See :ref:`this example of applying LULU post-clustering <lulu_postclustering_DADA2_COI>` where LULU merged some OTUs.
 
+.. _assign_taxonomy_ITS2:
+
 __________________________________________________
 
 
@@ -795,6 +797,7 @@ Set ``species_threshold`` to **0** to disable this check.
 
     #!/usr/bin/env Rscript
     ### Format SINTAX column 4 for EUKARYOME.
+    ### No-hit rows: all ranks output as "unclassified"
 
     # specify input
     taxtab <- "taxonomy.sintax.txt"
@@ -819,7 +822,7 @@ Set ``species_threshold`` to **0** to disable this check.
                   "Species")
 
     ## Strip trailing parenthetical qualifiers from genus 
-      # when not a numeric bootstrap (e.g. Lactarius(Fungi)).
+    # when not a numeric bootstrap (e.g. Lactarius(Fungi)).
     strip_genus_qualifier <- function(genus) {
       if (is.na(genus) || !nzchar(genus)) return(NA_character_)
       x <- sub("\\([^)]*[0-9][^)]*\\)$", "", genus)
@@ -835,13 +838,19 @@ Set ``species_threshold`` to **0** to disable this check.
       x
     }
 
-    ## Species bootstrap from SINTAX column 2 (full string with parentheses), NA if no s:...(...).
+    ## Species bootstrap from SINTAX column 2
     extract_species_bootstrap <- function(col2_string) {
       s <- trimws(as.character(col2_string))
       if (is.na(s) || !nzchar(s)) return(NA_real_)
       m <- regmatches(s, regexec("s:[^(]+\\(([0-9.]+)\\)", s, perl = TRUE))[[1L]]
       if (length(m) < 2L) return(NA_real_)
       as.numeric(m[[2L]])
+    }
+
+    ## No hits
+    is_no_hit_col4 <- function(s) {
+      x <- trimws(as.character(s))
+      is.na(x) | !nzchar(x) | x == "*"
     }
 
     ## Parse one column-4 string into one row
@@ -861,13 +870,13 @@ Set ``species_threshold`` to **0** to disable this check.
         )
         as.data.frame(m, stringsAsFactors = FALSE)
       }
-
+      
       s <- trimws(as.character(s))
       if (is.na(s) || !nzchar(s) || s == "*") return(na_row())
-
+      
       d_val <- k_val <- NA_character_
       row <- na_row()
-
+      
       for (part in strsplit(s, ",", fixed = TRUE)[[1L]]) {
         part <- trimws(part)
         if (!nzchar(part) || !grepl("^[dkpcofgs]:", part)) next
@@ -875,18 +884,18 @@ Set ``species_threshold`` to **0** to disable this check.
         val <- substr(part, 3L, nchar(part))
         if (!nzchar(val)) next
         switch(code,
-          "d" = { d_val <- val },
-          "k" = { k_val <- val },
-          "p" = { row$Phylum <- val },
-          "c" = { row$Class <- val },
-          "o" = { row$Order <- val },
-          "f" = { row$Family <- val },
-          "g" = { row$Genus <- val },
-          "s" = { row$species_epithet <- val },
-          NULL
+              "d" = { d_val <- val },
+              "k" = { k_val <- val },
+              "p" = { row$Phylum <- val },
+              "c" = { row$Class <- val },
+              "o" = { row$Order <- val },
+              "f" = { row$Family <- val },
+              "g" = { row$Genus <- val },
+              "s" = { row$species_epithet <- val },
+              NULL
         )
       }
-
+      
       if (!is.na(k_val)) {
         row$Kingdom <- k_val
       } else if (!is.na(d_val)) {
@@ -898,14 +907,16 @@ Set ``species_threshold`` to **0** to disable this check.
     replace_na_with_unclassified <- function(df) {
       out <- df
       km <- out[["Kingdom"]]
-      out[["Kingdom"]] <- ifelse(is.na(km) | km == "", "UnknownKingdom", km)
+      out[["Kingdom"]] <- ifelse(is.na(km) | km == "", 
+                                "UnknownKingdom", km)
       for (i in 2L:length(TAX_RANKS)) {
         cur <- TAX_RANKS[i]
         prev <- TAX_RANKS[i - 1L]
         v <- out[[cur]]
         prev_v <- out[[prev]]
-        out[[cur]] <- ifelse(is.na(v) | v == "", paste0("unclassified_", 
-                                                        prev_v), v)
+        out[[cur]] <- ifelse(is.na(v) | v == "", 
+                            paste0("unclassified_", 
+                                    prev_v), v)
       }
       out
     }
@@ -913,13 +924,14 @@ Set ``species_threshold`` to **0** to disable this check.
     collapse_unclassified_prefix <- function(df) {
       out <- df
       for (nm in TAX_RANKS) {
-        out[[nm]] <- gsub("^(unclassified_)+", "unclassified_", out[[nm]], 
+        out[[nm]] <- gsub("^(unclassified_)+", 
+                          "unclassified_", out[[nm]], 
                           perl = TRUE)
       }
       out
     }
 
-    ## Build Species = Genus_epithet where both present (vectorized).
+    ## Build Species = Genus_epithet where both present
     species_binomial <- function(genus, epithet) {
       gen <- sanitize_tokens(genus)
       ep <- sanitize_tokens(epithet)
@@ -941,32 +953,50 @@ Set ``species_threshold`` to **0** to disable this check.
       check.names = FALSE
     )
 
-    # input has 4 columns?
-    if (ncol(raw) < 4L) {
-      stop(
-        "Expected 4 tab-separated columns. ncol = ",
-        ncol(raw)
-      )
+    while (ncol(raw) < 4L) {
+      raw <- cbind(raw, rep(NA_character_, nrow(raw)), 
+                  stringsAsFactors = FALSE)
+    }
+
+    if (ncol(raw) < 1L || nrow(raw) < 1L) {
+      stop("Expected at least one column and one row in ", 
+          taxtab)
     }
 
     feat_id <- as.character(raw[[1L]])
-    parsed_df <- do.call(rbind, lapply(as.character(raw[[4L]]), 
-                                      parse_sintax_col4))
+    col4v <- as.character(raw[[4L]])
+    no_hit <- vapply(col4v, is_no_hit_col4, FUN.VALUE = NA)
+
+    parsed_df <- do.call(rbind, lapply(seq_len(nrow(raw)), function(i) {
+      if (isTRUE(no_hit[i])) {
+        data.frame(
+          Kingdom = "unclassified",
+          Phylum = "unclassified",
+          Class = "unclassified",
+          Order = "unclassified",
+          Family = "unclassified",
+          Genus = "unclassified",
+          species_epithet = NA_character_,
+          stringsAsFactors = FALSE
+        )
+      } else {
+        parse_sintax_col4(col4v[i])
+      }
+    }))
     rownames(parsed_df) <- feat_id
 
     parsed_df$Genus <- vapply(parsed_df$Genus, 
                               strip_genus_qualifier, 
                               FUN.VALUE = character(1L))
 
-    ## If species_threshold >= 0.8: column 4 has s: (epithet) only kept when column-2 species
-    ## bootstrap exists and is >= threshold (else epithet dropped -> unclassified_Genus).
+    ## species_threshold
     st_num <- suppressWarnings(as.numeric(species_threshold))
     if (!is.na(st_num) && st_num >= 0.8) {
       col2 <- as.character(raw[[2L]])
       sp_bt <- vapply(col2, extract_species_bootstrap, FUN.VALUE = NA_real_)
       epit <- parsed_df$species_epithet
       has_s4 <- !is.na(epit) & nzchar(trimws(as.character(epit)))
-      fail <- has_s4 & (is.na(sp_bt) | sp_bt < st_num)
+      fail <- !no_hit & has_s4 & (is.na(sp_bt) | sp_bt < st_num)
       parsed_df$species_epithet[fail] <- NA_character_
     }
 
@@ -975,13 +1005,22 @@ Set ``species_threshold`` to **0** to disable this check.
                     "Class", "Order", 
                     "Family", "Genus"), 
                 drop = FALSE],
-      Species = species_binomial(parsed_df$Genus, parsed_df$species_epithet),
+      Species = species_binomial(parsed_df$Genus, 
+                                parsed_df$species_epithet),
       stringsAsFactors = FALSE,
       row.names = rownames(parsed_df)
     )
 
     out <- replace_na_with_unclassified(out)
     out <- collapse_unclassified_prefix(out)
+
+    ## No-hit rows: every rank is "unclassified"
+    if (any(no_hit)) {
+      ii <- which(no_hit)
+      for (nm in TAX_RANKS) {
+        out[ii, nm] <- "unclassified"
+      }
+    }
 
     out <- cbind(feature_id = feat_id, out, 
                 stringsAsFactors = FALSE)

@@ -45,14 +45,15 @@ General updates:
 * PipeCraft2 automatically detects the file extensions in the working directory. 
 * ORF-finder module now automatically filters also the feature table (input table required; can contain "Sequence" column).
 * ASV TO OTU module: fasta file can contain a subset of ASVs that are present in the provided table file.
+* adjusted vsearch and unoise pre-compiled pipelines so that quality filtering is performed before paired-end merging (consistent with DADA2 ASVs workflow).
 
 Bug fixes:
 
 * bug fix to seq_count_summary making after ITSx for full_ITS/full_and_partial dir
-* fix to MetaMATE to work with the default specification0.txt that in in the Docker container.
-* ITSx: fix the issue of reporting ERROR when all sequences had ITS region detected (i.e., no sequences in no_detection directory)
-* only v1.1.0: specifying MERGE PAIRS settings in DADA2 ASVs workflow did not have any effect, the run was always using the default settings (THIS IS FINE UNLESS some settings were tuned). Fixed in v1.2.0.
-
+* fix to MetaMATE to work with the default specification0.txt (no abundance filtering) in the Docker container.
+* ITSx: fix the issue of reporting ERROR when all sequences had no ITS region detected (i.e., no sequences in no_detection directory)
+* only v1.1.0: changing MERGE PAIRS settings in DADA2 ASVs workflow did not have any effect, the run was always using the default settings (THIS IS FINE UNLESS some settings were tuned).
+* only v1.1.0: dada2 denoising setting "pool" was effectively always set to FALSE. Now, "pool" = TRUE/pseudo has an effect (more RAM hungry, but more sensitive to rare variants).
 
 Implemented software:
 *(software in red font denote new additions; 'version' in bold denotes version upgrade)*

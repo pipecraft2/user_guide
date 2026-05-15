@@ -33,6 +33,7 @@
     :description lang=en:
         PipeCraft manual. tutorial
 
+.. _example_analyses_OptimOTU:
 
 OptimOTU pipeline, ITS2 |PipeCraft2_logo|
 -----------------------------------------

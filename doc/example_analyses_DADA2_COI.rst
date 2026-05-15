@@ -82,7 +82,7 @@
     :description lang=en:
         PipeCraft manual. tutorial
 
-|
+.. _example_analyses_DADA2_COI:
 
 DADA2 ASVs pipeline, COI |PipeCraft2_logo|
 ==========================================
@@ -367,6 +367,8 @@ When you need to STOP the workflow, press ``STOP`` button |stop_workflow|
   ... a message window will be displayed.
 
   |workflow_finished|
+
+.. _assign_taxonomy_COI:
 
 ___________________________________________________
 

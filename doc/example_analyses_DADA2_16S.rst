@@ -61,7 +61,7 @@
     :description lang=en:
         PipeCraft manual. tutorial
 
-|
+.. _example_analyses_DADA2_16S:
 
 DADA2 ASVs pipeline, 16S |PipeCraft2_logo|
 ------------------------------------------
@@ -168,15 +168,18 @@ ____________________________________________________
 |DADA2_quality_filt_expand|
 
 Based on the quality scores distribution plot above, we will **trim reads to specified length to remove low quality ends**. 
-Set ``truncLen`` to 240 for trimming R1 reads and ``truncLen R2`` to 160 to trim R2 reads. Latter positions represent the approximate positions where sequence quality drps notably.
+Set ``truncLen`` to **240** for trimming R1 reads and ``truncLen R2`` to **160** to trim R2 reads. 
+Latter positions represent the approximate positions where sequence quality drops notably.
+Alternatively, you may use ``trimLeft`` and ``trimRight`` options to remove bases from the start and end of the reads, respectively.
 
 .. admonition:: when working with your own data ... 
 
-  ... be sure to consider the amplicon length before applying ``truncLen`` options, so that R1 and R2 reads would still overlap for the ``MERGE PAIRS`` process.
+  ... be sure to consider the amplicon length before applying ``truncLen`` options, 
+  so that R1 and R2 reads would still overlap for the ``MERGE PAIRS`` process.
   Non-overlapping paired-end reads will be discarded. 
 
 
-Here, we can leave other settings as DEFAULT.
+Here, we can leave other settings as **DEFAULT**.
 
 
 +-----------------------+-------------------------------------------------------+
@@ -347,6 +350,9 @@ When you need to STOP the workflow, press ``STOP`` button |stop_workflow|
   ... a message window will be displayed.
 
   |workflow_finished|
+
+
+.. _assign_taxonomy_dada2_16S:
 
 ___________________________________________________
 

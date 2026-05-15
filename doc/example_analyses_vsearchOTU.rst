@@ -73,6 +73,7 @@
     :description lang=en:
         PipeCraft manual. tutorial
 
+.. _example_analyses_vsearchOTU:
 
 vsearch OTUs pipeline, ITS2 |PipeCraft2_logo|
 ---------------------------------------------
@@ -155,27 +156,6 @@ Note that too low ``min overlap`` may lead to random matches. Check :ref:`other 
   However, when the primer binding sites are very close to the ITS region (< 25 bp), 
   then you may want to keep the primers for better detection of the 18S, 5.8S and 28S regions.
 
-____________________________________________________
-
-Merge paired-end reads
-~~~~~~~~~~~~~~~~~~~~~~
-
-This step assembles/merges the paired-end read mates. 
-**Click on** ``MERGE READS`` **to expand the panel**.
-
-|vsearch_merge_reads|
-
-Here, we are using the DEFAULT settings, which are fine in most cases.
-Check :ref:`other MERGE PAIRS options here <merge_pairs>`.
-
-+------------------------------------------------+---------------------------------------+
-| Output directory |output_icon| ``assembled_out``                                       |
-+================================================+=======================================+
-| \*.fastq                                       | merged per sample FASTQ files         |
-+------------------------------------------------+---------------------------------------+
-| seq_count_summary.txt                          | summary of sequence counts per sample |
-+------------------------------------------------+---------------------------------------+
-
 ___________________________________________________
 
 Quality filtering 
@@ -197,6 +177,28 @@ Here, we can leave settings as DEFAULT.
 +-----------------------+-------------------------------------------------------+
 | seq_count_summary.txt | summary of sequence counts per sample                 |
 +-----------------------+-------------------------------------------------------+
+
+____________________________________________________
+
+
+Merge paired-end reads
+~~~~~~~~~~~~~~~~~~~~~~
+
+This step assembles/merges the paired-end read mates. 
+**Click on** ``MERGE READS`` **to expand the panel**.
+
+|vsearch_merge_reads|
+
+Here, we are using the DEFAULT settings, which are fine in most cases.
+Check :ref:`other MERGE PAIRS options here <merge_pairs>`.
+
++------------------------------------------------+---------------------------------------+
+| Output directory |output_icon| ``assembled_out``                                       |
++================================================+=======================================+
+| \*.fastq                                       | merged per sample FASTQ files         |
++------------------------------------------------+---------------------------------------+
+| seq_count_summary.txt                          | summary of sequence counts per sample |
++------------------------------------------------+---------------------------------------+
 
 ____________________________________________________
 

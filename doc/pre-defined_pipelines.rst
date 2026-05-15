@@ -27,8 +27,12 @@ Pre-compiled pipelines |PipeCraft2_logo|
 ========================================
 
 Pre-compiled pipelines in PipeCraft2 provide automated workflows for processing amplicon sequencing data. 
-These pipelines include options for generating ASVs with DADA2, ASVs with UNOISE3, OTUs with vsearch, and specialized pipelines like NextITS and OptimOTU. 
-Each pipeline is carefully configured with sensible defaults while still allowing customization of key parameters to suit different experimental needs.
+These pipelines include options for generating ASVs with DADA2, ASVs with UNOISE3, 
+OTUs with vsearch, and specialized pipelines like NextITS and OptimOTU. 
+Each pipeline is carefully configured with sensible defaults while still 
+allowing customization of key parameters to suit different experimental needs.
+
+**See the example data analyses** :ref:`here <example_analyses>` for the use of the pre-compiled pipelines.
 
 - **Use at least 2 samples per sequencing run** for the pre-compiled pipelines.
 
@@ -187,14 +191,18 @@ The input is the directory that contains per-sample fastq files (**demultiplexed
  
 .. _dada2_defaults:
 
-**Default options:**
+**Pipeline workflow with default options:**
 
 +--------------------------------------------------------+--------------------------------------------+-------------------------------+
 | Analyses step                                          | Default setting                            | output directory              |
 +========================================================+============================================+===============================+
-|| :ref:`CUT PRIMERS <remove_primers>`                   || Mandatory for ``paired-end mixed`` mode   || ``primersCut_out``           |
-||                                                       || for getting the fwd and rev oriented      ||                              |
-||                                                       || sequences                                 ||                              |
+|| :ref:`CUT PRIMERS <remove_primers>`                   || ``forward primers`` = NULL                || ``primersCut_out``           |
+|| (only mandatory for ``paired-end mixed`` mode)        || ``reverse primers`` = NULL                ||                              |
+||                                                       || ``mismatches`` = 1                        ||                              |
+||                                                       || ``min overlap`` = 21                      ||                              |
+||                                                       || ``seqs to keep`` = keep_all               ||                              |
+||                                                       || ``pair filter`` = both                    ||                              |
+||                                                       || ``no indels`` = TRUE                      ||                              |
 +--------------------------------------------------------+--------------------------------------------+-------------------------------+
 || QUALITY FILTERING                                     || ``maxEE`` = 2                             || ``qualFiltered_out``         |
 ||                                                       || ``maxN`` = 0                              ||                              |
@@ -205,10 +213,17 @@ The input is the directory that contains per-sample fastq files (**demultiplexed
 ||                                                       || ``maxLen`` = 9999                         ||                              |
 ||                                                       || ``minQ`` = 2                              ||                              |
 ||                                                       || ``matchIDs`` = TRUE                       ||                              |
+||                                                       || ``trimLeft`` = 0                          ||                              |
+||                                                       || ``trimRight`` = 0                         ||                              |
 +--------------------------------------------------------+--------------------------------------------+-------------------------------+
-|| DENOISE                                               || ``pool`` = FALSE                          || ``denoised_assembled.dada2`` |
-||                                                       || ``selfConsist`` = FASLE                   ||                              |
-||                                                       || ``qualityType`` = Auto                    ||                              |
+|| DENOISE                                               || ``BAND SIZE`` = 16 (32 for PacBio)        || ``denoised_assembled.dada2`` |
+||                                                       || ``nbases`` = 1e+8                         ||                              |
+||                                                       || ``randomize`` = TRUE                      || ``denoised.dada2`` for       |
+||                                                       || ``OMEGA_A`` = 1e-40                       || single-end data              |
+||                                                       || ``OMEGA_P`` = 1e-4                        ||                              |
+||                                                       || ``OMEGA_C`` = 0                           ||                              |
+||                                                       || ``Homopoly gap penalty`` = NULL           ||                              |
+||                                                       || ``DETECT_SINGLETONS`` = FALSE             ||                              |
 +--------------------------------------------------------+--------------------------------------------+-------------------------------+
 || MERGE PAIRS                                           || ``minOverlap`` = 12 (for paired-end data) || ``denoised_assembled.dada2`` |
 ||                                                       || ``maxMismatch`` = 0                       ||                              |
@@ -249,10 +264,31 @@ to form **zOTUs and an zOTU table** (herein also referred as ASVs).
 The input is the directory that contains per-sample fastq files (**demultiplexed data**).
 
 
+**Pipeline workflow with default options:**
+
 +--------------------------------------------------------+------------------------------------------+-----------------------------+
 | Analyses step                                          | Default setting                          | output directory            |
 +========================================================+==========================================+=============================+
-| :ref:`CUT PRIMERS <remove_primers>` (optional)         | --                                       | ``primersCut_out``          |
+|| :ref:`CUT PRIMERS <remove_primers>` (optional)        || ``forward primers`` = NULL              || ``primersCut_out``         |
+||                                                       || ``reverse primers`` = NULL              ||                            |
+||                                                       || ``mismatches`` = 1                      ||                            |
+||                                                       || ``min overlap`` = 21                    ||                            |
+||                                                       || ``seqs to keep`` = keep_all             ||                            |
+||                                                       || ``pair filter`` = both                  ||                            |
+||                                                       || ``no indels`` = TRUE                    ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>` || ``maxEE`` = 1                           || ``qualFiltered_out``       |
+||                                                       || ``maxN`` = 0                            ||                            |
+||                                                       || ``min length`` = 32                     ||                            |
+||                                                       || ``trunc length``                        ||                            |
+||                                                       || ``qmax`` = 41                           ||                            |
+||                                                       || ``max_length`` = undefined              ||                            |
+||                                                       || ``qmin`` = 0                            ||                            |
+||                                                       || ``maxee_rate`` = undefined              ||                            |
+||                                                       || ``truncqual`` = 0                       ||                            |
+||                                                       || ``truncee`` = 0                         ||                            |
+||                                                       || ``strip left`` = 0                      ||                            |
+||                                                       || ``strip right`` = 0                     ||                            |
 +--------------------------------------------------------+------------------------------------------+-----------------------------+
 || :ref:`MERGE READS <merge_vsearch>`                    || ``min_overlap`` = 12                    || ``assembled_out``          |
 ||                                                       || ``min_length`` = 32                     ||                            |
@@ -263,14 +299,6 @@ The input is the directory that contains per-sample fastq files (**demultiplexed
 ||                                                       || ``max_len`` = 600                       ||                            |
 ||                                                       || ``keep_disjoined`` = FALSE              ||                            |
 ||                                                       || ``fastq_qmax`` = 41                     ||                            |
-+--------------------------------------------------------+------------------------------------------+-----------------------------+
-|| :ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>` || ``maxEE`` = 1                           || ``qualFiltered_out``       |
-||                                                       || ``maxN`` = 0                            ||                            |
-||                                                       || ``minLen`` = 32                         ||                            |
-||                                                       || ``max_length`` = undefined              ||                            |
-||                                                       || ``qmax`` = 41                           ||                            |
-||                                                       || ``qmin`` = 0                            ||                            |
-||                                                       || ``maxee_rate`` = undefined              ||                            |
 +--------------------------------------------------------+------------------------------------------+-----------------------------+
 || :ref:`ITS Extractor <itsextractor>` (optional)        || ``organisms`` = all                     || ``ITSx_out``               |
 ||                                                       || ``regions`` = all                       ||                            |
@@ -327,13 +355,31 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 
 .. _vsearchOTUs_defaults:
 
-| **Default options:**
-| *click on analyses step for more info*
+**Pipeline workflow with default options:**
 
 +--------------------------------------------------------+------------------------------------------+-----------------------------+
 | Analyses step                                          | Default setting                          | output directory            |
 +========================================================+==========================================+=============================+
-| :ref:`CUT PRIMERS <remove_primers>` (optional)         | --                                       | ``primersCut_out``          |
+|| :ref:`CUT PRIMERS <remove_primers>` (optional)        || ``forward primers`` = NULL              || ``primersCut_out``         |
+||                                                       || ``reverse primers`` = NULL              ||                            |
+||                                                       || ``mismatches`` = 1                      ||                            |
+||                                                       || ``min overlap`` = 21                    ||                            |
+||                                                       || ``seqs to keep`` = keep_all             ||                            |
+||                                                       || ``pair filter`` = both                  ||                            |
+||                                                       || ``no indels`` = TRUE                    ||                            |
++--------------------------------------------------------+------------------------------------------+-----------------------------+
+|| :ref:`QUALITY FILTERING with vsearch <qfilt_vsearch>` || ``maxEE`` = 1                           || ``qualFiltered_out``       |
+||                                                       || ``maxN`` = 0                            ||                            |
+||                                                       || ``min length`` = 32                     ||                            |
+||                                                       || ``trunc length``                        ||                            |
+||                                                       || ``qmax`` = 41                           ||                            |
+||                                                       || ``max_length`` = undefined              ||                            |
+||                                                       || ``qmin`` = 0                            ||                            |
+||                                                       || ``maxee_rate`` = undefined              ||                            |
+||                                                       || ``truncqual`` = 0                       ||                            |
+||                                                       || ``truncee`` = 0                         ||                            |
+||                                                       || ``strip left`` = 0                      ||                            |
+||                                                       || ``strip right`` = 0                     ||                            |
 +--------------------------------------------------------+------------------------------------------+-----------------------------+
 || :ref:`MERGE READS <merge_vsearch>`                    || ``min_overlap`` = 12                    || ``assembled_out``          |
 ||                                                       || ``min_length`` = 32                     ||                            |
@@ -344,14 +390,6 @@ output directory is created (e.g. ``primersCut_out``, ``chimeraFiltered_out`` et
 ||                                                       || ``max_len`` = 600                       ||                            |
 ||                                                       || ``keep_disjoined`` = FALSE              ||                            |
 ||                                                       || ``fastq_qmax`` = 41                     ||                            |
-+--------------------------------------------------------+------------------------------------------+-----------------------------+
-|| :ref:`QUALITY FILTERING <qfilt_vsearch>`              || ``maxEE`` = 1                           || ``qualFiltered_out``       |
-|| with vsearch                                          || ``maxN`` = 0                            ||                            |
-||                                                       || ``minLen`` = 32                         ||                            |
-||                                                       || ``max_length`` = undefined              ||                            |
-||                                                       || ``qmax`` = 41                           ||                            |
-||                                                       || ``qmin`` = 0                            ||                            |
-||                                                       || ``maxee_rate`` = undefined              ||                            |
 +--------------------------------------------------------+------------------------------------------+-----------------------------+
 || :ref:`CHIMERA FILTERING <chimFilt_vsearch>`           || ``pre_cluster`` = 0.98                  || ``chimeraFiltered_out``    |
 || with uchime_denovo                                    || ``min_unique_size`` = 1                 ||                            |
@@ -504,7 +542,7 @@ In the later steps, extracting the SampleID part and summarizing read counts for
 
 
 
-**Default settings:**
+**Default settings in the NextITS pipeline panels:**
 
 +---------------------------------------------------------------------------------------------------------------+------------------------------------+
 | Analyses step                                                                                                 | Default setting                    |
@@ -543,7 +581,10 @@ In the later steps, extracting the SampleID part and summarizing read counts for
 Cut primers
 -----------
 
-**Please note that NextITS pipeline accepts only a single primer pair**, i.e., one forward and one reverse primer!
+.. note:: 
+
+  NextITS pipeline accepts only a single primer pair**, i.e., one forward and one reverse primer!
+
 
 ================================ =========================
 Setting                          Tooltip
@@ -607,7 +648,8 @@ Setting                          Tooltip
 Tag-jump correction
 -------------------
 
- Tag-jumps, sometimes referred to as index-switches or index cross-talk, may represent a significant concern in high-throughput sequencing (HTS) data. 
+ Tag-jumps, sometimes referred to as index-switches or index cross-talk, 
+ may represent a significant concern in high-throughput sequencing (HTS) data. 
  They can cause technical cross-contamination between samples, potentially distorting estimates of community composition. 
  Here, tag-jump events are evaluated the UNCROSS2 algorithm (`Edgar 2018 <https://www.biorxiv.org/content/10.1101/400762v1>`_ ) are removed.
 
@@ -621,7 +663,14 @@ Setting                          Tooltip
 UNOISE denoising
 ----------------
 
- | The UNOISE algorithm (`Edgar 2016 <https://www.biorxiv.org/content/10.1101/081257v1>`_ ) focuses on error-correction (or denoising) of amplicon reads. Essentially, UNOISE operates on the principle that if a sequence with low abundance closely resembles another sequence with high abundance, the former is probably an error. This helps differentiate between true biological variation and sequencing errors. It's important to note that UNOISE was initially designed and optimized for Illumina data. Because of indel errors stemming from inaccuracies in homopolymeric regions, UNOISE might not work well with data that hasn't undergone homopolymer correction.
+The UNOISE algorithm (`Edgar 2016 <https://www.biorxiv.org/content/10.1101/081257v1>`_ ) 
+focuses on error-correction (or denoising) of amplicon reads. Essentially, 
+UNOISE operates on the principle that if a sequence with low abundance 
+closely resembles another sequence with high abundance, the former is probably an error. 
+This helps differentiate between true biological variation and sequencing errors. 
+It's important to note that UNOISE was initially designed and optimized for Illumina data. 
+Because of indel errors stemming from inaccuracies in homopolymeric regions, 
+UNOISE might not work well with data that hasn't undergone homopolymer correction.
 
 ================================ =========================
 Setting                          Tooltip
@@ -683,16 +732,20 @@ OptimOTU
 ========
 
 
-| OptimOTU is a full metabarcoding data analysis pipeline for **paired-end Illumina data** (`arXiv:2502.10350 <https://doi.org/10.48550/arXiv.2502.10350>`_).
-| OptimOTU uses taxonomically identified reference sequences to 
-| determine optimal genetic distance thresholds for clustering ancestor 
-| taxa into groups that best match their descendant taxa (**taxonomically aware OTU clustering**).
+OptimOTU is a full metabarcoding data analysis pipeline for **paired-end Illumina data** 
+(`arXiv:2502.10350 <https://doi.org/10.48550/arXiv.2502.10350>`_).
+
+OptimOTU uses taxonomically identified reference sequences to 
+determine optimal genetic distance thresholds for clustering ancestor 
+taxa into groups that best match their descendant taxa (**taxonomically aware OTU clustering**).
 
 .. note:: 
 
     Note that compared with other herein (in PipeCraft) pre-compiled pipelines, OptimOTU requires a lot of resources (CPU, RAM), 
-    so please allocate sufficient resources when running this pipeline. Due to many optimized steps in the pipeline, 
+    so please :ref:`allocate sufficient resources <manage_resources>` when running this pipeline. Due to many optimized steps in the pipeline, 
     the local run of OptimOTU takes comparably more time.
+
+    **For testing, with small data, use CPU = 1**; otherwise the pipeline may fail when aiming to divide dataset into chunks.
 
 .. note:: 
 
@@ -872,7 +925,8 @@ Chimera filtering
 -----------------
 
 Chimera filtering is performed using the consensus algorithm implemented in DADA2's isBimeraDenovoTable() function.
-Additional database provided in the PROTAX CLASSIFICATION step (``with_outgroup`` file) is used for reference-based chimera filtering (vsearch --uchime_ref).
+Additional database provided in the PROTAX CLASSIFICATION step (``with_outgroup`` file) 
+is used for reference-based chimera filtering (vsearch --uchime_ref).
 
 
 Filter tag-jumps

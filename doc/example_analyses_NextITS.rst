@@ -43,7 +43,7 @@
     :description lang=en:
         PipeCraft manual. NextITS tutorial
 
-|
+.. _example_analyses_NextITS:
 
 NextITS pipeline, full-length ITS |PipeCraft2_logo|
 -------------------------------------------------------

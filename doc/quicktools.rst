@@ -559,42 +559,49 @@ It also allows for **truncation** of reads at the first instance of a quality
 score less than or equal to ``truncQ`` (applied to both R1 and R2 reads).
 Reads shorter than ``minLen`` after truncation are discarded.
 ``truncLen`` / ``truncLen_R2`` options truncate reads to a **fixed number of bases** before ``maxEE`` filtering. 
-This may be helpful to remove low-quality ends of reads before filtering.
+``trimLeft`` and ``trimRight`` options remove bases from the start and end of the reads, respectively. 
+These options are useful to remove low-quality ends of reads before filtering.
 
-+-------------------+-------------------------------------------------------------------------+
-| **DADA2** setting | Tooltip                                                                 |
-+===================+=========================================================================+
-|| ``maxEE``        || discard sequences with more than the specified number of expected      |
-||                  || errors                                                                 |
-+-------------------+-------------------------------------------------------------------------+
-|| ``maxN``         || discard sequences with more than the specified number of N's           |
-||                  || (ambiguous bases)                                                      |
-+-------------------+-------------------------------------------------------------------------+
-|| ``minLen``       || remove reads with length less than minLen. minLen is enforced after    |
-||                  || all other trimming and truncation                                      |
-+-------------------+-------------------------------------------------------------------------+
-|| ``truncQ``       || truncate reads at the first instance of a quality score less than or   |
-||                  || equal to truncQ                                                        |
-+-------------------+-------------------------------------------------------------------------+
-|| ``truncLen``     || truncate reads after truncLen bases (applies to **R1 reads** when      |
-||                  || working with **paired-end** data). Reads shorter than this are         |
-||                  || discarded. Explore quality profiles (with QualityCheck module) and     |
-||                  || see whether poor quality ends needs to be truncated                    |
-+-------------------+-------------------------------------------------------------------------+
-|| ``truncLen_R2``  || applies only for **paired-end** data. Truncate **R2 reads** after      |
-||                  || truncLen bases. Reads shorter than this are discarded. Explore         |
-||                  || quality profiles (with QualityCheck module) and see whether poor       |
-||                  || quality ends needs to truncated                                        |
-+-------------------+-------------------------------------------------------------------------+
-|| ``maxLen``       || remove reads with length greater than maxLen. maxLen is enforced on    |
-||                  || the raw reads. In dada2, the default = Inf, but here set as 9999       |
-+-------------------+-------------------------------------------------------------------------+
-|| ``minQ``         || after truncation, reads contain a quality score below minQ will be     |
-||                  || discarded                                                              |
-+-------------------+-------------------------------------------------------------------------+
-|| ``matchIDs``     || applies only for **paired-end** data. If TRUE, then double-checking    |
-||                  || (with seqkit pair) that only paired reads that share ids are outputted |
-+-------------------+-------------------------------------------------------------------------+
++-------------------+----------------------------------------------------------------------------+
+| **DADA2** setting | Tooltip                                                                    |
++===================+============================================================================+
+|| ``maxEE``        || discard sequences with more than the specified number of expected         |
+||                  || errors                                                                    |
++-------------------+----------------------------------------------------------------------------+
+|| ``maxN``         || discard sequences with more than the specified number of N's              |
+||                  || (ambiguous bases)                                                         |
++-------------------+----------------------------------------------------------------------------+
+|| ``minLen``       || remove reads with length less than minLen. minLen is enforced after       |
+||                  || all other trimming and truncation                                         |
++-------------------+----------------------------------------------------------------------------+
+|| ``truncQ``       || truncate reads at the first instance of a quality score less than or      |
+||                  || equal to truncQ                                                           |
++-------------------+----------------------------------------------------------------------------+
+|| ``truncLen``     || truncate reads after truncLen bases (applies to **R1 reads** when         |
+||                  || working with **paired-end** data). Reads shorter than this are            |
+||                  || discarded. Explore quality profiles (with QualityCheck module) and        |
+||                  || see whether poor quality ends needs to be truncated                       |
++-------------------+----------------------------------------------------------------------------+
+|| ``truncLen_R2``  || applies only for **paired-end** data. Truncate **R2 reads** after         |
+||                  || truncLen bases. Reads shorter than this are discarded. Explore            |
+||                  || quality profiles (with QualityCheck module) and see whether poor          |
+||                  || quality ends needs to truncated                                           |
++-------------------+----------------------------------------------------------------------------+
+|| ``maxLen``       || remove reads with length greater than maxLen. maxLen is enforced on       |
+||                  || the raw reads. In dada2, the default = Inf, but here set as 9999          |
++-------------------+----------------------------------------------------------------------------+
+|| ``minQ``         || after truncation, reads contain a quality score below minQ will be        |
+||                  || discarded                                                                 |
++-------------------+----------------------------------------------------------------------------+
+|| ``matchIDs``     || applies only for **paired-end** data. If TRUE, then double-checking       |
+||                  || (with seqkit pair) that only paired reads that share ids are outputted    |
++-------------------+----------------------------------------------------------------------------+
+|| ``trimLeft``     || Default 0. The number of base pairs to remove from the start of each read |
+||                  ||                                                                           |
++-------------------+----------------------------------------------------------------------------+
+|| ``trimRight``    || Default 0. The number of nucleotides to remove from the end of each read  |
+||                  ||                                                                           |
++-------------------+----------------------------------------------------------------------------+
 
 ____________________________________________________
 
@@ -1452,6 +1459,8 @@ header syntax (no database training required).
 | **Output** is in ``taxonomy_out.sintax`` directory:
 | # taxonomy.sintax.txt = classifier results with bootstrap values.
 
+See the use of SINTAX classifier in the example data analyses for 
+:ref:`COI <assign_taxonomy_COI>` and :ref:`ITS2 <assign_taxonomy_ITS2>` data.
 
 .. note::
 
@@ -1499,6 +1508,9 @@ if it matches the references better.
 
 | **Output** is in ``taxonomy_out.dada2`` directory:
 | # taxonomy.csv = classifier results with bootstrap values.
+
+See the use of DADA2 classifier in the example data analyses for 
+:ref:`16S <assign_taxonomy_dada2_16S>` data.
 
 .. note::
 
@@ -1911,6 +1923,11 @@ Expert-mode (PipeCraft2 console)
 Bioinformatic tools used by PipeCraft2 are stored on `Dockerhub <https://hub.docker.com/u/pipecraft>`_ as Docker images. 
 These images can be used to launch any tool with the Docker CLI to utilize the compiled tools.
 Especially useful in Windows OS, where majority of implemented modules are not compatible. 
+
+.. |expert_mode| image:: _static/expert_mode.png
+  :width: 600
+
+|expert_mode|
 
 :ref:`See list of docker images with implemented software here <dockerimages>`
 

@@ -19,6 +19,8 @@
     :description lang=en:
         PipeCraft manual. tutorial
 
+.. _example_analyses:
+
 =======================================
 Example data analyses |PipeCraft2_logo|
 =======================================
