@@ -176,14 +176,15 @@ __________________________________________________
 Quality filtering 
 -----------------
 
-Before adjusting quality filtering settings, let's have a look on the **quality profile** of our example data set. 
+Before adjusting :ref:`quality filtering <qfilt_dada2>` settings, let's have a look on the **quality profile** of our example data set. 
 Below quality profile plot was generated using ``QualityCheck`` panel (:ref:`see here <qualitycheck>`).
 
 |COI_example_quality_plot|
 
 All files are represented with **green lines, indicating good average quality per file** (i.e., sample). 
 However, if you see lower qualities of especially towards the end of R2 reads, then it not too alarming, since 
-those can be clipped off with ``truncLen R2`` setting. DADA2 algoritm is robust to lower quality sequences, 
+those can be clipped off with ``truncLen R2`` setting (see :ref:`remove low-quality ends/starts of reads section <remove_low_quality_ends>`). 
+DADA2 algoritm is robust to lower quality sequences, 
 but removing the low quality read parts will improve the DADA2 sensitivity to rare sequence variants. 
 But herein, we do not need to clip the ends, because the overall quality of the sequences is good enough.
 

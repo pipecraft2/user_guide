@@ -167,9 +167,7 @@ ____________________________________________________
 Quality filtering 
 ------------------
 
-Quality filtering here removes sequences, which do not meet the specified quality threshold.
-See :ref:`here for more inforamtion about sequence quality <qualitycheck>` 
-and :ref:`DADA2 quality filtering <qfilt_dada2>`. 
+Quality filtering removes sequences, which do not meet the specified quality threshold.
 
 **Click on** ``QUALITY FILTERING`` **to expand the panel**
 
@@ -180,6 +178,8 @@ and :ref:`DADA2 quality filtering <qfilt_dada2>`.
 
 Here, we can leave the settings as DEFAULT by discarding sequences with 
 **maximum error rate of >2** and with **ambiguous bases of >0**. 
+But based on your own data quality profile, you may need to :ref:`adjust the settings <qfilt_dada2>`. 
+See also :ref:`remove low-quality ends/starts of reads section <remove_low_quality_ends>`. 
 
 +-----------------------+-------------------------------------------------------+
 | Output directory |output_icon|          ``qualFiltered_out``                  |

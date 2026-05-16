@@ -170,7 +170,8 @@ ____________________________________________________
 Based on the quality scores distribution plot above, we will **trim reads to specified length to remove low quality ends**. 
 Set ``truncLen`` to **240** for trimming R1 reads and ``truncLen R2`` to **160** to trim R2 reads. 
 Latter positions represent the approximate positions where sequence quality drops notably.
-Alternatively, you may use ``trimLeft`` and ``trimRight`` options to remove bases from the start and end of the reads, respectively.
+Alternatively, you may use ``trimLeft`` and ``trimRight`` options to remove bases from the start and end of the reads, respectively. 
+See also :ref:`remove low-quality ends/starts of reads section <remove_low_quality_ends>`. 
 
 .. admonition:: when working with your own data ... 
 

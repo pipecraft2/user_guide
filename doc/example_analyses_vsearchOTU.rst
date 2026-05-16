@@ -161,9 +161,15 @@ ___________________________________________________
 Quality filtering 
 ~~~~~~~~~~~~~~~~~
 
-Quality filtering here removes sequences, which do not meet the threshold for the allowed maximum number of expected errors. 
-See :ref:`here for more inforamtion about sequence quality <qualitycheck>` 
-and `here for the additional information about expected errors <https://drive5.com/usearch/manual/exp_errs.html>`_.
+:ref:`Quality filtering <qfilt_vsearch>` removes sequences, 
+which do not meet the threshold for the allowed maximum number of expected errors 
+(``maxee``; sum of per-base error probabilities derived from Phred scores). 
+
+If the quality profile of the sequences are low at the beginning or at the end, then 
+applying ``trunc length``, ``strip_left`` and ``strip_right`` settings may be helpful to remove 
+low-quality ends/starts of reads before filtering 
+(``maxee`` filtering is applied to the truncated reads).
+See :ref:`remove low-quality ends/starts of reads section <remove_low_quality_ends>`. 
 
 |vsearch_qfilt|
 

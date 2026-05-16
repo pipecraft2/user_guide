@@ -403,50 +403,54 @@ and discards reads exceeding the threshold.
 In addition, reads can be removed based on **ambiguous bases** (``maxNs``) 
 and **length constraints** (``min length`` / ``max length``), 
 and optionally **truncated** to a fixed length (``trunc length``). 
-Applying ``trunc length`` may be helpful to remove low-quality ends of reads before filtering 
+Applying ``trunc length``, ``strip_left`` and ``strip_right`` may be helpful to remove low-quality ends/starts of reads before filtering 
 (``maxee`` filtering is applied to the truncated reads).
 
-+---------------------+-------------------------------------------------------------------------+
-| **vsearch** setting | Tooltip                                                                 |
-+=====================+=========================================================================+
-|| ``maxee``          || maximum number of expected errors per sequence                         |
-||                    || (`see here <https://drive5.com/usearch/manual/exp_errs.html>`_).       |
-||                    || Sequences with higher error rates will be discarded                    |
-+---------------------+-------------------------------------------------------------------------+
-| ``maxNs``           | discard sequences with more than the specified number of Ns             |
-+---------------------+-------------------------------------------------------------------------+
-| ``min length``      | minimum length of the filtered output sequence                          |
-+---------------------+-------------------------------------------------------------------------+
-|| ``trunc length``   || truncate sequences to the specified length. Shorter sequences are      |
-||                    || discarded; thus if specified, check that 'min length' setting is       |
-||                    || lower than 'trunc length' ('min length' therefore has basically no     |
-||                    || effect) [empty field = no action taken]                                |
-+---------------------+-------------------------------------------------------------------------+
-|| ``qmax``           || specify the maximum quality score accepted when reading FASTQ files.   |
-||                    || The default is 41, which is usual for recent Sanger/Illumina 1.8+      |
-||                    || files. **For PacBio data use 93**                                      |
-+---------------------+-------------------------------------------------------------------------+
-|| ``max length``     || discard sequences with more than the specified number of bases. Note   |
-||                    || NOT be lower than 'trunc length' (otherwise all reads are discared)    |
-||                    || [empty field = no action taken] Note that if 'trunc length' setting    |
-||                    || is specified, then 'min length' SHOULD BE lower than 'trunc length'    |
-||                    || (otherwise all reads are discared)                                     |
-||                    ||                                                                        |
-+---------------------+-------------------------------------------------------------------------+
-|| ``qmin``           || the minimum quality score accepted for FASTQ files. The default is 0,  |
-||                    || which is usual for recent Sanger/Illumina 1.8+ files. Older formats    |
-||                    || may use scores between -5 and 2                                        |
-+---------------------+-------------------------------------------------------------------------+
-|| ``maxee rate``     || discard sequences with more than the specified number of expected      |
-||                    || errors per base                                                        |
-+---------------------+-------------------------------------------------------------------------+
-|| ``truncqual``      || tuncate sequences starting from the first base with the specified      |
-||                    || base quality score value or lower (0 or empty field = no action taken) |
-+---------------------+-------------------------------------------------------------------------+
-|| ``truncee``        || truncate sequences so that their total expected error is not higher    |
-||                    || than the specified value (0 or empty field = no action taken)          |
-||                    ||                                                                        |
-+---------------------+-------------------------------------------------------------------------+
++---------------------+---------------------------------------------------------------------------+
+| **vsearch** setting | Tooltip                                                                   |
++=====================+===========================================================================+
+|| ``maxee``          || maximum number of expected errors per sequence                           |
+||                    || (`see here <https://drive5.com/usearch/manual/exp_errs.html>`_).         |
+||                    || Sequences with higher error rates will be discarded                      |
++---------------------+---------------------------------------------------------------------------+
+| ``maxNs``           | discard sequences with more than the specified number of Ns               |
++---------------------+---------------------------------------------------------------------------+
+| ``min length``      | minimum length of the filtered output sequence                            |
++---------------------+---------------------------------------------------------------------------+
+|| ``trunc length``   || truncate sequences to the specified length. Shorter sequences are        |
+||                    || discarded; thus if specified, check that 'min length' setting is         |
+||                    || lower than 'trunc length' ('min length' therefore has basically no       |
+||                    || effect) [empty field = no action taken]                                  |
++---------------------+---------------------------------------------------------------------------+
+|| ``qmax``           || specify the maximum quality score accepted when reading FASTQ files.     |
+||                    || The default is 41, which is usual for recent Sanger/Illumina 1.8+        |
+||                    || files. **For PacBio data use 50-93**                                     |
++---------------------+---------------------------------------------------------------------------+
+|| ``max length``     || discard sequences with more than the specified number of bases. Note     |
+||                    || NOT be lower than 'trunc length' (otherwise all reads are discared)      |
+||                    || [empty field = no action taken] Note that if 'trunc length' setting      |
+||                    || is specified, then 'min length' SHOULD BE lower than 'trunc length'      |
+||                    || (otherwise all reads are discared)                                       |
+||                    ||                                                                          |
++---------------------+---------------------------------------------------------------------------+
+|| ``qmin``           || the minimum quality score accepted for FASTQ files. The default is 0,    |
+||                    || which is usual for recent Sanger/Illumina 1.8+ files. Older formats      |
+||                    || may use scores between -5 and 2                                          |
++---------------------+---------------------------------------------------------------------------+
+|| ``maxee rate``     || discard sequences with more than the specified number of expected        |
+||                    || errors per base                                                          |
++---------------------+---------------------------------------------------------------------------+
+|| ``truncqual``      || tuncate sequences starting from the first base with the specified        |
+||                    || base quality score value or lower (0 or empty field = no action taken)   |
++---------------------+---------------------------------------------------------------------------+
+|| ``truncee``        || truncate sequences so that their total expected error is not higher      |
+||                    || than the specified value (0 or empty field = no action taken)            |
+||                    ||                                                                          |
++---------------------+---------------------------------------------------------------------------+
+| ``strip_left``      | Default 0. The number of base pairs to remove from the start of each read |
++---------------------+---------------------------------------------------------------------------+
+| ``strip_right``     | Default 0. The number of nucleotides to remove from the end of each read  |
++---------------------+---------------------------------------------------------------------------+
 
 | 
 
