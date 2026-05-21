@@ -515,15 +515,34 @@ and the effects of different threshold/binning strategies on
 retention/rejection of these controls are used to identify an optimal filtering strategy.
 
 When working with OTUs, the situation is different because one OTU can comprise multiple ASVs, 
-and those constituent ASVs may include a mixture of refpass, unclassified, and even non-authentic variants. 
+and those ASVs may include a mixture of refpass, unclassified, and even non-authentic variants. 
 Therefore, in OTU mode, the metaMATE approach is applied at the OTU level: ASV-level authenticity calls 
 are first aggregated to OTUs, and filtering is then performed using the OTU abundance table, 
 so decisions are made per OTU rather than treating each ASV within an OTU as an independent unit.
-An OTU is considered authentic if it contains any authentic ASVs, 
-and non-authentic if it contains only non-authentic ASVs. 
-Finally, the filtering is performed on the OTUs using the provided OTU table.
+
+.. admonition:: OTU filtering logic
+
+  An **OTU is considered authentic**, and kept in the output, if it contains any authentic ASVs (refpass).
+  An OTU is **non-authentic**, and removed from the output, if it contains **only** non-authentic ASVs (stopfail or lengthfail).
+  If an OTU contains ASVs that are **non-authentic** and **unclassified**,  
+  then the **OTU is considered unclassified** and **kept** in the output.
+
+  At the **ASV** level, metaMATE flags variants as non-authentic when translation checks fails; this can happen for example, 
+  when an **insertion or deletion** induces a **frameshift**, which then triggers **stop-codon** detection (stopfail). 
+  Such calls are useful for catching obvious artefacts, but **indels and frameshifts also occur as sequencing errors** on 
+  otherwise real haplotypes. If you clustered ASVs into OTUs with a **reasonable similarity threshold**, 
+  a non-authentic ASV that **groups with refpass ASVs in the same OTU** is more 
+  plausibly a **minor erroneous variant** than a separate contaminant such as a NUMT. 
+  Removing the whole OTU in that case would discard authentic signal.
+
+  Same logic applies to preferring the **unclassified** ASVs over **non-authentic** ASVs for OTU classification. 
+  ASVs are **unclassified** when they **failed strict validation**, that is, did not match **exactly** with the reference sequence, 
+  which does not mean that they are non-authentic. Reference sequence libraries are not complete for all taxa. 
+  The **non-authentic** ASVs is the same OTU is likely a minor erroneous variant (as outlined above).
+
 
 .. admonition:: files needed for the **OTU mode**
+  :class: important
 
   In addition to the OTU table and OTUs.fasta files, 
   ASVs.fasta and ASV table are also needed for the OTU mode.
