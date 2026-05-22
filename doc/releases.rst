@@ -46,6 +46,7 @@ General updates:
 * ORF-finder module now automatically filters also the feature table (input table required; can contain "Sequence" column).
 * ASV TO OTU module: fasta file can contain a subset of ASVs that are present in the provided table file.
 * adjusted vsearch and unoise pre-compiled pipelines so that quality filtering is performed before paired-end merging (consistent with DADA2 ASVs workflow).
+* updated similarity score calculation in BLAST results to account for 'alignment len' > qlen. 
 
 Bug fixes:
 
