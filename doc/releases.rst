@@ -1,6 +1,6 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :target: https://github.com/pipecraft2/user_guide
+  :target: https://github.com/pipecraft2/pipecraft
 
 .. raw:: html
 
@@ -34,7 +34,7 @@ Software updates:
 * In Utilities, added module to add sequences to feature table (add sequences to table)
 * BlasCh module for identifying false-positive chimeras (postprocessing panel).
 * updated metaMATE to version 0.5.4; added per-sample filtering mode and OTU-mode. Global (find+dump) and per-sample (filter-adaptive) filtering modes are available.
-* added swarm clustering (in VSEARCH) to clustering panel.
+* added swarm clustering to clustering panel.
 * updated NextITS pipeline to version 1.1.0.
 
 General updates:
@@ -45,66 +45,71 @@ General updates:
 * PipeCraft2 automatically detects the file extensions in the working directory. 
 * Added BOLDigger3 taxonomy assignment tool (QuickTools).
 * NextITS: internal runtime updated to base image ``vmikk/nextits:1.1.0``.
-  
+* ORF-finder module now automatically filters also the feature table (input table required; can contain "Sequence" column).
+* ASV TO OTU module: fasta file can contain a subset of ASVs that are present in the provided table file.
+* adjusted vsearch and unoise pre-compiled pipelines so that quality filtering is performed before paired-end merging (consistent with DADA2 ASVs workflow).
+* updated similarity score calculation in BLAST results to account for 'alignment len' > qlen. 
+
 Bug fixes:
 
 * bug fix to seq_count_summary making after ITSx for full_ITS/full_and_partial dir
-* fix to MetaMATE to work with the default specification0.txt that in in the Docker container.
-
+* fix to MetaMATE to work with the default specification0.txt (no abundance filtering) in the Docker container.
+* ITSx: fix the issue of reporting ERROR when all sequences had no ITS region detected (i.e., no sequences in no_detection directory)
+* only v1.1.0: changing MERGE PAIRS settings in DADA2 ASVs workflow did not have any effect, the run was always using the default settings (THIS IS FINE UNLESS some settings were tuned).
+* only v1.1.0: dada2 denoising setting "pool" was effectively always set to FALSE. Now, "pool" = TRUE/pseudo has an effect (more RAM hungry, but more sensitive to rare variants).
 
 Implemented software:
 *(software in red font denote new additions; 'version' in bold denotes version upgrade)*
 
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| Software/Process                                                                                                          | version     |
-+===========================================================================================================================+=============+
-| :red:`swarm` clustering (in VSEARCH)                                                                                      | **2.30.4**  |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| :red:`FunBarONT pipeline` `(github repo) <https://github.com/mdziurzynski/FunBarONT>`_                                    | 13.03.2026  |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| :red:`BlasCh` `BLAST-based Chimera detection <https://github.com/alihkz94/long-chimeric-reads-project/tree/main/BlasCh>`_ | v0.1.0      |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `OptimOTU <https://github.com/brendanf/optimotu_targets>`_                                                                | 5.1.0       |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `metaMATE <https://github.com/tjcreedy/metamate>`_                                                                        | **0.5.4**   |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| SINTAX (via vsearch)                                                                                                      | v2.30.4     |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `NextITS pipeline <https://next-its.github.io/>`_                                                                         | **1.1.0**   |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `ORFfinder <https://www.ncbi.nlm.nih.gov/orffinder/>`_                                                                    | **v0.4.3**  |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| RDP classifier                                                                                                            | v2.13       |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                                                                    | 1.34        |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `vsearch <https://github.com/torognes/vsearch>`_                                                                          | **2.30.4**  |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_                                                           | 0.39        |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `seqkit <https://bioinf.shenwei.me/seqkit/>`_                                                                             | **2.13.0**  |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_                                                                  | **v5.2**    |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `mothur <https://github.com/mothur/mothur>`_                                                                              | 1.46.1      |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `ITS Extractor <https://microbiology.se/software/itsx/>`_                                                                 | 1.1.3       |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `fqgrep <https://github.com/indraniel/fqgrep>`_                                                                           | 0.4.4       |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                                                                       | **2.16.0+** |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_                                                    | 0.11.9      |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `MultiQC <https://multiqc.info/>`_                                                                                        | 1.12        |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `LULU <https://github.com/tobiasgf/lulu>`_                                                                                | 0.1.0       |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `fastp <https://github.com/OpenGene/fastp>`_                                                                              | 0.23.2      |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-| `DEICODE <https://github.com/biocore/DEICODE>`_                                                                           | 0.2.4       |
-+---------------------------------------------------------------------------------------------------------------------------+-------------+
-
++------------------------------------------------------------------------+-------------+
+| Software/Process                                                       | version     |
++========================================================================+=============+
+| :ref:`swarm clustering <clustering_swarm>` :red:`(new)`                | **v3.1.6**  |
++------------------------------------------------------------------------+-------------+
+| :ref:`FunBarONT pipeline <funbaront_pipeline>` :red:`(new)`            | 13.03.2026  |
++------------------------------------------------------------------------+-------------+
+| :ref:`BlasCh <postprocessing_blasch>` :red:`(new)`                     | v0.1.0      |
++------------------------------------------------------------------------+-------------+
+| `OptimOTU <https://github.com/brendanf/optimotu_targets>`_             | 5.1.0       |
++------------------------------------------------------------------------+-------------+
+| `metaMATE <https://github.com/tjcreedy/metamate>`_                     | **0.5.4**   |
++------------------------------------------------------------------------+-------------+
+| SINTAX (via vsearch)                                                   | v2.30.4     |
++------------------------------------------------------------------------+-------------+
+| `NextITS pipeline <https://next-its.github.io/>`_                      | **1.1.0**   |
++------------------------------------------------------------------------+-------------+
+| `ORFfinder <https://www.ncbi.nlm.nih.gov/orffinder/>`_                 | **v0.4.3**  |
++------------------------------------------------------------------------+-------------+
+| RDP classifier                                                         | v2.13       |
++------------------------------------------------------------------------+-------------+
+| `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                 | 1.34        |
++------------------------------------------------------------------------+-------------+
+| `vsearch <https://github.com/torognes/vsearch>`_                       | **2.30.4**  |
++------------------------------------------------------------------------+-------------+
+| `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_        | 0.39        |
++------------------------------------------------------------------------+-------------+
+| `seqkit <https://bioinf.shenwei.me/seqkit/>`_                          | **2.13.0**  |
++------------------------------------------------------------------------+-------------+
+| `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_               | **v5.2**    |
++------------------------------------------------------------------------+-------------+
+| `mothur <https://github.com/mothur/mothur>`_                           | 1.46.1      |
++------------------------------------------------------------------------+-------------+
+| `ITS Extractor <https://microbiology.se/software/itsx/>`_              | 1.1.3       |
++------------------------------------------------------------------------+-------------+
+| `fqgrep <https://github.com/indraniel/fqgrep>`_                        | 0.4.4       |
++------------------------------------------------------------------------+-------------+
+| `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                    | **2.16.0+** |
++------------------------------------------------------------------------+-------------+
+| `FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_ | 0.11.9      |
++------------------------------------------------------------------------+-------------+
+| `MultiQC <https://multiqc.info/>`_                                     | 1.12        |
++------------------------------------------------------------------------+-------------+
+| `LULU <https://github.com/tobiasgf/lulu>`_                             | 0.1.0       |
++------------------------------------------------------------------------+-------------+
+| `fastp <https://github.com/OpenGene/fastp>`_                           | 0.23.2      |
++------------------------------------------------------------------------+-------------+
+| `DEICODE <https://github.com/biocore/DEICODE>`_                        | 0.2.4       |
++------------------------------------------------------------------------+-------------+
 
 __________________________________________________
 
@@ -122,7 +127,7 @@ __________________________________________________
 * added sim_score (pident * (alignment length / qlen) and adj_qcov (if qlen > slen then ((send-sstart+1)/slen)*100, otherwise equal to qcovs) to BLAST results
 * sequences are now also added to the OTU table
 * added support to process and merge multiple sequencing runs (runs must be in multiRunDir directory)
-* tag-jumps filtering module (UNCROSS2) in now in the pre-defined pipelines (curate table box)
+* tag-jumps filtering module (UNCROSS2) in now in the pre-compiled pipelines (curate table box)
 * NextITS in now available in MacOS
 * removed read_R1 string input requirement (PE files must contain R1 and R2, then the PE samples will be automatically detected)
 * removed HMM search from ORFfinder (now only ORFfinder is available); HMM did not work properly.
@@ -134,14 +139,14 @@ __________________________________________________
 * updated and fixed multiQC module to merge fastqc reports
 
 Implemented software:
-*(software in red font denote new additions; 'version' in bold denotes version upgrade)*
+*(software version in bold denotes version upgrade)*
 
 =======================================================================  ==========
 Software                                                                 version                                                                                       
 =======================================================================  ==========
-:red:`OptimOTU` `<https://github.com/brendanf/optimotu_targets>`_        **5.1.0**
-:red:`SINTAX` (via vsearch)                                              **2.29.4**
-:red:`metaMATE` `<https://github.com/tjcreedy/metamate>`_                **0.4.3**
+`OptimOTU <https://github.com/brendanf/optimotu_targets>`_ :red:`(new)`  **5.1.0**
+SINTAX (via vsearch) :red:`(new)`                                        **2.29.4**
+`metaMATE <https://github.com/tjcreedy/metamate>`_ :red:`(new)`          **0.4.3**
 `NextITS pipeline <https://next-its.github.io/>`_                        0.5.0
 `ORFfinder <https://www.ncbi.nlm.nih.gov/orffinder/>`_                   **v0.4.3**
 `RDP classifier`                                                         v2.13
@@ -184,14 +189,14 @@ __________________________________________________
 * fixed the vsearch_dada2 container issues for MacOS 
   
 Implemented software:
-*(software in red font denote new additions; 'version' in bold denotes version upgrade)*
+*(software version in bold denotes version upgrade)*
 
 =======================================================================  ==========
 Software                                                                 version                                                                                       
 =======================================================================  ==========
-:red:`NextITS pipeline` `(link) <https://next-its.github.io/>`_          **0.5.0**
-:red:`ORFfinder` `(link) <https://www.ncbi.nlm.nih.gov/orffinder/>`_     **v0.4.3**
-:red:`RDP classifier`                                                    **v2.13**
+`NextITS pipeline <https://next-its.github.io/>`_ :red:`(new)`           **0.5.0**
+`ORFfinder <https://www.ncbi.nlm.nih.gov/orffinder/>`_ :red:`(new)`      **v0.4.3**
+RDP classifier :red:`(new)`                                              **v2.13**
 `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                   **1.27**
 `vsearch <https://github.com/torognes/vsearch>`_                         **2.23**
 `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_          0.39
@@ -286,7 +291,7 @@ ____________________________________________________
 * python3 module fix for ITSx for removing empty sequeces 
     
 Implemented software:
-*(software in red font denote new additions; 'version' in bold denotes version upgrade)*
+*(software  'version' in bold denotes version upgrade)*
 
 =======================================================================  ========  =========================================================================================
 Software                                                                 version   Reference                                                                                  
@@ -302,9 +307,9 @@ Software                                                                 version
 `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                      2.11.0+   `Camacho et al. 2009 <https://doi.org/10.1186/1471-2105-10-421>`_                         
 `FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_   0.11.9    `Andrews 2019 <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_              
 `MultiQC <https://multiqc.info/>`_                                       1.12      `Ewels et al. 2016 <https://doi.org/10.1093/bioinformatics/btw354>`_                      
-:red:`LULU` `(link) <https://github.com/tobiasgf/lulu>`_                 0.1.0     `Froslev et al. 2017 <https://doi.org/10.1038/s41467-017-01312-x>`_
-:red:`fastp` `(link) <https://github.com/OpenGene/fastp>`_               0.23.2    `Chen et al. 2018 <https://doi.org/10.1093/bioinformatics/bty560>`_
-:red:`DEICODE` `(link) <https://github.com/biocore/DEICODE>`_            0.2.4     `Martion et al. 2019 <https://journals.asm.org/doi/10.1128/mSystems.00016-19>`_
+`LULU <https://github.com/tobiasgf/lulu>`_ :red:`(new)`                  0.1.0     `Froslev et al. 2017 <https://doi.org/10.1038/s41467-017-01312-x>`_
+`fastp <https://github.com/OpenGene/fastp>`_ :red:`(new)`                0.23.2    `Chen et al. 2018 <https://doi.org/10.1093/bioinformatics/bty560>`_
+`DEICODE <https://github.com/biocore/DEICODE>`_ :red:`(new)`             0.2.4     `Martion et al. 2019 <https://journals.asm.org/doi/10.1128/mSystems.00016-19>`_
 =======================================================================  ========  =========================================================================================
 
 ____________________________________________________

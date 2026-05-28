@@ -1,6 +1,6 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :target: https://github.com/pipecraft2/user_guide
+  :target: https://github.com/pipecraft2/pipecraft
 
 .. raw:: html
 
@@ -19,9 +19,18 @@
     :description lang=en:
         PipeCraft manual. tutorial
 
+.. _example_analyses:
+
 =======================================
 Example data analyses |PipeCraft2_logo|
 =======================================
+
+This section provides end-to-end examples for PipeCraft2 pre-compiled pipelines, showing what inputs
+to use, which key settings matter and what outputs to expect.
+
+The examples are also a good way to learn the **post-processing** logic in PipeCraft2. Different pipelines (and
+marker types) may filter, curate, and summarize results in slightly different ways, so it is worth browsing
+multiple examples and comparing their post-processing steps and outputs.
 
 
 .. toctree::

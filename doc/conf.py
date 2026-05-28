@@ -18,7 +18,7 @@ from docutils.parsers.rst import Directive, directives
 
 project = 'PipeCraft2'
 copyright = '2026, Sten Anslan'
-author = 'Sten Anslan, Ali Hakimzadeh'
+author = 'Sten Anslan, Ali Hakimzadeh, Martin Metsoja'
 
 # The full version, including alpha/beta/rc tags
 version = 'v1.2.0'
@@ -61,6 +61,9 @@ sphinx_tabs_disable_tab_closing = True
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# Sidebar logo (display size is limited in _static/custom.css).
+html_logo = "_static/PipeCraft2_icon_small.png"
 
 class YouTube(Directive):
     required_arguments = 1

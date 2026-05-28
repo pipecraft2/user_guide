@@ -1,6 +1,6 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :target: https://github.com/pipecraft2/user_guide
+  :target: https://github.com/pipecraft2/pipecraft
 
 .. raw:: html
 
@@ -33,7 +33,7 @@ Images used in PipeCraft2 v1.2.0
 ||                             || v2.12, nextflow v24.04, nanoplot    ||                            |
 ||                             || v1.42, python3.10                   ||                            |
 +------------------------------+--------------------------------------+-----------------------------+
-|| pipecraft/swarm:1           || swarm v3.1.6, vsearch v2.30.4,      || SWARM clustering           |
+|| pipecraft/swarm:3.1         || swarm v3.1.6, vsearch v2.30.4,      || SWARM clustering           |
 ||                             || seqkit v2.12.0, parallel v20260122  ||                            |
 +------------------------------+--------------------------------------+-----------------------------+
 || pipecraft/metamate:1        || metaMATE v0.5.4, seqkit v2.8.1       || metaMATE                   |

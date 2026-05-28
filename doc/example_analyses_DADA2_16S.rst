@@ -1,6 +1,6 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :target: https://github.com/pipecraft2/user_guide
+  :target: https://github.com/pipecraft2/pipecraft
 
 .. raw:: html
 
@@ -61,7 +61,7 @@
     :description lang=en:
         PipeCraft manual. tutorial
 
-|
+.. _example_analyses_DADA2_16S:
 
 DADA2 ASVs pipeline, 16S |PipeCraft2_logo|
 ------------------------------------------
@@ -168,15 +168,19 @@ ____________________________________________________
 |DADA2_quality_filt_expand|
 
 Based on the quality scores distribution plot above, we will **trim reads to specified length to remove low quality ends**. 
-Set ``truncLen`` to 240 for trimming R1 reads and ``truncLen R2`` to 160 to trim R2 reads. Latter positions represent the approximate positions where sequence quality drps notably.
+Set ``truncLen`` to **240** for trimming R1 reads and ``truncLen R2`` to **160** to trim R2 reads. 
+Latter positions represent the approximate positions where sequence quality drops notably.
+Alternatively, you may use ``trimLeft`` and ``trimRight`` options to remove bases from the start and end of the reads, respectively. 
+See also :ref:`remove low-quality ends/starts of reads section <remove_low_quality_ends>`. 
 
 .. admonition:: when working with your own data ... 
 
-  ... be sure to consider the amplicon length before applying ``truncLen`` options, so that R1 and R2 reads would still overlap for the ``MERGE PAIRS`` process.
+  ... be sure to consider the amplicon length before applying ``truncLen`` options, 
+  so that R1 and R2 reads would still overlap for the ``MERGE PAIRS`` process.
   Non-overlapping paired-end reads will be discarded. 
 
 
-Here, we can leave other settings as DEFAULT.
+Here, we can leave other settings as **DEFAULT**.
 
 
 +-----------------------+-------------------------------------------------------+
@@ -219,7 +223,7 @@ ___________________________________________________
 Chimera filtering
 ~~~~~~~~~~~~~~~~~
 
-This step performs chimera filtering according to DADA2 removeBimeraDenovo function. During this step, the **ASV table** is also generated. 
+This step performs chimera filtering according to DADA2 *removeBimeraDenovo* function. During this step, the **ASV table** is also generated. 
 
 .. important:: 
 
@@ -254,8 +258,9 @@ ____________________________________________________
 Curate ASV table
 ~~~~~~~~~~~~~~~~
 
-This process first removes putative **tag jumps** and then **collapses the ASVs that are identical** up to shifts or length variation, 
-i.e. ASVs that have no internal mismatches; and finally 
+This process first removes putative :ref:`tag jumps <filter_tag_jumps>` 
+and then **collapses the ASVs that are identical** up to shifts or length variation, 
+i.e. ASVs that have no internal mismatches (PipeCraft2 uses vsearch *usearch_global --id 1* for that); and finally 
 filters out ASVs that are shorter/longer than specified length (in base pairs).
 
 |DADA2_filter_table_expand|
@@ -297,7 +302,10 @@ This is basically equivalent to 100% clustering by ignoring the end gaps.
   (even when there is nothing to tag-jump filter - in which case ASVs_table_TagJumpFilt.txt is the same 
   ASVs_table.txt in the ``ASVs_out.dada2`` directory).
 
+.. note:: 
 
+  The pre-compiled pipeline ends here. Outputs 16S ASVs can be further 
+  :ref:`clustered into OTUs <asv2otu>`.
 
 ____________________________________________________
 
@@ -343,6 +351,9 @@ When you need to STOP the workflow, press ``STOP`` button |stop_workflow|
   ... a message window will be displayed.
 
   |workflow_finished|
+
+
+.. _assign_taxonomy_dada2_16S:
 
 ___________________________________________________
 

@@ -1,7 +1,7 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
   :alt: Alternative text
-  :target: https://github.com/pipecraft2/user_guide
+  :target: https://github.com/pipecraft2/pipecraft
 
 .. raw:: html
 
@@ -63,7 +63,7 @@
     :description lang=en:
         PipeCraft manual. FunBarONT workflow tutorial
 
-|
+.. _example_analyses_FunBarONT:
 
 FunBarONT pipeline, ITS |PipeCraft2_logo|
 -------------------------------------------
@@ -85,8 +85,8 @@ Starting point
 This example dataset consists of **ITS rRNA gene amplicon sequences**; targeting fungi:
 
 - **single-end** Oxford Nanopore sequencing data;
-- **demultiplexed** set (per-sample fastq files, typically demultiplexed using cutadapt, MinKNOW, or similar);
-- barcodes and adapters have already been **removed**;
+- **demultiplexed** set (per-sample fastq files, :ref:`see demultiplexing here <demux>`);
+- indexes and adapters have already been **removed**;
 - sequences are generated using **Nanopore sequencing technology** (read lengths typically 1-10+ kb).
 
 .. admonition:: when working with your own ONT data ...
@@ -108,7 +108,7 @@ ____________________________________________________
 |funbaront_workflow|
 
 | **To select input data**, press ``SELECT WORKDIR`` and specify ``sequence files extension`` as **\*.fastq**;  
-| ``sequencing read types`` is not an effective option in this pipeline (both single-end and paired-end data are acceptable).
+| ``sequencing read types`` is not an effective option in this pipeline (just click 'Confirm').
 
 ____________________________________________________
 
@@ -183,8 +183,7 @@ All fastq files should follow a consistent naming pattern with the sample identi
 
 **Data quality considerations:**
 
-- **Read quality**: Oxford Nanopore reads can contain sequencing errors, particularly towards the ends of reads. 
-  The pipeline includes quality filtering steps to handle this.
+- **Read quality**: The pipeline includes quality filtering steps to handle the sequencing errors.
 
 - **Read length**: Ensure that the expected amplicon length (including ITS and flanking regions) matches your read lengths. 
   The default minimum length filtering is typically set to accommodate full-length ITS amplicons (~500-700 bp for fungi).
@@ -193,7 +192,7 @@ All fastq files should follow a consistent naming pattern with the sample identi
 
 ____________________________________________________
 
-Quality Control (NanoPlot)
+Quality control (NanoPlot)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The FunBarONT pipeline uses **NanoPlot** to assess the quality of your Oxford Nanopore sequencing data. 
@@ -224,7 +223,7 @@ Key quality metrics to consider:
 
 ____________________________________________________
 
-Quality Filtering (chopper)
+Quality filtering (chopper)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Quality filtering uses **chopper** to remove low-quality reads that do not meet specified thresholds. 
@@ -356,7 +355,7 @@ This reduces the impact of sequencing errors and produces representative sequenc
 
 ____________________________________________________
 
-Sequence Polishing (racon + medaka)
+Sequence polishing (racon + medaka)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Oxford Nanopore long reads often contain random errors that are corrected using a two-step polishing process:
@@ -443,7 +442,7 @@ Tuning tips:
 
 ____________________________________________________
 
-ITS Extraction (ITSx)
+ITS extraction (ITSx)
 ~~~~~~~~~~~~~~~~~~~~~
 
 The ITS extraction step uses **ITSx** software to identify and extract the ITS rRNA gene region from your sequences. 
@@ -518,7 +517,7 @@ This is particularly valuable for fungal identification because:
 
 ____________________________________________________
 
-Taxonomy Assignment (BLAST)
+Taxonomy assignment (BLAST)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Taxonomy assignment uses **BLAST** to compare your sequences against a reference database and assign taxonomic classifications.
@@ -591,6 +590,50 @@ Not all sequences may have reliable classifications; sequences without database 
 
 ____________________________________________________
 
+Start the workflow
+~~~~~~~~~~~~~~~~~~
+
+Once all parameters have been configured, press ``START`` on the left ribbon to begin the FunBarONT analysis.
+
+|workflow_finished|
+
+The workflow will proceed through each step in sequence, with progress displayed in the PipeCraft2 interface.
+
+.. admonition:: first-time execution notes
+
+  ... when running the FunBarONT pipeline for the first time, Docker will automatically pull the required container image. 
+  This may take several minutes depending on your internet connection and the image size.
+
+  |pulling_image|
+
+  Subsequent runs will use the cached image and will start more quickly.
+
+**Monitoring progress:**
+
+- Each completed step will display a checkmark
+- Error messages will appear if any step fails
+- Processing time depends on the size of your dataset and computational resources available
+
+____________________________________________________
+
+Save workflow configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Once you have configured all parameters for your FunBarONT analysis, you can save the configuration file by pressing ``save workflow`` button on the right ribbon.
+
+|save|
+
+The configuration file will be saved as a JSON file (e.g., ``pipecraft2_last_run_configuration.json``) in your working directory. 
+This file stores all your parameter choices and can be reloaded into PipeCraft2 to reproduce the exact same analysis in future runs.
+
+.. admonition:: automatic configuration backup
+
+  If you forget to manually save the configuration, PipeCraft2 will automatically generate 
+  ``pipecraft2_last_run_configuration.json`` upon starting the workflow. 
+  This serves as a backup of your analysis parameters for this working directory.
+
+____________________________________________________
+
 Final results and JSON output
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -656,50 +699,6 @@ Once the FunBarONT workflow is complete, you have several files for further anal
 - Verify that the majority of OTUs are classified as fungi
 - Check for contamination (e.g., unusual taxa)
 - Examine OTU abundance distributions
-
-____________________________________________________
-
-Save workflow configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Once you have configured all parameters for your FunBarONT analysis, you can save the configuration file by pressing ``save workflow`` button on the right ribbon.
-
-|save|
-
-The configuration file will be saved as a JSON file (e.g., ``pipecraft2_last_run_configuration.json``) in your working directory. 
-This file stores all your parameter choices and can be reloaded into PipeCraft2 to reproduce the exact same analysis in future runs.
-
-.. admonition:: automatic configuration backup
-
-  If you forget to manually save the configuration, PipeCraft2 will automatically generate 
-  ``pipecraft2_last_run_configuration.json`` upon starting the workflow. 
-  This serves as a backup of your analysis parameters for this working directory.
-
-____________________________________________________
-
-Start the workflow
-~~~~~~~~~~~~~~~~~~
-
-Once all parameters have been configured, press ``START`` on the left ribbon to begin the FunBarONT analysis.
-
-|workflow_finished|
-
-The workflow will proceed through each step in sequence, with progress displayed in the PipeCraft2 interface.
-
-.. admonition:: first-time execution notes
-
-  ... when running the FunBarONT pipeline for the first time, Docker will automatically pull the required container image. 
-  This may take several minutes depending on your internet connection and the image size.
-
-  |pulling_image|
-
-  Subsequent runs will use the cached image and will start more quickly.
-
-**Monitoring progress:**
-
-- Each completed step will display a checkmark
-- Error messages will appear if any step fails
-- Processing time depends on the size of your dataset and computational resources available
 
 ____________________________________________________
 

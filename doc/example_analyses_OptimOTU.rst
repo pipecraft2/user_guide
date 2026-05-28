@@ -1,6 +1,6 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :target: https://github.com/pipecraft2/user_guide
+  :target: https://github.com/pipecraft2/pipecraft
 
 .. raw:: html
 
@@ -33,6 +33,7 @@
     :description lang=en:
         PipeCraft manual. tutorial
 
+.. _example_analyses_OptimOTU:
 
 OptimOTU pipeline, ITS2 |PipeCraft2_logo|
 -----------------------------------------

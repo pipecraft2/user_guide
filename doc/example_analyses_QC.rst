@@ -1,6 +1,6 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :target: https://github.com/pipecraft2/user_guide
+  :target: https://github.com/pipecraft2/pipecraft
 
 .. raw:: html
 
@@ -112,9 +112,84 @@ More info about `"using MultiQC reports" in MultiQC docs page <https://docs.seqe
 
  Note that '_fastqc.zip' and '_fastqc.html' are generated for each fastq file in the **'quality_check'** directory. These are summarized in **multiqc_report.html**, 
  so you may **examine or delete** all individual '_fastqc.zip' and '_fastqc.html' files if those are of no interest.
- 
+
+.. _remove_low_quality_ends:
+
 ____________________________________________________
 
+Remove low-quality ends/starts of reads
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If the quality profile of the sequences is poor at the **starts** or **ends** of reads, then
+applying sequence truncation/stripping settings in the **quality filtering** step may be helpful. 
+Reads that would otherwise fail ``maxee`` (sum of per-base error probabilities derived from Phred scores) 
+because of a noisy tail can then **pass filtering and be retained** in the dataset. 
+For **paired-end** data, cleaner 3′ and 5′ ends also tend to improve :ref:`read merging <merge_pairs>`: overlap regions
+may be easier to align when error-prone tails are trimmed, and base calls in the overlap are
+more trustworthy for conflict resolution.
+
+After all truncation,
+reads **shorter than** ``minLen`` / ``min length`` are **discarded**, 
+and ``maxEE`` is evaluated on the truncated sequence. 
+
+
+In :ref:`vsearch quality filtering <qfilt_vsearch>`:
+
+- ``trunc length`` (vsearch *--fastq_trunclen*) cuts every read to at most specified length (bases counted from the 5′ end).
+  Reads **shorter than the specified length** are **discarded**. Use this when quality or
+  noise rises predictably toward the **3′ end** and you want a **fixed** read length. 
+  If the specified length is too small you may reduce overlap for merging paired-end reads.
+
+- ``truncqual`` (vsearch *--fastq_truncqual*) scans each read from the **5′ end toward the 3′ end** and **truncates at the first base**
+  whose Phred quality is **less than or equal to** the threshold you set.
+  The kept sequence part is the longest 5′ segment where **every** remaining
+  quality score is **strictly greater** than the threshold.
+
+- ``truncee`` (vsearch *--fastq_truncee*) **shortens the read from the 3′ end** until the **total expected errors**
+  (sum of per-base error probabilities from Phred scores over the **kept** read part) is **≤** the value you set.
+  Unlike ``trunc length``, the cut length **differs per read**. It removes noisy tails while keeping as much length as the
+  quality scores allow under specified expected errors threshold.
+
+- ``strip_left`` (vsearch *--fastq_stripleft*) removes a **fixed number of bases from the 5′ end** of every read 
+  (independent of per-base quality scores).
+
+- ``strip_right`` (vsearch *--fastq_stripright*) removes a **fixed number of bases from the 3′ end** of every read 
+  (independent of per-base quality scores).
+
+.. |trunc_seqs_qFilt| image:: _static/trunc_seqs_qFilt.png
+  :width: 600
+
+|trunc_seqs_qFilt|
+
+In :ref:`DADA2 quality filtering <qfilt_dada2>` (*filterAndTrim*):
+
+- ``truncQ`` scans each read from the **5′ toward the 3′ end** and **cuts at the first position** whose
+  Phred quality is **less than or equal to** the specified quality score value. 
+
+- ``truncLen`` — after any ``trimLeft`` / ``trimRight``, **truncate R1** (single-end: the only read) to **exactly**
+  specified length (number of bases) by keeping the **5′ segment**. Reads **shorter than**
+  the specified length after trimming are **removed**. This is a **fixed length** cut (not quality score based); use it when the quality
+  profile shows a clear point to drop the noisy 3′ tail for **R1**. ``maxEE`` is applied **after** this truncation.
+
+- ``truncLen_R2`` — **paired-end only.** Same idea as ``truncLen`` but applied to **R2** only. 
+  R1 and R2 may need **different** values because R2 quality commonly drops faster than R1.
+
+- ``trimLeft`` — remove a **fixed** number of bases from the **5′ end** of each read (**R1** and **R2** in paired-end)
+  **before** ``truncLen`` / ``truncLen_R2`` and **before** ``maxEE``. 
+
+- ``trimRight`` — remove a **fixed** number of bases from the **3′ end** of each read before length truncation and
+  ``maxEE``. Use when there is a known **uniform** artefact at the read end (e.g. after adapter removal) or a short
+  low-quality tail that is easier to cut with a constant length than with ``truncQ`` / ``truncLen`` alone.
+
+
+.. note ::
+
+  Truncation/stripping reduces read length, thus the effective amplicon length you keep. That can be desirable for
+  quality, but if trimming is too aggressive you may lose overlap between R1 and R2 (harder or impossible merging) 
+  or retain only a truncated fragment of the true amplicon. Balance trimming against insert length 
+  and the overlap you need for merging paired-end reads.
+
+____________________________________________________
 
 .. _quality_scores_table:
 

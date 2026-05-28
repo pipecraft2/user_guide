@@ -1,6 +1,6 @@
 .. |PipeCraft2_logo| image:: _static/PipeCraft2_icon_v2.png
   :width: 50
-  :target: https://github.com/pipecraft2/user_guide
+  :target: https://github.com/pipecraft2/pipecraft
 
 .. |main_interface| image:: _static/main_interface.png
   :width: 2000
@@ -37,32 +37,29 @@ There are few specifc requirements for the input data for PipeCraft.
 
 - **Paired-end data** 
     * :red:`must contain **R1** and **R2** strings in the paired-end files`,
-    * :red:`sample names maynot contain 'R1/R2' strings`
+    * :red:`sample names may not contain 'R1/R2' strings`
         + **OK file names**: ``my_sample_01_R1_L001.fastq`` and ``my_sample_01_R2_L001.fastq``
         + **NOT-OK** file names: ``my_R1sample_01_R1_L001.fastq`` and ``my_R1sample_01_R2_L001.fastq`` or  ``my_sample_01_1.fastq`` and ``my_sample_01_2.fastq``
     * :red:`Paired-end reads should have common read identifiers (e.g. _R1/_R2) and file extensions (e.g. fastq/fq) for the reads that are processed together`.
 
 
-- **index/barcodes file** for demultiplexing:
+- **Indexes file** for demultiplexing:
     * :ref:`see formatting requirements here <indexes>` 
   
-- **Please avoid spaces and** `non-ASCII symbols <https://terpconnect.umd.edu/~zben/Web/CharSet/htmlchars.html>`_ **in sample names.**
+- **Please avoid spaces and** `non-ASCII symbols <https://terpconnect.umd.edu/~zben/Web/CharSet/htmlchars.html>`_ **in sample names** and **file paths**.
 
-- **Use at least 2 samples per sequencing run** for the pre-defined pipelines.
+- **Use at least 2 samples per sequencing run** for the pre-compiled pipelines.
 
-- **Please avoid spaces and** `non-ASCII symbols <https://terpconnect.umd.edu/~zben/Web/CharSet/htmlchars.html>`_ **in file paths.**
-
-- specific directory structure for NextITS pipeline 
-    * :ref:`see NextITS page here <nextits_pipeline>` 
-
-- specific directory structure for OptimOTU pipeline 
-    * :ref:`see OptimOTU page here <optimotu_pipeline>` 
-
-- specific directory structure when aiming to combine multiple sequencing runs with vsearch, unoise, or DADA2 pipelines
-    * :ref:`see here <multi_run_dir>` 
+- specific directory structure for the pre-compiled pipelines:
+    * If running NextITS pipeline, then follow specific directory structure (:ref:`see NextITS page here <nextits_pipeline>`)
+    * If running OptimOTU pipeline, then follow specific directory structure (:ref:`see OptimOTU page here <optimotu_pipeline>`)
+    * If combining multiple sequencing runs with vsearch, unoise, or DADA2 pipelines, then follow specific directory structure (:ref:`see here <multi_run_dir>`)
   
+- Rerunning the same process: 
+    * when rerunning the same process, **close any open files from the previous run** to avoid conflicts in overwriting the files.
 
 
+.. _modify_resources:
 
 ____________________________________________________
 
@@ -79,7 +76,7 @@ After editing, press the ``APPLY & RESTART DOCKER`` button, so that the changes 
 If too few RAM is allocated, then the analysis may fail without any informative ERROR message. 
 If too few CPU cores are allocated, then the analysis may be very slow.*
 
-When allocation most of your computer's resources, please keep in mind that other processes on your computer will be affected.
+When allocating most of your computer's resources, please keep in mind that other processes on your computer will be affected.
 
 ____________________________________________________
 
@@ -87,17 +84,18 @@ How to START
 ============
 
 1. To ``START`` any analyses, you must specify the working directory (WORKDIR) by pressing the ``SELECT WORKDIR`` button. E.g., if working with **fastq** files,
-then be sure that the working directory contains **only relevant fastq files** because the selected process will be 
-applied to all fastq files in the working directory!
+then be sure that the working directory contains **only relevant fastq files** because the selected process may be 
+applied to all fastq files in the working directory (unless the process requires specific files to be specified)!
 
 .. note::
 
- When using Windows OS, the selection window might not display the files while browsing through the directories. 
+ When using Windows OS, the selection window may not display the files while browsing through the directories.
+ But if you know the files are there, then the process will work just fine.
 
-After selecting a working directory, PipeCraft needs you to specify if 
+After selecting a working directory, PipeCraft autodetects the file extension in the WORKINGDIR
 
- * if the data is paired-end or single-end
- * and the extension of the data (fastq or fasta)
+ * but doublecheck if those are the files you plan to work with
+ * then specify if the data is paired-end or single-end
 
 | ``paired-end data`` --> such as data from Illumina or MGI-Tech platforms (R1 and R2 files). :red:`Be sure to have **R1** and **R2** strings in the paired-end files (not simply _1 and _2; and sample names maynot contain R1/R2 strings)`
 | ``single-end data`` --> such as data from PacBio, or assembled paired-end data (single file per library or per sample)
@@ -114,7 +112,9 @@ running the analyses** by pressing the ``START`` button.
 
 .. note::
 
- **When running 'step-by-step analyses with Quick Tools'**: when one workflow is finished, then press ``SELECT WORKDIR`` to specify inputs for the next process to ensure the correct workflow piping.  
+ **Running 'step-by-step analyses with Quick Tools'**: 
+ when one workflow is finished, then press ``SELECT WORKDIR`` 
+ to specify inputs for the next process to ensure the correct workflow piping.  
 
 
 .. note:: 
@@ -138,7 +138,7 @@ The **README** file in the output directory states some of the details about the
 ____________________________________________________
 
 
- :ref:`Ready-to-run pre-defined pipelines here <predefinedpipelines>`
+ :ref:`Ready-to-run pre-compiled pipelines here <predefinedpipelines>`
 
  :ref:`QuickTools page here <quicktools>`
 
