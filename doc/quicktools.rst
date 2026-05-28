@@ -803,6 +803,10 @@ Cluster sequences, generate OTUs or zOTUs (with UNOISE3)
 ||                             || when resolution > 1. Default = 4                                    |
 +------------------------------+----------------------------------------------------------------------+
 
+.. tip::
+
+   Some SWARM inputs in the PipeCraft UI are enabled/disabled automatically based on the selected parameters. For example, when ``resolution (d) > 1``, alignment penalty fields become available, while options like ``fastidious`` and ``boundary`` only apply at ``d = 1`` and are disabled otherwise.
+
 .. _clustering_unoise3:
 
 `UNOISE3, with vsearch <https://github.com/torognes/vsearch>`_ 

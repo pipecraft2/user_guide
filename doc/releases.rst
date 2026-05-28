@@ -43,6 +43,8 @@ General updates:
 * SINTAX classifier did not work with UDB files, fixed. 
 * added workflow for dealing with dataset with thousands of samples for 'merge sequencing runs' in vsearch/unoise pipeline. 
 * PipeCraft2 automatically detects the file extensions in the working directory. 
+* Added BOLDigger3 taxonomy assignment tool (QuickTools).
+* NextITS: internal runtime updated to base image ``vmikk/nextits:1.1.0``.
   
 Bug fixes:
 
