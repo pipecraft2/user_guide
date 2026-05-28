@@ -65,7 +65,7 @@ Windows
 PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versions do not support PipeCraft GUI workflow through Docker.
 
 
-1. Download PipeCraft2 installer for Windows: `v1.1.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.1.0/PipeCraft2_v1.1.0_installer_Win.exe>`_
+1. Download installer for Windows: `PipeCraft2 v1.2.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.2.0/pipecraft-Setup-1.2.0.exe>`__
 2. Install PipeCraft2 via the setup executable.
 
 .. admonition:: False alert
@@ -151,19 +151,15 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
     .. youtube:: bcYeCXkN1XQ
 
 
-1. Check your Mac chip (Apple or Intel) and download either PipeCraft for Apple or Inter chip: 
+1. Download for Mac: `PipeCraft2 v1.2.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.2.0/pipecraft-1.2.0-universal.dmg>`__
 
-  a. Apple chip version, `pipecraft v1.1.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.1.0/PipeCraft2_v1.1.0_apple.dmg>`_
-  b. Intel chip version, `pipecraft v1.1.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.1.0/PipeCraft2_v1.1.0_apple.dmg>`_
+2. Install PipeCraft2 via downloaded **dmg** file by double-clicking on the file and dragging the app to the Applications folder.
 
-3. Install PipeCraft2 via downloaded **dmg** file by double-clicking on the file and dragging the app to the Applications folder.
-
-
-4. Check your Mac chip (Apple or Intel) and download `Docker for Mac <https://www.docker.com/get-started>`_ - ONLY ONCE (no need, when updating PipeCraft) 
+3. Check your Mac chip (Apple or Intel) and download `Docker for Mac <https://www.docker.com/get-started>`_ - ONLY ONCE (no need, when updating PipeCraft) 
 
 .. youtube:: I7SXBxCv6ik 
 
-5. Open **Docker dashboard**: Settings -> Resources -> File Sharing; and add the directory where **pipecraft.app** was installed (it is usually /Appications)
+4. Open **Docker dashboard**: Settings -> Resources -> File Sharing; and add the directory where **pipecraft.app** was installed (it is usually /Appications)
 
  |mac_docker_share|
 
@@ -173,6 +169,16 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
  |resources|
 
  
+.. |rosetta| image:: _static/rosetta_emu.png
+  :width: 1000
+
+.. note::
+
+ On Apple silicon, tick **Use Rosetta for x86_64/amd64 emulation** in Docker Desktop settings.
+
+ |rosetta|
+
+
 ____________________________________________________
 
 | 
@@ -188,9 +194,19 @@ PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions
 
     .. youtube:: v1smqfAz5nE
 
-1. Download PipeCraft2 for `Linux: v1.1.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.1.0/PipeCraft2_v1.1.0.deb>`_
+1. Download for Linux: `PipeCraft2 v1.2.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.2.0/pipecraft-1.2.0-linux-x86_64.AppImage>`__
    
-2. Right click on the pipecraft_*.deb file and "Open With GDebi Package Installer" (Install Package) or ``sudo dpkg -i path_to_deb_file``
+2. Right click the .AppImage file, go to Properties, and check "Allow executing file as program", then simply run Pipecraft2 by double-clicking the Appimage.
+
+   .. note::
+
+      Latest Ubuntu versions require a library called libfuse2t64 to run AppImages. Open your terminal and run: ``sudo apt install libfuse2t64``
+
+      If you are having trouble launching the AppImage, try starting it from the terminal for more feedback:
+
+      .. code-block:: bash
+
+         chmod +x pipecraft-1.2.0-linux-x86_64.AppImage && ./pipecraft-1.2.0-linux-x86_64.AppImage
 
 3. Install Docker - ONLY ONCE (no need, when updating PipeCraft); `follow the guidelines under appropriate Linux distribution <https://docs.docker.com/engine/install/ubuntu/>`_
 
@@ -224,9 +240,15 @@ __________________________________________________
 
 Updating PipeCraft2
 -------------------
+From version 1.2.0 onwards, PipeCraft2 will automatically check for updates on startup and notify the user.
 
- | See :ref:`PipeCraft2 releases here <releases>`.
- | See :ref:`removing docker images <removedockerimages>` section.
+.. |auto_update| image:: _static/auto_update.png
+  :width: 400
+
+|auto_update|
+
+| See :ref:`PipeCraft2 releases here <releases>`.
+| See :ref:`removing docker images <removedockerimages>` section.
 
 .. warning::
 
@@ -247,7 +269,8 @@ Uninstalling PipeCraft2
 
 | **Windows**: uninstall PipeCraft via control panel
 | **MacOS**: Move pipecraft.app to Bin
-| **Linux**: remove pipecraft via Software Manager/Software Centre or via terminal ``sudo dpkg --remove pipecraft``
+| **Linux**: Delete the AppImage file or if running an older deb package, remove pipecraft via Software Manager/Software Centre or via terminal:
+| ``sudo dpkg --remove pipecraft``
 
 ____________________________________________________
 

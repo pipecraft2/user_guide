@@ -633,6 +633,8 @@ More detailed information about the output files can be found in the `metaMATE g
 
 ___________________________________________________
 
+.. _postprocessing_orffinder:
+
 ORF-Finder
 ----------
 
