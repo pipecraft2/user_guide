@@ -955,6 +955,12 @@ similarity and bias clustering (e.g., over-merging distinct ITS variants or prod
   Note that if the primer binding sites are close to the ITS region, then for better detection of the 18S, 5.8S and/or 28S regions 
   it may be beneficial to keep the primers (i.e. do not use 'CUT PRIMERS') .
 
+.. admonition:: Updated HMM profiles
+  :class: important
+
+  ITSx in PipeCraft2 (since version 1.2.0) is using the updated hidden Markov model (HMM) profile database  
+  (v2024, provided by R. Henrik Nilsson, University of Gothenburg, Sweden; profiles are available at https://github.com/Mycology-Microbiology-Center/ITSx_HMMs).
+
 Input data
 ----------
 
