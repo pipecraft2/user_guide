@@ -33,9 +33,12 @@ Software updates:
 * added FunBarONT pipeline for Oxford Nanopore ITS sequences (barcoding pipeline)
 * In Utilities, added module to add sequences to feature table (add sequences to table)
 * BlasCh module for identifying false-positive chimeras (postprocessing panel).
-* updated metaMATE to version 0.5.4; added per-sample filtering mode and OTU-mode. Global (find+dump) and per-sample (filter-adaptive) filtering modes are available.
+* updated metaMATE to version 0.5.6; added per-sample filtering mode and OTU-mode. Global (find+dump) and per-sample (filter-adaptive) filtering modes are available.
 * added swarm clustering to clustering panel.
 * updated NextITS pipeline to version 1.1.0.
+* ITSx image rebuild — new HMM profiles (ITSx_HMMs 2024.04.05), HMMER 3.4, Ubuntu 24.04 base image.
+* Releases will now contain a universal Mac DMG (Intel + Apple Silicon).
+* Added auto-update functionality to the PipeCraft2 app (App will automatically check for updates on startup and notify the user).
 
 General updates:
 
@@ -44,7 +47,7 @@ General updates:
 * added workflow for dealing with dataset with thousands of samples for 'merge sequencing runs' in vsearch/unoise pipeline. 
 * PipeCraft2 automatically detects the file extensions in the working directory. 
 * Added BOLDigger3 taxonomy assignment tool (QuickTools).
-* NextITS: internal runtime updated to base image ``vmikk/nextits:1.1.0``.
+* NextITS: runtime image ``pipecraft/nextits:1.1.0-pc1.2.0`` (extends ``vmikk/nextits:1.1.0``; Nextflow v25.10.4).
 * ORF-finder module now automatically filters also the feature table (input table required; can contain "Sequence" column).
 * ASV TO OTU module: fasta file can contain a subset of ASVs that are present in the provided table file.
 * adjusted vsearch and unoise pre-compiled pipelines so that quality filtering is performed before paired-end merging (consistent with DADA2 ASVs workflow).
@@ -72,7 +75,7 @@ Implemented software:
 +------------------------------------------------------------------------+-------------+
 | `OptimOTU <https://github.com/brendanf/optimotu_targets>`_             | 5.1.0       |
 +------------------------------------------------------------------------+-------------+
-| `metaMATE <https://github.com/tjcreedy/metamate>`_                     | **0.5.4**   |
+| `metaMATE <https://github.com/tjcreedy/metamate>`_                     | **0.5.6**   |
 +------------------------------------------------------------------------+-------------+
 | SINTAX (via vsearch)                                                   | v2.30.4     |
 +------------------------------------------------------------------------+-------------+
@@ -82,11 +85,17 @@ Implemented software:
 +------------------------------------------------------------------------+-------------+
 | RDP classifier                                                         | v2.13       |
 +------------------------------------------------------------------------+-------------+
-| `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                 | 1.34        |
+| `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                 | 1.41        |
 +------------------------------------------------------------------------+-------------+
 | `vsearch <https://github.com/torognes/vsearch>`_                       | **2.30.4**  |
 +------------------------------------------------------------------------+-------------+
-| `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_        | 0.39        |
+| `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_        | **0.40**    |
++------------------------------------------------------------------------+-------------+
+| `BOLDigger3 <https://github.com/Teichlab/BOLDigger3>`_ :red:`(new)`    | **2.2.0**   |
++------------------------------------------------------------------------+-------------+
+| Nextflow (NextITS image)                                               | **25.10.4** |
++------------------------------------------------------------------------+-------------+
+| BBMap (metaMATE image)                                                 | 39.06       |
 +------------------------------------------------------------------------+-------------+
 | `seqkit <https://bioinf.shenwei.me/seqkit/>`_                          | **2.13.0**  |
 +------------------------------------------------------------------------+-------------+

@@ -12,3 +12,18 @@
     margin-right: 0;
 }
 
+/* Read the Docs theme caps content at ~800px, which squeezes wide tables.
+   Allow the content area to use more horizontal space on big screens. */
+.wy-nav-content {
+    max-width: 1200px;
+}
+
+/* Make tables wrap long inline-code (image tags, file paths) instead of
+   overflowing or forcing the column to be very narrow. */
+.rst-content table.docutils td,
+.rst-content table.docutils th {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+}
+
