@@ -11,9 +11,11 @@
 
 .. _releases:
 
-==========================
-Releases |PipeCraft2_logo|
-==========================
+========
+Releases 
+========
+
+|PipeCraft2_logo|
 
 .. contents:: Contents
    :depth: 2
@@ -39,14 +41,13 @@ Software updates:
 * ITSx image rebuild — new HMM profiles (ITSx_HMMs 2024.04.05), HMMER 3.4, Ubuntu 24.04 base image.
 * Releases will now contain a universal Mac DMG (Intel + Apple Silicon).
 * Added auto-update functionality to the PipeCraft2 app (App will automatically check for updates on startup and notify the user).
-
+* Added BOLDigger3 taxonomy assignment tool (QuickTools).
+ 
 General updates:
 
 * speed up the seq_count_summary making
-* SINTAX classifier did not work with UDB files, fixed. 
 * added workflow for dealing with dataset with thousands of samples for 'merge sequencing runs' in vsearch/unoise pipeline. 
 * PipeCraft2 automatically detects the file extensions in the working directory. 
-* Added BOLDigger3 taxonomy assignment tool (QuickTools).
 * NextITS: runtime image ``pipecraft/nextits:1.1.0-pc1.2.0`` (extends ``vmikk/nextits:1.1.0``; Nextflow v25.10.4).
 * ORF-finder module now automatically filters also the feature table (input table required; can contain "Sequence" column).
 * ASV TO OTU module: fasta file can contain a subset of ASVs that are present in the provided table file.
@@ -55,6 +56,7 @@ General updates:
 
 Bug fixes:
 
+* SINTAX classifier did not work with UDB files, fixed. 
 * bug fix to seq_count_summary making after ITSx for full_ITS/full_and_partial dir
 * fix to MetaMATE to work with the default specification0.txt (no abundance filtering) in the Docker container.
 * ITSx: fix the issue of reporting ERROR when all sequences had no ITS region detected (i.e., no sequences in no_detection directory)

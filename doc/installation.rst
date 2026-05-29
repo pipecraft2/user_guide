@@ -240,15 +240,22 @@ __________________________________________________
 
 Updating PipeCraft2
 -------------------
-From version 1.2.0 onwards, PipeCraft2 will automatically check for updates on startup and notify the user.
+
+From version **1.2.0** onwards, PipeCraft2 will automatically check for updates on startup and notify the user. 
+To manually check for updates, click on the update icon in the bottom-right corner. 
 
 .. |auto_update| image:: _static/auto_update.png
   :width: 400
 
 |auto_update|
 
+When updating PipeCraft2, it is recommended to **remove previous Docker images** 
+associated with previous PipeCraft2 versions. This simply helps to save disk space, since 
+each PipeCraft2 version has its own Docker images. 
+See :ref:`removing docker images <removedockerimages>` section.
+
+
 | See :ref:`PipeCraft2 releases here <releases>`.
-| See :ref:`removing docker images <removedockerimages>` section.
 
 .. warning::
 
