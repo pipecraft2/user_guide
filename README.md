@@ -30,7 +30,7 @@ cd C:/Users/user/Desktop  # go to directory where you want to place the github r
 git clone https://github.com/pipecraft2/user_guide.git
 
 cd C:/Users/user/Desktop/user_guide/doc  # go to downloaded github repo
-git checkout 1.1.0 # Switch to the brach you are developing!
+git checkout 1.2.0 # Switch to the brach you are developing!
 ```
 
 **3. Install sphinx and other requirements:**
