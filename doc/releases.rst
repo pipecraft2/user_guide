@@ -22,6 +22,20 @@ Releases
 
 ____________________________________________________
 
+.. _1.2.1:
+
+1.2.1 (10.06.2026)
+==================
+
+`DOWNLOAD link for v1.2.1 <https://github.com/pipecraft2/pipecraft/releases/tag/v1.2.1>`_
+
+Bug fixes:
+
+* NextITS required reference based chimera filtering. Made this optional. Added automated udb database creation from fasta file (for reference based chimera filtering).
+
+
+__________________________________________________
+
 
 .. _1.2.0:
 
