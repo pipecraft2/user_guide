@@ -31,8 +31,7 @@ ____________________________________________________
 
 Bug fixes:
 
-* Fixed issues with NextITS chimera database selection
-* Automated udb database creation for NextITS chimera filtering
+* NextITS required reference based chimera filtering. Made this optional. Added automated udb database creation from fasta file (for reference based chimera filtering).
 
 
 __________________________________________________
