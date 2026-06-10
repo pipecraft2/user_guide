@@ -65,7 +65,7 @@ Windows
 PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versions do not support PipeCraft GUI workflow through Docker.
 
 
-1. Download installer for Windows: `PipeCraft2 v1.2.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.2.0/pipecraft-Setup-1.2.0.exe>`__
+1. Download installer for Windows: `PipeCraft2 v1.2.1 <https://github.com/pipecraft2/pipecraft/releases/download/v1.2.1/pipecraft-Setup-1.2.1.exe>`__
 2. Install PipeCraft2 via the setup executable.
 
 .. admonition:: False alert
@@ -151,7 +151,7 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
     .. youtube:: bcYeCXkN1XQ
 
 
-1. Download for Mac: `PipeCraft2 v1.2.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.2.0/pipecraft-1.2.0-universal.dmg>`__
+1. Download for Mac: `PipeCraft2 v1.2.1 <https://github.com/pipecraft2/pipecraft/releases/download/v1.2.1/pipecraft-1.2.1-universal.dmg>`__
 
 2. Install PipeCraft2 via downloaded **dmg** file by double-clicking on the file and dragging the app to the Applications folder.
 
@@ -194,7 +194,7 @@ PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions
 
     .. youtube:: v1smqfAz5nE
 
-1. Download for Linux: `PipeCraft2 v1.2.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.2.0/pipecraft-1.2.0-linux-x86_64.AppImage>`__
+1. Download for Linux: `PipeCraft2 v1.2.1 <https://github.com/pipecraft2/pipecraft/releases/download/v1.2.1/pipecraft-1.2.1-linux-x86_64.AppImage>`__
    
 2. Right click the .AppImage file, go to Properties, and check "Allow executing file as program", then simply run Pipecraft2 by double-clicking the Appimage.
 
@@ -206,7 +206,7 @@ PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions
 
       .. code-block:: bash
 
-         chmod +x pipecraft-1.2.0-linux-x86_64.AppImage && ./pipecraft-1.2.0-linux-x86_64.AppImage
+         chmod +x pipecraft-1.2.1-linux-x86_64.AppImage && ./pipecraft-1.2.1-linux-x86_64.AppImage
 
 3. Install Docker - ONLY ONCE (no need, when updating PipeCraft); `follow the guidelines under appropriate Linux distribution <https://docs.docker.com/engine/install/ubuntu/>`_
 
