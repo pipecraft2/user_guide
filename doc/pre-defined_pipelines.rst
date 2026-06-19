@@ -1022,8 +1022,8 @@ Directory structure
 .. code-block::
    :caption: Required directory structure for FunBarONT
 
-    my_fungal_barcoding/   # SELECT THIS FOLDER AS WORKING DIRECTORY
-    └── sequences/
+    my_fungal_barcoding/   
+    └── sequences/      # SELECT THIS FOLDER AS WORKING DIRECTORY
         ├── sample1.fastq
         ├── sample2.fastq
         ├── sample3.fastq.gz
