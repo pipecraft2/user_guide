@@ -32,10 +32,10 @@ ____________________________________________________
 Software updates:
 
 * FunBarONT: added gzip (.gz) input support.
+* Downgraded DADA2 to back to v1.34.
 
 Bug fixes:
 
-* Downgraded DADA2 to v1.34 to resolve denoising issues.
 * Fixed AppImage permission issues (Linux).
 
 
@@ -48,6 +48,10 @@ __________________________________________________
 ==================
 
 `DOWNLOAD link for v1.2.1 <https://github.com/pipecraft2/pipecraft/releases/tag/v1.2.1>`_
+
+Software updates:
+
+Upgraded DADA2 to v1.41.
 
 Bug fixes:
 
