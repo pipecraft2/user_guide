@@ -21,7 +21,7 @@ copyright = '2026, Sten Anslan'
 author = 'Sten Anslan, Ali Hakimzadeh, Martin Metsoja'
 
 # The full version, including alpha/beta/rc tags
-version = 'v1.2.0'
+version = 'v1.2.2'
 release = version
 
 # -- General configuration ---------------------------------------------------
