@@ -22,6 +22,26 @@ Releases
 
 ____________________________________________________
 
+.. _1.2.2:
+
+1.2.2 (15.07.2026)
+==================
+
+`DOWNLOAD link for v1.2.2 <https://github.com/pipecraft2/pipecraft/releases/tag/v1.2.2>`_
+
+Software updates:
+
+* FunBarONT: added gzip (.gz) input support.
+
+Bug fixes:
+
+* Downgraded DADA2 to v1.34 to resolve denoising issues.
+* Fixed AppImage permission issues (Linux).
+
+
+__________________________________________________
+
+
 .. _1.2.1:
 
 1.2.1 (10.06.2026)
@@ -101,7 +121,7 @@ Implemented software:
 +------------------------------------------------------------------------+-------------+
 | RDP classifier                                                         | v2.13       |
 +------------------------------------------------------------------------+-------------+
-| `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                 | 1.41        |
+| `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                 | 1.34        |
 +------------------------------------------------------------------------+-------------+
 | `vsearch <https://github.com/torognes/vsearch>`_                       | **2.30.4**  |
 +------------------------------------------------------------------------+-------------+
