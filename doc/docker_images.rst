@@ -25,7 +25,7 @@ Images used in PipeCraft2 v1.2.0
 +--------------------------------------+------------------------------------------------------------+--------------------------------+
 | Image                                | Software                                                   | Used in ...                    |
 +======================================+============================================================+================================+
-|| pipecraft/vsearch_dada2:4-pc1.2.0   || vsearch v2.30.4, DADA 1.41, (Bioconductor 3.24, R v4.6.0) || DADA2, UNOISE & vsearch       |
+|| pipecraft/vsearch_dada2:4-pc1.2.0   || vsearch v2.30.4, DADA 1.34, (Bioconductor 3.24, R v4.6.0) || DADA2, UNOISE & vsearch       |
 ||                                     || LULU v0.1.0, ORFfinder v0.4.3, seqkit v2.13.0, BLAST+     || pipelines, chimera filtering, |
 ||                                     ||                                                           || clustering, SINTAX,           |
 ||                                     ||                                                           || many QuickTools steps         |
