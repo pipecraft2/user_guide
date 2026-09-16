@@ -44,7 +44,7 @@ General errors
 .. admonition:: "rm: cannot remove ... File is not accessible"
   :class: error
 
-  **Possible reason**: The file is being used by another process OR Docker does not have permissions to delete the file(s).
+  **Possible reason**: The file is being used by another process OR the container engine (Docker or Podman) does not have permissions to delete the file(s).
 
   **Fix**: Close all other applications that might be using the file / Delete the file manually when attempting to rerun the workflow.
 
@@ -55,7 +55,7 @@ ____________________________________________________
 
   if a reference database (``reference seqs``) is very large, then the process may require a lot of RAM.
   If you receive an error message "*.ERROR: BBMap alignment produced no matches and a memory error was detected*", 
-  then you may need to increase the :ref:`memory (RAM) allocated to Docker <manage_resources>` and or close other applications that are using a lot of RAM.
+  then you may need to increase the :ref:`memory (RAM) allocated to the container engine <manage_resources>` and or close other applications that are using a lot of RAM.
 
 __________________________________________________
 
@@ -64,7 +64,7 @@ __________________________________________________
 
   **Possible reason**: Computer's memory (RAM) is full, and process was killed. Cannot finish the analyses with those local resources. 
 
-  **Possible fix**: In Windows, try to increase the RAM size accessible to Docker (see :ref:`here <increase_RAM>`).
+  **Possible fix**: In Windows, try to increase the RAM size accessible to Docker or Podman (see :ref:`here <increase_RAM>`).
   Check if there was a README.txt output and read that. Please :ref:`report <contact>` unexpexted errors. 
 
 ____________________________________________________
@@ -83,7 +83,7 @@ ____________________________________________________
   
   **Possible reason**: wrongly specified working directory or extension; OR issues with external hard drives in Windows.
 
-  **Fix**: Double-check the specified directory and extention; OR **restart Docker engine**.
+  **Fix**: Double-check the specified directory and extention; OR **restart the container engine** (Docker or Podman).
 
 ____________________________________________________
 
@@ -94,7 +94,7 @@ ____________________________________________________
 
   **Possible reason**: Computer's memory (RAM) is full, and process was killed. Cannot finish the analyses with those local resources. 
 
-  **Possible fix**: In Windows, try to increase the RAM size accessible to Docker (see :ref:`here <increase_RAM>`).
+  **Possible fix**: In Windows, try to increase the RAM size accessible to Docker or Podman (see :ref:`here <increase_RAM>`).
 
 ____________________________________________________
 
@@ -127,9 +127,9 @@ ____________________________________________________
  Conflict. The container name XXX is already in use by container "XXX".
  You have to remove (or rename) that container to be able to reuse that name.
 
-**Reason**: Process stopped unexpectedly and docker container was not closed.
+**Reason**: Process stopped unexpectedly and the container was not closed.
 
-**Fix**: Remove the docker container (not image!) that is causing the conflict
+**Fix**: Remove the container (not the image!) that is causing the conflict (``docker rm`` or ``podman rm``).
 
 ____________________________________________________
 

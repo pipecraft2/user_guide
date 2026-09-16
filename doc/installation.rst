@@ -40,17 +40,34 @@ ____________________________________________________
 Prerequisites
 -------------
 
-1. :red:`ADMIN rights to install software`. Required to install Docker, and since PipeCraft2 app is not "signed" (for Windows and Linux [ok for MacOS]) then executing this requires also admin rights.
+1. :red:`ADMIN rights to install software`. Required to install a container engine, and since PipeCraft2 app is not "signed" (for Windows and Linux [ok for MacOS]) then executing this requires also admin rights.
 
-2. `Docker <https://www.docker.com/>`_. **See OS-specific (Windows, Mac, Linux) docker installation guidelines below.**
+2. A **container engine**: `Docker <https://www.docker.com/>`_ **or** `Podman <https://podman.io/>`_ (from **v1.3.0**). Install at least one. **See OS-specific guidelines below.**
 
-.. admonition:: Why Docker is needed?
+.. admonition:: Why a container engine is needed?
 
- Modules of PipeCraft2 are distributed through Docker containers, which will liberate the users from the
+ Modules of PipeCraft2 are distributed as containers, which will liberate the users from the
  struggle to install/compile various software for metabarcoding data analyses.
- **Thus, all backend bioinformatics processes are run in Docker containers**.
- Relevant Docker container will be automatically downloaded prior the analysis.
- See below how to manage and remove Docker images for the system. 
+ **Thus, all backend bioinformatics processes are run in Docker or Podman containers**.
+ Images are pulled from `Docker Hub <https://hub.docker.com/u/pipecraft>`_ the first time a process is run
+ (Podman can pull the same images).
+ See below how to manage and remove container images.
+
+.. _container_engine:
+
+Choosing Docker or Podman
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+From **v1.3.0**, PipeCraft2 supports **Docker and Podman on Windows, macOS, and Linux**.
+Only one engine is used at a time.
+
+* If **one** engine is installed, PipeCraft2 uses it and will try to start it if it is stopped.
+* If **both** are installed, a chooser appears at launch. Pick Docker or Podman; optionally tick **Use as default** so the same engine starts next time. Uncheck that option in :ref:`Resource Manager <manage_resources>` to be asked again at launch.
+* If **neither** is installed, you can still browse the interface, but you cannot start a workflow. Install Docker or Podman, then restart PipeCraft2 or click **Check again**.
+
+The icon in the top-right corner of the PipeCraft window shows the **active** engine (Docker or Podman). Click it to open Resource Manager, where you can switch engines when both are installed.
+
+Install links used by the chooser: `Docker <https://docs.docker.com/get-docker/>`__ and `Podman <https://podman.io/docs/installation>`__. 
 
 
 ____________________________________________________
@@ -62,10 +79,10 @@ __________________________________________________
 Windows
 -------
 
-PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versions do not support PipeCraft GUI workflow through Docker.
+PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versions do not support PipeCraft GUI workflow through Docker or Podman.
 
 
-1. Download installer for Windows: `PipeCraft2 v1.2.1 <https://github.com/pipecraft2/pipecraft/releases/download/v1.2.1/pipecraft-Setup-1.2.1.exe>`__
+1. Download installer for Windows: `PipeCraft2 v1.3.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.3.0/pipecraft-Setup-1.3.0.exe>`__
 2. Install PipeCraft2 via the setup executable.
 
 .. admonition:: False alert
@@ -78,11 +95,14 @@ PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versio
     .. youtube:: MEJsH8PsSnU
 
    
-3. Download `Docker for windows <https://www.docker.com/get-started>`_  - ONLY ONCE (no need, when updating PipeCraft).
-   
+3. Install a container engine - ONLY ONCE (no need, when updating PipeCraft):
+
+   * `Docker Desktop for Windows <https://www.docker.com/get-started>`_, **or**
+   * `Podman Desktop <https://podman-desktop.io/>`__ (see also `Podman installation <https://podman.io/docs/installation>`__).
+
    .. important:: 
 
-    **Administrator privileges are required during installation**. Once installed, Docker on Windows can be run without admin rights.  
+    **Administrator privileges are required during installation**. Once installed, Docker or Podman on Windows can be run without admin rights.  
 
 .. youtube:: G7DTht6WlFY
 
@@ -95,8 +115,9 @@ PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versio
 .. note::
 
  Resource limits for Docker are managed by Windows; 
- but you can configure limits in a **.wslconfig** file, but this can be automatically done via PipeCraft GUI, see :ref:`Manage resources allocated to Docker <manage_resources>`.
+ but you can configure limits in a **.wslconfig** file, but this can be automatically done via PipeCraft GUI, see :ref:`Manage resources allocated to the container engine <manage_resources>`.
  Default = 50% of total memory on Windows or 8GB, whichever is less. 80% of total memory on Windows on builds before 20175 (Win10, from 2020).
+ For Podman, set CPU and RAM in Resource Manager and press ``APPLY & RESTART PODMAN MACHINE``.
 
 | 
 |
@@ -105,7 +126,7 @@ PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versio
 
 *Quick guide to increase Docker accessible RAM size in Windows:*
 
-This is a legacy guide; please use the PipeCraft GUI to manage Docker resources, see :ref:`Manage resources allocated to Docker <manage_resources>`.
+This is a legacy guide; please use the PipeCraft GUI to manage Docker resources, see :ref:`Manage resources allocated to the container engine <manage_resources>`.
 
 Instructions from https://learn.microsoft.com/en-us/windows/wsl/wsl-config#wslconfig 
 
@@ -139,7 +160,7 @@ __________________________________________________
 MacOS
 -----
 
-PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through Docker. 
+PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support PipeCraft GUI workflow through Docker or Podman. 
 
 .. note:: 
 
@@ -151,21 +172,25 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
     .. youtube:: bcYeCXkN1XQ
 
 
-1. Download for Mac: `PipeCraft2 v1.2.1 <https://github.com/pipecraft2/pipecraft/releases/download/v1.2.1/pipecraft-1.2.1-universal.dmg>`__
+1. Download for Mac: `PipeCraft2 v1.3.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.3.0/pipecraft-1.3.0-universal.dmg>`__
 
 2. Install PipeCraft2 via downloaded **dmg** file by double-clicking on the file and dragging the app to the Applications folder.
 
-3. Check your Mac chip (Apple or Intel) and download `Docker for Mac <https://www.docker.com/get-started>`_ - ONLY ONCE (no need, when updating PipeCraft) 
+3. Check your Mac chip (Apple or Intel) and install a container engine - ONLY ONCE (no need, when updating PipeCraft):
+
+   * `Docker Desktop for Mac <https://www.docker.com/get-started>`_, **or**
+   * `Podman Desktop <https://podman-desktop.io/>`__ (see also `Podman installation <https://podman.io/docs/installation>`__). 
 
 .. youtube:: I7SXBxCv6ik 
 
-4. Open **Docker dashboard**: Settings -> Resources -> File Sharing; and add the directory where **pipecraft.app** was installed (it is usually /Appications)
+4. **Docker Desktop only:** Open **Docker dashboard**: Settings -> Resources -> File Sharing; and add the directory where **pipecraft.app** was installed (it is usually /Applications)
 
  |mac_docker_share|
 
 .. note::
 
- Manage Docker resource limits in the Docker dashboard or :ref:`Resource Manager in PipeCraft GUI <manage_resources>`.
+ Manage CPU and RAM in the engine dashboard or :ref:`Resource Manager in PipeCraft GUI <manage_resources>`.
+ On Windows and macOS, press ``APPLY & RESTART DOCKER`` or ``APPLY & RESTART PODMAN MACHINE`` after changing limits.
  |resources|
 
  
@@ -174,7 +199,7 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
 
 .. note::
 
- On Apple silicon, tick **Use Rosetta for x86_64/amd64 emulation** in Docker Desktop settings.
+ On Apple silicon with **Docker Desktop**, tick **Use Rosetta for x86_64/amd64 emulation** in Docker Desktop settings. PipeCraft images are amd64; Podman Desktop uses its own machine/emulation settings.
 
  |rosetta|
 
@@ -188,13 +213,13 @@ __________________________________________________
 Linux
 -----
 
-PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions might not support PipeCraft GUI workflow through Docker.
+PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions might not support PipeCraft GUI workflow through Docker or Podman.
 
 .. hide
 
     .. youtube:: v1smqfAz5nE
 
-1. Download for Linux: `PipeCraft2 v1.2.1 <https://github.com/pipecraft2/pipecraft/releases/download/v1.2.1/pipecraft-1.2.1-linux-x86_64.AppImage>`__
+1. Download for Linux: `PipeCraft2 v1.3.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.3.0/pipecraft-1.3.0-linux-x86_64.AppImage>`__
    
 2. Right click the .AppImage file, go to Properties, and check "Allow executing file as program", then simply run Pipecraft2 by double-clicking the Appimage.
 
@@ -206,9 +231,12 @@ PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions
 
       .. code-block:: bash
 
-         chmod +x pipecraft-1.2.1-linux-x86_64.AppImage && ./pipecraft-1.2.1-linux-x86_64.AppImage
+         chmod +x pipecraft-1.3.0-linux-x86_64.AppImage && ./pipecraft-1.3.0-linux-x86_64.AppImage
 
-3. Install Docker - ONLY ONCE (no need, when updating PipeCraft); `follow the guidelines under appropriate Linux distribution <https://docs.docker.com/engine/install/ubuntu/>`_
+3. Install a container engine - ONLY ONCE (no need, when updating PipeCraft):
+
+   * Docker Engine; `follow the guidelines under appropriate Linux distribution <https://docs.docker.com/engine/install/ubuntu/>`_
+   * **or** Podman; `follow the Podman installation docs <https://podman.io/docs/installation>`_ (on Ubuntu/Debian often ``sudo apt install podman``). Rootless Podman is supported.
 
    .. warning:: 
 
@@ -217,18 +245,19 @@ PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions
 
 .. youtube:: KCbHgaWGdvc
 
-4. If you are a non-root user complete these `post-install steps <https://docs.docker.com/engine/install/linux-postinstall/>`_
+4. **Docker Engine only:** if you are a non-root user complete these `post-install steps <https://docs.docker.com/engine/install/linux-postinstall/>`_ so you can run Docker without ``sudo``. Podman is typically used rootless and does not need this.
 
    
 .. note::
 
-   When you encounter ERROR during PipeCraft2 installation, then uninstall the previous version of PipeCraft2 ``sudo dpkg --remove pipecraft-v0.1.3``
+   When you encounter ERROR during PipeCraft2 installation with an older **deb** package, then uninstall the previous version of PipeCraft2 ``sudo dpkg --remove pipecraft`` (or ``sudo dpkg --remove pipecraft-v1.2.2`` if that package name was used).
+   For AppImage builds, just delete the old AppImage file.
 
 5. Run PipeCraft2. If PipeCraft shortcut does not appear on the Desktop, then search the app and generate shortcut manually (installed in */opt/pipecraft* directory)
 
 .. note::
 
- On Linux, Docker can use all available host resources.
+ On Linux, Docker or Podman can use host resources. CPU and RAM limits set in Resource Manager are applied to each workflow container; **no engine restart is required**.
 
 
 ____________________________________________________
@@ -249,9 +278,9 @@ To manually check for updates, click on the update icon in the bottom-right corn
 
 |auto_update|
 
-When updating PipeCraft2, it is recommended to **remove previous Docker images** 
+When updating PipeCraft2, it is recommended to **remove previous container images** 
 associated with previous PipeCraft2 versions. This simply helps to save disk space, since 
-each PipeCraft2 version has its own Docker images. 
+each PipeCraft2 version has its own images. 
 See :ref:`removing docker images <removedockerimages>` section.
 
 
@@ -287,17 +316,22 @@ __________________________________________________
 
 .. _manage_resources:
 
-Manage resources allocated to Docker
-------------------------------------
+Manage resources allocated to the container engine
+--------------------------------------------------
 
 |resource_manager|
 
 Resource management in PipeCraft2 allows to control and limit the 
-resources (such as number of CPUs, RAM) that Dockercontainers can use. 
-You can control these settings also easily through PipeCraft GUI, by **clicking on the Docker icon** in the top-right corner of the 
-PipeCraft window. After editing, press the ``APPLY & RESTART DOCKER`` button, so that the changes would take effect.
+resources (such as number of CPUs, RAM) that workflow containers can use.
+You can control these settings through PipeCraft GUI, by **clicking on the Docker or Podman icon** in the top-right corner of the 
+PipeCraft window.
 
-**Docker engine must be running** (the icon must be green) in order to apply the changes.
+**From v1.3.0**, Resource Manager also shows the active container engine. If both Docker and Podman are installed, switch between them there and optionally tick **Use as default**.
+
+After editing CPU/RAM on **Windows or macOS**, press ``APPLY & RESTART DOCKER`` or ``APPLY & RESTART PODMAN MACHINE`` so that the changes take effect.
+On **Linux**, CPU and RAM limits are applied to each workflow container; no engine restart is required.
+
+The engine must be running (the icon must be green) in order to apply the changes.
 
 **Required amont of allocated resources depends** generally on the input data size and the complexity of the analysis.
 If too few RAM is allocated, then the analysis may fail without any informative ERROR message. 
@@ -336,10 +370,10 @@ __________________________________________________
 
 .. _removedockerimages:
 
-Removing Docker images
-----------------------
+Removing Docker / Podman images
+--------------------------------
 
-| On **MacOS** and **Windows**: Docker images and container can be easily managed from the Docker dashboard. For more info visit https://docs.docker.com/desktop/dashboard/
+| On **MacOS** and **Windows**: images and containers can be managed from the Docker Desktop or Podman Desktop dashboard. For Docker Desktop see https://docs.docker.com/desktop/dashboard/
 | See **command-line** based way below.
 
 .. |purge_docker_Win| image:: _static/purge_docker_Win.png
@@ -348,11 +382,16 @@ Removing Docker images
 |purge_docker_Win|
 
 | 
-| On **Linux** machines: containers and images are managed via the Docker cli commands (https://docs.docker.com/engine/reference/commandline/rmi/):
+| On **Linux** machines: containers and images are managed via CLI commands (https://docs.docker.com/engine/reference/commandline/rmi/):
 | ``sudo docker images``       --> to see which docker images exist
 | ``sudo docker rmi IMAGE_ID`` --> to delete selected image
+|
+| For Podman, the same commands work with ``podman`` (often without ``sudo`` when running rootless):
+| ``podman images``
+| ``podman rmi IMAGE_ID``
 
 or
 
 | ``sudo docker system prune -a`` --> to delete all unused containers, networks, images 
 | ``sudo docker images``          --> check if images were removed
+| ``podman system prune -a``      --> same for Podman

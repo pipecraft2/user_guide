@@ -1934,8 +1934,8 @@ __________________________________________________
 Expert-mode (PipeCraft2 console)
 ================================
 
-Bioinformatic tools used by PipeCraft2 are stored on `Dockerhub <https://hub.docker.com/u/pipecraft>`_ as Docker images. 
-These images can be used to launch any tool with the Docker CLI to utilize the compiled tools.
+Bioinformatic tools used by PipeCraft2 are stored on `Dockerhub <https://hub.docker.com/u/pipecraft>`_ as container images. 
+These images can be used with the **Docker or Podman** CLI (from v1.3.0, ``podman`` accepts the same commands as ``docker`` below).
 Especially useful in Windows OS, where majority of implemented modules are not compatible. 
 
 .. |expert_mode| image:: _static/expert_mode.png
@@ -1943,34 +1943,38 @@ Especially useful in Windows OS, where majority of implemented modules are not c
 
 |expert_mode|
 
-:ref:`See list of docker images with implemented software here <dockerimages>`
+:ref:`See list of container images with implemented software here <dockerimages>`
 
 Show a list of all images in your system (using e.g. **Expert-mode**):
 
 .. code-block::
 
-  docker images 
+  docker images
+  podman images
 
 Download an image if required (from `Dockerhub <https://hub.docker.com/u/pipecraft>`_):
 
 .. code-block::
   :caption: docker pull pipecraft/IMAGE:TAG
   
-  docker pull pipecraft/vsearch:2.18
+  docker pull pipecraft/vsearch_dada2:4-pc1.2.0
+  podman pull pipecraft/vsearch_dada2:4-pc1.2.0
 
 Delete an image
 
 .. code-block::
   :caption: docker rmi IMAGE 
 
-  docker rmi pipecraft/vsearch:2.18
+  docker rmi pipecraft/vsearch_dada2:4-pc1.2.0
+  podman rmi pipecraft/vsearch_dada2:4-pc1.2.0
 
-Run docker container in your working directory to access the files. Outputs will be generated into the specified working directory.
+Run a container in your working directory to access the files. Outputs will be generated into the specified working directory.
 Specify the working directory under the -v flag:
 
 .. code-block::
 
-  docker run -i --tty -v users/Tom/myFiles/:/Files pipecraft/vsearch:2.18
+  docker run -i --tty -v users/Tom/myFiles/:/Files pipecraft/vsearch_dada2:4-pc1.2.0
+  podman run -i --tty -v users/Tom/myFiles/:/Files pipecraft/vsearch_dada2:4-pc1.2.0
 
 Once inside the container, move to /Files directory, which represents your working directory in the container; and run analyses
 

@@ -11,21 +11,24 @@
 
 .. _dockerimages:
 
-===============================
-Docker images |PipeCraft2_logo|
-===============================
+========================================
+Docker / Podman images |PipeCraft2_logo|
+========================================
 
-Docker images (with the bioinformatic tools) used in PipeCraft2 are stored on `Dockerhub <https://hub.docker.com/u/pipecraft>`_. 
-These images can be used to launch any tool with the Docker CLI to utilize the compiled tools.
+Container images (with the bioinformatic tools) used in PipeCraft2 are stored on `Dockerhub <https://hub.docker.com/u/pipecraft>`_. 
+These images can be used with **Docker or Podman** (from v1.3.0) to launch any tool with the CLI.
+Podman pulls the same ``pipecraft/...`` tags from Docker Hub.
 
 
-Images used in PipeCraft2 v1.2.0
---------------------------------
+Images used in PipeCraft2 v1.2.0–v1.3.0
+----------------------------------------
+
+v1.3.0 reuses the ``*-pc1.2.0`` tags. ``pipecraft/vsearch_dada2:4-pc1.2.0`` currently ships **DADA2 1.34** (rebuilt in v1.2.2; original 1.2.0 image had 1.41).
 
 +--------------------------------------+------------------------------------------------------------+--------------------------------+
 | Image                                | Software                                                   | Used in ...                    |
 +======================================+============================================================+================================+
-|| pipecraft/vsearch_dada2:4-pc1.2.0   || vsearch v2.30.4, DADA 1.41, (Bioconductor 3.24, R v4.6.0) || DADA2, UNOISE & vsearch       |
+|| pipecraft/vsearch_dada2:4-pc1.2.0   || vsearch v2.30.4, DADA2 1.34, (Bioconductor 3.20, R 4.4.3) || DADA2, UNOISE & vsearch       |
 ||                                     || LULU v0.1.0, ORFfinder v0.4.3, seqkit v2.13.0, BLAST+     || pipelines, chimera filtering, |
 ||                                     ||                                                           || clustering, SINTAX,           |
 ||                                     ||                                                           || many QuickTools steps         |

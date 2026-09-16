@@ -336,7 +336,7 @@ Press ``START`` on the left ribbon **to start the analyses**.
 
 .. admonition:: when running the module for the first time ...
   
-  ... a docker image will be first pulled to start the process. 
+  ... a container image will be first pulled to start the process. 
 
   For example: |pulling_image|
 

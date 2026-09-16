@@ -22,6 +22,111 @@ Releases
 
 ____________________________________________________
 
+.. _1.3.0:
+
+1.3.0 (16.09.2026)
+==================
+
+`DOWNLOAD link for v1.3.0 <https://github.com/pipecraft2/pipecraft/releases/tag/v1.3.0>`_
+
+Software updates:
+
+* Added `Podman <https://podman.io/>`_ as an alternative container runtime to Docker on **Windows, macOS, and Linux**.
+* First-launch engine chooser when both Docker and Podman are installed; the choice can be saved as default and changed later in Resource Manager.
+* Improved container-engine probing and start (Docker Desktop, Podman machine / API socket). PipeCraft2 will try to start a stopped engine.
+* Resource Manager shows the active engine (Docker or Podman icon). On Windows and macOS, apply CPU/RAM with ``APPLY & RESTART DOCKER`` or ``APPLY & RESTART PODMAN MACHINE``. On Linux, limits are applied per workflow container (no engine restart).
+
+v1.3.0 still uses the **v1.2.0 image tags** (``*-pc1.2.0``); see :ref:`Docker images <dockerimages>`.
+
+Implemented software:
+*(software in red font denote new additions; 'version' in bold denotes version upgrade)*
+
++------------------------------------------------------------------------+-------------+
+| Software/Process                                                       | version     |
++========================================================================+=============+
+| `Podman <https://podman.io/>`_ :red:`(new)`                            | —           |
++------------------------------------------------------------------------+-------------+
+| :ref:`swarm clustering <clustering_swarm>`                             | v3.1.6      |
++------------------------------------------------------------------------+-------------+
+| :ref:`FunBarONT pipeline <funbaront_pipeline>`                         | 13.03.2026  |
++------------------------------------------------------------------------+-------------+
+| :ref:`BlasCh <postprocessing_blasch>`                                  | v0.1.0      |
++------------------------------------------------------------------------+-------------+
+| `OptimOTU <https://github.com/brendanf/optimotu_targets>`_             | 5.1.0       |
++------------------------------------------------------------------------+-------------+
+| `metaMATE <https://github.com/tjcreedy/metamate>`_                     | 0.5.6       |
++------------------------------------------------------------------------+-------------+
+| SINTAX (via vsearch)                                                   | v2.30.4     |
++------------------------------------------------------------------------+-------------+
+| `NextITS pipeline <https://next-its.github.io/>`_                      | 1.1.0       |
++------------------------------------------------------------------------+-------------+
+| `ORFfinder <https://www.ncbi.nlm.nih.gov/orffinder/>`_                 | v0.4.3      |
++------------------------------------------------------------------------+-------------+
+| RDP classifier                                                         | v2.13       |
++------------------------------------------------------------------------+-------------+
+| `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                 | **1.34**    |
++------------------------------------------------------------------------+-------------+
+| `vsearch <https://github.com/torognes/vsearch>`_                       | 2.30.4      |
++------------------------------------------------------------------------+-------------+
+| `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_        | 0.40        |
++------------------------------------------------------------------------+-------------+
+| `BOLDigger3 <https://github.com/Teichlab/BOLDigger3>`_                 | 2.2.0       |
++------------------------------------------------------------------------+-------------+
+| Nextflow (NextITS image)                                               | 25.10.4     |
++------------------------------------------------------------------------+-------------+
+| BBMap (metaMATE image)                                                 | 39.06       |
++------------------------------------------------------------------------+-------------+
+| `seqkit <https://bioinf.shenwei.me/seqkit/>`_                          | 2.13.0      |
++------------------------------------------------------------------------+-------------+
+| `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_               | v5.2        |
++------------------------------------------------------------------------+-------------+
+| `mothur <https://github.com/mothur/mothur>`_                           | 1.46.1      |
++------------------------------------------------------------------------+-------------+
+| `ITS Extractor <https://microbiology.se/software/itsx/>`_              | 1.1.3       |
++------------------------------------------------------------------------+-------------+
+| `fqgrep <https://github.com/indraniel/fqgrep>`_                        | 0.4.4       |
++------------------------------------------------------------------------+-------------+
+| `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                    | 2.16.0+     |
++------------------------------------------------------------------------+-------------+
+| `FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_ | 0.11.9      |
++------------------------------------------------------------------------+-------------+
+| `MultiQC <https://multiqc.info/>`_                                     | 1.12        |
++------------------------------------------------------------------------+-------------+
+| `LULU <https://github.com/tobiasgf/lulu>`_                             | 0.1.0       |
++------------------------------------------------------------------------+-------------+
+| `fastp <https://github.com/OpenGene/fastp>`_                           | 0.23.2      |
++------------------------------------------------------------------------+-------------+
+| `DEICODE <https://github.com/biocore/DEICODE>`_                        | 0.2.4       |
++------------------------------------------------------------------------+-------------+
+
+__________________________________________________
+
+.. _1.2.2:
+
+1.2.2 (07.07.2026)
+==================
+
+`DOWNLOAD link for v1.2.2 <https://github.com/pipecraft2/pipecraft/releases/tag/v1.2.2>`_
+
+Bug fixes:
+
+* FunBarONT: support gzipped FASTQ input and fix input-file collision
+
+  - Discover .fastq.gz/.fq.gz alongside .fastq/.fq in main.nf so gzipped
+    ONT reads are actually processed (previously silently skipped).
+  - Remove the redundant original raw file from the process tuple after
+    normalization: each tuple now carries a single fastq.gz, making the
+    Nextflow "input file name collision" structurally impossible (it only
+    surfaced once gz inputs were allowed in).
+  - Silence Nextflow's update-check notice in the wrapper
+    (NXF_DISABLE_CHECK_LATEST) so it cannot mask the real error.
+  - Surface the actual Nextflow error in the GUI instead of the update notice.
+
+* DADA2 downgraded to **v1.34** in ``pipecraft/vsearch_dada2:4-pc1.2.0`` (denoise issues with 1.41).
+* Linux AppImage: fix script directory permissions so bundled workflow scripts can run.
+
+__________________________________________________
+
 .. _1.2.1:
 
 1.2.1 (10.06.2026)
@@ -35,6 +140,7 @@ Bug fixes:
 
 
 __________________________________________________
+
 
 
 .. _1.2.0:
