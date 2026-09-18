@@ -35,6 +35,7 @@ Software updates:
 * First-launch engine chooser when both Docker and Podman are installed; the choice can be saved as default and changed later in Resource Manager.
 * Improved container-engine probing and start (Docker Desktop, Podman machine / API socket). PipeCraft2 will try to start a stopped engine.
 * Resource Manager shows the active engine (Docker or Podman icon). On Windows and macOS, apply CPU/RAM with ``APPLY & RESTART DOCKER`` or ``APPLY & RESTART PODMAN MACHINE``. On Linux, limits are applied per workflow container (no engine restart).
+* Demultiplexing: speed up the process by skipping the search of unused index combinations (resolves also error of "too many open files"). 
 
 v1.3.0 still uses the **v1.2.0 image tags** (``*-pc1.2.0``); see :ref:`Docker images <dockerimages>`.
 
