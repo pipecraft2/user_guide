@@ -207,7 +207,8 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
 .. note::
 
  Manage CPU and RAM in the engine dashboard or :ref:`Resource Manager in PipeCraft GUI <manage_resources>`.
- On Windows and macOS, press ``APPLY & RESTART DOCKER`` or ``APPLY & RESTART PODMAN MACHINE`` after changing limits.
+ On Windows and macOS, press ``APPLY & RESTART ENGINE`` after changing limits.
+
  |resources|
 
  
