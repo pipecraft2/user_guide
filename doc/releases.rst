@@ -47,7 +47,6 @@ General updates:
 Bug fixes:
 
 * Mid-run step logs no longer switch paired-end workflows to single-end (the read type selected for the working directory is kept for the whole run).
-* The DEMULTIPLEX step stays available in workflows.
 * Fixed BOLDigger3 3.x runs: the local DuckDB database path, which BOLDigger3 3.x requires, is now passed to ``boldigger3 identify``.
 * Windows + Podman: the Podman machine is restarted when the machine is reported as running, but its API named pipe is missing.
 * Quality check: FastQC and MultiQC failures are now reported in an error dialog (with the exit code).
@@ -62,7 +61,7 @@ Implemented software:
 +------------------------------------------------------------------------+-------------+
 | :ref:`swarm clustering <clustering_swarm>`                             | v3.1.6      |
 +------------------------------------------------------------------------+-------------+
-| :ref:`FunBarONT pipeline <funbaront_pipeline>`                         | 13.03.2026  |
+| :ref:`FunBarONT pipeline <funbaront_pipeline>`                         | v1.0        |
 +------------------------------------------------------------------------+-------------+
 | :ref:`BlasCh <postprocessing_blasch>`                                  | v0.1.0      |
 +------------------------------------------------------------------------+-------------+
@@ -157,7 +156,7 @@ Implemented software:
 +------------------------------------------------------------------------+-------------+
 | :ref:`swarm clustering <clustering_swarm>`                             | v3.1.6      |
 +------------------------------------------------------------------------+-------------+
-| :ref:`FunBarONT pipeline <funbaront_pipeline>`                         | 13.03.2026  |
+| :ref:`FunBarONT pipeline <funbaront_pipeline>`                         | v1.0        |
 +------------------------------------------------------------------------+-------------+
 | :ref:`BlasCh <postprocessing_blasch>`                                  | v0.1.0      |
 +------------------------------------------------------------------------+-------------+
@@ -300,7 +299,7 @@ Implemented software:
 +========================================================================+=============+
 | :ref:`swarm clustering <clustering_swarm>` :red:`(new)`                | **v3.1.6**  |
 +------------------------------------------------------------------------+-------------+
-| :ref:`FunBarONT pipeline <funbaront_pipeline>` :red:`(new)`            | 13.03.2026  |
+| :ref:`FunBarONT pipeline <funbaront_pipeline>` :red:`(new)`            | v1.0        |
 +------------------------------------------------------------------------+-------------+
 | :ref:`BlasCh <postprocessing_blasch>` :red:`(new)`                     | v0.1.0      |
 +------------------------------------------------------------------------+-------------+

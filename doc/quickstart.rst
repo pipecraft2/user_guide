@@ -12,7 +12,7 @@
   :width: 1000
 
 .. |resource_manager| image:: _static/resource_manager.png
-  :width: 500
+  :width: 1000
   
 .. meta::
     :description lang=en:
@@ -73,8 +73,6 @@ Software that can utlilize **multiple CPUs** will use the number of CPUs specifi
 From **v1.3.0**, if both Docker and Podman are installed, you can switch engine here and tick **Use as default**.
 On Windows and macOS, after editing CPU/RAM press ``APPLY & RESTART DOCKER`` or ``APPLY & RESTART PODMAN MACHINE``.
 On Linux, limits apply to each workflow container (no engine restart).
-
-.. TODO: screenshot needed – Resource Manager in PipeCraft2 v1.3.1 (with the "Container runtime" section). The image below shows an older version.
 
 |resource_manager|
 

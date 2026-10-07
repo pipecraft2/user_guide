@@ -11,8 +11,11 @@
 .. |mac_docker_share| image:: _static/Mac_docker_share.png
   :width: 400
 
+.. |choose_container_engine| image:: _static/choose_container_engine.png
+  :width: 560
+
 .. |resource_manager| image:: _static/resource_manager.png
-  :width: 600
+  :width: 1000
   
 .. raw:: html
 
@@ -73,7 +76,7 @@ In the app, the chooser window is titled **Choose a container engine** (buttons 
 *Not installed*, *Installed, currently stopped* or *Already running*). When no engine is found, the window is titled
 **No container engine found** (buttons ``CONTINUE ANYWAY`` and ``CHECK AGAIN``).
 
-.. TODO: screenshot needed – "Choose a container engine" window (PipeCraft2 v1.3.1), showing the Docker and Podman options and the "Use as default" checkbox.
+|choose_container_engine|
 
 .. note::
 
@@ -337,8 +340,6 @@ __________________________________________________
 
 Manage resources allocated to the container engine
 --------------------------------------------------
-
-.. TODO: screenshot needed – Resource Manager in PipeCraft2 v1.3.1 (new "Container runtime" section with the DOCKER/PODMAN switch, "Use as default", status, socket and "Detected" lines). The image below shows an older version.
 
 |resource_manager|
 
