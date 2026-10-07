@@ -1190,3 +1190,10 @@ The pipeline produces the following output structure:
 +-------------------------------+-----------------------------------------------------------+
 | ``07_json_results/``          | JSON formatted results per sample                         |
 +-------------------------------+-----------------------------------------------------------+
+
+.. note::
+
+  From v1.3.0, the BLAST database that is built from the selected database file is written to a ``blastdb`` folder
+  in the working directory (``blastdb/unite/``). When the pipeline is rerun in the same working directory,
+  the existing BLAST database is reused (database building is skipped).
+  **If you change the database file, delete the** ``blastdb`` **folder before rerunning the pipeline**.

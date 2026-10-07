@@ -69,6 +69,19 @@ The icon in the top-right corner of the PipeCraft window shows the **active** en
 
 Install links used by the chooser: `Docker <https://docs.docker.com/get-docker/>`__ and `Podman <https://podman.io/docs/installation>`__. 
 
+In the app, the chooser window is titled **Choose a container engine** (buttons ``USE DOCKER`` / ``USE PODMAN``; each engine is shown as
+*Not installed*, *Installed, currently stopped* or *Already running*). When no engine is found, the window is titled
+**No container engine found** (buttons ``CONTINUE ANYWAY`` and ``CHECK AGAIN``).
+
+.. TODO: screenshot needed – "Choose a container engine" window (PipeCraft2 v1.3.1), showing the Docker and Podman options and the "Use as default" checkbox.
+
+.. note::
+
+ **Podman on Windows and MacOS** runs inside a Podman machine (virtual machine).
+ PipeCraft2 starts an existing Podman machine when needed, but does not create one;
+ so create and initialise the machine first via Podman Desktop or ``podman machine init``.
+ On **Linux**, PipeCraft2 starts the Podman API socket (``podman.socket`` systemd unit) if needed.
+
 
 ____________________________________________________
 
@@ -82,7 +95,7 @@ Windows
 PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versions do not support PipeCraft GUI workflow through Docker or Podman.
 
 
-1. Download installer for Windows: `PipeCraft2 v1.3.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.3.0/pipecraft-Setup-1.3.0.exe>`__
+1. Download installer for Windows: `PipeCraft2 v1.3.1 <https://github.com/pipecraft2/pipecraft/releases/download/v1.3.1/pipecraft-Setup-1.3.1.exe>`__
 2. Install PipeCraft2 via the setup executable.
 
 .. admonition:: False alert
@@ -118,6 +131,7 @@ PipeCraft2 was tested on **Windows 10** and **Windows 11**. Older Windows versio
  but you can configure limits in a **.wslconfig** file, but this can be automatically done via PipeCraft GUI, see :ref:`Manage resources allocated to the container engine <manage_resources>`.
  Default = 50% of total memory on Windows or 8GB, whichever is less. 80% of total memory on Windows on builds before 20175 (Win10, from 2020).
  For Podman, set CPU and RAM in Resource Manager and press ``APPLY & RESTART PODMAN MACHINE``.
+ On Windows, the Podman machine runs in WSL 2, so these limits are also written to the **.wslconfig** file and apply WSL-wide.
 
 | 
 |
@@ -172,7 +186,7 @@ PipeCraft2 is supported on macOS 10.15+. Older OS versions might not support Pip
     .. youtube:: bcYeCXkN1XQ
 
 
-1. Download for Mac: `PipeCraft2 v1.3.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.3.0/pipecraft-1.3.0-universal.dmg>`__
+1. Download for Mac: `PipeCraft2 v1.3.1 <https://github.com/pipecraft2/pipecraft/releases/download/v1.3.1/pipecraft-1.3.1-universal.dmg>`__
 
 2. Install PipeCraft2 via downloaded **dmg** file by double-clicking on the file and dragging the app to the Applications folder.
 
@@ -219,7 +233,7 @@ PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions
 
     .. youtube:: v1smqfAz5nE
 
-1. Download for Linux: `PipeCraft2 v1.3.0 <https://github.com/pipecraft2/pipecraft/releases/download/v1.3.0/pipecraft-1.3.0-linux-x86_64.AppImage>`__
+1. Download for Linux: `PipeCraft2 v1.3.1 <https://github.com/pipecraft2/pipecraft/releases/download/v1.3.1/pipecraft-1.3.1-linux-x86_64.AppImage>`__
    
 2. Right click the .AppImage file, go to Properties, and check "Allow executing file as program", then simply run Pipecraft2 by double-clicking the Appimage.
 
@@ -231,7 +245,10 @@ PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions
 
       .. code-block:: bash
 
-         chmod +x pipecraft-1.3.0-linux-x86_64.AppImage && ./pipecraft-1.3.0-linux-x86_64.AppImage
+         chmod +x pipecraft-1.3.1-linux-x86_64.AppImage && ./pipecraft-1.3.1-linux-x86_64.AppImage
+
+      **Ubuntu 24.04+**: from v1.3.1, the AppImage starts with Chromium's sandbox disabled (``--no-sandbox``),
+      so it starts on Ubuntu 24.04 and newer without extra command-line flags or environment variables.
 
 3. Install a container engine - ONLY ONCE (no need, when updating PipeCraft):
 
@@ -253,7 +270,9 @@ PipeCraft2 was tested with **Ubuntu 20.04** and **Mint 20.1**. Older OS versions
    When you encounter ERROR during PipeCraft2 installation with an older **deb** package, then uninstall the previous version of PipeCraft2 ``sudo dpkg --remove pipecraft`` (or ``sudo dpkg --remove pipecraft-v1.2.2`` if that package name was used).
    For AppImage builds, just delete the old AppImage file.
 
-5. Run PipeCraft2. If PipeCraft shortcut does not appear on the Desktop, then search the app and generate shortcut manually (installed in */opt/pipecraft* directory)
+5. Run PipeCraft2. From v1.3.1, each start of the AppImage adds (or updates) a **PipeCraft2** entry to the applications menu
+   (``~/.local/share/applications/pipecraft.desktop``) and a launcher on the Desktop (``~/Desktop/PipeCraft2.desktop``, if the Desktop folder exists).
+   If you move the AppImage to another folder, start it once from the new location to update these shortcuts.
 
 .. note::
 
@@ -305,7 +324,7 @@ Uninstalling PipeCraft2
 
 | **Windows**: uninstall PipeCraft via control panel
 | **MacOS**: Move pipecraft.app to Bin
-| **Linux**: Delete the AppImage file or if running an older deb package, remove pipecraft via Software Manager/Software Centre or via terminal:
+| **Linux**: Delete the AppImage file (and the shortcuts ``~/.local/share/applications/pipecraft.desktop`` and ``~/Desktop/PipeCraft2.desktop``) or if running an older deb package, remove pipecraft via Software Manager/Software Centre or via terminal:
 | ``sudo dpkg --remove pipecraft``
 
 ____________________________________________________
@@ -319,6 +338,8 @@ __________________________________________________
 Manage resources allocated to the container engine
 --------------------------------------------------
 
+.. TODO: screenshot needed – Resource Manager in PipeCraft2 v1.3.1 (new "Container runtime" section with the DOCKER/PODMAN switch, "Use as default", status, socket and "Detected" lines). The image below shows an older version.
+
 |resource_manager|
 
 Resource management in PipeCraft2 allows to control and limit the 
@@ -328,7 +349,13 @@ PipeCraft window.
 
 **From v1.3.0**, Resource Manager also shows the active container engine. If both Docker and Podman are installed, switch between them there and optionally tick **Use as default**.
 
+The **Container runtime** section of the **RESOURCE MANAGER** shows the engine status (e.g. *Docker is running* or *Podman is not running*;
+*(rootless)* is added for rootless engines), the socket path and the detected engines (e.g. *Detected: Docker, Podman*).
+The engine switch (``DOCKER`` / ``PODMAN`` buttons) and **Use as default** are shown only when both engines are installed.
+The icon in the top-right corner is green when the engine is running; hover over it to see the same status text.
+
 After editing CPU/RAM on **Windows or macOS**, press ``APPLY & RESTART DOCKER`` or ``APPLY & RESTART PODMAN MACHINE`` so that the changes take effect.
+The engine (Docker Desktop or the Podman machine) is restarted and **any running containers will be stopped**.
 On **Linux**, CPU and RAM limits are applied to each workflow container; no engine restart is required.
 
 The engine must be running (the icon must be green) in order to apply the changes.

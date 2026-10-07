@@ -74,6 +74,8 @@ From **v1.3.0**, if both Docker and Podman are installed, you can switch engine 
 On Windows and macOS, after editing CPU/RAM press ``APPLY & RESTART DOCKER`` or ``APPLY & RESTART PODMAN MACHINE``.
 On Linux, limits apply to each workflow container (no engine restart).
 
+.. TODO: screenshot needed – Resource Manager in PipeCraft2 v1.3.1 (with the "Container runtime" section). The image below shows an older version.
+
 |resource_manager|
 
 *Required amont of allocated resources depends generally on the input data size and the complexity of the analysis.

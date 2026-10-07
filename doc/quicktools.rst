@@ -108,18 +108,31 @@ Settings
 Outputs
 -------
 
-**Outputs** are fastq/fasta files per sample in ``demultiplexed_out`` directory. 
+**Outputs** are fastq/fasta files per sample in ``demultiplex_out`` directory.
 Indexes are **truncated** from the sequences. 
 Paired-end samples get ``.R1`` and ``.R2`` read identifiers.
-**unknown.fastq** file contain sequences where specified index combinations were not found. 
+Sequences where specified indexes (or index combinations) were not found are written to the **unknown** file
+(e.g. ``unknown.fastq`` for single-end data; ``unknown.R1.fastq`` and ``unknown.R2.fastq`` for paired-end data; the file extension follows the input).
+Sequence counts per output file are summarised in ``seq_count_summary.txt`` and the settings in ``README.txt``.
 
 .. note:: 
 
-  **When using paired indexes**, then sequences with all possible index combinations will be outputted to 'unnamed_index_combinations' dir.
+  **When using paired (dual) indexes**, only the index combinations **listed in the indexes file** are written to per-sample files (from v1.3.0).
   That means, if, for example, your sample_1 is indexed with *indexFwd_1-indexRev_1* and 
-  sample_2 with *indexFwd_2-indexRev_2*, then files with *indexFwd_1-indexRev_2* and *indexFwd_2-indexRev_1*
-  are also written (although latter index combinations were not used in the lab to index any sample [i.e. represent tag-switches]). 
-  Simply remove those files if not needed or use to estimate tag-switching error if relevant. 
+  sample_2 with *indexFwd_2-indexRev_2*, then reads with *indexFwd_1-indexRev_2* or *indexFwd_2-indexRev_1*
+  (combinations that were not used in the lab to index any sample [i.e. represent tag-switches])
+  are **not** written as separate files, but end up in the **unknown** file(s).
+  The ``unnamed_index_combinations`` directory of earlier versions is no longer produced.
+
+  For paired-end data, demultiplexing is done in two steps: reads are first sorted by the unique forward indexes, and then,
+  for each forward index, only the reverse indexes that are paired with that forward index in the indexes file are searched.
+  Reads in mixed orientation are handled with a second round, where R1 and R2 positions are switched.
+  For single-end data, each listed sample is searched as a linked forward...reverse index pair (also in reverse complementary orientation).
+
+.. note:: 
+
+  The number of CPU cores specified in the :ref:`Resource Manager <manage_resources>` is checked against the cores
+  available inside the container; if more cores were requested than available (or the value is invalid), the available number of cores is used.
 
 
 .. _indexes:
@@ -1565,10 +1578,17 @@ taxonomic levels.
 
 .. important::
 
-  **No local database download required.** BOLDigger3 queries the BOLD Systems v5 online database directly.
-  Because data are retrieved online for each run, total download time can remain substantial regardless of query FASTA file size.
-  The tool automatically manages the identification process, including queuing requests, downloading results, 
+  **No local database download required.** From PipeCraft2 v1.3.1, BOLDigger3 **v3.0.3** is used
+  (image ``pipecraft/boldigger3:3.0.3``). BOLDigger3 3.x requires a local copy of the BOLD public
+  data package as a DuckDB (``.ddb``) file; this database is **built into the image**
+  (``/opt/bold/BOLD_Public.18-Sep-2026.ddb``, i.e. the BOLD public data package release of 18 Sep 2026),
+  so no BOLD account or separate database download is needed in PipeCraft2.
+
+  Sequences are still identified through the BOLD Systems v5 **online** identification engine, so an
+  **Internet connection is required**. Additional metadata for the hits are taken from the local
+  DuckDB database. The tool automatically manages the identification process, including queuing requests, downloading results,
   and selecting the best-fitting taxonomic assignment.
+  The database file that was used is reported in the ``README.txt`` (``DB file``).
 
 | Supported file format for the input data is **fasta**.
 | 

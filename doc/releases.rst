@@ -22,9 +22,102 @@ Releases
 
 ____________________________________________________
 
+.. _1.3.1:
+
+1.3.1 (29.09.2026)
+==================
+
+`DOWNLOAD link for v1.3.1 <https://github.com/pipecraft2/pipecraft/releases/tag/v1.3.1>`_
+
+Software updates:
+
+* BOLDigger3 updated to v3.0.3 (image ``pipecraft/boldigger3:3.0.3``). BOLDigger3 3.x requires a local BOLD database;
+  the BOLD public data package (DuckDB file ``BOLD_Public.18-Sep-2026.ddb``) is built into the image and passed to BOLDigger3 automatically
+  (no BOLD account or separate database download needed). :ref:`See BOLDigger3 <assign_taxonomy_boldigger3>`.
+* OptimOTU pipeline now uses the image ``pipecraft/optimotu:5.1`` (previously ``pipecraft/optimotu:5.1-pc1.2.0``).
+
+General updates:
+
+* Linux AppImage: starts on Ubuntu 24.04+ without a setuid sandbox (the app is started with ``--no-sandbox``).
+* Linux AppImage: on each start, PipeCraft2 adds (or updates) an applications menu entry and a Desktop launcher (:doc:`see installation <installation>`).
+* Simplified run screen and workflow-run logic.
+* Rootless Podman (Linux): ownership of the output files is reclaimed after each run (``podman unshare``), and Podman containers
+  always run as root inside the user namespace (i.e. as your user on the host), so output files no longer get locked to a subordinate user ID.
+
+Bug fixes:
+
+* Mid-run step logs no longer switch paired-end workflows to single-end (the read type selected for the working directory is kept for the whole run).
+* The DEMULTIPLEX step stays available in workflows.
+* Fixed BOLDigger3 3.x runs: the local DuckDB database path, which BOLDigger3 3.x requires, is now passed to ``boldigger3 identify``.
+* Windows + Podman: the Podman machine is restarted when the machine is reported as running, but its API named pipe is missing.
+* Quality check: FastQC and MultiQC failures are now reported in an error dialog (with the exit code).
+
+Implemented software:
+*(software in red font denote new additions; 'version' in bold denotes version upgrade)*
+
++------------------------------------------------------------------------+-------------+
+| Software/Process                                                       | version     |
++========================================================================+=============+
+| `Podman <https://podman.io/>`_                                         | —           |
++------------------------------------------------------------------------+-------------+
+| :ref:`swarm clustering <clustering_swarm>`                             | v3.1.6      |
++------------------------------------------------------------------------+-------------+
+| :ref:`FunBarONT pipeline <funbaront_pipeline>`                         | 13.03.2026  |
++------------------------------------------------------------------------+-------------+
+| :ref:`BlasCh <postprocessing_blasch>`                                  | v0.1.0      |
++------------------------------------------------------------------------+-------------+
+| `OptimOTU <https://github.com/brendanf/optimotu_targets>`_             | 5.1.0       |
++------------------------------------------------------------------------+-------------+
+| `metaMATE <https://github.com/tjcreedy/metamate>`_                     | 0.5.6       |
++------------------------------------------------------------------------+-------------+
+| SINTAX (via vsearch)                                                   | v2.30.4     |
++------------------------------------------------------------------------+-------------+
+| `NextITS pipeline <https://next-its.github.io/>`_                      | 1.1.0       |
++------------------------------------------------------------------------+-------------+
+| `ORFfinder <https://www.ncbi.nlm.nih.gov/orffinder/>`_                 | v0.4.3      |
++------------------------------------------------------------------------+-------------+
+| RDP classifier                                                         | v2.13       |
++------------------------------------------------------------------------+-------------+
+| `DADA2 <https://benjjneb.github.io/dada2/index.html>`_                 | 1.34        |
++------------------------------------------------------------------------+-------------+
+| `vsearch <https://github.com/torognes/vsearch>`_                       | 2.30.4      |
++------------------------------------------------------------------------+-------------+
+| `trimmomatic <http://www.usadellab.org/cms/?page=trimmomatic>`_        | 0.40        |
++------------------------------------------------------------------------+-------------+
+| `BOLDigger3 <https://github.com/DominikBuchner/BOLDigger3>`_           | **3.0.3**   |
++------------------------------------------------------------------------+-------------+
+| Nextflow (NextITS image)                                               | 25.10.4     |
++------------------------------------------------------------------------+-------------+
+| BBMap (metaMATE image)                                                 | 39.06       |
++------------------------------------------------------------------------+-------------+
+| `seqkit <https://bioinf.shenwei.me/seqkit/>`_                          | 2.13.0      |
++------------------------------------------------------------------------+-------------+
+| `cutadapt <https://cutadapt.readthedocs.io/en/stable/>`_               | v5.2        |
++------------------------------------------------------------------------+-------------+
+| `mothur <https://github.com/mothur/mothur>`_                           | 1.46.1      |
++------------------------------------------------------------------------+-------------+
+| `ITS Extractor <https://microbiology.se/software/itsx/>`_              | 1.1.3       |
++------------------------------------------------------------------------+-------------+
+| `fqgrep <https://github.com/indraniel/fqgrep>`_                        | 0.4.4       |
++------------------------------------------------------------------------+-------------+
+| `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi>`_                    | 2.16.0+     |
++------------------------------------------------------------------------+-------------+
+| `FastQC <https://www.bioinformatics.babraham.ac.uk/projects/fastqc/>`_ | 0.11.9      |
++------------------------------------------------------------------------+-------------+
+| `MultiQC <https://multiqc.info/>`_                                     | 1.12        |
++------------------------------------------------------------------------+-------------+
+| `LULU <https://github.com/tobiasgf/lulu>`_                             | 0.1.0       |
++------------------------------------------------------------------------+-------------+
+| `fastp <https://github.com/OpenGene/fastp>`_                           | 0.23.2      |
++------------------------------------------------------------------------+-------------+
+| `DEICODE <https://github.com/biocore/DEICODE>`_                        | 0.2.4       |
++------------------------------------------------------------------------+-------------+
+
+__________________________________________________
+
 .. _1.3.0:
 
-1.3.0 (16.09.2026)
+1.3.0 (18.09.2026)
 ==================
 
 `DOWNLOAD link for v1.3.0 <https://github.com/pipecraft2/pipecraft/releases/tag/v1.3.0>`_
@@ -36,6 +129,21 @@ Software updates:
 * Improved container-engine probing and start (Docker Desktop, Podman machine / API socket). PipeCraft2 will try to start a stopped engine.
 * Resource Manager shows the active engine (Docker or Podman icon). On Windows and macOS, apply CPU/RAM with ``APPLY & RESTART DOCKER`` or ``APPLY & RESTART PODMAN MACHINE``. On Linux, limits are applied per workflow container (no engine restart).
 * Demultiplexing: speed up the process by skipping the search of unused index combinations (resolves also error of "too many open files"). 
+  With paired (dual) indexes, only the index combinations listed in the indexes file are written to per-sample files; reads with
+  non-listed combinations go to the **unknown** files (``unknown.R1``/``unknown.R2`` for paired-end data), and the
+  ``unnamed_index_combinations`` directory is no longer produced. :ref:`See demultiplexing <demux>`.
+
+General updates:
+
+* Demultiplexing: the number of CPU cores is validated against the cores available inside the container.
+* Improved container-engine status tracking; the status text names the active engine.
+* Rootless containers: more robust bind mounts and user ID (UID) matching; output-ownership changes (``chown``) are skipped in a rootless user namespace.
+* FunBarONT: the BLAST database is now built into the working directory (``blastdb`` folder; ``/sequences/blastdb`` in the container) instead of ``/blastdb`` inside the container.
+* NextITS: Nextflow home (``NXF_HOME``) is set to ``/Input/.nextflow`` (a ``.nextflow`` folder in the mounted input directory) instead of a path inside the image.
+
+Bug fixes:
+
+* Demultiplexing single-end data with dual indexes: fixed the search window of the reverse (3') index.
 
 v1.3.0 still uses the **v1.2.0 image tags** (``*-pc1.2.0``); see :ref:`Docker images <dockerimages>`.
 

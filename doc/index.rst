@@ -78,7 +78,8 @@ Initial PipeCraft2 installation does not contain any software for sequence data 
 
 Example: when running DEMULTIPLEXING for the first time |pulling_image|
 
-Thus working **Internet connection** is initially required. Once the images are pulled, PipeCraft2 can work without an Internet connection. 
+Thus working **Internet connection** is initially required. Once the images are pulled, PipeCraft2 can work without an Internet connection
+(except for tools that query online services, e.g. :ref:`BOLDigger3 <assign_taxonomy_boldigger3>`).
 
 :ref:`Container images <dockerimages>` vary in size, and the speed of the first process is extended by the image download time.
 
