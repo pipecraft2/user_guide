@@ -104,7 +104,7 @@ This example dataset consists of **COI mtDNA gene amplicon sequences with the ta
 
 - **paired-end** Illumina MiSeq data;
 - **demultiplexed** set (per-sample fastq files);
-- primers are not not **removed**;
+- primers are not **removed**;
 - sequences in this set are **5'-3' (fwd) oriented**.
 
 
@@ -124,7 +124,7 @@ This example dataset consists of **COI mtDNA gene amplicon sequences with the ta
 ____________________________________________________
 
 | **To select DADA2 pipeline**, press
-| ``SELECT PIPELINE`` --> ``DADA" ASVs``.
+| ``SELECT PIPELINE`` --> ``DADA2 ASVs``.
 
 |DADA2_select_pipeline|
 
@@ -138,7 +138,7 @@ ____________________________________________________
 Workflow mode
 -------------
 
-Because we are working with sequences that are **5'-3' oriented**, we are selecting hte ``PAIRED-END FORWARD`` mode of the pipeline. 
+Because we are working with sequences that are **5'-3' oriented**, we are selecting the ``PAIRED-END FORWARD`` mode of the pipeline.
 
 |DADA2_PE_FWD_cp| 
 
@@ -147,11 +147,11 @@ Because we are working with sequences that are **5'-3' oriented**, we are select
  If some sequences in your library are in 5'-3' and some as 3'-5' orientation, 
  then with the 'PAIRED-END FORWARD' mode exactly the same ASV may be reported twice, where one ASV is just the reverse complementary of another. 
  To avoid that, select **PAIRED-END MIXED** mode. 
- *Sequences have mixed orientation in libraries where sequenceing adapters have been ligated, rather than attached to amplicons during PCR.*
+ *Sequences have mixed orientation in libraries where sequencing adapters have been ligated, rather than attached to amplicons during PCR.*
 
- **Specifying primers** (for CUT PRIMERS) **is mandatory for the PAIRED-END MIXED** mode. Based on the priemr sequences, the library will be split into two: 
- 1) fwd oriented sequences, and 2) rev oriented sequences. Both batches are processed independently to produce ASVs, after which the rev oriented batch ASVs are 
- reverse complemented and merged with the fwd oriented ASVs. Identical ASVs are merged to form a final data set. This is a reccomended workflow for accurate denoising compared with first 
+ **Specifying primers** (for CUT PRIMERS) **is mandatory for the PAIRED-END MIXED** mode. Based on the primer sequences, the library will be split into two: 
+ 1) fwd oriented sequences, and 2) rev oriented sequences. Both batches are processed independently to produce ASVs, after which the rev oriented batch ASVs are
+ reverse complemented and merged with the fwd oriented ASVs. Identical ASVs are merged to form a final data set. This is a recommended workflow for accurate denoising compared with first
  reorienting all sequences to 5'-3', and then performing a standard 'PAIRED-END FORWARD' workflow.
 
 ____________________________________________________
@@ -182,9 +182,9 @@ Below quality profile plot was generated using ``QualityCheck`` panel (:ref:`see
 |COI_example_quality_plot|
 
 All files are represented with **green lines, indicating good average quality per file** (i.e., sample). 
-However, if you see lower qualities of especially towards the end of R2 reads, then it not too alarming, since 
-those can be clipped off with ``truncLen R2`` setting (see :ref:`remove low-quality ends/starts of reads section <remove_low_quality_ends>`). 
-DADA2 algoritm is robust to lower quality sequences, 
+However, if you see lower qualities, especially towards the end of R2 reads, then it is not too alarming, since
+those can be clipped off with ``truncLen R2`` setting (see :ref:`remove low-quality ends/starts of reads section <remove_low_quality_ends>`).
+DADA2 algorithm is robust to lower quality sequences,
 but removing the low quality read parts will improve the DADA2 sensitivity to rare sequence variants. 
 But herein, we do not need to clip the ends, because the overall quality of the sequences is good enough.
 
@@ -215,7 +215,7 @@ ____________________________________________________
 Denoise and merge pairs
 -----------------------
 
-This step performs desiosing (as implemented in DADA2), which first forms ASVs per R1 and R2 files. 
+This step performs denoising (as implemented in DADA2), which first forms ASVs per R1 and R2 files.
 Then during merging/assembling process the paired ASV mates are assembled to output full amplicon length ASV. 
 
 |DADA2_denoise_expand| 
@@ -287,7 +287,7 @@ The ``f_value`` and ``p_value`` settings are used to filter out putative tag jum
 Generally, we recommend to use p_value of 1 (default), and **f_value of 0.03** when using combinational indexing strategy; 
 f_value of 0.05 when using single-indexes, and f_value of 0.01 when using unique dual-indexes.
 
-The expected amplicon length (without primers) in our example dataset in **313 bp**.
+The expected amplicon length (without primers) in our example dataset is **313 bp**.
 Assuming that shorter sequences are non-target sequences, 
 we use 307 in the ``min length`` setting and 319 in ``max length`` setting. 
 This will discard ASVs that are shorter than 307 bp or longer than 319 bp.
@@ -343,7 +343,7 @@ This ``JSON`` file can be loaded into PipeCraft2 to **automatically configure yo
 
 .. note:: 
 
-  **'Assign taxonomy' is not the part of the full per-defined pipeline**. This step 
+  **'Assign taxonomy' is not the part of the full pre-defined pipeline**. This step
   can be selected and run via **QuickTools** panel. See below. 
 
 ___________________________________________________
@@ -377,7 +377,7 @@ ___________________________________________________
 Assign taxonomy
 ---------------
 
-Assign taxonomy **is not the part of the full per-defined pipeline**, but can be run as a **separate step in QuickTools**.
+Assign taxonomy **is not the part of the full pre-defined pipeline**, but can be run as a **separate step in QuickTools**.
 Here, we are using the :ref:`SINTAX <assign_taxonomy_sintax>` classifier for that.
 
 
@@ -396,7 +396,7 @@ We can use the default ``cutoff`` (minimum bootstrap; ranging from 0-1; ~assignm
 This means that taxonomic ranks with at least bootstrap value of 80 will get classification (unclassified for <0.8). 
 
 ``strand`` may be plus (since we are expecting only 5'-3' oriented ASVs), 
-but since SINTAX is fast, I'll leave it as default (both - comparre both strands).
+but since SINTAX is fast, I'll leave it as default (both - compare both strands).
 
 
 .. admonition:: To **START**
@@ -470,7 +470,7 @@ ____________________________________________________
     :class: important
 
     Here, we applied also **"CURATE ASV TABLE"** process.
-    Therefore, our final outputs of the pipeline are in the ``ASVs_out.dada2/curated`` directory, which contans: 
+    Therefore, our final outputs of the pipeline are in the ``ASVs_out.dada2/curated`` directory, which contains:
 
 +--------------------------------+-------------------------------------------------------------------+
 | **ASVs_table_TagJumpFilt.txt** | only tag-jump filtered ASV-by-sample table                        |
@@ -565,16 +565,16 @@ Check for the non-target hits
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It is often the case that universal metabarcoding primers **amplify also non-target DNA regions and/or non-target taxa**. 
-Working with this example dataset, we are **interesed only in Metazoa (Animals)**, 
+Working with this example dataset, we are **interested only in Metazoa (Animals)**,
 thus we should **get rid of the off-target noise** before proceeding with relevant statistical analyses.  
 
 When we **carefully examine the results**, the taxonomy table, then we can see that 
-1 ASV is classifed to **Fungi**, 1 ASVs is **unclassified** to kingdom level (kingdom le). 
+1 ASV is classifed to **Fungi**, 1 ASV is **unclassified** to kingdom level.
 But even among the Metazoa, there are some off-target hits; 
 1 ASV is classified as **Chordata** (specifically as *Homo sapiens*, human). 
 We are not interested in latter as well. **We should remove all of those off-target ASVs.**
 
-Below, you can find a **R script to clean and organize** sintax taxonomy table, as well as clean ASV table and ASVs fasta file from 
+Below, you can find an **R script to clean and organize** sintax taxonomy table, as well as clean ASV table and ASVs fasta file from
 the off-target taxa. 
 
 .. code-block:: R
@@ -891,10 +891,10 @@ Here, we use ORFfinder.
 |select_ORF-finder|
 
 Here, **input data** is only fasta file. We are selecting out filtered fasta file ``ASVs_collapsed_tax_filt.fasta``.
-As we are interesed in "The Invertebrate Mitochondrial Code", we as specifying 5 in the ``genetic code`` setting
+As we are interested in "The Invertebrate Mitochondrial Code", we are specifying 5 in the ``genetic code`` setting
 (in PipeCraft, click on the ``genetic code`` setting to see the available genetic codes).
-The ``min length`` and ``max length`` settings were already set in the CURATE ASV TABLE step, so here, those setting to 
-not have an effect unless we narrow down the accepdable length range.
+The ``min length`` and ``max length`` settings were already set in the CURATE ASV TABLE step, so here, those settings do
+not have an effect unless we narrow down the acceptable length range.
 
 |ORF-finder_expanded|
 
@@ -910,7 +910,7 @@ __________________________________________________
 +========================+=================================================+
 | ***_ORFs.fasta**       | fasta file of filtered ASVs                     |
 +------------------------+-------------------------------------------------+
-| ***_ORFs.list.txt**    | list of of filtered ASVs                        |
+| ***_ORFs.list.txt**    | list of filtered ASVs                           |
 +------------------------+-------------------------------------------------+
 | ***_notORFs.fasta**    | fasta file of ASVs that did not pass ORF-finder |
 +------------------------+-------------------------------------------------+
@@ -920,10 +920,10 @@ __________________________________________________
 This process filters only the fasta file and as a **main output** it creates a 
 a list of ASVs that passed and did not pass the genetic code translation.
 
-In this example dataset, **ORFfinder identidied 1 ASV that did not pass the genetic code translation.** 
+In this example dataset, **ORFfinder identified 1 ASV that did not pass the genetic code translation.**
 Let's discard this ASV from the dataset.
 
-Below, you can find a R script to clean also taxonomy and ASV tables.
+Below, you can find an R script to also clean taxonomy and ASV tables.
 
 
 .. code-block:: R
@@ -992,8 +992,8 @@ Below, you can find a R script to clean also taxonomy and ASV tables.
         - ``ASVs_table_collapsed_tax_filt_ORFs.txt``: filtered ASV table
         - ``taxonomy.sintax.filt_ORFs.txt``: filtered taxonomy table
 
-    **Proceed with any relevant statistical analyses using these filtered files if you** 
-    **are interesed in ASV-level analyses, or proceed with clustering ASVs into OTUs** (see below).
+    **Proceed with any relevant statistical analyses using these filtered files if you**
+    **are interested in ASV-level analyses, or proceed with clustering ASVs into OTUs** (see below).
 
 __________________________________________________
 
@@ -1001,8 +1001,8 @@ Cluster ASVs into OTUs
 ~~~~~~~~~~~~~~~~~~~~~~
 
 If the aim is not to do the haplotype-level analyses, then **ASVs can be clustered into OTUs** (PipeCraft uses vsearch for this).
-The ASVs approach may not accurately reflect species composition in the community of as 
-COI gene has highly variable levels of intraspecific polymorphism. Thus, 
+The ASVs approach may not accurately reflect species composition in the community, as
+COI gene has highly variable levels of intraspecific polymorphism. Thus,
 one species may be represented by many ASVs, whereas other species may be represented by very few ASVs.
 
 Here, we are **clustering ASVs to OTUs** (using vsearch) via **QuickTools** panel (on the right ribbon).
@@ -1081,7 +1081,7 @@ Herein, **clustering formed 17 OTUs** from 19 ASVs (with 97% similarity threshol
     for each of these species** (with 97% similarity threshold).
 
     However, in the OTUs taxonomy table, we see that *Lithobius curtipes* and *Adoristes ovatus* are 
-    represented by 2 OTUs, respectively. Certanly, the barcoding gaps may vary between different specie, thus 
+    represented by 2 OTUs, respectively. Certainly, the barcoding gaps may vary between different species, thus
     resulting in different OTUs for the same species when using single sequence similarity threshold. 
     But let's check if the post-clustering process will help to
     merge these OTUs with same species names (see below).
