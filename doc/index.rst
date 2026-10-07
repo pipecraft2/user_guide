@@ -64,22 +64,26 @@ List of terms that you may encounter in this user guide.
 
 ____________________________________________________
 
-Docker images 
-==============
+Docker / Podman images
+======================
 
 .. |pulling_image| image:: _static/pulling_image.png
   :width: 280
 
-All the processes are run through `docker <https://www.docker.com/>`_, where the PipeCraft's GUI simply mediates the 
-information exchange. Therefore, whenever a process is initiated for the **first time**, 
-a relevant Docker image (contains required software for the analyses step) will be pulled from `Docker Hub <https://hub.docker.com/u/pipecraft>`_.
+All the processes are run in containers via `Docker <https://www.docker.com/>`_ or `Podman <https://podman.io/>`_ (from **v1.3.0**),
+where the PipeCraft's GUI simply mediates the information exchange.
+Therefore, whenever a process is initiated for the **first time**, 
+a relevant image (contains required software for the analyses step) will be pulled from `Docker Hub <https://hub.docker.com/u/pipecraft>`_.
 Initial PipeCraft2 installation does not contain any software for sequence data processing. 
 
 Example: when running DEMULTIPLEXING for the first time |pulling_image|
 
-Thus working **Internet connection** is initially required. Once the Docker images are pulled, PipeCraft2 can work without an Internet connection. 
+Thus working **Internet connection** is initially required. Once the images are pulled, PipeCraft2 can work without an Internet connection
+(except for tools that query online services, e.g. :ref:`BOLDigger3 <assign_taxonomy_boldigger3>`).
 
-:ref:`Docker images <dockerimages>` vary in size, and the speed of the first process is extended by the docker image download time.
+:ref:`Container images <dockerimages>` vary in size, and the speed of the first process is extended by the image download time.
+
+See :ref:`Choosing Docker or Podman <container_engine>` in the installation guide.
 
 ____________________________________________________
 
@@ -94,6 +98,8 @@ Currently implemented software
 | Software                                                               | Reference                                                                               | Task                                                                                    |
 +========================================================================+=========================================================================================+=========================================================================================+
 | `docker <https://www.docker.com/>`_                                    | https://www.docker.com                                                                  | building env, sharing and running applications                                          |
++------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
+| `Podman <https://podman.io/>`_                                         | https://podman.io                                                                       | alternative container engine (from v1.3.0; Windows, macOS, Linux)                       |
 +------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
 | :ref:`DADA2 <asvpipe>`                                                 | `Callahan et al. 2016 <https://www.nature.com/articles/nmeth.3869>`_                    | ASV pipeline (denoising, taxonomy)                                                      |
 +------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+

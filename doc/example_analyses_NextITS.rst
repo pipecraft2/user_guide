@@ -183,7 +183,7 @@ Once settings are configured:
 
 .. admonition:: First time run
   
-  When running NextITS for the first time, PipeCraft will pull the necessary Docker images. This may take a few minutes. 
+  When running NextITS for the first time, PipeCraft will pull the necessary container images (via Docker or Podman). This may take a few minutes. 
   
   |pulling_image|
 

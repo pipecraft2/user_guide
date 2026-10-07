@@ -9,8 +9,9 @@ For Developers |PipeCraft2_logo|
 Prerequisites
 -------------
 
-| Docker Desktop
+| Docker Desktop **or** Podman Desktop (from v1.3.0; Windows, macOS, and Linux)
 | https://www.docker.com/products/docker-desktop/
+| https://podman-desktop.io/
 
 
 | NodeJS 14 
@@ -50,7 +51,7 @@ Developer tools
 ---------------
 
 | The apps front-end desing, data storage and navigation are built using the Vue framework and its plugins. To build new or to modify exiting components will reiqure a some proficiency in JavaScript and the Vue framework.
-| Other important tools include electron which is mainly used for interacting with the file system and dockerode which is used for controlling docker.
+| Other important tools include electron which is mainly used for interacting with the file system and dockerode which is used for controlling Docker or Podman (same API; see ``src/utils/containerRuntime.js``).
 
 | Electron 13:
 | https://www.electronjs.org/
@@ -64,6 +65,8 @@ Developer tools
 | https://v3.vuex.vuejs.org/#what-is-vuex
 | dockerode:
 | https://github.com/apocas/dockerode
+| Podman (optional runtime):
+| https://podman.io/
 
 
 .. note::

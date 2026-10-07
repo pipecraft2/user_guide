@@ -462,7 +462,7 @@ obtained via **PacBio** sequencing.
 
 .. important:: 
 
-  NextITS in pipecraft v1.0.0 requires that your PC has at least 8 cores (and Docker has access to those cores; :ref:`see here <modify_resources>`).
+  NextITS in pipecraft v1.0.0 requires that your PC has at least 8 cores (and the container engine has access to those cores; :ref:`see here <modify_resources>`).
   
   NextITS requires your data and folders to be structured in a specific way (see below)! 
   Directory ``my_dir_for_NextITS`` contains ``Input`` [hard-coded requirement here] and one or multiple sequencing runs.
@@ -1190,3 +1190,10 @@ The pipeline produces the following output structure:
 +-------------------------------+-----------------------------------------------------------+
 | ``07_json_results/``          | JSON formatted results per sample                         |
 +-------------------------------+-----------------------------------------------------------+
+
+.. note::
+
+  From v1.3.0, the BLAST database that is built from the selected database file is written to a ``blastdb`` folder
+  in the working directory (``blastdb/unite/``). When the pipeline is rerun in the same working directory,
+  the existing BLAST database is reused (database building is skipped).
+  **If you change the database file, delete the** ``blastdb`` **folder before rerunning the pipeline**.

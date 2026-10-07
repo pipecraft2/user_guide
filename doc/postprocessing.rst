@@ -568,7 +568,7 @@ If planning to use :ref:`LULU POST-CLUSTERING <postclustering_lulu>`, then perfo
 
   if a reference database (``reference seqs``) is very large, then the process may require a lot of RAM.
   If you receive an error message "*.ERROR: BBMap alignment produced no matches and a memory error was detected*", 
-  then you may need to increase the :ref:`memory (RAM) allocated to Docker <manage_resources>` and or close other applications that are using a lot of RAM.
+  then you may need to increase the :ref:`memory (RAM) allocated to the container engine <manage_resources>` and or close other applications that are using a lot of RAM.
 
 
 Outputs

@@ -12,7 +12,7 @@
   :width: 1000
 
 .. |resource_manager| image:: _static/resource_manager.png
-  :width: 500
+  :width: 1000
   
 .. meta::
     :description lang=en:
@@ -67,8 +67,12 @@ Modify resources usage
 ======================
 
 Control and limit the resources (such as CPU, RAM) via **resource manager**.
+Click the Docker or Podman icon in the top-right corner.
 Software that can utlilize **multiple CPUs** will use the number of CPUs specified through **resource manager**.
-After editing, press the ``APPLY & RESTART DOCKER`` button, so that the changes would take effect.
+
+From **v1.3.0**, if both Docker and Podman are installed, you can switch engine here and tick **Use as default**.
+On Windows and macOS, after editing CPU/RAM press ``APPLY & RESTART DOCKER`` or ``APPLY & RESTART PODMAN MACHINE``.
+On Linux, limits apply to each workflow container (no engine restart).
 
 |resource_manager|
 

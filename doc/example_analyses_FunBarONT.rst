@@ -33,7 +33,7 @@
 
 .. |pulling_image| image:: _static/funbar_pulling.png
   :width: 280
-  :alt: FunBarONT pulling Docker image
+  :alt: FunBarONT pulling container image
 
 .. |funbaront_workflow| image:: _static/funbaront_select_pipeline.png
   :width: 200
@@ -601,7 +601,7 @@ The workflow will proceed through each step in sequence, with progress displayed
 
 .. admonition:: first-time execution notes
 
-  ... when running the FunBarONT pipeline for the first time, Docker will automatically pull the required container image. 
+  ... when running the FunBarONT pipeline for the first time, PipeCraft2 will automatically pull the required container image (via Docker or Podman). 
   This may take several minutes depending on your internet connection and the image size.
 
   |pulling_image|
@@ -707,12 +707,12 @@ Troubleshooting
 
 **Common issues and solutions:**
 
-.. admonition:: Docker image pull fails
+.. admonition:: Container image pull fails
 
-  **Issue**: Error message about pulling the FunBarONT Docker image
+  **Issue**: Error message about pulling the FunBarONT image
   
   **Solution**: Check your internet connection and ensure sufficient disk space for the image. 
-  Ensure Docker daemon is running properly.
+  Ensure Docker or Podman is running (the engine icon in PipeCraft2 should be green).
 
 .. admonition:: Insufficient reads in output
 
