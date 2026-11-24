@@ -66,7 +66,7 @@ v1.3.0 reuses the ``*-pc1.2.0`` tags. ``pipecraft/vsearch_dada2:4-pc1.2.0`` curr
 || pipecraft/metamate:0.5.6-pc1.2.0    || metaMATE v0.5.6, BBMap v39.06, seqkit v2.8.1,             || metaMATE                      |
 ||                                     || mafft, R                                                  ||                               |
 +--------------------------------------+------------------------------------------------------------+--------------------------------+
-|| pipecraft/metaworks:1.12.0-pc1.2.0  || MetaWorks v1.12.0, ORFfinder, seqkit v2.13.0, R           || MetaWorks (postprocessing)    |
+|| pipecraft/metaworks:1.12.0-pc1.2.0  || MetaWorks v1.12.0, ORFfinder, seqkit v2.13.0, R           || ORF-finder (postprocessing)   |
 +--------------------------------------+------------------------------------------------------------+--------------------------------+
 || pipecraft/blast:2.16-pc1.2.0        || BLAST 2.16.0+, biopython, psutil v7.0.0,                  || BLAST taxonomy, BlasCh        |
 ||                                     || seqkit v2.13.0, gawk                                      ||                               |
